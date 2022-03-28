@@ -1,4 +1,4 @@
-# Vifa 2022
+# Vifa - 2022
 
 ## Getting started
 
