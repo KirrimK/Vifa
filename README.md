@@ -22,7 +22,7 @@ git push -uf origin main
 
 ## Integrate with your tools
 
-- [ ] [Set up project integrations](https://gitlab.com/KirrimK/Vifa-2022/-/settings/integrations)
+- [x] [Set up project integrations](https://gitlab.com/KirrimK/Vifa-2022/-/settings/integrations)
 
 ## Collaborate with your team
 
