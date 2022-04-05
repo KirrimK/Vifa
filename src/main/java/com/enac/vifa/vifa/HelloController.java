@@ -14,7 +14,7 @@ public class HelloController {
             welcomeText.setText("Welcome to JavaFX Application!");
         }
         else {
-            welcomeText.setText("Welcome to JavaFX Application!\n Button pressed "+ counter +" times.");
+            welcomeText.setText("Welcome to JavaFX Application!\n Button pressed "+ (counter+1) +" times.");
         }
         counter++;
     }
