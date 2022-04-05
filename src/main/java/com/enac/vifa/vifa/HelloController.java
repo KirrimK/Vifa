@@ -10,13 +10,12 @@ public class HelloController {
 
     @FXML
     protected void onHelloButtonClick() {
-        counter++;
         if (counter==0){
             welcomeText.setText("Welcome to JavaFX Application!");
         }
         else {
             welcomeText.setText("Welcome to JavaFX Application!\n Button pressed "+ counter +" times.");
         }
-
+        counter++;
     }
 }
