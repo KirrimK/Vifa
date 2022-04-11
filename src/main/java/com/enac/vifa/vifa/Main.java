@@ -1,7 +1,12 @@
 package com.enac.vifa.vifa;
 
 import javafx.application.Application;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.*;
+import javafx.scene.control.Slider;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
@@ -18,11 +23,46 @@ public class Main extends Application {
         //testBox.setDrawMode(DrawMode.LINE);
 
         // Create and position camera
+        SimpleIntegerProperty xprop = new SimpleIntegerProperty();
+        xprop.set(0);
+        SimpleIntegerProperty yprop = new SimpleIntegerProperty();
+        yprop.set(0);
+        SimpleIntegerProperty zoomprop = new SimpleIntegerProperty();
+        zoomprop.set(15);
         PerspectiveCamera camera = new PerspectiveCamera(true);
         camera.getTransforms().setAll (
-                new Rotate(-50, Rotate.Y_AXIS),
-                new Rotate(-20, Rotate.X_AXIS),
-                new Translate(0, 0, -30));
+                new Rotate(yprop.get(), Rotate.Y_AXIS),
+                new Rotate(xprop.get(), Rotate.X_AXIS),
+                new Translate(0, 0, -zoomprop.get()));
+        xprop.addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                camera.getTransforms().setAll (
+                        new Rotate(yprop.get(), Rotate.Y_AXIS),
+                        new Rotate(xprop.get(), Rotate.X_AXIS),
+                        new Translate(0, 0, -zoomprop.get()));
+            }
+        });
+
+        yprop.addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                camera.getTransforms().setAll (
+                        new Rotate(yprop.get(), Rotate.Y_AXIS),
+                        new Rotate(xprop.get(), Rotate.X_AXIS),
+                        new Translate(0, 0, -zoomprop.get()));
+            }
+        });
+
+        zoomprop.addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                camera.getTransforms().setAll (
+                        new Rotate(yprop.get(), Rotate.Y_AXIS),
+                        new Rotate(xprop.get(), Rotate.X_AXIS),
+                        new Translate(0, 0, -zoomprop.get()));
+            }
+        });
 
         // Build the Scene Graph
         Group root = new Group();
@@ -35,12 +75,24 @@ public class Main extends Application {
         subScene.setCamera(camera);
         Group group = new Group();
         group.getChildren().add(subScene);
+        // create camera control tool (test)
+        HBox hbox = new HBox();
+        Slider xsl = new Slider(0, 360, 1);
+        xprop.bindBidirectional(xsl.valueProperty());
+        Slider ysl = new Slider(0, 360, 1);
+        yprop.bindBidirectional(ysl.valueProperty());
+        Slider zoomsl = new Slider(1, 100, 1);
+        zoomprop.bindBidirectional(zoomsl.valueProperty());
+        hbox.getChildren().add(xsl);
+        hbox.getChildren().add(ysl);
+        hbox.getChildren().add(zoomsl);
+        group.getChildren().add(hbox);
         return group;
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setResizable(false);
+        //primaryStage.setResizable(false);
         Scene scene = new Scene(createContent());
         primaryStage.setScene(scene);
         primaryStage.show();
