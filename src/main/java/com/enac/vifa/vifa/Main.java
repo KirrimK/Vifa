@@ -37,30 +37,21 @@ public class Main extends Application {
         xprop.addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                camera.getTransforms().setAll (
-                        new Rotate(yprop.get(), Rotate.Y_AXIS),
-                        new Rotate(xprop.get(), Rotate.X_AXIS),
-                        new Translate(0, 0, -zoomprop.get()));
+                camera.getTransforms().set(1, new Rotate(xprop.get(), Rotate.X_AXIS));
             }
         });
 
         yprop.addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                camera.getTransforms().setAll (
-                        new Rotate(yprop.get(), Rotate.Y_AXIS),
-                        new Rotate(xprop.get(), Rotate.X_AXIS),
-                        new Translate(0, 0, -zoomprop.get()));
+                camera.getTransforms().set(0, new Rotate(yprop.get(), Rotate.Y_AXIS));
             }
         });
 
         zoomprop.addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                camera.getTransforms().setAll (
-                        new Rotate(yprop.get(), Rotate.Y_AXIS),
-                        new Rotate(xprop.get(), Rotate.X_AXIS),
-                        new Translate(0, 0, -zoomprop.get()));
+                camera.getTransforms().set(2, new Translate(0, 0, -zoomprop.get()));
             }
         });
 
