@@ -1,3 +1,10 @@
+Messages que peut recevoir la tâche Python :
+    startGettingShapes :
+        StartGettingShapes mass=%f xcg=%f vair=%f psi=%f theta=%f phi=%f alpha=%f betha=%f a0=%f trim=%f dl=%f dm=%f dn=%f
+
+    startComputing :
+        StartComputation mass=%f xcg=%f vair=%f psi=%f theta=%f phi=%f alpha=%f betha=%f a0=%f trim=%f dl=%f dm=%f dn=%f dx=%f p=%f q=%f r=%f
+
 Messages susceptibles d'être envoyés par la tâche python :
 
     Sur reception du message startGettingShapes :
@@ -10,8 +17,11 @@ Les coordonées sont dans le repère avion.
 
         Draw ffs : Indique la fin de la description de l'avion
 
-    Sur reception du message StartComputing :
+    Sur reception du message startComputing :
 
         Force name=%s applicationX=%f applicationY=%f applicationZ=%f normeX=%f normeY=%f normeZ=%f color=%s :
 Décrit une force appliquée sur l'avion. 
-Le nom peut être : rWaf, lWaf, rAaf, lAaf, rHaf, lHaf, rEaf, lEaf
+Le nom peut être : rWaf, lWaf, rAaf, lAaf, rHaf, lHaf, rEaf, lEaf,... (il y en a une tétrachiée, 
+et j'ai vraimentpas envie de tous les inventorier.)
+Les coordonées sont dans le repère avion.
+La couleur peut être yellow, red, violet, blue, grey ou brown
