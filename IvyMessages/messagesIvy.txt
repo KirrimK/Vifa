@@ -1,0 +1,17 @@
+Messages susceptibles d'être envoyés par la tâche python :
+
+    Sur reception du message startGettingShapes :
+    
+        ShapeStart name=%s : Donne une forme à dessiner.
+Noms pouvant être envoyés : fuselage, vtp, rudder, htpr, htpl, elevatorr, elevatorl, wingr, wingl, aileronr, aileronl, naceller, nacellel
+
+        ShapePoint name=%s ptX=%f ptY=%f ptZ=%f : Donne un point appartenant à une forme. Les noms sont définis plus hauts,
+Les coordonées sont dans le repère avion.
+
+        Draw ffs : Indique la fin de la description de l'avion
+
+    Sur reception du message StartComputing :
+
+        Force name=%s applicationX=%f applicationY=%f applicationZ=%f normeX=%f normeY=%f normeZ=%f color=%s :
+Décrit une force appliquée sur l'avion. 
+Le nom peut être : rWaf, lWaf, rAaf, lAaf, rHaf, lHaf, rEaf, lEaf
