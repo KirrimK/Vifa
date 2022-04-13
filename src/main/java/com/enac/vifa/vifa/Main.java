@@ -92,6 +92,7 @@ public class Main extends Application {
         //yprop.bindBidirectional(ysl.valueProperty());
         Slider zoomsl = new Slider(1, 100, 1);
         zoomprop.bind(zoomsl.valueProperty());
+        zoomsl.setValue(50);
         //zoomprop.bindBidirectional(zoomsl.valueProperty());
         hbox.getChildren().add(xsl);
         hbox.getChildren().add(ysl);
