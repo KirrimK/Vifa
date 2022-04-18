@@ -1,14 +1,15 @@
 package com.enac.vifa.vifa;
 
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.*;
+
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 
 import static java.lang.Double.max;
+import static java.lang.Double.min;
 
 public class Vue3D extends SubScene {
 
@@ -27,6 +28,16 @@ public class Vue3D extends SubScene {
     //mouse event vars
     private double startx;
     private double starty;
+
+    private double limit(double d){
+        if (d < -90){
+            return -90;
+        } else if (d > 90){
+            return 90;
+        } else {
+            return d;
+        }
+    }
 
     public Vue3D(Scene mainScene, Group repereTerrestre){
         super(repereTerrestre, 100.0, 100.0, true, SceneAntialiasing.BALANCED);
@@ -75,7 +86,7 @@ public class Vue3D extends SubScene {
         setOnMouseDragged((mouseEvent -> {
             if (mouseEvent.getButton() == MouseButton.SECONDARY){
                 yrotprop.set(yrotprop.get() + (mouseEvent.getX() - startx));
-                xrotprop.set(xrotprop.get() - (mouseEvent.getY() - starty));
+                xrotprop.set(limit(xrotprop.get() - (mouseEvent.getY() - starty)));
                 startx = mouseEvent.getX();
                 starty = mouseEvent.getY();
             }
@@ -95,10 +106,17 @@ public class Vue3D extends SubScene {
     }
 
     public void rotateRepereAvion(double psi, double phi, double theta){
-
+        //axes à vérifier et à ordonner
+        repereAero.getTransforms().setAll(
+                new Rotate(psi, Rotate.X_AXIS),
+                new Rotate(phi, Rotate.Y_AXIS),
+                new Rotate(theta, Rotate.Z_AXIS));
     }
 
     public void rotateRepereAero(double alpha, double beta){
-
+        //axes à vérifier (rotation beta en premier)
+        repereAero.getTransforms().setAll(
+                new Rotate(beta, Rotate.Y_AXIS),
+                new Rotate(alpha, Rotate.Z_AXIS));
     }
 }
