@@ -29,6 +29,7 @@ public class Vue3D extends SubScene {
     private double startx;
     private double starty;
 
+    //TODO: faire la même pour zoom, avoir constantes paramétrables
     private double limit(double d){
         if (d < -90){
             return -90;
@@ -105,16 +106,21 @@ public class Vue3D extends SubScene {
         return repereAero;
     }
 
+    public void rotateCamera(double xrot, double yrot, double zoom){
+        xrotprop.set(limit(xrot));
+        yrotprop.set(yrot);
+        zoomprop.set(zoom);
+    }
+
     public void rotateRepereAvion(double psi, double phi, double theta){
-        //axes à vérifier et à ordonner
-        repereAero.getTransforms().setAll(
-                new Rotate(psi, Rotate.X_AXIS),
-                new Rotate(phi, Rotate.Y_AXIS),
-                new Rotate(theta, Rotate.Z_AXIS));
+        repereAvion.getTransforms().setAll(
+                new Rotate(psi, Rotate.Y_AXIS),
+                new Rotate(-phi, Rotate.Z_AXIS),
+                new Rotate(theta, Rotate.X_AXIS));
     }
 
     public void rotateRepereAero(double alpha, double beta){
-        //axes à vérifier (rotation beta en premier)
+        //vérifier les signes
         repereAero.getTransforms().setAll(
                 new Rotate(beta, Rotate.Y_AXIS),
                 new Rotate(alpha, Rotate.Z_AXIS));
