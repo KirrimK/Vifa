@@ -1,10 +1,12 @@
 package com.enac.vifa.vifa;
 
-import fr.dgac.ivy.Ivy;
-
 import java.util.ArrayList;
 
+import fr.dgac.ivy.Ivy;
+import fr.dgac.ivy.IvyClient;
+import fr.dgac.ivy.IvyException;
 import javafx.geometry.Point3D;
+
 public class Modele {
     private ArrayList<Forme2D> listeDesFormes;
     private double mass;
@@ -25,6 +27,13 @@ public class Modele {
     private double q;
     private double r;
     private Ivy radio;
+    private boolean receivedDrawFFS = false;
+    
+    //      MESSAGES RECEIVED FROM IVY :
+
+    private String INIT_FORME_2D_MSG = "^ShapeStart name=(.*)$";
+    private String POINT_DE_LA_FORME = "^ShapePoint name=(.*) ptX=(.*) ptY=(.*) ptz=(.*)$";
+    private String FIN_DE_DESCRIPTION = "^Draw ffs$";
     
     //CONSTRUCTOR
 
@@ -47,6 +56,28 @@ public class Modele {
         this.p=0;
         this.q=0;
         this.r=0;
+        this.radio = new Ivy("ViFA_IHM", "ViFA_IHM is ready !", null);
+        try{
+        this.radio.bindMsg(this.INIT_FORME_2D_MSG, (IvyClient client, String[] nomDansTableau) -> {
+            addForme(nomDansTableau[0]);
+        });
+        this.radio.bindMsg(this.POINT_DE_LA_FORME, (IvyClient client, String[] args) -> {
+            String name = args[0];
+            double x = Double.parseDouble(args[1]);
+            double y = Double.parseDouble(args[2]);
+            double z = Double.parseDouble(args[3]);
+            addPointToForme(name, x, y, z);
+        });
+        this.radio.bindMsg(this.FIN_DE_DESCRIPTION, (IvyClient client, String[] args) -> {
+            receivedDrawFFS = true;
+        });
+    }
+        catch (IvyException e){
+            e.printStackTrace();
+            System.out.println(e);
+            System.exit(42);
+        }
+        
     }
 
  //GETTERS AND SETTERS
