@@ -29,6 +29,7 @@ public class Modele {
     private double r;
     private Ivy radio;
     private boolean receivedDrawFFS = false;
+    private String BUS = "127.0.0.1:2010";
     
     //      MESSAGES RECEIVED FROM IVY :
 
@@ -76,6 +77,7 @@ public class Modele {
         this.radio.bindMsg(this.FIN_DE_DESCRIPTION, (IvyClient client, String[] args) -> {
             receivedDrawFFS = true;
         });
+        this.radio.start(this.BUS);
     }
         catch (IvyException e){
             e.printStackTrace();
@@ -248,6 +250,7 @@ public class Modele {
 
     public void getDescription(){
         this.receivedDrawFFS = false;
+        System.out.println("Description en attente...");
         long temps = (new Date()).getTime();
         try {
             String msg=String.format(this.DEMANDE_DESCR,mass, xCentrage, vAir, psi, theta, phi, alpha, beta, a0, trim, dl, dm, dn );
