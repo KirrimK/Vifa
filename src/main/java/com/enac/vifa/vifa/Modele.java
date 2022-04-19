@@ -1,6 +1,7 @@
 package com.enac.vifa.vifa;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import fr.dgac.ivy.Ivy;
 import fr.dgac.ivy.IvyClient;
@@ -34,6 +35,10 @@ public class Modele {
     private String INIT_FORME_2D_MSG = "^ShapeStart name=(.*)$";
     private String POINT_DE_LA_FORME = "^ShapePoint name=(.*) ptX=(.*) ptY=(.*) ptz=(.*)$";
     private String FIN_DE_DESCRIPTION = "^Draw ffs$";
+
+    //MESSAGES SENT THROUGH IVY :
+
+    private String DEMANDE_DESCR = "StartGettingShapes mass=%f xcg=%f vair=%f psi=%f theta=%f phi=%f alpha=%f betha=%f a0=%f trim=%f dl=%f dm=%f dn=%f";
     
     //CONSTRUCTOR
 
@@ -228,6 +233,41 @@ public class Modele {
                 f.addPoint(new Point3D(x, y, z));
                 break;
             }
+        }
+    }
+
+    public Forme2D getForme (String nom){
+        for (Forme2D f:listeDesFormes){
+            if (f.getNom().equals(nom)){
+                return f;
+            }
+        };
+        addForme(nom);
+        return (getForme(nom));
+    }
+
+    public void getDescription(){
+        this.receivedDrawFFS = false;
+        long temps = (new Date()).getTime();
+        try {
+            String msg=String.format(this.DEMANDE_DESCR,mass, xCentrage, vAir, psi, theta, phi, alpha, beta, a0, trim, dl, dm, dn );
+            this.radio.sendMsg(msg);
+        }
+        catch (IvyException e){
+            e.printStackTrace();
+            System.out.println(e);
+        }
+        while ((! this.receivedDrawFFS)&((new Date()).getTime()-temps < 10000) ){
+            //On attends la fin de la description ou 10 secs
+        }
+        if (! this.receivedDrawFFS){//on a attendu 10secs, et on n'a pas la description
+            IvyException e = new IvyException("Time out de l'attente de description");
+            e.printStackTrace();
+            System.out.println(e);
+            System.exit(420);
+        }
+        else {
+            System.out.println("Description reçue");
         }
     }
 }
