@@ -8,11 +8,10 @@ import javafx.scene.shape.*;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-    public Parent createContent(Scene mainScene) throws Exception {
+    public Parent createContent(Scene mainScene){
         // Box
         Box testBox = new Box(5, 0, 5);
         testBox.setMaterial(new PhongMaterial(Color.RED));
-        //testBox.setDrawMode(DrawMode.LINE);
 
         Cylinder bruh = new Cylinder(5, 0, 6);
         bruh.setMaterial(new PhongMaterial(Color.BLUE));
@@ -64,8 +63,13 @@ public class Main extends Application {
         Vue3D vue = new Vue3D(mainScene, new Group());
         group.getChildren().add(vue);
         vue.getRepereTerrestre().getChildren().add(testBox);
-        vue.getRepereAero().getChildren().add(bruh);
-        vue.getRepereAvion().getChildren().add(mm);
+
+        vue.getRepereTerrestre().getChildren().add(mm);
+        vue.getRepereAvion().getChildren().add(bruh);
+
+        vue.rotateRepereAvion(10, 10, 10);
+        //vue.rotateRepereAero(10, 10);
+
         return group;
     }
 
