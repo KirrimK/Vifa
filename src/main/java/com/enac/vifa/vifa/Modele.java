@@ -1,9 +1,10 @@
 package com.enac.vifa.vifa;
 
+import fr.dgac.ivy.Ivy;
+
 import java.util.ArrayList;
 
 import javafx.geometry.Point3D;
-
 public class Modele {
     private ArrayList<Forme2D> listeDesFormes;
     private double mass;
@@ -23,6 +24,7 @@ public class Modele {
     private double p;
     private double q;
     private double r;
+    private Ivy radio;
     
     //CONSTRUCTOR
 
