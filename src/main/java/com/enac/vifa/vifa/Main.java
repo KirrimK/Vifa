@@ -1,7 +1,10 @@
 package com.enac.vifa.vifa;
 
 import javafx.application.Application;
+import javafx.geometry.Point3D;
 import javafx.scene.*;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.*;
@@ -69,6 +72,23 @@ public class Main extends Application {
 
         vue.rotateRepereAvion(10, 10, 10);
         //vue.rotateRepereAero(10, 10);
+
+        Label cml = new Label("Camera:");
+        Label xrotl = new Label("X Rot: "+vue.getXrotprop());
+        vue.xrotpropProperty().addListener(((observableValue, number, t1) -> {
+            xrotl.setText("X Rot: "+number);
+        }));
+        Label yrotl = new Label("Y Rot: "+vue.getYrotprop());
+        vue.yrotpropProperty().addListener(((observableValue, number, t1) -> {
+            yrotl.setText("YRot: "+number);
+        }));
+        Label zooml = new Label("Zoom: "+vue.getZoomprop());
+        vue.zoompropProperty().addListener(((observableValue, number, t1) -> {
+            zooml.setText("Zoom: "+number);
+        }));
+
+        VBox vbox = new VBox(cml, xrotl, yrotl, zooml);
+        group.getChildren().add(vbox);
 
         return group;
     }
