@@ -1,9 +1,9 @@
 package com.enac.vifa.vifa;
 
 import javafx.application.Application;
-import javafx.geometry.Point3D;
 import javafx.scene.*;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
@@ -70,7 +70,7 @@ public class Main extends Application {
         vue.getRepereTerrestre().getChildren().add(mm);
         vue.getRepereAvion().getChildren().add(bruh);
 
-        vue.rotateRepereAvion(10, 10, 10);
+        //vue.rotateRepereAvion(10, 10, 10);
         //vue.rotateRepereAero(10, 10);
 
         Label cml = new Label("Camera:");
@@ -80,7 +80,7 @@ public class Main extends Application {
         }));
         Label yrotl = new Label("Y Rot: "+vue.getYrotprop());
         vue.yrotpropProperty().addListener(((observableValue, number, t1) -> {
-            yrotl.setText("YRot: "+number);
+            yrotl.setText("Y Rot: "+number);
         }));
         Label zooml = new Label("Zoom: "+vue.getZoomprop());
         vue.zoompropProperty().addListener(((observableValue, number, t1) -> {
@@ -88,7 +88,56 @@ public class Main extends Application {
         }));
 
         VBox vbox = new VBox(cml, xrotl, yrotl, zooml);
+        vbox.setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7;");
+        vbox.setTranslateX(10);
+        vbox.setTranslateY(10);
+
+        Label rpl = new Label("Repères:");
+        Label psil = new Label("Psi: 0");
+        Slider psis = new Slider(-183, 183, 0);
+        psis.valueProperty().addListener(((observableValue, number, t1) -> {
+            vue.rotatePsi(number.intValue());
+            psil.setText("Psi: "+number.intValue());
+        }));
+        Label phil = new Label("Phi: 0");
+        Slider phis = new Slider(-183, 183, 0);
+        phis.valueProperty().addListener(((observableValue, number, t1) -> {
+            vue.rotatePhi(number.intValue());
+            phil.setText("Phi: "+number.intValue());
+        }));
+        Label thetal = new Label("Theta: 0");
+        Slider thetas = new Slider(-183, 183, 0);
+        thetas.valueProperty().addListener(((observableValue, number, t1) -> {
+            vue.rotateTheta(number.intValue());
+            thetal.setText("Theta: "+number.intValue());
+        }));
+
+        Label alphal = new Label("Alpha: 0");
+        Slider alphas = new Slider(-183, 183, 0);
+        alphas.valueProperty().addListener(((observableValue, number, t1) -> {
+            vue.rotateAlpha(number.intValue());
+            alphal.setText("Alpha: "+number.intValue());
+        }));
+        Label betal = new Label("Beta: 0");
+        Slider betas = new Slider(-183, 183, 0);
+        betas.valueProperty().addListener(((observableValue, number, t1) -> {
+            vue.rotateBeta(number.intValue());
+            betal.setText("Beta: "+number.intValue());
+        }));
+
+        VBox repb = new VBox(rpl, psil, psis, phil, phis, thetal, thetas, alphal, alphas, betal, betas);
+        repb.setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7;");
+        repb.setTranslateY(100);
+        repb.setTranslateX(10);
+
         group.getChildren().add(vbox);
+        group.getChildren().add(repb);
+
+        Modele test = new Modele();
+        Thread test_th = new Thread(() -> {
+            test.getDescription();
+        });
+        test_th.start();
 
         return group;
     }
@@ -100,6 +149,9 @@ public class Main extends Application {
         scene.setRoot(createContent(scene));
         primaryStage.setScene(scene);
         primaryStage.show();
+        primaryStage.setOnCloseRequest((windowEvent -> {
+            System.exit(0);
+        }));
     }
 
     public static void main(String[] args) {

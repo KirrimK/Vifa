@@ -129,6 +129,9 @@ public class Vue3D extends SubScene {
                 starty = mouseEvent.getY();
             }
         }));
+
+        rotateRepereAvion(0, 0, 0);
+        rotateRepereAero(0, 0);
     }
 
     public Group getRepereTerrestre() {
@@ -176,7 +179,7 @@ public class Vue3D extends SubScene {
     }
 
     public void rotateAlpha(double alpha){
-        repereAero.getTransforms().set(1, new Rotate(alpha, Rotate.X_AXIS));
+        repereAero.getTransforms().set(1, new Rotate(alpha, Rotate.Z_AXIS));
     }
 
     public void rotateBeta(double beta){

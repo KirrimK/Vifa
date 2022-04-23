@@ -65,7 +65,6 @@ public class Vecteur3D extends Group {
 
         cone.setTranslateY(magnitude.magnitude()/2);
         Point3D milieu = origine.midpoint(origine.add(magnitude));
-        System.out.println("orig: "+origine+" magn: "+magnitude+" extr: "+milieu);
         getTransforms().setAll(
                 new Translate(milieu.getX(), milieu.getY(), milieu.getZ()),
                 new Rotate(Math.toDegrees(Math.atan2(magnitude.getX(), magnitude.getZ())), Rotate.Y_AXIS),
