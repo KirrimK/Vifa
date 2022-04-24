@@ -1,6 +1,7 @@
 package com.enac.vifa.vifa;
 
 import javafx.application.Application;
+import javafx.geometry.Point3D;
 import javafx.scene.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -20,10 +21,10 @@ public class Main extends Application {
         bruh.setMaterial(new PhongMaterial(Color.BLUE));
         bruh.setTranslateY(5);
 
-        float smallSize = 4.0f;
-        float bigSize = 6.0f;
-        float high = 3.0f;
-        float depth = 1.0f;
+        float smallSize = 40.0f;
+        float bigSize = 60.0f;
+        float high = 30.0f;
+        float depth = 10.0f;
 
         TriangleMesh m = new TriangleMesh();
         float s = ((float)smallSize) ;
@@ -61,13 +62,26 @@ public class Main extends Application {
         );
 
         MeshView mm = new MeshView(m);
+        Forme2D wingl = new Forme2D("wingl");
+        wingl.addPoint(new Point3D(-50.0f,10.0f,0.0f));
+        wingl.addPoint(new Point3D(-150.0f,260.0f,0.0f));
+        wingl.addPoint(new Point3D(-180.0f,260.0f,0.0f));
+        wingl.addPoint(new Point3D(-170.0f,210.0f,0.0f));
+        wingl.addPoint(new Point3D(-200.0f,210.0f,0.0f));
+        wingl.addPoint(new Point3D(-140.0f,10.0f,0.0f));
+        int[] face1={0,1,3},face2={1,2,3},face3={0,3,4},face4={0,4,5};
+        wingl.addFace(face1);
+        wingl.addFace(face2);
+        wingl.addFace(face3);
+        wingl.addFace(face4);
+        MeshView mv = Draw2D(wingl,new PhongMaterial(Color.ORANGE));
 
         Group group = new Group();
         Vue3D vue = new Vue3D(mainScene, new Group());
         group.getChildren().add(vue);
         vue.getRepereTerrestre().getChildren().add(testBox);
 
-        vue.getRepereTerrestre().getChildren().add(mm);
+        vue.getRepereAvion().getChildren().add(mv);
         vue.getRepereAvion().getChildren().add(bruh);
 
         //vue.rotateRepereAvion(10, 10, 10);
@@ -140,6 +154,50 @@ public class Main extends Application {
         test_th.start();
 
         return group;
+    }
+    
+    public MeshView Draw2D(Forme2D forme, PhongMaterial color) {
+        TriangleMesh m = new TriangleMesh();
+        int i;
+        int sides=forme.getContour().size();
+        float maxX=(float)forme.getContour().get(0).getX(),maxY=(float)forme.getContour().get(0).getY(),minX=(float)forme.getContour().get(0).getX(),minY=(float)forme.getContour().get(0).getY();
+        for (Point3D p: forme.getContour()) {
+            if (p.getX()>maxX) {
+                maxX=(float)p.getX();
+            }
+            if (p.getY()>maxY) {
+                maxY=(float)p.getY();
+            }
+             if (p.getX()<minX) {
+                minX=(float)p.getX();
+            }
+            if (p.getY()<minY) {
+                minY=(float)p.getY();
+            }
+        }
+        Point3D norm=((forme.getContour().get(1).subtract(forme.getContour().get(0))).crossProduct(forme.getContour().get(2).subtract(forme.getContour().get(0)))).normalize();
+        for (Point3D p: forme.getContour()) {
+            m.getPoints().addAll((float)p.getX(),(float)p.getY(),(float)p.getZ());
+            m.getTexCoords().addAll((float)p.getX()/(maxX-minX),(float)p.getY()/(maxY-minY));
+        }
+        for (Point3D p: forme.getContour()) {
+            m.getPoints().addAll((float)(p.getX()+norm.getX()),(float)(p.getY()+norm.getY()),(float)(p.getZ()+norm.getZ()));
+            m.getTexCoords().addAll((float)(p.getX()+norm.getX())/(maxX-minX),(float)(p.getY()+norm.getY())/(maxY-minY));
+        }
+        for (i=0;i<sides-1;i++) {
+            m.getFaces().addAll(i,i,i+1,i+1,i+sides,i+sides,i,i,i+1,i+1,i+sides+1,i+sides+1);
+            m.getFaceSmoothingGroups().addAll(i,i);
+        }
+        m.getFaces().addAll(0,0,sides-1,sides-1,sides,sides,0,0,sides-1,sides-1,2*sides-1,2*sides-1);
+        m.getFaceSmoothingGroups().addAll(sides,sides);
+        for (int[] f: forme.getFaces()) {
+            m.getFaces().addAll(f[0],f[0],f[1],f[1],f[2],f[2],f[0]+sides,f[0]+sides,f[1]+sides,f[1]+sides,f[2]+sides,f[2]+sides);
+            m.getFaceSmoothingGroups().addAll(sides+1,sides+2);
+        }
+        System.out.println(m.getFaces());
+        MeshView mv = new MeshView(m);
+        mv.setMaterial(color);
+        return mv;
     }
 
     @Override
