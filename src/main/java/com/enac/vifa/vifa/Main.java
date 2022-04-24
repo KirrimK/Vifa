@@ -151,7 +151,7 @@ public class Main extends Application {
         Thread test_th = new Thread(() -> {
             test.getDescription();
         });
-        test_th.start();
+        //test_th.start();
 
         return group;
     }
