@@ -1,4 +1,4 @@
-package com.enac.vifa.vifa;
+package com.enac.vifa.vifa.formes;
 
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
