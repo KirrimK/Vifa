@@ -84,7 +84,9 @@ public class Main extends Application {
         wingl.addFace(face4);*/
         MeshView wingl = wingl();
         MeshView wingr = wingr();
-        Cylinder fuselage = new Cylinder(25,100);
+        Cylinder fuselage = new Cylinder(25,1000);
+        fuselage.setRotate(90);
+        fuselage.setMaterial(new PhongMaterial(Color.GREY));
 
         Group group = new Group();
         Vue3D vue = new Vue3D(mainScene, new Group());
