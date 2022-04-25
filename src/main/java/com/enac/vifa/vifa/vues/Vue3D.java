@@ -1,21 +1,16 @@
-package com.enac.vifa.vifa;
+package com.enac.vifa.vifa.vues;
 
+import com.enac.vifa.vifa.formes.Vecteur3D;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Point3D;
 import javafx.scene.*;
 
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Material;
-import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.Cylinder;
-import javafx.scene.shape.MeshView;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
-import org.fxyz3d.shapes.primitives.ConeMesh;
 
 import static java.lang.Double.max;
-import static java.lang.Double.min;
 
 public class Vue3D extends SubScene {
 
