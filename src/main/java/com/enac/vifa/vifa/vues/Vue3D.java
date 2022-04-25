@@ -84,7 +84,7 @@ public class Vue3D extends SubScene {
 
         repereAvion.getChildren().add(repereAero);
 
-        camera.setFarClip(3000.0f);
+        camera.setFarClip(5000.0f);
 
         setCamera(camera);
 
