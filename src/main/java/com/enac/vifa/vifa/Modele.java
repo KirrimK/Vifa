@@ -1,15 +1,14 @@
 package com.enac.vifa.vifa;
 
-import java.util.ArrayList;
 import java.util.Date;
-
+import javafx.beans.property.SimpleListProperty;
 import fr.dgac.ivy.Ivy;
 import fr.dgac.ivy.IvyClient;
 import fr.dgac.ivy.IvyException;
 import javafx.geometry.Point3D;
 
 public class Modele {
-    private ArrayList<Forme2D> listeDesFormes;
+    private SimpleListProperty<Forme2D> listeDesFormes;
     private double mass;
     private double xCentrage;
     private double vAir;
@@ -44,7 +43,7 @@ public class Modele {
     //CONSTRUCTOR
 
     public Modele() {
-        this.listeDesFormes = new ArrayList<Forme2D>();
+        this.listeDesFormes = new SimpleListProperty<Forme2D>();
         this.mass = 0;
         this.xCentrage=0;
         this.vAir= 0;
@@ -279,5 +278,9 @@ public class Modele {
             res += f.toString()+"\n";
         }
         return res+"\n\t\t]";
+    }
+
+    public SimpleListProperty<Forme2D> getListeDesFormes(){
+        return listeDesFormes;
     }
 }

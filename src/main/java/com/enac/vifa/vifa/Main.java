@@ -1,6 +1,9 @@
 package com.enac.vifa.vifa;
 
+import java.util.List;
+
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.Point3D;
 import javafx.scene.*;
 import javafx.scene.control.Label;
@@ -152,7 +155,14 @@ public class Main extends Application {
             test.getDescription();
         });
         //test_th.start();
-
+        Label infosModele = new Label(test.toString());
+        VBox infoModeleContainer = new VBox(cml, xrotl, yrotl, zooml);
+        infoModeleContainer.getChildren().add(infosModele);
+        vbox.setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7;");
+        vbox.setTranslateX(500);
+        vbox.setTranslateY(800);
+        test.getListeDesFormes().addListener((ChangeListener<List<Forme2D>>) (observable, oldValue, newValue) -> infosModele.setText(test.toString()));
+        group.getChildren().add(infoModeleContainer);
         return group;
     }
     
