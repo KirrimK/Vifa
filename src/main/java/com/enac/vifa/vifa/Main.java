@@ -75,6 +75,8 @@ public class Main extends Application {
         wingl.addFace(face3);
         wingl.addFace(face4);
         MeshView mv = Draw2D(wingl,new PhongMaterial(Color.ORANGE));
+        
+        Cylinder fuselage = new Cylinder(25,100);
 
         Group group = new Group();
         Vue3D vue = new Vue3D(mainScene, new Group());
@@ -83,6 +85,7 @@ public class Main extends Application {
 
         vue.getRepereAvion().getChildren().add(mv);
         vue.getRepereAvion().getChildren().add(bruh);
+         vue.getRepereAvion().getChildren().add(fuselage);
 
         //vue.rotateRepereAvion(10, 10, 10);
         //vue.rotateRepereAero(10, 10);
