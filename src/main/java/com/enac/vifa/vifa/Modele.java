@@ -29,12 +29,12 @@ public class Modele {
     private double r;
     private Ivy radio;
     private boolean receivedDrawFFS = false;
-    private String BUS = "127.0.0.1:2010";
+    private String BUS = "127.255.255.255:2010";
     
     //      MESSAGES RECEIVED FROM IVY :
 
     private String INIT_FORME_2D_MSG = "^ShapeStart name=(.*)$";
-    private String POINT_DE_LA_FORME = "^ShapePoint name=(.*) ptX=(.*) ptY=(.*) ptz=(.*)$";
+    private String POINT_DE_LA_FORME = "^ShapePoint name=(.*) ptX=(.*) ptY=(.*) ptZ=(.*)$";
     private String FIN_DE_DESCRIPTION = "^Draw ffs$";
 
     //MESSAGES SENT THROUGH IVY :
@@ -253,7 +253,7 @@ public class Modele {
         System.out.println("Description en attente...");
         long temps = (new Date()).getTime();
         try {
-            String msg=String.format(this.DEMANDE_DESCR,mass, xCentrage, vAir, psi, theta, phi, alpha, beta, a0, trim, dl, dm, dn );
+            String msg=String.format(this.DEMANDE_DESCR,mass, xCentrage, vAir, psi, theta, phi, alpha, beta, a0, trim, dl, dm, dn ).replace(',','.');
             this.radio.sendMsg(msg);
         }
         catch (IvyException e){
@@ -272,5 +272,12 @@ public class Modele {
         else {
             System.out.println("Description reçue");
         }
+    }
+    public String toString (){
+        String res="Modele [\n";
+        for (Forme2D f :listeDesFormes){
+            res += f.toString()+"\n";
+        }
+        return res+"\n\t\t]";
     }
 }
