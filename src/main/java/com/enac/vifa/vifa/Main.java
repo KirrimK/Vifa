@@ -19,6 +19,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.*;
 import javafx.stage.Stage;
+import com.enac.vifa.vifa.Forme3D;
 
 public class Main extends Application {
     public Parent createContent(Scene mainScene){
@@ -85,13 +86,16 @@ public class Main extends Application {
         wingl.addFace(face4);*/
         MeshView wingl = wingl();
         MeshView wingr = wingr();
+        
         Cylinder fuselage = new Cylinder(25,1000);
         fuselage.setRotate(90);
         fuselage.setMaterial(new PhongMaterial(Color.GREY));
         
-        List<Integer> triangles = Earcut.earcut(new double[] { 10,0, 0,50, 60,60, 70,10 }, null, 2);
-// returns [1,0,3, 3,2,1]
+        double[] poly1 = new double[] {10,0, 0,50, 60,60, 70,10 };
+        List<Integer> triangles = Forme3D.triangulation(poly1);
         System.out.println(triangles);
+        // returns [1,0,3, 3,2,1]
+
 
         Group group = new Group();
         Vue3D vue = new Vue3D(mainScene, new Group());
@@ -100,7 +104,7 @@ public class Main extends Application {
 
         vue.getRepereAvion().getChildren().addAll(wingl,wingr);
         vue.getRepereAvion().getChildren().add(bruh);
-         vue.getRepereAvion().getChildren().add(fuselage);
+        vue.getRepereAvion().getChildren().add(fuselage);
 
         //vue.rotateRepereAvion(10, 10, 10);
         //vue.rotateRepereAero(10, 10);
