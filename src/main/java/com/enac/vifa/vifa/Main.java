@@ -121,14 +121,15 @@ public class Main extends Application {
         group.getChildren().add(repb);
 
         Modele test = new Modele();
-        Thread test_th = new Thread(test::getDescription);
-        //test_th.start();
+        // Thread test_th = new Thread(test::getDescription);
+        // test_th.start();
+        test.getDescription();
         Label infosModele = new Label(test.toString());
         VBox infoModeleContainer = new VBox();
         infoModeleContainer.getChildren().add(infosModele);
         infoModeleContainer.setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7;");
-        infoModeleContainer.setTranslateX(500);
-        infoModeleContainer.setTranslateY(800);
+        infoModeleContainer.setTranslateX(50);
+        infoModeleContainer.setTranslateY(400);
         test.getListeDesFormes().addListener((ChangeListener<List<Forme2D>>) (observable, oldValue, newValue) -> infosModele.setText(test.toString()));
         group.getChildren().add(infoModeleContainer);
         return group;
