@@ -1,13 +1,18 @@
 package com.enac.vifa.vifa;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
 import java.util.Date;
 import javafx.beans.property.SimpleListProperty;
 import fr.dgac.ivy.Ivy;
 import fr.dgac.ivy.IvyClient;
 import fr.dgac.ivy.IvyException;
+import fr.dgac.ivy.IvyMessageListener;
 import javafx.geometry.Point3D;
 
 public class Modele {
+    private ArrayList<Forme2D> listeTempFormes = new ArrayList<Forme2D>();
     private SimpleListProperty<Forme2D> listeDesFormes;
     private double mass;
     private double xCentrage;
@@ -43,7 +48,9 @@ public class Modele {
     //CONSTRUCTOR
 
     public Modele() {
-        this.listeDesFormes = new SimpleListProperty<Forme2D>();
+        ArrayList<Forme2D> listeStockée = new ArrayList<Forme2D>();
+        ObservableList<Forme2D> oL =FXCollections.observableArrayList(listeStockée);
+        this.listeDesFormes = new SimpleListProperty<Forme2D>(oL);
         this.mass = 0;
         this.xCentrage=0;
         this.vAir= 0;
@@ -63,23 +70,31 @@ public class Modele {
         this.r=0;
         this.radio = new Ivy("ViFA_IHM", "ViFA_IHM is ready !", null);
         try{
-        this.radio.bindMsg(this.INIT_FORME_2D_MSG, (IvyClient client, String[] nomDansTableau) -> {
-            addForme(nomDansTableau[0]);
+        this.radio.bindMsg(this.INIT_FORME_2D_MSG, new IvyMessageListener() {
+            @Override
+            synchronized public void receive(IvyClient client, String[] nomDansTableau) {
+                addForme(nomDansTableau[0]);
+            }
         });
-        this.radio.bindMsg(this.POINT_DE_LA_FORME, (IvyClient client, String[] args) -> {
-            String name = args[0];
-            double x = Double.parseDouble(args[1]);
-            double y = Double.parseDouble(args[2]);
-            double z = Double.parseDouble(args[3]);
-            addPointToForme(name, x, y, z);
+        this.radio.bindMsg(this.POINT_DE_LA_FORME, new IvyMessageListener() {
+            @Override
+            public synchronized void receive(IvyClient client, String[] args) {
+                String name = args[0];
+                double x = Double.parseDouble(args[1]);
+                double y = Double.parseDouble(args[2]);
+                double z = Double.parseDouble(args[3]);
+                addPointToForme(name, x, y, z);
+            }
         });
         this.radio.bindMsg(this.FIN_DE_DESCRIPTION, (IvyClient client, String[] args) -> {
             receivedDrawFFS = true;
         });
+        this.radio.bindMsg("(.*)",(IvyClient client, String[] args) -> {
+            System.out.println(args[0]);
+        });
         this.radio.start(this.BUS);
     }
         catch (IvyException e){
-            e.printStackTrace();
             System.out.println(e);
             System.exit(42);
         }
@@ -225,11 +240,11 @@ public class Modele {
     }
     
     public void addForme (String nom){
-        this.listeDesFormes.add(new Forme2D(nom));
+        this.listeTempFormes.add(new Forme2D(nom));
     }
 
     public void addPointToForme (String nom, double x, double y, double z){
-        for (Forme2D f:listeDesFormes){
+        for (Forme2D f:listeTempFormes){
             if (f.getNom().equals(nom)){
                 f.addPoint(new Point3D(x, y, z));
                 break;
@@ -248,6 +263,10 @@ public class Modele {
     }
 
     public void getDescription(){
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e1) {
+        }
         this.receivedDrawFFS = false;
         System.out.println("Description en attente...");
         long temps = (new Date()).getTime();
@@ -259,23 +278,25 @@ public class Modele {
             e.printStackTrace();
             System.out.println(e);
         }
-        while ((! this.receivedDrawFFS)&((new Date()).getTime()-temps < 10000) ){
+        while ((! this.receivedDrawFFS)&((new Date()).getTime()-temps < 15000) ){
             //On attends la fin de la description ou 10 secs
         }
         if (! this.receivedDrawFFS){//on a attendu 10secs, et on n'a pas la description
             IvyException e = new IvyException("Time out de l'attente de description");
             e.printStackTrace();
             System.out.println(e);
-            System.exit(420);
+            getDescription();
         }
-        else {
-            System.out.println("Description reçue");
+        else{
+            System.out.println("Description received");
+            ObservableList<Forme2D> oL =FXCollections.observableArrayList(listeTempFormes);
+            this.listeDesFormes.set(oL);
         }
     }
     public String toString (){
         String res="Modele [\n";
-        for (Forme2D f :listeDesFormes){
-            res += f.toString()+"\n";
+        for (Forme2D f :listeDesFormes.getValue()){
+            res += "\t"+f.toString()+"\n";
         }
         return res+"\n\t\t]";
     }

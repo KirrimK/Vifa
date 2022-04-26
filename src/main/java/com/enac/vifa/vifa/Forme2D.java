@@ -33,7 +33,14 @@ public class Forme2D {
 
     @Override
     public String toString() {
-        return "Forme2D ["+nom + "]";
+        String res ="";
+        int c=0;
+        for (Point3D pt:contour){
+            if (c!=0){res+=", ";}
+            c++;
+            res +="("+pt.getX()+", "+pt.getY()+", "+pt.getZ()+")";
+        }
+        return "Forme2D ["+nom + "]:\n{"+res+"}";
     }
     public void addPoint (Point3D p){
         this.contour.add(p);
