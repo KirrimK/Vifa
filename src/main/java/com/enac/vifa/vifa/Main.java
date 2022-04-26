@@ -5,6 +5,7 @@ import java.util.List;
 import com.enac.vifa.vifa.vues.CameraInfoPane;
 import com.enac.vifa.vifa.vues.RepereControllerPane;
 import com.enac.vifa.vifa.vues.Vue3D;
+import earcut4j.Earcut;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Point3D;
@@ -87,6 +88,10 @@ public class Main extends Application {
         Cylinder fuselage = new Cylinder(25,1000);
         fuselage.setRotate(90);
         fuselage.setMaterial(new PhongMaterial(Color.GREY));
+        
+        List<Integer> triangles = Earcut.earcut(new double[] { 10,0, 0,50, 60,60, 70,10 }, null, 2);
+// returns [1,0,3, 3,2,1]
+        System.out.println(triangles);
 
         Group group = new Group();
         Vue3D vue = new Vue3D(mainScene, new Group());
