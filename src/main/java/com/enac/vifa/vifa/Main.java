@@ -71,25 +71,99 @@ public class Main extends Application {
                 6 , 0 , 5 , 0 , 4 , 0		// G-F-E
         );
 
-        /*MeshView mm = new MeshView(m);
+        Forme2D vtp = new Forme2D("vtp");
+        vtp.addPoint(new Point3D(30.92461340000062f,0.0f,4.0f));
+        vtp.addPoint(new Point3D(35.87422206870794f,0.0f,10.70820393249937f));
+        vtp.addPoint(new Point3D(37.381497520207795f,0.0f,10.70820393249937f));
+        vtp.addPoint(new Point3D(35.33863383151059f,0.0f,4.335410196624968f));
+        vtp.addPoint(new Point3D(37.58215536893538f,0.0f,4.335410196624968f));
+        vtp.addPoint(new Point3D(37.55f,0.0f,4.0f));
+        MeshView mvtp = vtp.Draw2D();
+        mvtp.setCullFace(CullFace.NONE);
+        mvtp.setMaterial(new PhongMaterial(Color.GREY));
+        Forme2D ruder = new Forme2D("ruder");
+        ruder.addPoint(new Point3D(35.33863383151059f,0.0f,4.335410196624968f));
+        ruder.addPoint(new Point3D(37.381497520207795f,0.0f,10.70820393249937f));
+        ruder.addPoint(new Point3D(38.193107378707715f,0.0f,10.70820393249937f));
+        ruder.addPoint(new Point3D(37.58215536893538f,0.0f,4.335410196624968f));
+        MeshView mruder = ruder.Draw2D();
+        mruder.setCullFace(CullFace.NONE);
+        mruder.setMaterial(new PhongMaterial(Color.ORANGE));
+        Forme2D htpr = new Forme2D("htpr");
+        htpr.addPoint(new Point3D(31.812246894507528f,0.0f,3.2f));
+        htpr.addPoint(new Point3D(37.21676772914963f,7.745966692414834f,3.8776842736356962f));
+        htpr.addPoint(new Point3D(38.52210656064916f,7.745966692414834f,3.8776842736356962f));
+        htpr.addPoint(new Point3D(36.13785044259194f,1.5491933384829668f,3.33553685472714f));
+        htpr.addPoint(new Point3D(37.8849962632144f,1.5491933384829668f,3.33553685472714f));
+        htpr.addPoint(new Point3D(37.55f,0.0f,3.2f));
+        MeshView mhtpr = htpr.Draw2D();
+        mhtpr.setCullFace(CullFace.NONE);
+        mhtpr.setMaterial(new PhongMaterial(Color.GREY));
+        Forme2D htpl = new Forme2D("htpl");
+        htpl.addPoint(new Point3D(31.812246894507528f,0.0f,3.2f));
+        htpl.addPoint(new Point3D(37.21676772914963f,-7.745966692414834f,3.8776842736356962f));
+        htpl.addPoint(new Point3D(38.52210656064916f,-7.745966692414834f,3.8776842736356962f));
+        htpl.addPoint(new Point3D(36.13785044259194f,-1.5491933384829668f,3.33553685472714f));
+        htpl.addPoint(new Point3D(37.8849962632144f,-1.5491933384829668f,3.33553685472714f));
+        htpl.addPoint(new Point3D(37.55f,0.0f,3.2f));
+        MeshView mhtpl = htpl.Draw2D();
+        mhtpl.setCullFace(CullFace.NONE);
+        mhtpl.setMaterial(new PhongMaterial(Color.GREY));
+        Forme2D elevatorr = new Forme2D("elevatorr");
+        elevatorr.addPoint(new Point3D(36.13785044259194f,1.5491933384829668f,3.33553685472714f));
+        elevatorr.addPoint(new Point3D(38.52210656064916f,7.745966692414834f,3.8776842736356962f));
+        elevatorr.addPoint(new Point3D(39.22498131607199f,7.745966692414834f,3.8776842736356962f));
+        elevatorr.addPoint(new Point3D(37.8849962632144f,1.5491933384829668f,3.33553685472714f));
+        MeshView melevatorr = elevatorr.Draw2D();
+        melevatorr.setCullFace(CullFace.NONE);
+        melevatorr.setMaterial(new PhongMaterial(Color.ORANGE));
+        Forme2D elevatorl = new Forme2D("elevatorl");
+        elevatorl.addPoint(new Point3D(36.13785044259194f,-1.5491933384829668f,3.33553685472714f));
+        elevatorl.addPoint(new Point3D(38.52210656064916f,-7.745966692414834f,3.8776842736356962f));
+        elevatorl.addPoint(new Point3D(39.22498131607199f,-7.745966692414834f,3.8776842736356962f));
+        elevatorl.addPoint(new Point3D(37.8849962632144f,-1.5491933384829668f,3.33553685472714f));
+        MeshView melevatorl = elevatorl.Draw2D();
+        melevatorl.setCullFace(CullFace.NONE);
+        melevatorl.setMaterial(new PhongMaterial(Color.ORANGE));
+        Forme2D wingr = new Forme2D("wingr");
+        wingr.addPoint(new Point3D(12.372383077410786f,0.0f,0.6f));
+        wingr.addPoint(new Point3D(22.699767997109873f,18.708286933869708f,2.2367630207037674f));
+        wingr.addPoint(new Point3D(23.781620977761218f,18.708286933869708f,2.154924869668579f));
+        wingr.addPoint(new Point3D(21.934188114001635f,12.16038650701531f,1.6638959634574488f));
+        wingr.addPoint(new Point3D(23.46826764257895f,12.16038650701531f,1.6638959634574488f));
+        wingr.addPoint(new Point3D(20.924742818608365f,0.0f,0.6f));
+        MeshView mwingr = wingr.Draw2D(); 
+        mwingr.setCullFace(CullFace.NONE);
+        mwingr.setMaterial(new PhongMaterial(Color.GREY));
         Forme2D wingl = new Forme2D("wingl");
-        wingl.addPoint(new Point3D(-50.0f,10.0f,0.0f));
-        wingl.addPoint(new Point3D(-150.0f,260.0f,0.0f));
-        wingl.addPoint(new Point3D(-180.0f,260.0f,0.0f));
-        wingl.addPoint(new Point3D(-170.0f,210.0f,0.0f));
-        wingl.addPoint(new Point3D(-200.0f,210.0f,0.0f));
-        wingl.addPoint(new Point3D(-140.0f,10.0f,0.0f));
-        int[] face1={0,1,3},face2={1,2,3},face3={0,3,4},face4={0,4,5};
-        wingl.addFace(face1);
-        wingl.addFace(face2);
-        wingl.addFace(face3);
-        wingl.addFace(face4);*/
-        MeshView wingl = wingl();
-        MeshView wingr = wingr();
-        
-        Cylinder fuselage = new Cylinder(25,1000);
+        wingl.addPoint(new Point3D(12.372383077410786f,0.0f,0.6f));
+        wingl.addPoint(new Point3D(22.699767997109873f,-18.708286933869708f,2.2367630207037674f));
+        wingl.addPoint(new Point3D(23.781620977761218f,-18.708286933869708f,2.154924869668579f));
+        wingl.addPoint(new Point3D(21.934188114001635f,-12.16038650701531f,1.6638959634574488f));
+        wingl.addPoint(new Point3D(23.46826764257895f,-12.16038650701531f,1.6638959634574488f));
+        wingl.addPoint(new Point3D(20.924742818608365f,0.0f,0.6f));
+        MeshView mwingl = wingl.Draw2D(); 
+        mwingl.setCullFace(CullFace.NONE);
+        mwingl.setMaterial(new PhongMaterial(Color.GREY));
+        Forme2D aileronr = new Forme2D("aileronr");
+        aileronr.addPoint(new Point3D(21.934188114001635f,12.16038650701531f,1.6638959634574488f));
+        aileronr.addPoint(new Point3D(23.781620977761218f,18.708286933869708f,2.154924869668579f));
+        aileronr.addPoint(new Point3D(24.642202176719223f,18.708286933869708f,2.154924869668579f));
+        aileronr.addPoint(new Point3D(23.46826764257895f,12.16038650701531f,1.6638959634574488f));
+        MeshView maileronr = aileronr.Draw2D();
+        maileronr.setCullFace(CullFace.NONE);
+        maileronr.setMaterial(new PhongMaterial(Color.ORANGE));
+        Forme2D aileronl = new Forme2D("aileronl");
+        aileronl.addPoint(new Point3D(21.934188114001635f,-12.16038650701531f,1.6638959634574488f));
+        aileronl.addPoint(new Point3D(23.781620977761218f,-18.708286933869708f,2.154924869668579f));
+        aileronl.addPoint(new Point3D(24.642202176719223f,-18.708286933869708f,2.154924869668579f));
+        aileronl.addPoint(new Point3D(23.46826764257895f,-12.16038650701531f,1.6638959634574488f));
+        MeshView maileronl = aileronl.Draw2D();
+        maileronl.setCullFace(CullFace.NONE);
+        maileronl.setMaterial(new PhongMaterial(Color.ORANGE));
+        /*Cylinder fuselage = new Cylinder(25,1000);
         fuselage.setRotate(90);
-        fuselage.setMaterial(new PhongMaterial(Color.GREY));
+        fuselage.setMaterial(new PhongMaterial(Color.GREY));*/
         
         double[] poly1 = new double[] {};
         double[] poly2 = new double[] {10, 0, 1, 0, 50, 2, 60, 60, 3, 70, 10, 4};
@@ -103,9 +177,9 @@ public class Main extends Application {
         group.getChildren().add(vue);
         vue.getRepereTerrestre().getChildren().add(testBox);
 
-        vue.getRepereAvion().getChildren().addAll(wingl,wingr);
+        vue.getRepereAvion().getChildren().addAll(mvtp,mruder,mhtpr,mhtpl,melevatorr,melevatorl,mwingr,mwingl,maileronr,maileronl);
         vue.getRepereAvion().getChildren().add(bruh);
-        vue.getRepereAvion().getChildren().add(fuselage);
+        //vue.getRepereAvion().getChildren().add(fuselage);
 
         //vue.rotateRepereAvion(10, 10, 10);
         //vue.rotateRepereAero(10, 10);
@@ -136,188 +210,6 @@ public class Main extends Application {
         return group;
     }
     
-    /*public MeshView Draw2D(Forme2D forme, PhongMaterial color) {
-        TriangleMesh m = new TriangleMesh();
-        int i;
-        int sides=forme.getContour().size();
-        float maxX=(float)forme.getContour().get(0).getX(),maxY=(float)forme.getContour().get(0).getY(),minX=(float)forme.getContour().get(0).getX(),minY=(float)forme.getContour().get(0).getY();
-        for (Point3D p: forme.getContour()) {
-            if (p.getX()>maxX) {
-                maxX=(float)p.getX();
-            }
-            if (p.getY()>maxY) {
-                maxY=(float)p.getY();
-            }
-             if (p.getX()<minX) {
-                minX=(float)p.getX();
-            }
-            if (p.getY()<minY) {
-                minY=(float)p.getY();
-            }
-        }
-        Point3D norm=((forme.getContour().get(1).subtract(forme.getContour().get(0))).crossProduct(forme.getContour().get(2).subtract(forme.getContour().get(0)))).normalize();
-        for (Point3D p: forme.getContour()) {
-            m.getPoints().addAll((float)p.getX(),(float)p.getY(),(float)p.getZ());
-            m.getTexCoords().addAll((float)p.getX()/(maxX-minX),(float)p.getY()/(maxY-minY));
-        }
-        for (Point3D p: forme.getContour()) {
-            m.getPoints().addAll((float)(p.getX()+norm.getX()),(float)(p.getY()+norm.getY()),(float)(p.getZ()+norm.getZ()));
-            m.getTexCoords().addAll((float)(p.getX()+norm.getX())/(maxX-minX),(float)(p.getY()+norm.getY())/(maxY-minY));
-        }
-        for (i=0;i<sides-1;i++) {
-            m.getFaces().addAll(i,i,i+1,i+1,i+sides,i+sides,i,i,i+1,i+1,i+sides+1,i+sides+1);
-            m.getFaceSmoothingGroups().addAll(i,i);
-        }
-        m.getFaces().addAll(0,0,sides-1,sides-1,sides,sides,0,0,sides-1,sides-1,2*sides-1,2*sides-1);
-        m.getFaceSmoothingGroups().addAll(sides,sides);
-        for (int[] f: forme.getFaces()) {
-            m.getFaces().addAll(f[0],f[0],f[1],f[1],f[2],f[2],f[0]+sides,f[0]+sides,f[1]+sides,f[1]+sides,f[2]+sides,f[2]+sides);
-            m.getFaceSmoothingGroups().addAll(sides+1,sides+2);
-        }
-        System.out.println(m.getFaces());
-        MeshView mv = new MeshView(m);
-        mv.setMaterial(color);
-        return mv;
-    }*/
-
-    public MeshView wingl() {
-    float[] vertices = {
-            0.0f,  0.0f,  0.0f,  // 0
-            400.0f, 0.0f,  0.0f,  // 1
-            625.0f, 625.0f, 0.0f,
-            525.0f, 625.0f, 0.0f,
-            600.0f, 800.0f, 0.0f,
-            430.0f, 800.0f, 0.0f,
-            0.0f,  0.0f,  1.0f,  // 0
-            400.0f, 0.0f,  1.0f,  // 1
-            625.0f, 625.0f, 1.0f,
-            525.0f, 625.0f, 1.0f,
-            600.0f, 800.0f, 1.0f,
-            430.0f, 800.0f, 1.0f};   // 11
-
-    float[] texture = {
-            0.00f, 0.00f,        // 0
-            0.64f, 0.00f,        // 1
-            1.00f, 0.78f,
-            0.84f, 0.78f,
-            0.96f, 1.00f,
-            0.69f, 1.00f,
-            0.00f, 0.00f,        // 0
-            0.64f, 0.00f,        // 1
-            1.00f, 0.78f,
-            0.84f, 0.78f,
-            0.96f, 1.00f,
-            0.69f, 1.00f};        // 11
-
-    int[] faces = {
-            5,  5,  0,  0,  1,  1,      // 0
-            1,  1,  2,  2,  3,  3,      // 1
-            3,  3,  4,  4,  5,  5,      // 2
-            5,  5,  1,  1,  3,  3,
-            11, 11, 6,  6,  7,  7,
-            7,  7,  8,  8,  9,  9,
-            9,  9,  10, 10, 11, 11,
-            11, 11, 7,  7,  9,  9,
-            0,  0,  1,  1,  7,  7,
-            0,  0,  7,  7,  6,  6,
-            1,  1,  2,  2,  8,  8,
-            1,  1,  8,  8,  7,  7,
-            2,  2,  3,  3,  9,  9,
-            2,  2,  9,  9,  8,  8,
-            3,  3,  4,  4, 10, 10,
-            3,  3, 10, 10,  9,  9,
-            4,  4,  5,  5, 11, 11,
-            4,  4, 11, 11, 10, 10,
-            5,  5,  0,  0,  6,  6,
-            5,  5,  6,  6, 11, 11};     // 19
-
-    int[] smooth = {
-            0, 0, 0, 0,   // top surface
-            1, 1, 1, 1,   // bottom surface
-            2, 2,
-            3, 3,
-            4, 4,
-            5, 5,
-            6, 6,
-            7, 7};
-    TriangleMesh mesh = new TriangleMesh();
-    mesh.getPoints().addAll(vertices);
-    mesh.getTexCoords().addAll(texture);
-    mesh.getFaces().addAll(faces);
-    mesh.getFaceSmoothingGroups().addAll(smooth);
-    MeshView mm = new MeshView(mesh);
-    mm.setCullFace(CullFace.NONE);
-    return mm;
-   }
-   public MeshView wingr() {
-    float[] vertices = {
-            0.0f,   0.0f,  0.0f,  // 0
-            400.0f, 0.0f,  0.0f,  // 1
-            625.0f, -625.0f, 0.0f,
-            525.0f, -625.0f, 0.0f,
-            600.0f, -800.0f, 0.0f,
-            430.0f, -800.0f, 0.0f,
-            0.0f,   0.0f,  1.0f,  // 0
-            400.0f, 0.0f,  1.0f,  // 1
-            625.0f, -625.0f, 1.0f,
-            525.0f, -625.0f, 1.0f,
-            600.0f, -800.0f, 1.0f,
-            430.0f, -800.0f, 1.0f};   // 11
-
-    float[] texture = {
-            0.00f, 0.00f,        // 0
-            0.64f, 0.00f,        // 1
-            1.00f, 0.78f,
-            0.84f, 0.78f,
-            0.96f, 1.00f,
-            0.69f, 1.00f,
-            0.00f, 0.00f,        // 0
-            0.64f, 0.00f,        // 1
-            1.00f, 0.78f,
-            0.84f, 0.78f,
-            0.96f, 1.00f,
-            0.69f, 1.00f};        // 11
-
-    int[] faces = {
-            5,  5,  0,  0,  1,  1,      // 0
-            1,  1,  2,  2,  3,  3,      // 1
-            3,  3,  4,  4,  5,  5,      // 2
-            5,  5,  1,  1,  3,  3,
-            11, 11, 6,  6,  7,  7,
-            7,  7,  8,  8,  9,  9,
-            9,  9,  10, 10, 11, 11,
-            11, 11, 7,  7,  9,  9,
-            0,  0,  1,  1,  7,  7,
-            0,  0,  7,  7,  6,  6,
-            1,  1,  2,  2,  8,  8,
-            1,  1,  8,  8,  7,  7,
-            2,  2,  3,  3,  9,  9,
-            2,  2,  9,  9,  8,  8,
-            3,  3,  4,  4, 10, 10,
-            3,  3, 10, 10,  9,  9,
-            4,  4,  5,  5, 11, 11,
-            4,  4, 11, 11, 10, 10,
-            5,  5,  0,  0,  6,  6,
-            5,  5,  6,  6, 11, 11};     // 19
-
-    int[] smooth = {
-            0, 0, 0, 0,   // top surface
-            1, 1, 1, 1,   // bottom surface
-            2, 2,
-            3, 3,
-            4, 4,
-            5, 5,
-            6, 6,
-            7, 7};
-    TriangleMesh mesh = new TriangleMesh();
-    mesh.getPoints().addAll(vertices);
-    mesh.getTexCoords().addAll(texture);
-    mesh.getFaces().addAll(faces);
-    mesh.getFaceSmoothingGroups().addAll(smooth);
-    MeshView mm = new MeshView(mesh);
-    mm.setCullFace(CullFace.NONE);
-    return mm;
-   } 
     @Override
     public void start(Stage primaryStage) throws Exception {
         //primaryStage.setResizable(false);
