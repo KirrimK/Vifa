@@ -22,7 +22,7 @@ public class Vue3D extends SubScene {
     //camera properties
     private SimpleDoubleProperty xrotprop = new SimpleDoubleProperty(-30);
     private SimpleDoubleProperty yrotprop = new SimpleDoubleProperty(-90-45);
-    private SimpleDoubleProperty zoomprop = new SimpleDoubleProperty(2000);
+    private SimpleDoubleProperty zoomprop = new SimpleDoubleProperty(500);
 
     private double ZOOM_MIN_VALUE = 25;
 

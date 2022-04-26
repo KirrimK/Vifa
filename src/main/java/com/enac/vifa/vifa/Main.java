@@ -18,6 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.*;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import com.enac.vifa.vifa.Forme3D;
 
@@ -177,7 +178,11 @@ public class Main extends Application {
         group.getChildren().add(vue);
         vue.getRepereTerrestre().getChildren().add(testBox);
 
-        vue.getRepereAvion().getChildren().addAll(mvtp,mruder,mhtpr,mhtpl,melevatorr,melevatorl,mwingr,mwingl,maileronr,maileronl);
+        Group avion = new Group(mvtp,mruder,mhtpr,mhtpl,melevatorr,melevatorl,mwingr,mwingl,maileronr,maileronl);
+        avion.getTransforms().addAll(new Rotate(90, Rotate.X_AXIS), new Rotate(180, Rotate.Z_AXIS));
+        vue.getRepereAvion().getChildren().add(avion);
+
+
         vue.getRepereAvion().getChildren().add(bruh);
         //vue.getRepereAvion().getChildren().add(fuselage);
 
