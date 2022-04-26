@@ -40,5 +40,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="Maven: io.github.earcut4j:earcut4j:2.2.2" level="project" />
   </component>
 </module>
