@@ -91,7 +91,8 @@ public class Main extends Application {
         fuselage.setRotate(90);
         fuselage.setMaterial(new PhongMaterial(Color.GREY));
         
-        double[] poly1 = new double[] {10,0, 0,50, 60,60, 70,10 };
+        double[] poly1 = new double[] {};
+        double[] poly2 = new double[] {10, 0, 1, 0, 50, 2, 60, 60, 3, 70, 10, 4};
         List<Integer> triangles = Forme3D.triangulation(poly1);
         System.out.println(triangles);
         // returns [1,0,3, 3,2,1]
@@ -123,7 +124,7 @@ public class Main extends Application {
         Modele test = new Modele();
         // Thread test_th = new Thread(test::getDescription);
         // test_th.start();
-        test.getDescription();
+        //test.getDescription();
         Label infosModele = new Label(test.toString());
         VBox infoModeleContainer = new VBox();
         infoModeleContainer.getChildren().add(infosModele);
