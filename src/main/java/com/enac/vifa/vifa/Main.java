@@ -5,6 +5,7 @@ import java.util.List;
 import com.enac.vifa.vifa.vues.CameraInfoPane;
 import com.enac.vifa.vifa.vues.RepereControllerPane;
 import com.enac.vifa.vifa.vues.Vue3D;
+import earcut4j.Earcut;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Point3D;
@@ -18,6 +19,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.*;
 import javafx.stage.Stage;
+import com.enac.vifa.vifa.Forme3D;
 
 public class Main extends Application {
     public Parent createContent(Scene mainScene){
@@ -69,7 +71,7 @@ public class Main extends Application {
                 6 , 0 , 5 , 0 , 4 , 0		// G-F-E
         );
 
-        MeshView mm = new MeshView(m);
+        /*MeshView mm = new MeshView(m);
         Forme2D wingl = new Forme2D("wingl");
         wingl.addPoint(new Point3D(-50.0f,10.0f,0.0f));
         wingl.addPoint(new Point3D(-150.0f,260.0f,0.0f));
@@ -81,16 +83,28 @@ public class Main extends Application {
         wingl.addFace(face1);
         wingl.addFace(face2);
         wingl.addFace(face3);
-        wingl.addFace(face4);
-        MeshView mv = Draw2D(wingl,new PhongMaterial(Color.ORANGE));
+        wingl.addFace(face4);*/
+        MeshView wingl = wingl();
+        MeshView wingr = wingr();
+        
+        Cylinder fuselage = new Cylinder(25,1000);
+        fuselage.setRotate(90);
+        fuselage.setMaterial(new PhongMaterial(Color.GREY));
+        
+        double[] poly1 = new double[] {10,0, 0,50, 60,60, 70,10 };
+        List<Integer> triangles = Forme3D.triangulation(poly1);
+        System.out.println(triangles);
+        // returns [1,0,3, 3,2,1]
+
 
         Group group = new Group();
         Vue3D vue = new Vue3D(mainScene, new Group());
         group.getChildren().add(vue);
         vue.getRepereTerrestre().getChildren().add(testBox);
 
-        vue.getRepereAvion().getChildren().add(mv);
+        vue.getRepereAvion().getChildren().addAll(wingl,wingr);
         vue.getRepereAvion().getChildren().add(bruh);
+        vue.getRepereAvion().getChildren().add(fuselage);
 
         //vue.rotateRepereAvion(10, 10, 10);
         //vue.rotateRepereAero(10, 10);
@@ -121,7 +135,7 @@ public class Main extends Application {
         return group;
     }
     
-    public MeshView Draw2D(Forme2D forme, PhongMaterial color) {
+    /*public MeshView Draw2D(Forme2D forme, PhongMaterial color) {
         TriangleMesh m = new TriangleMesh();
         int i;
         int sides=forme.getContour().size();
@@ -163,8 +177,146 @@ public class Main extends Application {
         MeshView mv = new MeshView(m);
         mv.setMaterial(color);
         return mv;
-    }
+    }*/
 
+    public MeshView wingl() {
+    float[] vertices = {
+            0.0f,  0.0f,  0.0f,  // 0
+            400.0f, 0.0f,  0.0f,  // 1
+            625.0f, 625.0f, 0.0f,
+            525.0f, 625.0f, 0.0f,
+            600.0f, 800.0f, 0.0f,
+            430.0f, 800.0f, 0.0f,
+            0.0f,  0.0f,  1.0f,  // 0
+            400.0f, 0.0f,  1.0f,  // 1
+            625.0f, 625.0f, 1.0f,
+            525.0f, 625.0f, 1.0f,
+            600.0f, 800.0f, 1.0f,
+            430.0f, 800.0f, 1.0f};   // 11
+
+    float[] texture = {
+            0.00f, 0.00f,        // 0
+            0.64f, 0.00f,        // 1
+            1.00f, 0.78f,
+            0.84f, 0.78f,
+            0.96f, 1.00f,
+            0.69f, 1.00f,
+            0.00f, 0.00f,        // 0
+            0.64f, 0.00f,        // 1
+            1.00f, 0.78f,
+            0.84f, 0.78f,
+            0.96f, 1.00f,
+            0.69f, 1.00f};        // 11
+
+    int[] faces = {
+            5,  5,  0,  0,  1,  1,      // 0
+            1,  1,  2,  2,  3,  3,      // 1
+            3,  3,  4,  4,  5,  5,      // 2
+            5,  5,  1,  1,  3,  3,
+            11, 11, 6,  6,  7,  7,
+            7,  7,  8,  8,  9,  9,
+            9,  9,  10, 10, 11, 11,
+            11, 11, 7,  7,  9,  9,
+            0,  0,  1,  1,  7,  7,
+            0,  0,  7,  7,  6,  6,
+            1,  1,  2,  2,  8,  8,
+            1,  1,  8,  8,  7,  7,
+            2,  2,  3,  3,  9,  9,
+            2,  2,  9,  9,  8,  8,
+            3,  3,  4,  4, 10, 10,
+            3,  3, 10, 10,  9,  9,
+            4,  4,  5,  5, 11, 11,
+            4,  4, 11, 11, 10, 10,
+            5,  5,  0,  0,  6,  6,
+            5,  5,  6,  6, 11, 11};     // 19
+
+    int[] smooth = {
+            0, 0, 0, 0,   // top surface
+            1, 1, 1, 1,   // bottom surface
+            2, 2,
+            3, 3,
+            4, 4,
+            5, 5,
+            6, 6,
+            7, 7};
+    TriangleMesh mesh = new TriangleMesh();
+    mesh.getPoints().addAll(vertices);
+    mesh.getTexCoords().addAll(texture);
+    mesh.getFaces().addAll(faces);
+    mesh.getFaceSmoothingGroups().addAll(smooth);
+    MeshView mm = new MeshView(mesh);
+    mm.setCullFace(CullFace.NONE);
+    return mm;
+   }
+   public MeshView wingr() {
+    float[] vertices = {
+            0.0f,   0.0f,  0.0f,  // 0
+            400.0f, 0.0f,  0.0f,  // 1
+            625.0f, -625.0f, 0.0f,
+            525.0f, -625.0f, 0.0f,
+            600.0f, -800.0f, 0.0f,
+            430.0f, -800.0f, 0.0f,
+            0.0f,   0.0f,  1.0f,  // 0
+            400.0f, 0.0f,  1.0f,  // 1
+            625.0f, -625.0f, 1.0f,
+            525.0f, -625.0f, 1.0f,
+            600.0f, -800.0f, 1.0f,
+            430.0f, -800.0f, 1.0f};   // 11
+
+    float[] texture = {
+            0.00f, 0.00f,        // 0
+            0.64f, 0.00f,        // 1
+            1.00f, 0.78f,
+            0.84f, 0.78f,
+            0.96f, 1.00f,
+            0.69f, 1.00f,
+            0.00f, 0.00f,        // 0
+            0.64f, 0.00f,        // 1
+            1.00f, 0.78f,
+            0.84f, 0.78f,
+            0.96f, 1.00f,
+            0.69f, 1.00f};        // 11
+
+    int[] faces = {
+            5,  5,  0,  0,  1,  1,      // 0
+            1,  1,  2,  2,  3,  3,      // 1
+            3,  3,  4,  4,  5,  5,      // 2
+            5,  5,  1,  1,  3,  3,
+            11, 11, 6,  6,  7,  7,
+            7,  7,  8,  8,  9,  9,
+            9,  9,  10, 10, 11, 11,
+            11, 11, 7,  7,  9,  9,
+            0,  0,  1,  1,  7,  7,
+            0,  0,  7,  7,  6,  6,
+            1,  1,  2,  2,  8,  8,
+            1,  1,  8,  8,  7,  7,
+            2,  2,  3,  3,  9,  9,
+            2,  2,  9,  9,  8,  8,
+            3,  3,  4,  4, 10, 10,
+            3,  3, 10, 10,  9,  9,
+            4,  4,  5,  5, 11, 11,
+            4,  4, 11, 11, 10, 10,
+            5,  5,  0,  0,  6,  6,
+            5,  5,  6,  6, 11, 11};     // 19
+
+    int[] smooth = {
+            0, 0, 0, 0,   // top surface
+            1, 1, 1, 1,   // bottom surface
+            2, 2,
+            3, 3,
+            4, 4,
+            5, 5,
+            6, 6,
+            7, 7};
+    TriangleMesh mesh = new TriangleMesh();
+    mesh.getPoints().addAll(vertices);
+    mesh.getTexCoords().addAll(texture);
+    mesh.getFaces().addAll(faces);
+    mesh.getFaceSmoothingGroups().addAll(smooth);
+    MeshView mm = new MeshView(mesh);
+    mm.setCullFace(CullFace.NONE);
+    return mm;
+   } 
     @Override
     public void start(Stage primaryStage) throws Exception {
         //primaryStage.setResizable(false);

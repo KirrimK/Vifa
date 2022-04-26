@@ -84,7 +84,7 @@ public class Vue3D extends SubScene {
 
         repereAvion.getChildren().add(repereAero);
 
-        camera.setFarClip(3000.0f);
+        camera.setFarClip(5000.0f);
 
         setCamera(camera);
 
@@ -169,7 +169,7 @@ public class Vue3D extends SubScene {
     public void rotateRepereAero(double alpha, double beta){
         //vérifier les signes
         repereAero.getTransforms().setAll(
-                new Rotate(beta, Rotate.Y_AXIS),
+                new Rotate(-beta, Rotate.Y_AXIS),
                 new Rotate(alpha, Rotate.Z_AXIS));
     }
 
@@ -178,7 +178,7 @@ public class Vue3D extends SubScene {
     }
 
     public void rotateBeta(double beta){
-        repereAero.getTransforms().set(0, new Rotate(beta, Rotate.Y_AXIS));
+        repereAero.getTransforms().set(0, new Rotate(-beta, Rotate.Y_AXIS));
     }
 
     public double getXrotprop() {
