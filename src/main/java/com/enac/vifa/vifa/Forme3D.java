@@ -48,7 +48,7 @@ public Forme3D(String nom) {
    
     
     static public List<Integer> triangulation(double[] polygon){
-        List<Integer> triangles = Earcut.earcut(polygon, null, 2);
+        List<Integer> triangles = Earcut.earcut(polygon, null,3);
 
         return triangles;
     }
