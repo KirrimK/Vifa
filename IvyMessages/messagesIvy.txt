@@ -1,9 +1,16 @@
 Messages que peut recevoir la tâche Python :
     startGettingShapes :
         StartGettingShapes mass=%f xcg=%f vair=%f psi=%f theta=%f phi=%f alpha=%f betha=%f a0=%f trim=%f dl=%f dm=%f dn=%f
+a0 = incidence de portance (3.31°)
+trim = trim du plan horizontal arrière
+dl = braquage aileronl
+dm = braquage gouverne prof
+dn = braquage gouverne dir
 
     startComputing :
         StartComputation mass=%f xcg=%f vair=%f psi=%f theta=%f phi=%f alpha=%f betha=%f a0=%f trim=%f dl=%f dm=%f dn=%f dx=%f p=%f q=%f r=%f
+dx = commande moteur
+p, q, r = vitesses de rotation
 
 Messages susceptibles d'être envoyés par la tâche python :
 
