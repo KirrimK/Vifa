@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleListProperty;
 import fr.dgac.ivy.Ivy;
@@ -17,23 +17,23 @@ import javafx.geometry.Point3D;
 public class Modele {
     private static Modele modele;
     private ArrayList<Forme2D> listeDesFormes;
-    private DoubleProperty mass;
-    private DoubleProperty xCentrage;
-    private DoubleProperty vAir;
-    private DoubleProperty psi;
-    private DoubleProperty theta;
-    private DoubleProperty phi;
-    private DoubleProperty alpha;
-    private DoubleProperty beta;
-    private DoubleProperty a0;
-    private DoubleProperty trim;
-    private DoubleProperty dl;
-    private DoubleProperty dm;
-    private DoubleProperty dn;
-    private DoubleProperty dx;
-    private DoubleProperty p;
-    private DoubleProperty q;
-    private DoubleProperty r;
+    private SimpleDoubleProperty mass;
+    private SimpleDoubleProperty xCentrage;
+    private SimpleDoubleProperty vAir;
+    private SimpleDoubleProperty psi;
+    private SimpleDoubleProperty theta;
+    private SimpleDoubleProperty phi;
+    private SimpleDoubleProperty alpha;
+    private SimpleDoubleProperty beta;
+    private SimpleDoubleProperty a0;
+    private SimpleDoubleProperty trim;
+    private SimpleDoubleProperty dl;
+    private SimpleDoubleProperty dm;
+    private SimpleDoubleProperty dn;
+    private SimpleDoubleProperty dx;
+    private SimpleDoubleProperty p;
+    private SimpleDoubleProperty q;
+    private SimpleDoubleProperty r;
     private Ivy radio;
     private boolean receivedDrawFFS = false;
     private String BUS = "127.255.255.255:2010";
@@ -45,7 +45,7 @@ public class Modele {
     private String FIN_DE_DESCRIPTION = "^Draw ffs$";
 
     //MESSAGES SENT THROUGH IVY :
-
+    private String COMPUTE_DEMND = "StartComputation mass=%f xcg=%f vair=%f psi=%f theta=%f phi=%f alpha=%f betha=%f a0=%f trim=%f dl=%f dm=%f dn=%f dx=%f p=%f q=%f r=%f";
     private String DEMANDE_DESCR = "StartGettingShapes mass=%f xcg=%f vair=%f psi=%f theta=%f phi=%f alpha=%f betha=%f a0=%f trim=%f dl=%f dm=%f dn=%f";
     
     //CONSTRUCTOR
@@ -115,7 +115,7 @@ public class Modele {
         return mass.getValue();
     }
 
-    public DoubleProperty getMassProperty(){
+    public SimpleDoubleProperty getMassProperty(){
         return mass;
     }
 
@@ -123,7 +123,7 @@ public class Modele {
         this.mass.setValue(mass);
     }
 
-    public DoubleProperty getxCentrageProperty() {
+    public SimpleDoubleProperty getxCentrageProperty() {
         return xCentrage;
     }
 
@@ -135,7 +135,7 @@ public class Modele {
         this.xCentrage.setValue(xCentrage);
     }
 
-    public DoubleProperty getvAirProperty() {
+    public SimpleDoubleProperty getvAirProperty() {
         return vAir;
     }
 
@@ -147,7 +147,7 @@ public class Modele {
         this.vAir.setValue(vAir);
     }
 
-    public DoubleProperty getPsiProperty() {
+    public SimpleDoubleProperty getPsiProperty() {
         return psi;
     }
 
@@ -159,7 +159,7 @@ public class Modele {
         this.psi.setValue(psi);
     }
 
-    public DoubleProperty getThetaProperty() {
+    public SimpleDoubleProperty getThetaProperty() {
         return theta;
     }
 
@@ -171,7 +171,7 @@ public class Modele {
         this.theta.setValue(theta);
     }
 
-    public DoubleProperty getPhiProperty() {
+    public SimpleDoubleProperty getPhiProperty() {
         return phi;
     }
 
@@ -183,7 +183,7 @@ public class Modele {
         this.phi.setValue(phi);
     }
 
-    public DoubleProperty getAlphaProperty() {
+    public SimpleDoubleProperty getAlphaProperty() {
         return alpha;
     }
 
@@ -195,7 +195,7 @@ public class Modele {
         this.alpha.setValue(alpha);
     }
 
-    public DoubleProperty getBetaProperty() {
+    public SimpleDoubleProperty getBetaProperty() {
         return beta;
     }
 
@@ -207,7 +207,7 @@ public class Modele {
         this.beta.set(beta);
     }
 
-    public DoubleProperty getA0Property() {
+    public SimpleDoubleProperty getA0Property() {
         return a0;
     }
 
@@ -219,7 +219,7 @@ public class Modele {
         this.a0.setValue(a0);
     }
 
-    public DoubleProperty getTrimProperty() {
+    public SimpleDoubleProperty getTrimProperty() {
         return trim;
     }
 
@@ -231,7 +231,7 @@ public class Modele {
         this.trim.setValue(trim);
     }
 
-    public DoubleProperty getDlProperty() {
+    public SimpleDoubleProperty getDlProperty() {
         return dl;
     }
 
@@ -243,7 +243,7 @@ public class Modele {
         this.dl.setValue(dl);;
     }
 
-    public DoubleProperty getDmProperty() {
+    public SimpleDoubleProperty getDmProperty() {
         return dm;
     }
 
@@ -255,7 +255,7 @@ public class Modele {
         this.dm.setValue(dm);
     }
 
-    public DoubleProperty getDnProperty() {
+    public SimpleDoubleProperty getDnProperty() {
         return dn;
     }
 
@@ -267,7 +267,7 @@ public class Modele {
         this.dn.setValue(dn);
     }
 
-    public DoubleProperty getDxProperty() {
+    public SimpleDoubleProperty getDxProperty() {
         return dx;
     }
 
@@ -279,7 +279,7 @@ public class Modele {
         this.dx.setValue(dx);
     }
 
-    public DoubleProperty getPProperty() {
+    public SimpleDoubleProperty getPProperty() {
         return p;
     }
 
@@ -291,7 +291,7 @@ public class Modele {
         this.p.setValue(p);
     }
 
-    public DoubleProperty getQProperty() {
+    public SimpleDoubleProperty getQProperty() {
         return q;
     }
 
@@ -303,7 +303,7 @@ public class Modele {
         this.q.setValue(q);
     }
 
-    public DoubleProperty getRProperty() {
+    public SimpleDoubleProperty getRProperty() {
         return r;
     }
 
