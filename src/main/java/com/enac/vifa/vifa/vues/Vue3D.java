@@ -17,6 +17,7 @@ public class Vue3D extends SubScene {
     private PerspectiveCamera camera = new PerspectiveCamera(true);
     private Group repereTerrestre;
     private Group repereAvion;
+    private Group repereAeroPart;
     private Group repereAero;
 
     //camera properties
@@ -72,7 +73,10 @@ public class Vue3D extends SubScene {
         repereAvion.getChildren().add(avz);
 
         repereTerrestre.getChildren().add(repereAvion);
+        repereAeroPart = new Group();
         repereAero = new Group();
+
+        repereAeroPart.getChildren().add(repereAero);
 
         Vecteur3D aerx = new Vecteur3D("x aéro", new Point3D(500, 0, 0), new Point3D(100, 0, 0), aerColor);
         Vecteur3D aerz = new Vecteur3D("z aéro", new Point3D(0, 500, 0), new Point3D(0, 100, 0), aerColor);
@@ -82,7 +86,7 @@ public class Vue3D extends SubScene {
         repereAero.getChildren().add(aery);
         repereAero.getChildren().add(aerz);
 
-        repereAvion.getChildren().add(repereAero);
+        repereAvion.getChildren().add(repereAeroPart);
 
         camera.setFarClip(5000.0f);
 
@@ -168,13 +172,12 @@ public class Vue3D extends SubScene {
 
     public void rotateRepereAero(double alpha, double beta){
         //vérifier les signes
-        repereAero.getTransforms().setAll(
-                new Rotate(-beta, Rotate.Y_AXIS),
-                new Rotate(alpha, Rotate.Z_AXIS));
+        repereAero.getTransforms().setAll(new Rotate(-beta, Rotate.Y_AXIS));
+        repereAeroPart.getTransforms().setAll(new Rotate(alpha, Rotate.Z_AXIS));
     }
 
     public void rotateAlpha(double alpha){
-        repereAero.getTransforms().set(1, new Rotate(alpha, Rotate.Z_AXIS));
+        repereAeroPart.getTransforms().set(0, new Rotate(alpha, Rotate.Z_AXIS));
     }
 
     public void rotateBeta(double beta){
