@@ -4,6 +4,9 @@ import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 import java.util.Date;
+
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleListProperty;
 import fr.dgac.ivy.Ivy;
 import fr.dgac.ivy.IvyClient;
@@ -12,25 +15,24 @@ import fr.dgac.ivy.IvyMessageListener;
 import javafx.geometry.Point3D;
 
 public class Modele {
-    private ArrayList<Forme2D> listeTempFormes = new ArrayList<Forme2D>();
-    private SimpleListProperty<Forme2D> listeDesFormes;
-    private double mass;
-    private double xCentrage;
-    private double vAir;
-    private double psi;
-    private double theta;
-    private double phi;
-    private double alpha;
-    private double beta;
-    private double a0;
-    private double trim;
-    private double dl;
-    private double dm;
-    private double dn;
-    private double dx;
-    private double p;
-    private double q;
-    private double r;
+    private ArrayList<Forme2D> listeDesFormes;
+    private DoubleProperty mass;
+    private DoubleProperty xCentrage;
+    private DoubleProperty vAir;
+    private DoubleProperty psi;
+    private DoubleProperty theta;
+    private DoubleProperty phi;
+    private DoubleProperty alpha;
+    private DoubleProperty beta;
+    private DoubleProperty a0;
+    private DoubleProperty trim;
+    private DoubleProperty dl;
+    private DoubleProperty dm;
+    private DoubleProperty dn;
+    private DoubleProperty dx;
+    private DoubleProperty p;
+    private DoubleProperty q;
+    private DoubleProperty r;
     private Ivy radio;
     private boolean receivedDrawFFS = false;
     private String BUS = "127.255.255.255:2010";
@@ -47,27 +49,25 @@ public class Modele {
     
     //CONSTRUCTOR
 
-    public Modele() {
-        ArrayList<Forme2D> listeStockée = new ArrayList<Forme2D>();
-        ObservableList<Forme2D> oL =FXCollections.observableArrayList(listeStockée);
-        this.listeDesFormes = new SimpleListProperty<Forme2D>(oL);
-        this.mass = 0;
-        this.xCentrage=0;
-        this.vAir= 0;
-        this.psi=0;
-        this.theta=0;
-        this.phi=0;
-        this.alpha=0;
-        this.beta=0;
-        this.a0=0;
-        this.trim=0;
-        this.dl=0;
-        this.dm=0;
-        this.dn=0;
-        this.dx=0;
-        this.p=0;
-        this.q=0;
-        this.r=0;
+    public Modele(Main r) {
+        this.listeDesFormes = new ArrayList<Forme2D>();
+        this.xCentrage=new SimpleDoubleProperty(0) ;
+        this.vAir=new SimpleDoubleProperty(0) ;
+        this.psi=new SimpleDoubleProperty(0) ;
+        this.theta=new SimpleDoubleProperty(0) ;
+        this.phi=new SimpleDoubleProperty(0) ;
+        this.alpha=new SimpleDoubleProperty(0) ;
+        this.beta=new SimpleDoubleProperty(0) ;
+        this.a0=new SimpleDoubleProperty(0) ;
+        this.trim=new SimpleDoubleProperty(0) ;
+        this.dl=new SimpleDoubleProperty(0) ;
+        this.dm=new SimpleDoubleProperty(0) ;
+        this.dn=new SimpleDoubleProperty(0) ;
+        this.dx=new SimpleDoubleProperty(0) ;
+        this.p=new SimpleDoubleProperty(0) ;
+        this.q=new SimpleDoubleProperty(0) ;
+        this.r=new SimpleDoubleProperty(0) ;
+        this.mass=new SimpleDoubleProperty(0) ;
         this.radio = new Ivy("ViFA_IHM", "ViFA_IHM is ready !", null);
         try{
         this.radio.bindMsg(this.INIT_FORME_2D_MSG, new IvyMessageListener() {
@@ -89,9 +89,9 @@ public class Modele {
         this.radio.bindMsg(this.FIN_DE_DESCRIPTION, (IvyClient client, String[] args) -> {
             receivedDrawFFS = true;
         });
-        this.radio.bindMsg("(.*)",(IvyClient client, String[] args) -> {
-            System.out.println(args[0]);
-        });
+        // this.radio.bindMsg("(.*)",(IvyClient client, String[] args) -> {
+        //     System.out.println(args[0]);
+        // });
         this.radio.start(this.BUS);
     }
         catch (IvyException e){
@@ -104,147 +104,215 @@ public class Modele {
  //GETTERS AND SETTERS
 
     public double getMass() {
+        return mass.getValue();
+    }
+
+    public DoubleProperty getMassProperty(){
         return mass;
     }
 
     public void setMass(double mass) {
-        this.mass = mass;
+        this.mass.setValue(mass);
     }
 
-    public double getxCentrage() {
+    public DoubleProperty getxCentrageProperty() {
         return xCentrage;
     }
 
-    public void setxCentrage(double xCentrage) {
-        this.xCentrage = xCentrage;
+    public double getxCentrage() {
+        return xCentrage.getValue();
     }
 
-    public double getvAir() {
+    public void setxCentrage(double xCentrage) {
+        this.xCentrage.setValue(xCentrage);
+    }
+
+    public DoubleProperty getvAirProperty() {
         return vAir;
     }
 
-    public void setvAir(double vAir) {
-        this.vAir = vAir;
+    public double getvAir() {
+        return vAir.getValue();
     }
 
-    public double getPsi() {
+    public void setvAir(double vAir) {
+        this.vAir.setValue(vAir);
+    }
+
+    public DoubleProperty getPsiProperty() {
         return psi;
     }
 
-    public void setPsi(double psi) {
-        this.psi = psi;
+    public double getPsi() {
+        return psi.getValue();
     }
 
-    public double getTheta() {
+    public void setPsi(double psi) {
+        this.psi.setValue(psi);
+    }
+
+    public DoubleProperty getThetaProperty() {
         return theta;
     }
 
-    public void setTheta(double theta) {
-        this.theta = theta;
+    public double getTheta() {
+        return theta.getValue();
     }
 
-    public double getPhi() {
+    public void setTheta(double theta) {
+        this.theta.setValue(theta);
+    }
+
+    public DoubleProperty getPhiProperty() {
         return phi;
     }
 
-    public void setPhi(double phi) {
-        this.phi = phi;
+    public double getPhi() {
+        return phi.getValue();
     }
 
-    public double getAlpha() {
+    public void setPhi(double phi) {
+        this.phi.setValue(phi);
+    }
+
+    public DoubleProperty getAlphaProperty() {
         return alpha;
     }
 
-    public void setAlpha(double alpha) {
-        this.alpha = alpha;
+    public double getAlpha() {
+        return alpha.getValue();
     }
 
-    public double getBeta() {
+    public void setAlpha(double alpha) {
+        this.alpha.setValue(alpha);
+    }
+
+    public DoubleProperty getBetaProperty() {
         return beta;
     }
 
-    public void setBeta(double beta) {
-        this.beta = beta;
+    public double getBeta() {
+        return beta.getValue();
     }
 
-    public double getA0() {
+    public void setBeta(double beta) {
+        this.beta.set(beta);
+    }
+
+    public DoubleProperty getA0Property() {
         return a0;
     }
 
-    public void setA0(double a0) {
-        this.a0 = a0;
+    public double getA0() {
+        return a0.getValue();
     }
 
-    public double getTrim() {
+    public void setA0(double a0) {
+        this.a0.setValue(a0);
+    }
+
+    public DoubleProperty getTrimProperty() {
         return trim;
     }
 
-    public void setTrim(double trim) {
-        this.trim = trim;
+    public double getTrim() {
+        return trim.getValue();
     }
 
-    public double getDl() {
+    public void setTrim(double trim) {
+        this.trim.setValue(trim);
+    }
+
+    public DoubleProperty getDlProperty() {
         return dl;
     }
 
-    public void setDl(double dl) {
-        this.dl = dl;
+    public double getDl() {
+        return dl.getValue();
     }
 
-    public double getDm() {
+    public void setDl(double dl) {
+        this.dl.setValue(dl);;
+    }
+
+    public DoubleProperty getDmProperty() {
         return dm;
     }
 
-    public void setDm(double dm) {
-        this.dm = dm;
+    public double getDm() {
+        return dm.getValue();
     }
 
-    public double getDn() {
+    public void setDm(double dm) {
+        this.dm.setValue(dm);
+    }
+
+    public DoubleProperty getDnProperty() {
         return dn;
     }
 
-    public void setDn(double dn) {
-        this.dn = dn;
+    public double getDn() {
+        return dn.getValue();
     }
 
-    public double getDx() {
+    public void setDn(double dn) {
+        this.dn.setValue(dn);
+    }
+
+    public DoubleProperty getDxProperty() {
         return dx;
     }
 
-    public void setDx(double dx) {
-        this.dx = dx;
+    public double getDx() {
+        return dx.getValue();
     }
 
-    public double getP() {
+    public void setDx(double dx) {
+        this.dx.setValue(dx);
+    }
+
+    public DoubleProperty getPProperty() {
         return p;
     }
 
-    public void setP(double p) {
-        this.p = p;
+    public double getP() {
+        return p.getValue();
     }
 
-    public double getQ() {
+    public void setP(double p) {
+        this.p.setValue(p);
+    }
+
+    public DoubleProperty getQProperty() {
         return q;
     }
 
-    public void setQ(double q) {
-        this.q = q;
+    public double getQ() {
+        return q.getValue();
     }
 
-    public double getR() {
+    public void setQ(double q) {
+        this.q.setValue(q);
+    }
+
+    public DoubleProperty getRProperty() {
         return r;
     }
 
+    public double getR() {
+        return r.getValue();
+    }
+
     public void setR(double r) {
-        this.r = r;
+        this.r.setValue(r);
     }
     
     public void addForme (String nom){
-        this.listeTempFormes.add(new Forme2D(nom));
+        this.listeDesFormes.add(new Forme2D(nom));
     }
 
     public void addPointToForme (String nom, double x, double y, double z){
-        for (Forme2D f:listeTempFormes){
+        for (Forme2D f:listeDesFormes){
             if (f.getNom().equals(nom)){
                 f.addPoint(new Point3D(x, y, z));
                 break;
@@ -270,8 +338,11 @@ public class Modele {
         this.receivedDrawFFS = false;
         System.out.println("Description en attente...");
         long temps = (new Date()).getTime();
+        this.listeDesFormes = new ArrayList<Forme2D>();
         try {
-            String msg=String.format(this.DEMANDE_DESCR,mass, xCentrage, vAir, psi, theta, phi, alpha, beta, a0, trim, dl, dm, dn ).replace(',','.');
+            String msg=String.format(this.DEMANDE_DESCR,mass.getValue(), xCentrage.getValue(), 
+            vAir.getValue(), psi.getValue(), theta.getValue(), phi.getValue(), alpha.getValue(), beta.getValue(), 
+            a0.getValue(), trim.getValue(), dl.getValue(), dm.getValue(), dn.getValue() ).replace(',','.');
             this.radio.sendMsg(msg);
         }
         catch (IvyException e){
@@ -288,20 +359,18 @@ public class Modele {
             getDescription();
         }
         else{
-            System.out.println("Description received");
-            ObservableList<Forme2D> oL =FXCollections.observableArrayList(listeTempFormes);
-            this.listeDesFormes.set(oL);
+            System.out.println("Description received:\n"+this.toString());
         }
     }
     public String toString (){
         String res="Modele [\n";
-        for (Forme2D f :listeDesFormes.getValue()){
+        for (Forme2D f :listeDesFormes){
             res += "\t"+f.toString()+"\n";
         }
         return res+"\n\t\t]";
     }
 
-    public SimpleListProperty<Forme2D> getListeDesFormes(){
+    public ArrayList<Forme2D> getListeDesFormes(){
         return listeDesFormes;
     }
 }
