@@ -15,6 +15,7 @@ import fr.dgac.ivy.IvyMessageListener;
 import javafx.geometry.Point3D;
 
 public class Modele {
+    private static Modele modele;
     private ArrayList<Forme2D> listeDesFormes;
     private DoubleProperty mass;
     private DoubleProperty xCentrage;
@@ -49,7 +50,7 @@ public class Modele {
     
     //CONSTRUCTOR
 
-    public Modele(Main r) {
+    private Modele() {
         this.listeDesFormes = new ArrayList<Forme2D>();
         this.xCentrage=new SimpleDoubleProperty(0) ;
         this.vAir=new SimpleDoubleProperty(0) ;
@@ -99,6 +100,13 @@ public class Modele {
             System.exit(42);
         }
         
+    }
+
+    public static Modele getInstance (){
+        if (modele==null){
+            modele = new Modele();
+        }
+        return modele;
     }
 
  //GETTERS AND SETTERS
