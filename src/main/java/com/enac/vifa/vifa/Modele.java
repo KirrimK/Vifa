@@ -74,7 +74,7 @@ public class Modele {
         this.p=new SimpleDoubleProperty(0) ;
         this.q=new SimpleDoubleProperty(0) ;
         this.r=new SimpleDoubleProperty(0) ;
-        this.mass=new SimpleDoubleProperty(0) ;
+        this.mass=new SimpleDoubleProperty(10.0) ;
         this.radio = new Ivy("ViFA_IHM", "ViFA_IHM is ready !", null);
         try{
             this.radio.bindMsg(this.FORCE,(sender, strings) -> {
@@ -412,6 +412,7 @@ public class Modele {
     }
 
     public void getForcesAndMoment (){
+        System.out.println("Waiting for Forces and Moments");
         this.receivedLift=false;
         try {
             Thread.sleep(200);
