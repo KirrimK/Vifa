@@ -33,10 +33,10 @@ public class Main extends Application {
         float depth = 10.0f;
 
         TriangleMesh m = new TriangleMesh();
-        float s = ((float)smallSize) ;
-        float b = ((float)bigSize);
-        float h = ((float)high);
-        float d = ((float)depth);
+        float s = smallSize ;
+        float b = bigSize;
+        float h = high;
+        float d = depth;
 
         //create Points
         m.getPoints().addAll(
@@ -226,17 +226,18 @@ public class Main extends Application {
         Task<Integer> computeTask = new Task<Integer>() {
             @Override
             protected Integer call() throws Exception {
-                synchronized(modele) {
+                synchronized(modele.getListeDesForces()) {
                     modele.getForcesAndMoment();
                 }
                 return 1;
             }
         };
-        descrTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+        computeTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent e){
                 System.out.println("ThreadPrincipal a bien reçu les forces et le moment.");
-                synchronized (modele){
+                synchronized (modele.getListeDesForces()){
+                    System.out.println(modele.getListeDesForces());
                     for(Vecteur3D azerty: modele.getListeDesForces()){
                         vue.getRepereAvion().getChildren().add(azerty);
                     }
