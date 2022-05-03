@@ -166,7 +166,7 @@ public class Main extends Application {
         fuselage.setRotate(90);
         fuselage.setMaterial(new PhongMaterial(Color.GREY));*/
         
-        double[] poly1 = new double[] {0.0,  0.0,  1.4,   0.4,  0.0,  1.8,   4.8,  0.0,  3.8, 0.0,  1.4};
+        double[] poly1 = new double[] {0,0,0, 100,0,0, 0,100,0, 100,100,0, 0,0,100, 100,0,100, 0,100,100, 100,100,100 };
         double[] poly2 = new double[] {10, 0, 1, 0, 50, 2, 60, 60, 3, 70, 10, 4};
         System.out.println(poly1.length);
         List<Integer> triangles = Forme3D.triangulation(poly1);
