@@ -8,6 +8,9 @@ import com.enac.vifa.vifa.vues.Vue3D;
 import earcut4j.Earcut;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Point3D;
 import javafx.scene.*;
 import javafx.scene.control.Button;
@@ -202,7 +205,20 @@ public class Main extends Application {
         group.getChildren().add(repb);
 
         Modele modele = Modele.getInstance();
-        Thread test_th = new Thread(modele::getDescription);
+        Task<Integer> descrTask = new Task<Integer>() {
+            @Override
+            protected Integer call() throws Exception {
+                modele.getDescription();
+                return 1;
+            }
+        };
+        descrTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent e){
+                System.out.println("ThreadPrincipal a bien reçu la descr.");
+            }
+        });
+        Thread test_th = new Thread(descrTask);
         test_th.start();
         return group;
     }
