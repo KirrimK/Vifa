@@ -183,8 +183,6 @@ public class Main extends Application {
         vue.getRepereTerrestre().getChildren().add(testBox);
 
         Group avion = new Group(mvtp,mruder,mhtpr,mhtpl,melevatorr,melevatorl,mwingr,mwingl,maileronr,maileronl);
-        avion.getTransforms().addAll(new Rotate(90, Rotate.X_AXIS), new Rotate(180, Rotate.Z_AXIS));
-        vue.getRepereAvion().getChildren().add(avion);
 
 
         vue.getRepereAvion().getChildren().add(bruh);
@@ -205,6 +203,9 @@ public class Main extends Application {
         group.getChildren().add(repb);
 
         Modele modele = Modele.getInstance();
+        avion.getChildren().addAll(modele.DrawFFS());
+        avion.getTransforms().addAll(new Rotate(90, Rotate.X_AXIS), new Rotate(180, Rotate.Z_AXIS));
+        vue.getRepereAvion().getChildren().add(avion);
         Task<Integer> descrTask = new Task<Integer>() {
             @Override
             protected Integer call() throws Exception {
