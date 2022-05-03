@@ -1,6 +1,7 @@
 package com.enac.vifa.vifa.vues;
 
 import com.enac.vifa.vifa.Modele;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
@@ -33,25 +34,24 @@ public class RepereControllerPane extends VBox {
         psis.valueProperty().addListener(((observableValue, number, t1) -> {
             vue.rotatePsi(number.intValue());
             psil.setText("Psi: "+number.intValue());
-            Modele modele = Modele.getInstance();
-            synchronized (modele){ modele.setPsi(number.doubleValue()); }
+            SimpleDoubleProperty psiprop = Modele.getInstance().getPsiProperty();
+            synchronized (psiprop){ psiprop.set(number.doubleValue()); }
         }));
         phil = new Label("Phi: 0");
         phis = new Slider(-183, 183, 0);
         phis.valueProperty().addListener(((observableValue, number, t1) -> {
             vue.rotatePhi(number.intValue());
             phil.setText("Phi: "+number.intValue());
-            Modele modele = Modele.getInstance();
-            synchronized (modele){ modele.setPhi(number.doubleValue()); }
+            SimpleDoubleProperty phiprop = Modele.getInstance().getPhiProperty();
+            synchronized (phiprop){ phiprop.set(number.doubleValue()); }
         }));
         thetal = new Label("Theta: 0");
         thetas = new Slider(-183, 183, 0);
         thetas.valueProperty().addListener(((observableValue, number, t1) -> {
             vue.rotateTheta(number.intValue());
             thetal.setText("Theta: "+number.intValue());
-            Modele.getInstance().setTheta(number.doubleValue());
-            Modele modele = Modele.getInstance();
-            synchronized (modele){ modele.setTheta(number.doubleValue()); }
+            SimpleDoubleProperty thetaprop = Modele.getInstance().getThetaProperty();
+            synchronized (thetaprop){ thetaprop.set(number.doubleValue()); }
         }));
 
         alphal = new Label("Alpha: 0");
@@ -59,8 +59,8 @@ public class RepereControllerPane extends VBox {
         alphas.valueProperty().addListener(((observableValue, number, t1) -> {
             vue.rotateAlpha(number.intValue());
             alphal.setText("Alpha: "+number.intValue());
-            Modele modele = Modele.getInstance();
-            synchronized (modele){ modele.setAlpha(number.doubleValue()); }
+            SimpleDoubleProperty alphaprop = Modele.getInstance().getAlphaProperty();
+            synchronized (alphaprop){ alphaprop.set(number.doubleValue()); }
         }));
 
         betal = new Label("Beta: 0");
@@ -68,8 +68,8 @@ public class RepereControllerPane extends VBox {
         betas.valueProperty().addListener(((observableValue, number, t1) -> {
             vue.rotateBeta(number.intValue());
             betal.setText("Beta: "+number.intValue());
-            Modele modele = Modele.getInstance();
-            synchronized (modele){ modele.setBeta(number.doubleValue()); }
+            SimpleDoubleProperty betaprop = Modele.getInstance().getBetaProperty();
+            synchronized (betaprop){ betaprop.set(number.doubleValue()); }
         }));
 
         getChildren().addAll(rpl, psil, psis, phil, phis, thetal, thetas, alphal, alphas, betal, betas);
