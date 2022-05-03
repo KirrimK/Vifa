@@ -13,6 +13,7 @@ import fr.dgac.ivy.IvyClient;
 import fr.dgac.ivy.IvyException;
 import fr.dgac.ivy.IvyMessageListener;
 import javafx.geometry.Point3D;
+import javafx.scene.shape.MeshView;
 
 public class Modele {
     private static Modele modele;
@@ -380,5 +381,13 @@ public class Modele {
 
     public ArrayList<Forme2D> getListeDesFormes(){
         return listeDesFormes;
+    }
+
+    public ArrayList<MeshView> DrawFFS() {
+        ArrayList meshList = new ArrayList<MeshView>();
+        for (Forme2D f :this.listeDesFormes) {
+            meshList.add(f.Draw2D());
+        }
+        return meshList;
     }
 }
