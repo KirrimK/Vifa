@@ -24,6 +24,8 @@ public class Vecteur3D extends Group {
     private Cylinder body;
     private MeshView cone;
 
+    private boolean seen;
+
     /**
      *
      * @param nom Le nom de la force ou de l'axe représenté
@@ -45,6 +47,7 @@ public class Vecteur3D extends Group {
         cone.getTransforms().setAll(new Rotate(180, Rotate.Z_AXIS));
         getChildren().add(body);
         getChildren().add(cone);
+        seen = false;
         setOrigineMagnitude(origine, magnitude);
         setOnMouseClicked((mouseEvent) -> {//TODO: temporaire
             Alert test = new Alert(Alert.AlertType.INFORMATION, nom);
@@ -71,6 +74,13 @@ public class Vecteur3D extends Group {
         body.setTranslateY(-2.5);
 
         cone.setTranslateY(magnitude.magnitude()/2);
+        if (Math.abs(magnitude.magnitude()) < 0.0001 && seen) {
+            getChildren().clear();
+            seen = false;
+        } else if (Math.abs(magnitude.magnitude()) >= 0.0001 && (!seen)){
+            getChildren().addAll(body, cone);
+            seen = true;
+        }
         Point3D milieu = origine.midpoint(origine.add(magnitude));
         getTransforms().setAll(
                 new Translate(milieu.getX(), milieu.getY(), milieu.getZ()),
