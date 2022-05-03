@@ -80,11 +80,11 @@ public class Modele {
             this.radio.bindMsg(this.FORCE,(sender, strings) -> {
                 String nom = strings[0];
                 Point3D debut = new Point3D (Double.parseDouble(strings[1]), 
-                                             Double.parseDouble(strings[2]), 
-                                             Double.parseDouble(strings[3]));
+                                             Double.parseDouble(strings[3]),
+                                             Double.parseDouble(strings[2]));
                 Point3D norme = new Point3D (Double.parseDouble(strings[4]), 
-                                             Double.parseDouble(strings[5]), 
-                                             Double.parseDouble(strings[6]));
+                                             Double.parseDouble(strings[6]),
+                                             Double.parseDouble(strings[5]));
                 Color color;
                 switch (strings[7]){
                     case "yellow":
@@ -101,6 +101,9 @@ public class Modele {
                         break;
                     case "brown":
                         color = Color.BROWN;
+                        break;
+                    case "blue":
+                        color = Color.BLUE;
                         break;
                     default:
                         color = Color.GREEN;
