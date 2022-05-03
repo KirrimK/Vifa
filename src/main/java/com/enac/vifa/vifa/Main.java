@@ -232,7 +232,7 @@ public class Main extends Application {
                 return 1;
             }
         };
-        descrTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+        computeTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent e){
                 System.out.println("ThreadPrincipal a bien reçu les forces et le moment.");
