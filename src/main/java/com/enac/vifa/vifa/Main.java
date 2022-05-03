@@ -213,14 +213,11 @@ public class Main extends Application {
                 return 1;
             }
         };
-        descrTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-            @Override
-            public void handle(WorkerStateEvent e){
-                System.out.println("ThreadPrincipal a bien reçu la descr.");
-            }
-        });
+        descrTask.setOnFailed(e -> System.out.println("ThreadDescr a rencontré une erreur"));
+        descrTask.setOnSucceeded(e -> System.out.println("ThreadPrincipal a bien reçu la descr."));
         Thread test_th = new Thread(descrTask);
         test_th.start();
+
         Task<Integer> computeTask = new Task<Integer>() {
             @Override
             protected Integer call() throws Exception {

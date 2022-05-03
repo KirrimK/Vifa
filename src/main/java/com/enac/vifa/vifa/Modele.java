@@ -394,7 +394,7 @@ public class Modele {
             e.printStackTrace();
             System.out.println(e);
         }
-        while ((! this.receivedDrawFFS)&((new Date()).getTime()-temps < 2000) ){
+        while (! this.receivedDrawFFS&((new Date()).getTime()-temps < 15000) ){
             //On attends la fin de la description ou 2 secs
         }
         if (! this.receivedDrawFFS){//on a attendu 2secs, et on n'a pas la description
@@ -404,7 +404,7 @@ public class Modele {
             getDescription();
         }
         else{
-            System.out.println("Description received:\n"+this.toString());
+            System.out.println("Description received");
         }
     }
 
