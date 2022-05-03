@@ -193,12 +193,11 @@ public class Main extends Application {
 
         Button resetb = new Button("RESET");
         resetb.setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7;");
-        resetb.setOnAction((actionEvent -> {
+        resetb.setOnAction((actionEvent) -> {
             repb.reset();
-        }));
+        });
         resetb.setTranslateX(150);
         resetb.setTranslateY(10);
-
 
         group.getChildren().add(camInfo);
         group.getChildren().add(repb);
@@ -225,22 +224,19 @@ public class Main extends Application {
         
         Task<Integer> computeTask = new Task<Integer>() {
             @Override
-            protected Integer call() throws Exception {
+            protected Integer call(){
                 synchronized(modele.getListeDesForces()) {
                     modele.getForcesAndMoment();
                 }
                 return 1;
             }
         };
-        computeTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-            @Override
-            public void handle(WorkerStateEvent e){
-                System.out.println("ThreadPrincipal a bien reçu les forces et le moment.");
-                synchronized (modele.getListeDesForces()){
-                    System.out.println(modele.getListeDesForces());
-                    for(Vecteur3D azerty: modele.getListeDesForces()){
-                        vue.getRepereAvion().getChildren().add(azerty);
-                    }
+
+        computeTask.setOnSucceeded((e) -> {
+            System.out.println("ThreadPrincipal a bien reçu les forces et le moment.");
+            synchronized (modele.getListeDesForces()){
+                for(Vecteur3D azerty: modele.getListeDesForces()){
+                    vue.getRepereAvion().getChildren().add(azerty);
                 }
             }
         });
