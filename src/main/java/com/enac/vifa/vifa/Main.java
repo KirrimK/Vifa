@@ -1,29 +1,20 @@
 package com.enac.vifa.vifa;
 
-import java.util.List;
-
 import com.enac.vifa.vifa.vues.CameraInfoPane;
 import com.enac.vifa.vifa.vues.RepereControllerPane;
 import com.enac.vifa.vifa.vues.Vue3D;
-import earcut4j.Earcut;
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Point3D;
 import javafx.scene.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
-import com.enac.vifa.vifa.Forme3D;
 
 public class Main extends Application {
     public Parent createContent(Scene mainScene){
@@ -183,7 +174,7 @@ public class Main extends Application {
         vue.getRepereTerrestre().getChildren().add(testBox);
 
         Group avion = new Group(mvtp,mruder,mhtpr,mhtpl,melevatorr,melevatorl,mwingr,mwingl,maileronr,maileronl);
-
+        avion.setTranslateX(25);
 
         vue.getRepereAvion().getChildren().add(bruh);
         //vue.getRepereAvion().getChildren().add(fuselage);
