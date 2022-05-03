@@ -47,7 +47,7 @@ public class Vecteur3D extends Group {
         cone.getTransforms().setAll(new Rotate(180, Rotate.Z_AXIS));
         getChildren().add(body);
         getChildren().add(cone);
-        seen = false;
+        seen = true;
         setOrigineMagnitude(origine, magnitude);
         setOnMouseClicked((mouseEvent) -> {//TODO: temporaire
             Alert test = new Alert(Alert.AlertType.INFORMATION, nom);
