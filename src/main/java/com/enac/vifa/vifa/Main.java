@@ -175,7 +175,7 @@ public class Main extends Application {
         vue.getRepereTerrestre().getChildren().add(testBox);
 
         Group avion = new Group(mvtp,mruder,mhtpr,mhtpl,melevatorr,melevatorl,mwingr,mwingl,maileronr,maileronl);
-        avion.setTranslateX(25);
+        //avion.setTranslateX(25);
 
         vue.getRepereAvion().getChildren().add(bruh);
         //vue.getRepereAvion().getChildren().add(fuselage);
