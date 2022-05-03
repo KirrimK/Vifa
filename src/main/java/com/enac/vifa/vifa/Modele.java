@@ -1,22 +1,22 @@
 package com.enac.vifa.vifa;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleListProperty;
+import com.enac.vifa.vifa.formes.Vecteur3D;
+
 import fr.dgac.ivy.Ivy;
 import fr.dgac.ivy.IvyClient;
 import fr.dgac.ivy.IvyException;
-import fr.dgac.ivy.IvyMessageListener;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Point3D;
+import javafx.scene.paint.Color;
 
 public class Modele {
     private static Modele modele;
     private ArrayList<Forme2D> listeDesFormes;
+    private ArrayList<Vecteur3D> listeDesForces;
+    private Point3D momentTotal;
     private SimpleDoubleProperty mass;
     private SimpleDoubleProperty xCentrage;
     private SimpleDoubleProperty vAir;
@@ -36,6 +36,7 @@ public class Modele {
     private SimpleDoubleProperty r;
     private Ivy radio;
     private boolean receivedDrawFFS = false;
+    private boolean receivedLift = false;
     private String BUS = "127.255.255.255:2010";
     
     //      MESSAGES RECEIVED FROM IVY :
@@ -43,6 +44,8 @@ public class Modele {
     private String INIT_FORME_2D_MSG = "^ShapeStart name=(.*)$";
     private String POINT_DE_LA_FORME = "^ShapePoint name=(.*) ptX=(.*) ptY=(.*) ptZ=(.*)$";
     private String FIN_DE_DESCRIPTION = "^Draw ffs$";
+    private String FORCE = "Force name=(.*) applicationX=(.*) applicationY=(.*) applicationZ=(.*) normeX=(.*) normeY=(.*) normeZ=(.*) color=(.*)";
+    private String MOMENT = "Moment name=(.*) normeX=(.*) normeY=(.*) normeZ=(.*)";
 
     //MESSAGES SENT THROUGH IVY :
     private String COMPUTE_DEMND = "StartComputation mass=%f xcg=%f vair=%f psi=%f theta=%f phi=%f alpha=%f betha=%f a0=%f trim=%f dl=%f dm=%f dn=%f dx=%f p=%f q=%f r=%f";
@@ -52,6 +55,8 @@ public class Modele {
 
     private Modele() {
         this.listeDesFormes = new ArrayList<Forme2D>();
+        this.listeDesForces = new ArrayList<Vecteur3D>();
+        this.momentTotal = new Point3D(0, 0, 0);
         this.xCentrage=new SimpleDoubleProperty(0) ;
         this.vAir=new SimpleDoubleProperty(0) ;
         this.psi=new SimpleDoubleProperty(0) ;
@@ -71,25 +76,56 @@ public class Modele {
         this.mass=new SimpleDoubleProperty(0) ;
         this.radio = new Ivy("ViFA_IHM", "ViFA_IHM is ready !", null);
         try{
-        this.radio.bindMsg(this.INIT_FORME_2D_MSG, new IvyMessageListener() {
-            @Override
-            synchronized public void receive(IvyClient client, String[] nomDansTableau) {
-                addForme(nomDansTableau[0]);
-            }
-        });
-        this.radio.bindMsg(this.POINT_DE_LA_FORME, new IvyMessageListener() {
-            @Override
-            public synchronized void receive(IvyClient client, String[] args) {
+            this.radio.bindMsg(this.FORCE,(sender, strings) -> {
+                String nom = strings[0];
+                Point3D debut = new Point3D (Double.parseDouble(strings[1]), 
+                                             Double.parseDouble(strings[2]), 
+                                             Double.parseDouble(strings[3]));
+                Point3D norme = new Point3D (Double.parseDouble(strings[4]), 
+                                             Double.parseDouble(strings[5]), 
+                                             Double.parseDouble(strings[6]));
+                Color color;
+                switch (strings[7]){
+                    case "yellow":
+                        color = Color.YELLOW;
+                        break;
+                    case "red":
+                        color = Color.RED;
+                        break;
+                    case "violet":
+                        color = Color.VIOLET;
+                        break;
+                    case "grey":
+                        color = Color.GREY;
+                        break;
+                    case "brown":
+                        color = Color.BROWN;
+                        break;
+                    default:
+                        color = Color.GREEN;
+                };
+                updateForce(new Vecteur3D(nom, debut, norme, color));
+                if (nom.equals("LiftTotal")){
+                    receivedLift = true;
+                }
+            });
+            this.radio.bindMsg(this.MOMENT, (sender, strings) -> {
+                Point3D moment = new Point3D (Double.parseDouble(strings[1]), 
+                                              Double.parseDouble(strings[2]), 
+                                              Double.parseDouble(strings[3]));
+                setMomentTotal(moment);
+            });
+            this.radio.bindMsg(this.INIT_FORME_2D_MSG, (client, nomDansTableau) -> addForme(nomDansTableau[0]));
+            this.radio.bindMsg(this.POINT_DE_LA_FORME, (client, args) -> {
                 String name = args[0];
                 double x = Double.parseDouble(args[1]);
                 double y = Double.parseDouble(args[2]);
                 double z = Double.parseDouble(args[3]);
                 addPointToForme(name, x, y, z);
-            }
-        });
-        this.radio.bindMsg(this.FIN_DE_DESCRIPTION, (IvyClient client, String[] args) -> {
-            receivedDrawFFS = true;
-        });
+            });
+            this.radio.bindMsg(this.FIN_DE_DESCRIPTION, (IvyClient client, String[] args) -> {
+                receivedDrawFFS = true;
+            });
         // this.radio.bindMsg("(.*)",(IvyClient client, String[] args) -> {
         //     System.out.println(args[0]);
         // });
@@ -357,10 +393,10 @@ public class Modele {
             e.printStackTrace();
             System.out.println(e);
         }
-        while ((! this.receivedDrawFFS)&((new Date()).getTime()-temps < 15000) ){
-            //On attends la fin de la description ou 10 secs
+        while ((! this.receivedDrawFFS)&((new Date()).getTime()-temps < 2000) ){
+            //On attends la fin de la description ou 2 secs
         }
-        if (! this.receivedDrawFFS){//on a attendu 10secs, et on n'a pas la description
+        if (! this.receivedDrawFFS){//on a attendu 2secs, et on n'a pas la description
             IvyException e = new IvyException("Time out de l'attente de description");
             e.printStackTrace();
             System.out.println(e);
@@ -370,6 +406,38 @@ public class Modele {
             System.out.println("Description received:\n"+this.toString());
         }
     }
+
+    public void getForcesAndMoment (){
+        this.receivedLift=false;
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e1) {
+        }
+        long temps = (new Date()).getTime();
+        try {
+            String msg=String.format(this.COMPUTE_DEMND,mass.getValue(), xCentrage.getValue(), 
+                vAir.getValue(), psi.getValue(), theta.getValue(), phi.getValue(), alpha.getValue(), beta.getValue(), 
+                a0.getValue(), trim.getValue(), dl.getValue(), dm.getValue(), dn.getValue(), dx.getValue(), p.getValue(),
+                q.getValue(), r.getValue()).replace(',','.');
+            this.radio.sendMsg(msg);
+        }
+        catch (IvyException e){
+            System.out.println(e);
+        }
+        while (! receivedLift&((new Date()).getTime()-temps < 15000)){
+
+        }
+        if (! this.receivedLift){//on a attendu 2secs, et on n'a pas les résulatats
+        IvyException e = new IvyException("Time out de l'attente des forces et moments");
+        System.out.println(e);
+        getForcesAndMoment();
+    }
+    else{
+        System.out.println("Forces and moment received");
+    }
+    }
+
+
     public String toString (){
         String res="Modele [\n";
         for (Forme2D f :listeDesFormes){
@@ -380,5 +448,33 @@ public class Modele {
 
     public ArrayList<Forme2D> getListeDesFormes(){
         return listeDesFormes;
+    }
+
+    public ArrayList<Vecteur3D> getListeDesForces() {
+        return listeDesForces;
+    }
+
+    public void updateForce(Vecteur3D force) {
+        String nom = force.getNom();
+        boolean trouvee = false;
+        for (Vecteur3D f:listeDesForces){
+            if (f.getNom().equals(nom)){
+                f.setOrigineMagnitude(force.getOrigine(), force.getMagnitude());
+                f.setCouleur(force.getCouleur());
+                trouvee = true;
+                break;
+            }
+        }
+        if (! trouvee){
+            listeDesForces.add(force);
+        }
+    }
+
+    public Point3D getMomentTotal() {
+        return momentTotal;
+    }
+
+    public void setMomentTotal(Point3D momentTotal) {
+        this.momentTotal = momentTotal;
     }
 }

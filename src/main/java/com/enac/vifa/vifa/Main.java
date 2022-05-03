@@ -220,6 +220,21 @@ public class Main extends Application {
         });
         Thread test_th = new Thread(descrTask);
         test_th.start();
+        Task<Integer> computeTask = new Task<Integer>() {
+            @Override
+            protected Integer call() throws Exception {
+                modele.getForcesAndMoment();
+                return 1;
+            }
+        };
+        descrTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent e){
+                System.out.println("ThreadPrincipal a bien reçu les forces et le moment.");
+            }
+        });
+        Thread test_th2 = new Thread(computeTask);
+        test_th2.start();
         return group;
     }
     
