@@ -11,6 +11,7 @@ import fr.dgac.ivy.IvyException;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Point3D;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.MeshView;
 
 public class Modele {
     private static Modele modele;
@@ -476,5 +477,13 @@ public class Modele {
 
     public void setMomentTotal(Point3D momentTotal) {
         this.momentTotal = momentTotal;
+    }
+
+    public ArrayList<MeshView> DrawFFS() {
+        ArrayList<MeshView> meshList = new ArrayList<MeshView>();
+        for (Forme2D f :this.listeDesFormes) {
+            meshList.add(f.Draw2D());
+        }
+        return meshList;
     }
 }
