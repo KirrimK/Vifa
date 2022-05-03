@@ -1,26 +1,31 @@
 package com.enac.vifa.vifa.vues;
 
-import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 public class CameraInfoPane extends VBox {
+
+    private Vue3D vue;
+    private Label xrotl;
+    private Label yrotl;
+    private Label zooml;
+
     public CameraInfoPane(Vue3D vue){
         super();
         //Box infos débug Caméra
-
+        this.vue = vue;
         Label cml = new Label("Camera:");
-        Label xrotl = new Label("X Rot: "+vue.getXrotprop());
+        xrotl = new Label("X Rot: "+vue.getXrotprop());
         vue.xrotpropProperty().addListener(((observableValue, number, t1) -> {
             xrotl.setText("X Rot: "+number);
         }));
-        Label yrotl = new Label("Y Rot: "+vue.getYrotprop());
+        yrotl = new Label("Y Rot: "+vue.getYrotprop());
         vue.yrotpropProperty().addListener(((observableValue, number, t1) -> {
             yrotl.setText("Y Rot: "+number);
         }));
-        Label zooml = new Label("Zoom: "+vue.getZoomprop());
+        zooml = new Label("Zoom: "+vue.getZoomprop());
         vue.zoompropProperty().addListener(((observableValue, number, t1) -> {
             zooml.setText("Zoom: "+number);
         }));
@@ -34,28 +39,28 @@ public class CameraInfoPane extends VBox {
         topb.setOnAction((actionEvent -> {
             vue.rotateCamera(-90, 0, vue.getZoomprop());
             xrotl.setText("X Rot: -90.0");
-            yrotl.setText("X Rot: 0.0");
+            yrotl.setText("Y Rot: 0.0");
         }));
         Button sideb = new Button("Side");
         sideb.setPrefSize(50, 30);
         sideb.setOnAction((actionEvent -> {
             vue.rotateCamera(0, 0, vue.getZoomprop());
             xrotl.setText("X Rot: 0.0");
-            yrotl.setText("X Rot: 0.0");
+            yrotl.setText("Y Rot: 0.0");
         }));
         Button backb = new Button("Back");
         backb.setPrefSize(50, 30);
         backb.setOnAction((actionEvent -> {
             vue.rotateCamera(0, 90, vue.getZoomprop());
             xrotl.setText("X Rot: 0.0");
-            yrotl.setText("X Rot: 90.0");
+            yrotl.setText("Y Rot: 90.0");
         }));
         Button troisquartb = new Button("3/4");
         troisquartb.setPrefSize(50, 30);
         troisquartb.setOnAction((actionEvent -> {
             vue.rotateCamera(-27, -57, vue.getZoomprop());
             xrotl.setText("X Rot: -27.0");
-            yrotl.setText("X Rot: -57.0");
+            yrotl.setText("Y Rot: -57.0");
         }));
 
         GridPane buttonp = new GridPane();
@@ -66,4 +71,5 @@ public class CameraInfoPane extends VBox {
 
         getChildren().add(buttonp);
     }
+
 }

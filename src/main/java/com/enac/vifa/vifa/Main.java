@@ -199,8 +199,18 @@ public class Main extends Application {
         camInfo.setTranslateX(10);
         camInfo.setTranslateY(10);
 
+        Button resetb = new Button("RESET");
+        resetb.setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7;");
+        resetb.setOnAction((actionEvent -> {
+            repb.reset();
+        }));
+        resetb.setTranslateX(150);
+        resetb.setTranslateY(10);
+
+
         group.getChildren().add(camInfo);
         group.getChildren().add(repb);
+        group.getChildren().add(resetb);
 
         Modele modele = Modele.getInstance();
         avion.getChildren().addAll(modele.DrawFFS());
@@ -220,7 +230,7 @@ public class Main extends Application {
             }
         });
         Thread test_th = new Thread(descrTask);
-        test_th.start();
+        //test_th.start();
         return group;
     }
     

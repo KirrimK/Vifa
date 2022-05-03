@@ -25,10 +25,16 @@ public class Vue3D extends SubScene {
     private FlecheArrondie3D apsi;
     private FlecheArrondie3D atheta;
 
+    private FlecheArrondie3D aalpha;
+    private FlecheArrondie3D abeta;
+
     //camera properties
-    private SimpleDoubleProperty xrotprop = new SimpleDoubleProperty(-30);
-    private SimpleDoubleProperty yrotprop = new SimpleDoubleProperty(-90-45);
-    private SimpleDoubleProperty zoomprop = new SimpleDoubleProperty(500);
+    private double xrotdef = -30;
+    private SimpleDoubleProperty xrotprop = new SimpleDoubleProperty(xrotdef);
+    private double yrotdef = -135;
+    private SimpleDoubleProperty yrotprop = new SimpleDoubleProperty(yrotdef);
+    private double zoomdef = 500;
+    private SimpleDoubleProperty zoomprop = new SimpleDoubleProperty(zoomdef);
 
     private double ZOOM_MIN_VALUE = 25;
 
@@ -97,10 +103,21 @@ public class Vue3D extends SubScene {
         repereAvion.getChildren().add(avy);
         repereAvion.getChildren().add(avz);
 
+        aalpha = new FlecheArrondie3D("alpha", 100, 0, Color.LIGHTBLUE);
+
+        abeta = new FlecheArrondie3D("beta", 100, 0, Color.LIGHTBLUE);
+        abeta.getTransforms().setAll(
+                new Rotate(90, Rotate.X_AXIS)
+        );
+
         repereTerrestre.getChildren().add(repereAvion);
+
+        repereAvion.getChildren().add(aalpha);
+
         repereAeroPart = new Group();
         repereAero = new Group();
 
+        repereAeroPart.getChildren().add(abeta);
         repereAeroPart.getChildren().add(repereAero);
 
         Vecteur3D aerx = new Vecteur3D("x aéro", new Point3D(100, 0, 0), new Point3D(25, 0, 0), aerColor);
@@ -176,6 +193,10 @@ public class Vue3D extends SubScene {
         zoomprop.set(zoom);
     }
 
+    public void cameraDefault(){
+        rotateCamera(xrotdef, yrotdef, zoomdef);
+    }
+
     public void rotateRepereAvion(double psi, double phi, double theta){
         repereAvion.getTransforms().setAll(
                 new Rotate(psi, Rotate.Y_AXIS),
@@ -215,10 +236,12 @@ public class Vue3D extends SubScene {
 
     public void rotateAlpha(double alpha){
         repereAeroPart.getTransforms().set(0, new Rotate(alpha, Rotate.Z_AXIS));
+        aalpha.setEndAngle(alpha);
     }
 
     public void rotateBeta(double beta){
         repereAero.getTransforms().set(0, new Rotate(-beta, Rotate.Y_AXIS));
+        abeta.setEndAngle(beta);
     }
 
     public double getXrotprop() {
