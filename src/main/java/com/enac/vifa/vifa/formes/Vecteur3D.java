@@ -15,7 +15,7 @@ import javafx.scene.transform.Translate;
 import org.fxyz3d.shapes.primitives.ConeMesh;
 
 public class Vecteur3D extends Group {
-    private static ConeMesh jenaimarre = new ConeMesh(64, 5, 10);
+    private static ConeMesh jenaimarre = new ConeMesh(64, 3, 5);
 
     private String nom;
     private Point3D origine, magnitude;
@@ -24,12 +24,19 @@ public class Vecteur3D extends Group {
     private Cylinder body;
     private MeshView cone;
 
+    /**
+     *
+     * @param nom Le nom de la force ou de l'axe représenté
+     * @param origine Le point d'origine du vecteur
+     * @param magnitude La magnitude du vecteur
+     * @param couleur La couleur du vecteur
+     */
     public Vecteur3D(String nom, Point3D origine, Point3D magnitude, Color couleur){
         super();
         this.couleur = couleur;
         this.nom = nom;
         Material materiau = new PhongMaterial(couleur);
-        body = new Cylinder(3, magnitude.magnitude()-10);
+        body = new Cylinder(1, magnitude.magnitude()-5);
 
         body.setMaterial(materiau);
         cone = new MeshView();
@@ -60,8 +67,8 @@ public class Vecteur3D extends Group {
     public void setOrigineMagnitude(Point3D origine, Point3D magnitude) {
         this.origine = origine;
         this.magnitude = magnitude;
-        body.setHeight(magnitude.magnitude()-10);
-        body.setTranslateY(-5);
+        body.setHeight(magnitude.magnitude()-5);
+        body.setTranslateY(-2.5);
 
         cone.setTranslateY(magnitude.magnitude()/2);
         Point3D milieu = origine.midpoint(origine.add(magnitude));

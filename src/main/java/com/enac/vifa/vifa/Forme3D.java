@@ -7,7 +7,10 @@ package com.enac.vifa.vifa;
 import earcut4j.Earcut;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
+import javafx.scene.shape.MeshView;
+import javafx.scene.shape.TriangleMesh;
 
 /**
  *
@@ -45,11 +48,18 @@ public Forme3D(String nom) {
     public void addPoint (Point3D p){
         this.contour.add(p);
     }
+    
+    public MeshView Draw3D(double[] polygon) {
+        
+        
+        List<Integer> triangles = Earcut.earcut(polygon, null,3);
+        TriangleMesh meshtr = new TriangleMesh();
+        MeshView shape3D = new MeshView(meshtr);
+        return shape3D;
+        
+        
+    }
    
     
-    static public List<Integer> triangulation(double[] polygon){
-        List<Integer> triangles = Earcut.earcut(polygon, null,3);
-
-        return triangles;
+    
     }
-}

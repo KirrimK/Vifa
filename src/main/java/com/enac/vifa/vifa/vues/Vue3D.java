@@ -1,5 +1,6 @@
 package com.enac.vifa.vifa.vues;
 
+import com.enac.vifa.vifa.formes.FlecheArrondie3D;
 import com.enac.vifa.vifa.formes.Vecteur3D;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Point3D;
@@ -17,12 +18,23 @@ public class Vue3D extends SubScene {
     private PerspectiveCamera camera = new PerspectiveCamera(true);
     private Group repereTerrestre;
     private Group repereAvion;
+    private Group repereAeroPart;
     private Group repereAero;
 
+    private FlecheArrondie3D aphi;
+    private FlecheArrondie3D apsi;
+    private FlecheArrondie3D atheta;
+
+    private FlecheArrondie3D aalpha;
+    private FlecheArrondie3D abeta;
+
     //camera properties
-    private SimpleDoubleProperty xrotprop = new SimpleDoubleProperty(-30);
-    private SimpleDoubleProperty yrotprop = new SimpleDoubleProperty(-90-45);
-    private SimpleDoubleProperty zoomprop = new SimpleDoubleProperty(500);
+    private double xrotdef = -30;
+    private SimpleDoubleProperty xrotprop = new SimpleDoubleProperty(xrotdef);
+    private double yrotdef = -135;
+    private SimpleDoubleProperty yrotprop = new SimpleDoubleProperty(yrotdef);
+    private double zoomdef = 500;
+    private SimpleDoubleProperty zoomprop = new SimpleDoubleProperty(zoomdef);
 
     private double ZOOM_MIN_VALUE = 25;
 
@@ -53,36 +65,70 @@ public class Vue3D extends SubScene {
         Color avColor = Color.WHITE;
         Color aerColor = Color.BLUE;
 
-        Vecteur3D trx = new Vecteur3D("x terrestre", new Point3D(300, 0, 0), new Point3D(100, 0, 0), terrColor);
-        Vecteur3D trz = new Vecteur3D("z terrestre", new Point3D(0, 300, 0), new Point3D(0, 100, 0), terrColor);
-        Vecteur3D try_ = new Vecteur3D("y terrestre", new Point3D(0, 0, 300), new Point3D(0, 0, 100), terrColor);
+        //repère terrestre
+        Vecteur3D trx = new Vecteur3D("x terrestre", new Point3D(50, 0, 0), new Point3D(25, 0, 0), terrColor);
+        Vecteur3D trz = new Vecteur3D("z terrestre", new Point3D(0, 50, 0), new Point3D(0, 25, 0), terrColor);
+        Vecteur3D try_ = new Vecteur3D("y terrestre", new Point3D(0, 0, 50), new Point3D(0, 0, 25), terrColor);
 
         repereTerrestre.getChildren().add(trx);
         repereTerrestre.getChildren().add(try_);
         repereTerrestre.getChildren().add(trz);
 
+        //angles de rotation du repère terrestre
+        apsi = new FlecheArrondie3D("psi", 75, 0, Color.GRAY);
+        apsi.getTransforms().setAll(
+                new Rotate(-90, Rotate.X_AXIS)
+        );
+        aphi = new FlecheArrondie3D("phi", 75, 0, Color.GRAY);
+        aphi.getTransforms().setAll(
+                new Rotate(0, Rotate.Y_AXIS)
+        );
+        atheta = new FlecheArrondie3D("theta", 75, 0, Color.GRAY);
+        atheta.getTransforms().setAll(
+                new Rotate(-90, Rotate.Y_AXIS),
+                new Rotate(0, Rotate.X_AXIS)
+        );
+
+        repereTerrestre.getChildren().add(aphi);
+        repereTerrestre.getChildren().add(apsi);
+        repereTerrestre.getChildren().add(atheta);
+
         repereAvion = new Group();
 
-        Vecteur3D avx = new Vecteur3D("x avion", new Point3D(400, 0, 0), new Point3D(100, 0, 0), avColor);
-        Vecteur3D avz = new Vecteur3D("z avion", new Point3D(0, 400, 0), new Point3D(0, 100, 0), avColor);
-        Vecteur3D avy = new Vecteur3D("y avion", new Point3D(0, 0, 400), new Point3D(0, 0, 100), avColor);
+        Vecteur3D avx = new Vecteur3D("x avion", new Point3D(75, 0, 0), new Point3D(25, 0, 0), avColor);
+        Vecteur3D avz = new Vecteur3D("z avion", new Point3D(0, 75, 0), new Point3D(0, 25, 0), avColor);
+        Vecteur3D avy = new Vecteur3D("y avion", new Point3D(0, 0, 75), new Point3D(0, 0, 25), avColor);
 
         repereAvion.getChildren().add(avx);
         repereAvion.getChildren().add(avy);
         repereAvion.getChildren().add(avz);
 
+        aalpha = new FlecheArrondie3D("alpha", 100, 0, Color.LIGHTBLUE);
+
+        abeta = new FlecheArrondie3D("beta", 100, 0, Color.LIGHTBLUE);
+        abeta.getTransforms().setAll(
+                new Rotate(90, Rotate.X_AXIS)
+        );
+
         repereTerrestre.getChildren().add(repereAvion);
+
+        repereAvion.getChildren().add(aalpha);
+
+        repereAeroPart = new Group();
         repereAero = new Group();
 
-        Vecteur3D aerx = new Vecteur3D("x aéro", new Point3D(500, 0, 0), new Point3D(100, 0, 0), aerColor);
-        Vecteur3D aerz = new Vecteur3D("z aéro", new Point3D(0, 500, 0), new Point3D(0, 100, 0), aerColor);
-        Vecteur3D aery = new Vecteur3D("y aéro", new Point3D(0, 0, 500), new Point3D(0, 0, 100), aerColor);
+        repereAeroPart.getChildren().add(abeta);
+        repereAeroPart.getChildren().add(repereAero);
+
+        Vecteur3D aerx = new Vecteur3D("x aéro", new Point3D(100, 0, 0), new Point3D(25, 0, 0), aerColor);
+        Vecteur3D aerz = new Vecteur3D("z aéro", new Point3D(0, 100, 0), new Point3D(0, 25, 0), aerColor);
+        Vecteur3D aery = new Vecteur3D("y aéro", new Point3D(0, 0, 100), new Point3D(0, 0, 25), aerColor);
 
         repereAero.getChildren().add(aerx);
         repereAero.getChildren().add(aery);
         repereAero.getChildren().add(aerz);
 
-        repereAvion.getChildren().add(repereAero);
+        repereAvion.getChildren().add(repereAeroPart);
 
         camera.setFarClip(5000.0f);
 
@@ -147,38 +193,55 @@ public class Vue3D extends SubScene {
         zoomprop.set(zoom);
     }
 
+    public void cameraDefault(){
+        rotateCamera(xrotdef, yrotdef, zoomdef);
+    }
+
     public void rotateRepereAvion(double psi, double phi, double theta){
         repereAvion.getTransforms().setAll(
                 new Rotate(psi, Rotate.Y_AXIS),
                 new Rotate(-phi, Rotate.Z_AXIS),
                 new Rotate(theta, Rotate.X_AXIS));
+        apsi.setEndAngle(-psi);
+        aphi.setEndAngle(phi);
+        atheta.setEndAngle(-theta);
+        aphi.getTransforms().set(0, new Rotate(psi, Rotate.Y_AXIS));
+        atheta.getTransforms().set(0, new Rotate(-90+psi, Rotate.Y_AXIS));
+        atheta.getTransforms().set(1, new Rotate(-phi, Rotate.X_AXIS));
     }
 
     public void rotatePsi(double psi){
         repereAvion.getTransforms().set(0, new Rotate(psi, Rotate.Y_AXIS));
+        apsi.setEndAngle(psi);
+        aphi.getTransforms().set(0, new Rotate(psi, Rotate.Y_AXIS));
+        atheta.getTransforms().set(0, new Rotate(-90+psi, Rotate.Y_AXIS));
     }
 
     public void rotatePhi(double phi){
         repereAvion.getTransforms().set(1, new Rotate(-phi, Rotate.Z_AXIS));
+        aphi.setEndAngle(-phi);
+        atheta.getTransforms().set(1, new Rotate(-phi, Rotate.X_AXIS));
     }
 
     public void rotateTheta(double theta){
-        repereAvion.getTransforms().set(0, new Rotate(theta, Rotate.X_AXIS));
+        repereAvion.getTransforms().set(2, new Rotate(theta, Rotate.X_AXIS));
+        atheta.setEndAngle(-theta);
     }
 
     public void rotateRepereAero(double alpha, double beta){
         //vérifier les signes
-        repereAero.getTransforms().setAll(
-                new Rotate(-beta, Rotate.Y_AXIS),
-                new Rotate(alpha, Rotate.Z_AXIS));
+        repereAero.getTransforms().setAll(new Rotate(-beta, Rotate.Y_AXIS));
+        repereAeroPart.getTransforms().setAll(new Rotate(alpha, Rotate.Z_AXIS));
     }
 
     public void rotateAlpha(double alpha){
-        repereAero.getTransforms().set(1, new Rotate(alpha, Rotate.Z_AXIS));
+        repereAeroPart.getTransforms().set(0, new Rotate(alpha, Rotate.Z_AXIS));
+        aalpha.setEndAngle(alpha);
     }
 
     public void rotateBeta(double beta){
         repereAero.getTransforms().set(0, new Rotate(-beta, Rotate.Y_AXIS));
+        abeta.setEndAngle(beta);
     }
 
     public double getXrotprop() {
