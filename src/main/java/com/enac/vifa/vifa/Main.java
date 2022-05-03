@@ -1,5 +1,6 @@
 package com.enac.vifa.vifa;
 
+import com.enac.vifa.vifa.formes.Vecteur3D;
 import com.enac.vifa.vifa.vues.CameraInfoPane;
 import com.enac.vifa.vifa.vues.RepereControllerPane;
 import com.enac.vifa.vifa.vues.Vue3D;
@@ -225,7 +226,9 @@ public class Main extends Application {
         Task<Integer> computeTask = new Task<Integer>() {
             @Override
             protected Integer call() throws Exception {
-                modele.getForcesAndMoment();
+                synchronized(modele) {
+                    modele.getForcesAndMoment();
+                }
                 return 1;
             }
         };
@@ -233,6 +236,11 @@ public class Main extends Application {
             @Override
             public void handle(WorkerStateEvent e){
                 System.out.println("ThreadPrincipal a bien reçu les forces et le moment.");
+                synchronized (modele){
+                    for(Vecteur3D azerty: modele.getListeDesForces()){
+                        vue.getRepereAvion().getChildren().add(azerty);
+                    }
+                }
             }
         });
         Thread test_th2 = new Thread(computeTask);
