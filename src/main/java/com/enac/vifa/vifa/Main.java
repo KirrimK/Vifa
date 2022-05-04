@@ -2,6 +2,7 @@ package com.enac.vifa.vifa;
 
 import com.enac.vifa.vifa.formes.Vecteur3D;
 import com.enac.vifa.vifa.vues.CameraInfoPane;
+import com.enac.vifa.vifa.vues.GouverneControllerPane;
 import com.enac.vifa.vifa.vues.RepereControllerPane;
 import com.enac.vifa.vifa.vues.Vue3D;
 import javafx.application.Application;
@@ -191,10 +192,15 @@ public class Main extends Application {
         camInfo.setTranslateX(10);
         camInfo.setTranslateY(10);
 
+        GouverneControllerPane gouvCtl = new GouverneControllerPane();
+        gouvCtl.setTranslateX(250);
+        gouvCtl.setTranslateY(10);
+
         Button resetb = new Button("RESET");
         resetb.setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7;");
         resetb.setOnAction((actionEvent) -> {
             repb.reset();
+            gouvCtl.reset();
         });
         resetb.setTranslateX(150);
         resetb.setTranslateY(10);
@@ -202,6 +208,7 @@ public class Main extends Application {
         group.getChildren().add(camInfo);
         group.getChildren().add(repb);
         group.getChildren().add(resetb);
+        group.getChildren().add(gouvCtl);
 
         Modele modele = Modele.getInstance();
         avion.getChildren().addAll(modele.DrawFFS());
