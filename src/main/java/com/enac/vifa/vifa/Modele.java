@@ -12,6 +12,8 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Point3D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.MeshView;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 
 public class Modele {
     private static Modele modele;
@@ -38,6 +40,8 @@ public class Modele {
     private Ivy radio;
     private boolean receivedDrawFFS = false;
     private boolean receivedLift = false;
+    private Service<Void> descriptionService;
+    private Service<Void> getForcesMomentService;
     private String BUS = "127.255.255.255:2010";
     
     //      MESSAGES RECEIVED FROM IVY :
@@ -139,7 +143,31 @@ public class Modele {
             System.out.println(e);
             System.exit(42);
         }
-        
+        this.descriptionService = new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void> (){
+                    @Override
+                    protected Void call() throws Exception {
+                        getDescription();
+                        return null;
+                    }
+                };
+            }
+        };
+        this.getForcesMomentService = new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void> (){
+                    @Override
+                    protected Void call() throws Exception {
+                        getForcesAndMoment();
+                        return null;
+                    }
+                };
+            }
+        };
+
     }
 
     public static Modele getInstance (){
