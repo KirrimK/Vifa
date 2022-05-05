@@ -14,7 +14,6 @@ import javafx.scene.shape.TriangleMesh;
 public class Forme2D {
     private String nom;
     private ArrayList<Point3D> contour;
-    private PhongMaterial color;
 
     public Forme2D(String nom) {
         this.nom = nom;
@@ -28,17 +27,9 @@ public class Forme2D {
     public ArrayList<Point3D> getContour() {
         return contour;
     }
- 
-    public PhongMaterial getColor() {
-        return color;
-    }
 
     public void setNom(String nom) {
         this.nom = nom;
-    }
-
-    public void setColor(PhongMaterial color) {
-        this.color = color;
     }
 
     @Override
@@ -120,7 +111,6 @@ public class Forme2D {
         }
         MeshView mv = new MeshView(m);
         mv.setCullFace(CullFace.NONE);
-        mv.setMaterial(this.color);
         return mv;
     }
 }
