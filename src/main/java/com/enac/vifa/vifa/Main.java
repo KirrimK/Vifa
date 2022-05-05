@@ -22,45 +22,6 @@ public class Main extends Application {
     public Parent createContent(Scene mainScene){
         // Box
         Box centerBox = new Box(1, 1, 1);
-        float smallSize = 40.0f;
-        float bigSize = 60.0f;
-        float high = 30.0f;
-        float depth = 10.0f;
-
-        TriangleMesh m = new TriangleMesh();
-        float s = smallSize ;
-        float b = bigSize;
-        float h = high;
-        float d = depth;
-
-        //create Points
-        m.getPoints().addAll(
-                -s/2 , -h/2 ,  d/2,	// A = 0
-                s/2 , -h/2 ,  d/2,	// B = 1
-                -b/2 ,  h/2 ,  d/2,	// C = 2
-                b/2 ,  h/2 ,  d/2,	// D = 3
-                -s/2 , -h/2 , -d/2,	// E = 4
-                s/2 , -h/2 , -d/2,	// F = 5
-                -b/2 ,  h/2 , -d/2,	// G = 6
-                b/2 ,  h/2 , -d/2	// H = 7
-        );
-
-        m.getTexCoords().addAll(0,0);
-
-        m.getFaces().addAll(
-                0 , 0 , 1 , 0 , 3 , 0 ,		// A-B-D
-                0 , 0 , 3 , 0 , 2 , 0 , 	// A-D-C
-                0 , 0 , 2 , 0 , 6 , 0 ,		// A-C-G
-                0 , 0 , 6 , 0 , 4 , 0 , 	// A-G-E
-                0 , 0 , 4 , 0 , 1 , 0 ,		// A-E-B
-                1 , 0 , 4 , 0 , 5 , 0 , 	// B-E-F
-                1 , 0 , 5 , 0 , 7 , 0 ,		// B-F-H
-                1 , 0 , 7 , 0 , 3 , 0 ,		// B-H-D
-                3 , 0 , 7 , 0 , 6 , 0 ,		// D-H-G
-                3 , 0 , 6 , 0 , 2 , 0 ,		// D-G-C
-                6 , 0 , 7 , 0 , 5 , 0 ,		// G-H-F
-                6 , 0 , 5 , 0 , 4 , 0		// G-F-E
-        );
 
         Group group = new Group();
         Vue3D vue = new Vue3D(mainScene, new Group());
