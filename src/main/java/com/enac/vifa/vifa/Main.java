@@ -107,7 +107,7 @@ public class Main extends Application {
         group.getChildren().add(gouvCtl);
 
         Modele modele = Modele.getInstance();
-        Group avion = new Group();
+        Group avion = new Group(new AmbientLight(Color.WHITESMOKE));
         avion.getTransforms().addAll(new Rotate(90, Rotate.X_AXIS), new Rotate(180, Rotate.Z_AXIS));
         vue.getRepereAvion().getChildren().add(avion);
         Task<Integer> descrTask = new Task<Integer>() {
