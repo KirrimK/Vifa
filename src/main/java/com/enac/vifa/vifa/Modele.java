@@ -56,7 +56,9 @@ public class Modele {
     //MESSAGES SENT THROUGH IVY :
     private String COMPUTE_DEMND = "StartComputation mass=%f xcg=%f vair=%f psi=%f theta=%f phi=%f alpha=%f betha=%f a0=%f trim=%f dl=%f dm=%f dn=%f dx=%f p=%f q=%f r=%f";
     private String DEMANDE_DESCR = "StartGettingShapes mass=%f xcg=%f vair=%f psi=%f theta=%f phi=%f alpha=%f betha=%f a0=%f trim=%f dl=%f dm=%f dn=%f";
-    
+
+    private static double VECTOR_SCALING = 10;
+
     //CONSTRUCTOR
 
     private Modele() {
@@ -87,9 +89,9 @@ public class Modele {
                 Point3D debut = new Point3D (Double.parseDouble(strings[1]), 
                                              Double.parseDouble(strings[3]),
                                              Double.parseDouble(strings[2]));
-                Point3D norme = new Point3D (Double.parseDouble(strings[4]), 
-                                             Double.parseDouble(strings[6]),
-                                             Double.parseDouble(strings[5]));
+                Point3D norme = new Point3D (Double.parseDouble(strings[4])/VECTOR_SCALING,
+                                             Double.parseDouble(strings[6])/VECTOR_SCALING,
+                                             Double.parseDouble(strings[5])/VECTOR_SCALING);
                 Color color;
                 switch (strings[7]){
                     case "yellow":
