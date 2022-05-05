@@ -1,5 +1,6 @@
 package com.enac.vifa.vifa.vues;
 
+import com.enac.vifa.vifa.Modele;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -22,7 +23,10 @@ public class GouverneControllerPane extends GridPane {
         prof = new Slider(-93, 93, 0);
         prof.valueProperty().addListener(((observableValue, number, t1) -> {
             profInfo.setText("Profondeur: "+number.intValue());
-            //add control code
+            Modele mod = Modele.getInstance();
+            synchronized(mod.getDmProperty()){
+                mod.getDmProperty().set(Math.toRadians(number.doubleValue()));
+            }
         }));
         setRowIndex(prof, 0);
         setColumnIndex(prof, 0);
@@ -32,7 +36,10 @@ public class GouverneControllerPane extends GridPane {
         dir = new Slider(-93, 93, 0);
         dir.valueProperty().addListener(((observableValue, number, t1) -> {
             dirInfo.setText("Direction: "+number.intValue());
-            //add control code
+            Modele mod = Modele.getInstance();
+            synchronized(mod.getDnProperty()){
+                mod.getDnProperty().set(Math.toRadians(number.doubleValue()));
+            }
         }));
         setRowIndex(dir, 1);
         setColumnIndex(dir, 1);
@@ -42,7 +49,10 @@ public class GouverneControllerPane extends GridPane {
         ailerons = new Slider(-93, 93, 0);
         ailerons.valueProperty().addListener(((observableValue, number, t1) -> {
             ailInfo.setText("Ailerons: "+number.intValue());
-            //add control code
+            Modele mod = Modele.getInstance();
+            synchronized(mod.getDlProperty()){
+                mod.getDlProperty().set(Math.toRadians(number.doubleValue()));
+            }
         }));
         setRowIndex(ailerons, 0);
         setColumnIndex(ailerons, 2);
