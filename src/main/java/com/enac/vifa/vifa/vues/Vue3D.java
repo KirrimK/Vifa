@@ -57,7 +57,7 @@ public class Vue3D extends SubScene {
         super(repereTerrestreVide, 100.0, 100.0, true, SceneAntialiasing.BALANCED);
         this.heightProperty().bind(mainScene.heightProperty());
         this.widthProperty().bind(mainScene.widthProperty());
-        setFill(Color.GRAY);
+        setFill(Color.DARKGREY);
 
         this.repereTerrestre = repereTerrestreVide;
 

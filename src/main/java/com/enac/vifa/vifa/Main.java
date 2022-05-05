@@ -21,13 +21,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
     public Parent createContent(Scene mainScene){
         // Box
-        Box testBox = new Box(5, 0, 5);
-        testBox.setMaterial(new PhongMaterial(Color.RED));
-
-        Cylinder bruh = new Cylinder(5, 0, 6);
-        bruh.setMaterial(new PhongMaterial(Color.BLUE));
-        bruh.setTranslateY(5);
-
+        Box centerBox = new Box(1, 1, 1);
         float smallSize = 40.0f;
         float bigSize = 60.0f;
         float high = 30.0f;
@@ -71,14 +65,8 @@ public class Main extends Application {
         Group group = new Group();
         Vue3D vue = new Vue3D(mainScene, new Group());
         group.getChildren().add(vue);
-        vue.getRepereTerrestre().getChildren().add(testBox);
+        vue.getRepereTerrestre().getChildren().add(centerBox);
         // avion.setTranslateX(25);
-
-        vue.getRepereAvion().getChildren().add(bruh);
-        //vue.getRepereAvion().getChildren().add(fuselage);
-
-        //vue.rotateRepereAvion(10, 10, 10);
-        //vue.rotateRepereAero(10, 10);
 
         RepereControllerPane repb = new RepereControllerPane(vue);
         repb.setTranslateY(150);
