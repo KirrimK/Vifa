@@ -2,6 +2,7 @@ package com.enac.vifa.vifa;
 
 import earcut4j.Earcut;
 import java.util.ArrayList;
+import java.util.Collections;
 import javafx.geometry.Point2D;
 
 import javafx.geometry.Point3D;
@@ -57,18 +58,22 @@ public class Forme2D {
 
     public MeshView Draw2D() {
         // lists of vertices are sorted clockwise, we want them to be counterclockwise
-        //Collections.reverse(this.contour);
-        // determine the plane that the shape is in
+        ArrayList<Point3D> contour = new ArrayList<Point3D>();
+        contour.add(this.contour.get(0));
         int sides=this.contour.size();
+        for (int i=sides-1;i>0;i--) {
+            contour.add(this.contour.get(i));
+        }
+        // determine the plane that the shape is in
         if (sides<3) {throw new IndexOutOfBoundsException("Must be at least 3 sides");}
-        Point3D a = this.contour.get(0);
-        Point3D b = this.contour.get(1);
+        Point3D a = contour.get(0);
+        Point3D b = contour.get(1);
 
         // define texture coordinates
         ArrayList textures = new ArrayList<Point2D>();
         double[] earcut = new double[3*sides];
         for (int i=0;i<sides;i++) {
-            Point3D p = this.contour.get(i);
+            Point3D p = contour.get(i);
             textures.add(new Point2D(a.distance(p)*Math.cos(a.angle(b,p)),a.distance(p)*Math.sin(a.angle(b,p))));
             earcut[3*i]=p.getX();
             earcut[3*i+1]=p.getY();
@@ -105,7 +110,7 @@ public class Forme2D {
         TriangleMesh m = new TriangleMesh();
         
         for (int i=0;i<sides;i++) {
-            Point3D p = this.contour.get(i);
+            Point3D p = contour.get(i);
             Point2D p2 = (Point2D) textures.get(i);
             m.getPoints().addAll((float)p.getX(),(float)p.getY(),(float)p.getZ());
             m.getTexCoords().addAll((float)p2.getX(),(float)p2.getY());
