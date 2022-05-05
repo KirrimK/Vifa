@@ -57,7 +57,7 @@ public class FlecheArrondie3D extends Group {
         Material materiau = new PhongMaterial(couleur);
         getChildren().clear();
         for (int i = 1; i < DIV_NUMBER-1; i++) {
-            Cylinder oskours = new Cylinder(1, 2*Math.toRadians(Math.abs(endAngle))/DIV_NUMBER*rayon);
+            Cylinder oskours = new Cylinder(0.5, 2*Math.toRadians(Math.abs(endAngle))/DIV_NUMBER*rayon);
             oskours.setMaterial(materiau);
             getChildren().add(oskours);
             aled.add(oskours);
@@ -65,7 +65,7 @@ public class FlecheArrondie3D extends Group {
                     new Rotate(i*endAngle/DIV_NUMBER, Rotate.Z_AXIS),
                     new Translate(rayon*Math.cos(i/DIV_NUMBER*Math.toRadians(endAngle)), rayon*Math.sin(i/DIV_NUMBER*Math.toRadians(endAngle)), 0));
         }
-        ConeMesh jenaimarre = new ConeMesh(3, 2*Math.toRadians(Math.abs(endAngle))/DIV_NUMBER*rayon);
+        ConeMesh jenaimarre = new ConeMesh(2, 2*Math.toRadians(Math.abs(endAngle))/DIV_NUMBER*rayon);
         cone.setMesh(jenaimarre.getMesh());
         cone.setMaterial(materiau);
         cone.getTransforms().setAll(

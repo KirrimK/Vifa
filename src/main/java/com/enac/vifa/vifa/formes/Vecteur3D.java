@@ -15,7 +15,7 @@ import javafx.scene.transform.Translate;
 import org.fxyz3d.shapes.primitives.ConeMesh;
 
 public class Vecteur3D extends Group {
-    private static ConeMesh jenaimarre = new ConeMesh(64, 3, 5);
+    private static ConeMesh jenaimarre = new ConeMesh(64, 2, 5);
 
     private String nom;
     private Point3D origine, magnitude;
@@ -38,7 +38,7 @@ public class Vecteur3D extends Group {
         this.couleur = couleur;
         this.nom = nom;
         Material materiau = new PhongMaterial(couleur);
-        body = new Cylinder(1, magnitude.magnitude()-5);
+        body = new Cylinder(0.5, magnitude.magnitude()-5);
 
         body.setMaterial(materiau);
         cone = new MeshView();
