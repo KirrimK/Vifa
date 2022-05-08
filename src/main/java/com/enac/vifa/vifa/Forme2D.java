@@ -103,12 +103,12 @@ public class Forme2D {
         for (int i=0;i<sides;i++) {
             Point3D p = contour.get(i);
             Point2D p2 = (Point2D) textures.get(i);
-            m.getPoints().addAll((float)p.getX(),(float)p.getY(),(float)p.getZ());
-            m.getTexCoords().addAll((float)p2.getX(),(float)p2.getY());
-        }
+                m.getPoints().addAll((float)p.getX(),(float)p.getY(),(float)p.getZ());
+                m.getTexCoords().addAll((float)p2.getX(),(float)p2.getY());
+            }
         for (int i:Earcut.earcut(earcut,null,3)) {
-            m.getFaces().addAll(i,i);
-        }
+                m.getFaces().addAll(i,i);
+            }
         MeshView mv = new MeshView(m);
         mv.setCullFace(CullFace.NONE);
         return mv;
