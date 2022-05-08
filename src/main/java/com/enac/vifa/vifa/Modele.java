@@ -43,7 +43,7 @@ public class Modele {
     private boolean receivedLift = false;
     private Service<Void> descriptionService;
     private Service<Void> getForcesMomentService;
-    private String BUS = "127.255.255.255:2010";
+    private String BUS = "224.255.255.255:2010"; //127.255.255.255:2010
     
     //      MESSAGES RECEIVED FROM IVY :
 
@@ -58,11 +58,13 @@ public class Modele {
     private String DEMANDE_DESCR = "StartGettingShapes mass=%f xcg=%f vair=%f psi=%f theta=%f phi=%f alpha=%f betha=%f a0=%f trim=%f dl=%f dm=%f dn=%f";
 
     private static double VECTOR_SCALING = 10;
+    private final ArrayList<Forme3D> listeDesFormes3D;
 
     //CONSTRUCTOR
 
     private Modele() {
         this.listeDesFormes = new ArrayList<Forme2D>();
+        this.listeDesFormes3D= new ArrayList<Forme3D>();
         this.listeDesForces = new ArrayList<Vecteur3D>();
         this.momentTotal = new Point3D(0, 0, 0);
         this.xCentrage=new SimpleDoubleProperty(0) ;
@@ -389,6 +391,13 @@ public class Modele {
     public void addForme (String nom){
         this.listeDesFormes.add(new Forme2D(nom));
     }
+    
+    public void addForme3D (String nom){
+        if (nom.equals("fuselage")){
+        
+            this.listeDesFormes3D.add(new Forme3D(nom));
+        }
+    }
 
     public void addPointToForme (String nom, double x, double y, double z){
         for (Forme2D f:listeDesFormes){
@@ -397,6 +406,7 @@ public class Modele {
                 break;
             }
         }
+        
     }
 
     public Forme2D getForme (String nom){

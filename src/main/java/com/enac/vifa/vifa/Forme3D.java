@@ -1,41 +1,36 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.enac.vifa.vifa;
 
 import earcut4j.Earcut;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javafx.geometry.Point2D;
-import javafx.geometry.Point3D;
+
+
+import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.CullFace;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
+import org.fxyz3d.shapes.primitives.TriangulatedMesh;
+import org.fxyz3d.geometry.Point3D;
 
-/**
- *
- * @author hugocourtadon
- */
 public class Forme3D {
     private String nom;
-    private  ArrayList<Point3D> contour;
-    
+    private final List<Point3D> contour;
 
-public Forme3D(String nom) {
+    public Forme3D(String nom) {
         this.nom = nom;
-        this.contour=new ArrayList<Point3D>();
-       
+        this.contour=new ArrayList<>();
     }
 
+    
     public String getNom() {
         return nom;
     }
 
-    public ArrayList<Point3D> getContour() {
+    public List<Point3D> getContour() {
         return contour;
     }
-
-    
 
     public void setNom(String nom) {
         this.nom = nom;
@@ -43,23 +38,44 @@ public Forme3D(String nom) {
 
     @Override
     public String toString() {
-        return "Forme3D ["+nom + "]";
+        String res ="";
+        int c=0;
+        for (Point3D pt:contour){
+            if (c!=0){res+=", ";}
+            c++;
+            res +="("+pt.getX()+", "+pt.getY()+", "+pt.getZ()+")";
+        }
+        return "Forme3D ["+nom + "]:\n{"+res+"}";
     }
     public void addPoint (Point3D p){
         this.contour.add(p);
     }
-    
-    public MeshView Draw3D(double[] polygon) {
+
+    public MeshView Draw3D() {
+        // lists of vertices are sorted clockwise, we want them to be counterclockwise
+        if (this.getNom().equals("fuselage")){
+            contour.add(this.contour.get(0));
+            int sides=this.contour.size();
+            for (int i=sides-1;i>0;i--) {
+                contour.add(this.contour.get(i));
+            }
         
+        // determine the plane that the shape is in
+        if (sides<3) {throw new IndexOutOfBoundsException("Must be at least 3 sides");}
+        }
         
-        List<Integer> triangles = Earcut.earcut(polygon, null,3);
-        TriangleMesh meshtr = new TriangleMesh();
-        MeshView shape3D = new MeshView(meshtr);
-        return shape3D;
-        
-        
+        TriangulatedMesh m;
+        m = new TriangulatedMesh(this.getContour(), 20);
+        m.setCullFace(CullFace.NONE);
+        m.setColors(200);
+        return m;
     }
-   
-    
-    
-    }
+}
+
+
+
+          
+       
+
+
+
