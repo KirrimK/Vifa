@@ -65,6 +65,7 @@ public class Forme3D {
         m.setDiffuseColor(Color.GREY);
         m.setRotationAxis(new javafx.geometry.Point3D(1, 0, 0));
         m.setRotate(90);
+        m.setTranslateY(-2);
         return m;
         
         
