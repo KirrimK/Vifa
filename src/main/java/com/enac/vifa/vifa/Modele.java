@@ -43,7 +43,7 @@ public class Modele {
     private boolean receivedLift = false;
     private Service<Void> descriptionService;
     private Service<Void> getForcesMomentService;
-    private String BUS = "224.255.255.255:2010"; //127.255.255.255:2010
+    private String BUS = (System.getProperty("os.name").equals("Mac")) ? "224.255.255.255:2010" : "127.255.255.255:2010"; //127.255.255.255:2010
     
     //      MESSAGES RECEIVED FROM IVY :
 
