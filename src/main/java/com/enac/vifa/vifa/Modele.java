@@ -396,11 +396,13 @@ public class Modele {
     }
     
     public void addForme (String nom){
-        this.listeDesFormes.add(new Forme2D(nom));
+        if(!nom.equals("fuselage")){
+            this.listeDesFormes.add(new Forme2D(nom));
+        }
     }
     
     public void addForme3D (String nom){
-        if (nom.equals("fuselage")|| nom.equals("naceller")||nom.equals("nacellel")){
+        if (nom.equals("fuselage")/*|| nom.equals("naceller")||nom.equals("nacellel")*/){
         
             this.listeDesFormes3D.add(new Forme3D(nom));
         }
@@ -418,7 +420,7 @@ public class Modele {
                 f.addPoint(new org.fxyz3d.geometry.Point3D(x, z, y));
                 break;
             }
-        }
+            }
 
     }
 
@@ -559,7 +561,7 @@ public class Modele {
             if (f.getNom().equals("htpr") || f.getNom().equals("htpl") || f.getNom().equals("wingr") || f.getNom().equals("wingl")) {
                 f.setMaterial(new PhongMaterial(Color.WHITE));
             } 
-            if (f.getNom().equals("vtp") || f.getNom().equals("fuselage") || f.getNom().equals("naceller") || f.getNom().equals("nacellel")) {
+            if (f.getNom().equals("vtp")) {
                 f.setMaterial(new PhongMaterial(Color.GREY));
             } 
             if (f.getNom().equals("ruder") || f.getNom().equals("elevatorr") || f.getNom().equals("elevatorl") || f.getNom().equals("aileronr") || f.getNom().equals("aileronl")) {
@@ -575,7 +577,6 @@ public class Modele {
             TriangulatedMesh newMesh = f.setTriangulatedMesh();
             TrianglulatedMeshList.add(newMesh);
         }
-        System.out.println(TrianglulatedMeshList);
         return TrianglulatedMeshList;
     }
 }

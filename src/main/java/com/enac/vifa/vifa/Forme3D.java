@@ -47,25 +47,26 @@ public class Forme3D {
 
     public TriangulatedMesh setTriangulatedMesh() {
         // lists of vertices are sorted clockwise, we want them to be counterclockwise
-        if (this.getNom().equals("fuselage")){
-            contour.add(this.contour.get(0));
+            List<Point3D> contourN = new ArrayList<>();
+            contourN.add(this.contour.get(0));
             int sides=this.contour.size();
             for (int i=sides-1;i>0;i--) {
-                contour.add(this.contour.get(i));
+                contourN.add(this.contour.get(i));
             }
+            System.out.println(contourN);
         
         // determine the plane that the shape is in
         if (sides<3) {throw new IndexOutOfBoundsException("Must be at least 3 sides");}
-        }
         
         TriangulatedMesh m;
-        m = new TriangulatedMesh(this.getContour(), 2);
+        m = new TriangulatedMesh(contourN, 2);
         m.setCullFace(CullFace.NONE);
         m.setLevel(0);
         m.setDiffuseColor(Color.GREY);
         m.setRotationAxis(new javafx.geometry.Point3D(1, 0, 0));
         m.setRotate(90);
         m.setTranslateY(-2);
+        m.setTranslateZ(1);
         return m;
         
         
