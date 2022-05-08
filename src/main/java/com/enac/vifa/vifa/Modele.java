@@ -15,6 +15,7 @@ import javafx.scene.shape.MeshView;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.scene.paint.PhongMaterial;
+import org.fxyz3d.shapes.primitives.TriangulatedMesh;
 
 public class Modele {
     private static Modele modele;
@@ -58,7 +59,7 @@ public class Modele {
     private String DEMANDE_DESCR = "StartGettingShapes mass=%f xcg=%f vair=%f psi=%f theta=%f phi=%f alpha=%f betha=%f a0=%f trim=%f dl=%f dm=%f dn=%f";
 
     private static double VECTOR_SCALING = 10;
-    private final ArrayList<Forme3D> listeDesFormes3D;
+    private  ArrayList<Forme3D> listeDesFormes3D;
 
     //CONSTRUCTOR
 
@@ -129,6 +130,7 @@ public class Modele {
                 setMomentTotal(moment);
             });
             this.radio.bindMsg(this.INIT_FORME_2D_MSG, (client, nomDansTableau) -> addForme(nomDansTableau[0]));
+            this.radio.bindMsg(this.INIT_FORME_2D_MSG, (client, nomDansTableau) -> addForme3D(nomDansTableau[0]));
             this.radio.bindMsg(this.POINT_DE_LA_FORME, (client, args) -> {
                 String name = args[0];
                 double x = Double.parseDouble(args[1]);
@@ -393,7 +395,7 @@ public class Modele {
     }
     
     public void addForme3D (String nom){
-        if (nom.equals("fuselage")){
+        if (nom.equals("fuselage")|| nom.equals("naceller")||nom.equals("nacellel")){
         
             this.listeDesFormes3D.add(new Forme3D(nom));
         }
@@ -408,7 +410,7 @@ public class Modele {
         }
         for (Forme3D f:listeDesFormes3D){
             if (f.getNom().equals(nom)){
-                f.addPoint(new org.fxyz3d.geometry.Point3D(x, y, z));
+                f.addPoint(new org.fxyz3d.geometry.Point3D(x, z, y));
                 break;
             }
         }
@@ -424,6 +426,16 @@ public class Modele {
         addForme(nom);
         return (getForme(nom));
     }
+    
+     public Forme3D getForme3D (String nom){
+        for (Forme3D f:listeDesFormes3D){
+            if (f.getNom().equals(nom)){
+                return f;
+            }
+        };
+        addForme3D(nom);
+        return (getForme3D(nom));
+    }
 
     public void getDescription(){
         try {
@@ -434,6 +446,7 @@ public class Modele {
         System.out.println("Description en attente...");
         long temps = (new Date()).getTime();
         this.listeDesFormes = new ArrayList<Forme2D>();
+        this.listeDesFormes3D = new ArrayList<Forme3D>();
         try {
             String msg=String.format(this.DEMANDE_DESCR,mass.getValue(), xCentrage.getValue(), 
             vAir.getValue(), psi.getValue(), theta.getValue(), phi.getValue(), alpha.getValue(), beta.getValue(), 
@@ -501,6 +514,10 @@ public class Modele {
     public ArrayList<Forme2D> getListeDesFormes(){
         return listeDesFormes;
     }
+    
+     public ArrayList<Forme3D> getListeDesFormes3D(){
+        return listeDesFormes3D;
+    }
 
     public ArrayList<Vecteur3D> getListeDesForces() {
         return listeDesForces;
@@ -546,5 +563,14 @@ public class Modele {
             meshList.add(f);
         }
         return meshList;
+    }
+    public ArrayList<TriangulatedMesh> DrawFus(){
+        ArrayList<TriangulatedMesh> TrianglulatedMeshList = new ArrayList<TriangulatedMesh>();
+        for (Forme3D f :this.listeDesFormes3D) {
+            TriangulatedMesh newMesh = f.setTriangulatedMesh();
+            TrianglulatedMeshList.add(newMesh);
+        }
+        System.out.println(TrianglulatedMeshList);
+        return TrianglulatedMeshList;
     }
 }

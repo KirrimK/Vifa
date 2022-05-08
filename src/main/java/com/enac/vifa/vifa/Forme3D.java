@@ -51,7 +51,7 @@ public class Forme3D {
         this.contour.add(p);
     }
 
-    public MeshView Draw3D() {
+    public TriangulatedMesh setTriangulatedMesh() {
         // lists of vertices are sorted clockwise, we want them to be counterclockwise
         if (this.getNom().equals("fuselage")){
             contour.add(this.contour.get(0));
@@ -65,10 +65,13 @@ public class Forme3D {
         }
         
         TriangulatedMesh m;
-        m = new TriangulatedMesh(this.getContour(), 20);
+        m = new TriangulatedMesh(this.getContour(), 5);
         m.setCullFace(CullFace.NONE);
-        m.setColors(200);
+        m.setLevel(0);
+        m.setColors(500);
         return m;
+        
+        
     }
 }
 
