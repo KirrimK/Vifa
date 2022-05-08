@@ -469,7 +469,7 @@ public class Modele {
             IvyException e = new IvyException("Time out de l'attente de description");
             e.printStackTrace();
             System.out.println(e);
-            getDescription();
+            //getDescription();
         }
         else{
             System.out.println("Description received");
