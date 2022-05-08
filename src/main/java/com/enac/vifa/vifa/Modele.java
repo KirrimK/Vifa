@@ -406,6 +406,12 @@ public class Modele {
                 break;
             }
         }
+        for (Forme3D f:listeDesFormes3D){
+            if (f.getNom().equals(nom)){
+                f.addPoint(new org.fxyz3d.geometry.Point3D(x, y, z));
+                break;
+            }
+        }
         
     }
 
