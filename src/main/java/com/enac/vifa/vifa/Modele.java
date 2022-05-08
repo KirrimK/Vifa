@@ -411,7 +411,7 @@ public class Modele {
 
     public void getDescription(){
         try {
-            Thread.sleep(200);
+            Thread.sleep(50);
         } catch (InterruptedException e1) {
         }
         this.receivedDrawFFS = false;
@@ -428,7 +428,7 @@ public class Modele {
             e.printStackTrace();
             System.out.println(e);
         }
-        while (! this.receivedDrawFFS&((new Date()).getTime()-temps < 15000) ){
+        while (! this.receivedDrawFFS&((new Date()).getTime()-temps < 2000) ){
             //On attends la fin de la description ou 2 secs
         }
         if (! this.receivedDrawFFS){//on a attendu 2secs, et on n'a pas la description
