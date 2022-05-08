@@ -11,7 +11,7 @@ import javafx.scene.shape.CullFace;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 
-public class Forme2D {
+public class Forme2D extends MeshView{
     private String nom;
     private ArrayList<Point3D> contour;
 
@@ -47,7 +47,7 @@ public class Forme2D {
         this.contour.add(p);
     }
 
-    public MeshView Draw2D() {
+    public void setMesh() {
         // lists of vertices are sorted clockwise, we want them to be counterclockwise
         ArrayList<Point3D> contour = new ArrayList<Point3D>();
         contour.add(this.contour.get(0));
@@ -109,8 +109,7 @@ public class Forme2D {
         for (int i:Earcut.earcut(earcut,null,3)) {
             m.getFaces().addAll(i,i);
         }
-        MeshView mv = new MeshView(m);
-        mv.setCullFace(CullFace.NONE);
-        return mv;
+        this.setMesh(m);
+        this.setCullFace(CullFace.NONE);
     }
 }
