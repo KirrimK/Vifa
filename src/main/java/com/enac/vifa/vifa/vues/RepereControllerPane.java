@@ -36,6 +36,8 @@ public class RepereControllerPane extends VBox {
             psil.setText("Psi: "+number.intValue());
             SimpleDoubleProperty psiprop = Modele.getInstance().getPsiProperty();
             synchronized (psiprop){ psiprop.set(number.doubleValue()); }
+            Modele.getInstance().getForcesMomentService.restart();
+            Modele.getInstance().descriptionService.restart();
         }));
         phil = new Label("Phi: 0");
         phis = new Slider(-183, 183, 0);
@@ -44,6 +46,8 @@ public class RepereControllerPane extends VBox {
             phil.setText("Phi: "+number.intValue());
             SimpleDoubleProperty phiprop = Modele.getInstance().getPhiProperty();
             synchronized (phiprop){ phiprop.set(number.doubleValue()); }
+            Modele.getInstance().getForcesMomentService.restart();
+            Modele.getInstance().descriptionService.restart();
         }));
         thetal = new Label("Theta: 0");
         thetas = new Slider(-183, 183, 0);
@@ -52,6 +56,8 @@ public class RepereControllerPane extends VBox {
             thetal.setText("Theta: "+number.intValue());
             SimpleDoubleProperty thetaprop = Modele.getInstance().getThetaProperty();
             synchronized (thetaprop){ thetaprop.set(number.doubleValue()); }
+            Modele.getInstance().getForcesMomentService.restart();
+            Modele.getInstance().descriptionService.restart();
         }));
 
         alphal = new Label("Alpha: 0");
@@ -61,6 +67,8 @@ public class RepereControllerPane extends VBox {
             alphal.setText("Alpha: "+number.intValue());
             SimpleDoubleProperty alphaprop = Modele.getInstance().getAlphaProperty();
             synchronized (alphaprop){ alphaprop.set(number.doubleValue()); }
+            Modele.getInstance().getForcesMomentService.restart();
+            Modele.getInstance().descriptionService.restart();
         }));
 
         betal = new Label("Beta: 0");
@@ -70,6 +78,8 @@ public class RepereControllerPane extends VBox {
             betal.setText("Beta: "+number.intValue());
             SimpleDoubleProperty betaprop = Modele.getInstance().getBetaProperty();
             synchronized (betaprop){ betaprop.set(number.doubleValue()); }
+            Modele.getInstance().getForcesMomentService.restart();
+            Modele.getInstance().descriptionService.restart();
         }));
 
         getChildren().addAll(rpl, psil, psis, phil, phis, thetal, thetas, alphal, alphas, betal, betas);
@@ -95,5 +105,8 @@ public class RepereControllerPane extends VBox {
         thetal.setText("Theta: 0");
         alphal.setText("Alpha: 0");
         betal.setText("Beta: 0");
+
+        Modele.getInstance().getForcesMomentService.restart();
+        Modele.getInstance().descriptionService.restart();
     }
 }

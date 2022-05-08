@@ -1,6 +1,7 @@
 package com.enac.vifa.vifa.vues;
 
 import com.enac.vifa.vifa.Modele;
+import javafx.concurrent.Worker;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -27,6 +28,8 @@ public class GouverneControllerPane extends GridPane {
             synchronized(mod.getDmProperty()){
                 mod.getDmProperty().set(Math.toRadians(number.doubleValue()));
             }
+            mod.descriptionService.restart();
+            mod.getForcesMomentService.restart();
         }));
         setRowIndex(prof, 0);
         setColumnIndex(prof, 0);
@@ -40,6 +43,8 @@ public class GouverneControllerPane extends GridPane {
             synchronized(mod.getDnProperty()){
                 mod.getDnProperty().set(Math.toRadians(number.doubleValue()));
             }
+            mod.descriptionService.restart();
+            mod.getForcesMomentService.restart();
         }));
         setRowIndex(dir, 1);
         setColumnIndex(dir, 1);
@@ -53,6 +58,8 @@ public class GouverneControllerPane extends GridPane {
             synchronized(mod.getDlProperty()){
                 mod.getDlProperty().set(Math.toRadians(number.doubleValue()));
             }
+            mod.descriptionService.restart();
+            mod.getForcesMomentService.restart();
         }));
         setRowIndex(ailerons, 0);
         setColumnIndex(ailerons, 2);
@@ -69,5 +76,7 @@ public class GouverneControllerPane extends GridPane {
         profInfo.setText("Profondeur: 0");
         dirInfo.setText("Direction: 0");
         ailInfo.setText("Ailerons: 0");
+        Modele.getInstance().descriptionService.restart();
+        Modele.getInstance().getForcesMomentService.restart();
     }
 }

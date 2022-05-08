@@ -43,10 +43,10 @@ public class Modele {
     private boolean receivedDrawFFS = false;
     private boolean receivedLift = false;
     private boolean displayedMomentGeneral = false;
-    private Service<Void> descriptionService;
-    private Service<Void> getForcesMomentService;
-    private String BUS = "224.255.255.255:2010"; //127.255.255.255:2010
-    
+    public CommunicationService descriptionService;
+    public CommunicationService getForcesMomentService;
+    private String BUS = (System.getProperty("os.name").equals("Mac OS X")) ? "224.255.255.255:2010" : "127.255.255.255:2010"; //127.255.255.255:2010
+
     //      MESSAGES RECEIVED FROM IVY :
 
     private String INIT_FORME_2D_MSG = "^ShapeStart name=(.*)$";
@@ -161,31 +161,15 @@ public class Modele {
             System.out.println(e);
             System.exit(42);
         }
-        this.descriptionService = new Service<Void>() {
-            @Override
-            protected Task<Void> createTask() {
-                return new Task<Void> (){
-                    @Override
-                    protected Void call() throws Exception {
-                        getDescription();
-                        return null;
-                    }
-                };
-            }
-        };
-        this.getForcesMomentService = new Service<Void>() {
-            @Override
-            protected Task<Void> createTask() {
-                return new Task<Void> (){
-                    @Override
-                    protected Void call() throws Exception {
-                        getForcesAndMoment();
-                        return null;
-                    }
-                };
-            }
-        };
-
+        try {
+            this.descriptionService = new CommunicationService(this.getClass().getMethod("getDescription"));
+            this.getForcesMomentService = new CommunicationService (this.getClass().getMethod("getForcesAndMoment"));
+        }
+        catch (NoSuchMethodException e){
+            System.out.println(e);
+            System.out.println("Le daiveulopeur à ancaur fé une fôte d'aurtaugraff");
+            System.exit (0);
+        }
     }
 
     public static Modele getInstance (){
@@ -419,7 +403,13 @@ public class Modele {
                 break;
             }
         }
-        
+        for (Forme3D f:listeDesFormes3D){
+            if (f.getNom().equals(nom)){
+                f.addPoint(new org.fxyz3d.geometry.Point3D(x, y, z));
+                break;
+            }
+        }
+
     }
 
     public Forme2D getForme (String nom){
@@ -451,7 +441,7 @@ public class Modele {
             e.printStackTrace();
             System.out.println(e);
         }
-        while (! this.receivedDrawFFS&((new Date()).getTime()-temps < 15000) ){
+        while (! this.receivedDrawFFS&((new Date()).getTime()-temps < 2000) ){
             //On attends la fin de la description ou 2 secs
         }
         if (! this.receivedDrawFFS){//on a attendu 2secs, et on n'a pas la description
@@ -540,17 +530,17 @@ public class Modele {
     public ArrayList<MeshView> DrawFFS() {
         ArrayList<MeshView> meshList = new ArrayList<MeshView>();
         for (Forme2D f :this.listeDesFormes) {
-            MeshView mv = f.Draw2D();
+            f.setMesh();
             if (f.getNom().equals("htpr") || f.getNom().equals("htpl") || f.getNom().equals("wingr") || f.getNom().equals("wingl")) {
-                mv.setMaterial(new PhongMaterial(Color.WHITE));
+                f.setMaterial(new PhongMaterial(Color.WHITE));
             } 
             if (f.getNom().equals("vtp") || f.getNom().equals("fuselage") || f.getNom().equals("naceller") || f.getNom().equals("nacellel")) {
-                mv.setMaterial(new PhongMaterial(Color.GREY));
+                f.setMaterial(new PhongMaterial(Color.GREY));
             } 
             if (f.getNom().equals("ruder") || f.getNom().equals("elevatorr") || f.getNom().equals("elevatorl") || f.getNom().equals("aileronr") || f.getNom().equals("aileronl")) {
-                mv.setMaterial(new PhongMaterial(Color.ORANGE));
+                f.setMaterial(new PhongMaterial(Color.ORANGE));
             }       
-            meshList.add(mv);
+            meshList.add(f);
         }
         return meshList;
     }
