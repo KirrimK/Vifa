@@ -75,12 +75,8 @@ public class Main extends Application {
                     for(Vecteur3D azerty: modele.getListeDesForces()){
                         vue.getRepereAvion().getChildren().add(azerty);
                     }
+                    vue.getRepereAero().getChildren().add(modele.getMomentTotal());
                     modele.setDisplayedForcesMoment(true);
-                /*if (!modele.isDisplayedMomentGeneral()){
-                    modele.setDisplayedMomentGeneral(true);
-                    vue.getRepereAvion().getChildren().add(modele.getMomentTotal());
-                    System.out.println("moment total: " + modele.getMomentTotal().getMx() + " " + modele.getMomentTotal().getMy() + " " +modele.getMomentTotal().getMz());
-                }*/
                 }
             }
         });

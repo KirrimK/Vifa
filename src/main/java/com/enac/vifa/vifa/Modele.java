@@ -61,7 +61,7 @@ public class Modele {
     private String COMPUTE_DEMND = "StartComputation mass=%f xcg=%f vair=%f psi=%f theta=%f phi=%f alpha=%f betha=%f a0=%f trim=%f dl=%f dm=%f dn=%f dx=%f p=%f q=%f r=%f";
     private String DEMANDE_DESCR = "StartGettingShapes mass=%f xcg=%f vair=%f psi=%f theta=%f phi=%f alpha=%f betha=%f a0=%f trim=%f dl=%f dm=%f dn=%f";
 
-    private static double VECTOR_SCALING = 10;
+    private static double VECTOR_SCALING = 10000;
     private  ArrayList<Forme3D> listeDesFormes3D;
 
 
@@ -86,28 +86,28 @@ public class Modele {
         this.listeDesFormes3D= new ArrayList<Forme3D>();
         this.listeDesForces = new ArrayList<Vecteur3D>();
         this.momentTotal = new Moment3D(new Point3D(0, 0, 0), 30, 30, 30, 0, 0, 0, "mx_total", "my_total", "mz_total", Color.GREEN);
-        this.xCentrage=new SimpleDoubleProperty(0) ;
-        this.vAir=new SimpleDoubleProperty(0) ;
+        this.xCentrage=new SimpleDoubleProperty(0.2555) ;
+        this.vAir=new SimpleDoubleProperty(150) ;
         this.psi=new SimpleDoubleProperty(0) ;
         this.theta=new SimpleDoubleProperty(0) ;
         this.phi=new SimpleDoubleProperty(0) ;
         this.alpha=new SimpleDoubleProperty(0) ;
         this.beta=new SimpleDoubleProperty(0) ;
-        this.a0=new SimpleDoubleProperty(0) ;
+        this.a0=new SimpleDoubleProperty(Math.toRadians(3.031)) ;
         this.trim=new SimpleDoubleProperty(0) ;
         this.dl=new SimpleDoubleProperty(0) ;
         this.dm=new SimpleDoubleProperty(0) ;
-        this.dn=new SimpleDoubleProperty(0) ;
-        this.dx=new SimpleDoubleProperty(0) ;
+        this.dn=new SimpleDoubleProperty(0.2) ;
+        this.dx=new SimpleDoubleProperty(0.5) ;
         this.p=new SimpleDoubleProperty(0) ;
         this.q=new SimpleDoubleProperty(0) ;
         this.r=new SimpleDoubleProperty(0) ;
-        this.mass=new SimpleDoubleProperty(10.0) ;
+        this.mass=new SimpleDoubleProperty(70000) ;
         this.radio = new Ivy("ViFA_IHM", "ViFA_IHM is ready !", null);
         try{
             this.radio.bindMsg(this.FORCE,(sender, strings) -> {
                 String nom = strings[0];
-                Point3D debut = new Point3D (Double.parseDouble(strings[1]), 
+                Point3D debut = new Point3D (Double.parseDouble(strings[1]),
                                              Double.parseDouble(strings[3]),
                                              Double.parseDouble(strings[2]));
                 Point3D norme = new Point3D (Double.parseDouble(strings[4])/VECTOR_SCALING,
@@ -139,6 +139,8 @@ public class Modele {
                 updateForce(new Vecteur3D(nom, debut, norme, color));
                 if (nom.equals("LiftTotal")){
                     receivedLift = true;
+                } else if (nom.equals("mg")){
+                    momentTotal.changeCenter(debut);
                 }
             });
             this.radio.bindMsg(this.MOMENT, (sender, strings) -> {
@@ -146,9 +148,9 @@ public class Modele {
                                                 Double.parseDouble(strings[2]),
                                                 Double.parseDouble(strings[3]));*/
                 //setMomentTotal(moment)
-                /*momentTotal.update(Double.parseDouble(strings[1]),
+                momentTotal.update(Double.parseDouble(strings[1]),
                         Double.parseDouble(strings[2]),
-                        Double.parseDouble(strings[3]));*/
+                        Double.parseDouble(strings[3]));
             });
             this.radio.bindMsg(this.INIT_FORME_2D_MSG, (client, nomDansTableau) -> addForme(nomDansTableau[0]));
             this.radio.bindMsg(this.INIT_FORME_2D_MSG, (client, nomDansTableau) -> addForme3D(nomDansTableau[0]));
@@ -502,7 +504,7 @@ public class Modele {
         if (! this.receivedLift){//on a attendu 2secs, et on n'a pas les résulatats
         IvyException e = new IvyException("Time out de l'attente des forces et moments");
         System.out.println(e);
-        getForcesAndMoment();
+        //getForcesAndMoment();
     }
     else{
         System.out.println("Forces and moment received");
