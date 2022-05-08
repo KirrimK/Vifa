@@ -1,16 +1,10 @@
 package com.enac.vifa.vifa;
 
-import earcut4j.Earcut;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import javafx.geometry.Point2D;
-
-
-import javafx.scene.paint.PhongMaterial;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.CullFace;
-import javafx.scene.shape.MeshView;
-import javafx.scene.shape.TriangleMesh;
 import org.fxyz3d.shapes.primitives.TriangulatedMesh;
 import org.fxyz3d.geometry.Point3D;
 
@@ -65,10 +59,12 @@ public class Forme3D {
         }
         
         TriangulatedMesh m;
-        m = new TriangulatedMesh(this.getContour(), 5);
+        m = new TriangulatedMesh(this.getContour(), 2);
         m.setCullFace(CullFace.NONE);
         m.setLevel(0);
-        m.setColors(500);
+        m.setDiffuseColor(Color.GREY);
+        m.setRotationAxis(new javafx.geometry.Point3D(1, 0, 0));
+        m.setRotate(90);
         return m;
         
         
