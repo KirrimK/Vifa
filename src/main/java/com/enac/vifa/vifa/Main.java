@@ -6,11 +6,14 @@ import com.enac.vifa.vifa.vues.CameraInfoPane;
 import com.enac.vifa.vifa.vues.GouverneControllerPane;
 import com.enac.vifa.vifa.vues.RepereControllerPane;
 import com.enac.vifa.vifa.vues.Vue3D;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javafx.application.Application;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Point3D;
+//import javafx.geometry.Point3D;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
@@ -18,11 +21,24 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
+import org.fxyz3d.geometry.Point3D;
+import org.fxyz3d.shapes.primitives.TriangulatedMesh;
 
 public class Main extends Application {
     public Parent createContent(Scene mainScene){
         // Box
         Box centerBox = new Box(1, 1, 1);
+
+        List<Point3D> points = new ArrayList<>(Arrays.asList(
+            new Point3D(0,   0, 0),
+            new Point3D(0, 100, 20), new Point3D(60, 100, 30),
+            new Point3D(60, 60, 20), new Point3D(40, 60,  50),
+            new Point3D(40,  0, 40), new Point3D( 0,  0,  0)));
+        TriangulatedMesh customShape = new TriangulatedMesh(points, 50);
+        customShape.setLevel(0);
+        customShape.setCullFace(CullFace.NONE);
+
+
 
         Group group = new Group();
         Vue3D vue = new Vue3D(mainScene, new Group());
@@ -55,7 +71,6 @@ public class Main extends Application {
         group.getChildren().add(repb);
         group.getChildren().add(resetb);
         group.getChildren().add(gouvCtl);
-        //vue.getRepereAvion().getChildren().add(new Moment3D(new Point3D(0, 0, 0), 40, 40, 40, 20, 20, 20, "x", "y", "z", Color.GREEN));
 
         Modele modele = Modele.getInstance();
         Group avion = new Group(new AmbientLight(Color.WHITESMOKE));
