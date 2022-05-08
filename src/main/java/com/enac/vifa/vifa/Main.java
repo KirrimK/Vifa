@@ -62,6 +62,7 @@ public class Main extends Application {
             } else {
                 modele.setDisplayedForme2D(true);
                 avion.getChildren().addAll(modele.DrawFFS());
+                avion.getChildren().addAll(modele.DrawFus());
             }
 
            });
