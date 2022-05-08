@@ -1,5 +1,6 @@
 package com.enac.vifa.vifa;
 
+import com.enac.vifa.vifa.formes.Moment3D;
 import com.enac.vifa.vifa.formes.Vecteur3D;
 import com.enac.vifa.vifa.vues.CameraInfoPane;
 import com.enac.vifa.vifa.vues.GouverneControllerPane;
@@ -54,6 +55,7 @@ public class Main extends Application {
         group.getChildren().add(repb);
         group.getChildren().add(resetb);
         group.getChildren().add(gouvCtl);
+        //vue.getRepereAvion().getChildren().add(new Moment3D(new Point3D(0, 0, 0), 40, 40, 40, 20, 20, 20, "x", "y", "z", Color.GREEN));
 
         Modele modele = Modele.getInstance();
         Group avion = new Group(new AmbientLight(Color.WHITESMOKE));
@@ -93,6 +95,11 @@ public class Main extends Application {
                 for(Vecteur3D azerty: modele.getListeDesForces()){
                     vue.getRepereAvion().getChildren().add(azerty);
                 }
+                /*if (!modele.isDisplayedMomentGeneral()){
+                    modele.setDisplayedMomentGeneral(true);
+                    vue.getRepereAvion().getChildren().add(modele.getMomentTotal());
+                    System.out.println("moment total: " + modele.getMomentTotal().getMx() + " " + modele.getMomentTotal().getMy() + " " +modele.getMomentTotal().getMz());
+                }*/
             }
         });
         Thread test_th2 = new Thread(computeTask);

@@ -3,6 +3,7 @@ package com.enac.vifa.vifa;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.enac.vifa.vifa.formes.Moment3D;
 import com.enac.vifa.vifa.formes.Vecteur3D;
 
 import fr.dgac.ivy.Ivy;
@@ -20,7 +21,7 @@ public class Modele {
     private static Modele modele;
     private ArrayList<Forme2D> listeDesFormes;
     private ArrayList<Vecteur3D> listeDesForces;
-    private Point3D momentTotal;
+    private Moment3D momentTotal;
     private SimpleDoubleProperty mass;
     private SimpleDoubleProperty xCentrage;
     private SimpleDoubleProperty vAir;
@@ -41,6 +42,7 @@ public class Modele {
     private Ivy radio;
     private boolean receivedDrawFFS = false;
     private boolean receivedLift = false;
+    private boolean displayedMomentGeneral = false;
     private Service<Void> descriptionService;
     private Service<Void> getForcesMomentService;
     private String BUS = "224.255.255.255:2010"; //127.255.255.255:2010
@@ -62,11 +64,19 @@ public class Modele {
 
     //CONSTRUCTOR
 
+    public boolean isDisplayedMomentGeneral() {
+        return displayedMomentGeneral;
+    }
+
+    public void setDisplayedMomentGeneral(boolean displayedMomentGeneral) {
+        this.displayedMomentGeneral = displayedMomentGeneral;
+    }
+
     private Modele() {
         this.listeDesFormes = new ArrayList<Forme2D>();
         this.listeDesFormes3D= new ArrayList<Forme3D>();
         this.listeDesForces = new ArrayList<Vecteur3D>();
-        this.momentTotal = new Point3D(0, 0, 0);
+        this.momentTotal = new Moment3D(new Point3D(0, 0, 0), 30, 30, 30, 0, 0, 0, "mx_total", "my_total", "mz_total", Color.GREEN);
         this.xCentrage=new SimpleDoubleProperty(0) ;
         this.vAir=new SimpleDoubleProperty(0) ;
         this.psi=new SimpleDoubleProperty(0) ;
@@ -123,10 +133,13 @@ public class Modele {
                 }
             });
             this.radio.bindMsg(this.MOMENT, (sender, strings) -> {
-                Point3D moment = new Point3D (Double.parseDouble(strings[1]), 
-                                              Double.parseDouble(strings[2]), 
-                                              Double.parseDouble(strings[3]));
-                setMomentTotal(moment);
+                /*Point3D moment = new Point3D (Double.parseDouble(strings[1]),
+                                                Double.parseDouble(strings[2]),
+                                                Double.parseDouble(strings[3]));*/
+                //setMomentTotal(moment)
+                /*momentTotal.update(Double.parseDouble(strings[1]),
+                        Double.parseDouble(strings[2]),
+                        Double.parseDouble(strings[3]));*/
             });
             this.radio.bindMsg(this.INIT_FORME_2D_MSG, (client, nomDansTableau) -> addForme(nomDansTableau[0]));
             this.radio.bindMsg(this.POINT_DE_LA_FORME, (client, args) -> {
@@ -438,7 +451,7 @@ public class Modele {
             e.printStackTrace();
             System.out.println(e);
         }
-        while (! this.receivedDrawFFS&((new Date()).getTime()-temps < 2000) ){
+        while (! this.receivedDrawFFS&((new Date()).getTime()-temps < 15000) ){
             //On attends la fin de la description ou 2 secs
         }
         if (! this.receivedDrawFFS){//on a attendu 2secs, et on n'a pas la description
@@ -516,11 +529,11 @@ public class Modele {
         }
     }
 
-    public Point3D getMomentTotal() {
+    public Moment3D getMomentTotal() {
         return momentTotal;
     }
 
-    public void setMomentTotal(Point3D momentTotal) {
+    public void setMomentTotal(Moment3D momentTotal) {
         this.momentTotal = momentTotal;
     }
 
