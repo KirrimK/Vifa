@@ -28,14 +28,7 @@ public class Main extends Application {
         // Box
         Box centerBox = new Box(1, 1, 1);
         
-        List<Point3D> points = new ArrayList<>(Arrays.asList(
-            new Point3D(0,   0, 0),
-            new Point3D(0, 100, 20), new Point3D(60, 100, 30),
-            new Point3D(60, 60, 20), new Point3D(40, 60,  50),
-            new Point3D(40,  0, 40), new Point3D( 0,  0,  0)));
-        TriangulatedMesh customShape = new TriangulatedMesh(points, 50);
-        customShape.setLevel(0);
-        customShape.setCullFace(CullFace.NONE);
+       
         
         
         
