@@ -59,35 +59,17 @@ public class Main extends Application {
         Group avion = new Group(new AmbientLight(Color.WHITESMOKE));
         avion.getTransforms().addAll(new Rotate(90, Rotate.X_AXIS), new Rotate(180, Rotate.Z_AXIS));
         vue.getRepereAvion().getChildren().add(avion);
-        Task<Integer> descrTask = new Task<Integer>() {
-            @Override
-            protected Integer call() throws Exception {
-                modele.getDescription();
-                return 1;
-            }
-        };
-        descrTask.setOnFailed(e -> System.out.println("ThreadDescr a rencontré une erreur"));
-        descrTask.setOnSucceeded(e -> {
+        modele.descriptionService.setOnFailed(e -> System.out.println("ThreadDescr a rencontré une erreur"));
+        modele.descriptionService.setOnSucceeded(e -> {
             System.out.println("ThreadPrincipal a bien reçu la descr.");
             avion.getChildren().addAll(modele.DrawFFS());
            });
-        Thread test_th = new Thread(descrTask);
-        test_th.start();
+           modele.descriptionService.start();
 
 
 
         
-        Task<Integer> computeTask = new Task<Integer>() {
-            @Override
-            protected Integer call(){
-                synchronized(modele.getListeDesForces()) {
-                    modele.getForcesAndMoment();
-                }
-                return 1;
-            }
-        };
-
-        computeTask.setOnSucceeded((e) -> {
+        modele.getForcesMomentService.setOnSucceeded((e) -> {
             System.out.println("ThreadPrincipal a bien reçu les forces et le moment.");
             synchronized (modele.getListeDesForces()){
                 for(Vecteur3D azerty: modele.getListeDesForces()){
@@ -95,8 +77,7 @@ public class Main extends Application {
                 }
             }
         });
-        Thread test_th2 = new Thread(computeTask);
-        test_th2.start();
+        modele.getForcesMomentService.start();
         return group;
     }
     

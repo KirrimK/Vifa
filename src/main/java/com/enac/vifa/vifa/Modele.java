@@ -41,8 +41,8 @@ public class Modele {
     private Ivy radio;
     private boolean receivedDrawFFS = false;
     private boolean receivedLift = false;
-    private Service<Void> descriptionService;
-    private Service<Void> getForcesMomentService;
+    public CommunicationService descriptionService;
+    public CommunicationService getForcesMomentService;
     private String BUS = (System.getProperty("os.name").equals("Mac OS X")) ? "224.255.255.255:2010" : "127.255.255.255:2010"; //127.255.255.255:2010
     
     //      MESSAGES RECEIVED FROM IVY :
@@ -148,31 +148,15 @@ public class Modele {
             System.out.println(e);
             System.exit(42);
         }
-        this.descriptionService = new Service<Void>() {
-            @Override
-            protected Task<Void> createTask() {
-                return new Task<Void> (){
-                    @Override
-                    protected Void call() throws Exception {
-                        getDescription();
-                        return null;
-                    }
-                };
-            }
-        };
-        this.getForcesMomentService = new Service<Void>() {
-            @Override
-            protected Task<Void> createTask() {
-                return new Task<Void> (){
-                    @Override
-                    protected Void call() throws Exception {
-                        getForcesAndMoment();
-                        return null;
-                    }
-                };
-            }
-        };
-
+        try {
+            this.descriptionService = new CommunicationService(this.getClass().getMethod("getDescription"));
+            this.getForcesMomentService = new CommunicationService (this.getClass().getMethod("getForcesAndMoment"));
+        }
+        catch (NoSuchMethodException e){
+            System.out.println(e);
+            System.out.println("Le daiveulopeur à ancaur fé une fôte d'aurtaugraff");
+            System.exit (0);
+        }
     }
 
     public static Modele getInstance (){
