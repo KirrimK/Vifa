@@ -517,17 +517,17 @@ public class Modele {
     public ArrayList<MeshView> DrawFFS() {
         ArrayList<MeshView> meshList = new ArrayList<MeshView>();
         for (Forme2D f :this.listeDesFormes) {
-            MeshView mv = f.Draw2D();
+            f.setMesh();
             if (f.getNom().equals("htpr") || f.getNom().equals("htpl") || f.getNom().equals("wingr") || f.getNom().equals("wingl")) {
-                mv.setMaterial(new PhongMaterial(Color.WHITE));
+                f.setMaterial(new PhongMaterial(Color.WHITE));
             } 
             if (f.getNom().equals("vtp") || f.getNom().equals("fuselage") || f.getNom().equals("naceller") || f.getNom().equals("nacellel")) {
-                mv.setMaterial(new PhongMaterial(Color.GREY));
+                f.setMaterial(new PhongMaterial(Color.GREY));
             } 
             if (f.getNom().equals("ruder") || f.getNom().equals("elevatorr") || f.getNom().equals("elevatorl") || f.getNom().equals("aileronr") || f.getNom().equals("aileronl")) {
-                mv.setMaterial(new PhongMaterial(Color.ORANGE));
+                f.setMaterial(new PhongMaterial(Color.ORANGE));
             }       
-            meshList.add(mv);
+            meshList.add(f);
         }
         return meshList;
     }
