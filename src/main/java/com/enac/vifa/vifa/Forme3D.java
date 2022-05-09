@@ -83,22 +83,31 @@ public class Forme3D {
             contourN.add(this.contour.get(i));
         }
         System.out.println(contourN);
-            if(this.getNom().equals("nacellel")){
-            Cylinder nacelle = new Cylinder(2, 5);
-            nacelle.setMaterial(new PhongMaterial(Color.GREY));
-            nacelle.setRotationAxis(new javafx.geometry.Point3D(0, 0, 1));
-            nacelle.setRotate(90);
-            nacelle.getTransforms().add(new Translate(10, -20, -2));
-            return nacelle;
-            }
-            else{
-                Cylinder nacelle = new Cylinder(2, 5);
-            nacelle.setMaterial(new PhongMaterial(Color.GREY));
-            nacelle.setRotationAxis(new javafx.geometry.Point3D(0, 0, 1));
-            nacelle.setRotate(90);
+        int n = contourN.size();
+        
+        double xmin = contourN.get(0).x;
+        double xmax = contourN.get(n-2).x;
+        double radius = Math.abs(xmax-xmin)/2;
+        
+        double ymax = contourN.get(0).y;
+        double ymin = contourN.get(7).y;
+        System.out.println(ymin);   
+        double height = Math.abs(ymax-ymin);
+        
+        Cylinder nacelle = new Cylinder(radius, height*4);
+        nacelle.setMaterial(new PhongMaterial(Color.GREY));
+        nacelle.setRotationAxis(new javafx.geometry.Point3D(0, 0, 1));
+        nacelle.setRotate(90);
+        
+        if(this.getNom().equals("nacellel")){
+        
+        nacelle.getTransforms().add(new Translate(10, -20, -2));
+        return nacelle;
+        }
+        else{
             nacelle.getTransforms().add(new Translate(-10, -20, -2));
             return nacelle;
-            }
+        }
         
     }
 }
