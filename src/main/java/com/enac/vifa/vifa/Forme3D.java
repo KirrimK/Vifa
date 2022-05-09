@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.CullFace;
 import javafx.scene.shape.Cylinder;
+import javafx.scene.transform.Translate;
 import org.fxyz3d.shapes.primitives.TriangulatedMesh;
 import org.fxyz3d.geometry.Point3D;
 
@@ -85,6 +86,9 @@ public class Forme3D {
         
         Cylinder nacelle = new Cylinder(2, 5);
         nacelle.setMaterial(new PhongMaterial(Color.GREY));
+        nacelle.setRotationAxis(new javafx.geometry.Point3D(0, 0, 1));
+        nacelle.setRotate(90);
+        nacelle.getTransforms().add(new Translate(10, -20, -2));
         return nacelle;
     }
 }
