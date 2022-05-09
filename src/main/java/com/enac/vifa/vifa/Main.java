@@ -51,9 +51,7 @@ public class Main extends Application {
         group.getChildren().add(gouvCtl);
 
         Modele modele = Modele.getInstance();
-        Group avion = new Group(new AmbientLight(Color.WHITESMOKE));
-        avion.getTransforms().addAll(new Rotate(90, Rotate.X_AXIS), new Rotate(180, Rotate.Z_AXIS));
-        vue.getRepereAvion().getChildren().add(avion);
+        modele.setVue(vue);
         modele.descriptionService.setOnFailed(e -> System.out.println("ThreadDescr a rencontré une erreur"));
         modele.descriptionService.setOnSucceeded(e -> {
             System.out.println("ThreadPrincipal a bien reçu la descr.");
@@ -61,11 +59,12 @@ public class Main extends Application {
                 modele.DrawFFS();
             } else {
                 modele.setDisplayedForme2D(true);
-                avion.getChildren().addAll(modele.DrawFFS());
-                avion.getChildren().addAll(modele.DrawFus());
+                vue.getGroupeAvion().getChildren().addAll(modele.DrawFFS());
+                vue.getGroupeAvion().getChildren().addAll(modele.DrawFus());
             }
 
            });
+
         modele.descriptionService.start();
 
         modele.getForcesMomentService.setOnSucceeded((e) -> {
@@ -73,9 +72,14 @@ public class Main extends Application {
             if (!modele.isDisplayedForcesMoment()){
                 synchronized (modele.getListeDesForces()){
                     for(Vecteur3D azerty: modele.getListeDesForces()){
-                        vue.getRepereAvion().getChildren().add(azerty);
+                        if (azerty.getNom().equals("mg")){
+                            vue.getRepereTerrestre().getChildren().add(azerty);
+                        } else {
+                            vue.getGroupeAvion().getChildren().add(azerty);
+                        }
                     }
-                    vue.getRepereAero().getChildren().add(modele.getMomentTotal());
+                    vue.getRepereAvion().getChildren().add(modele.getMomentTotal());
+                    modele.getMomentTotal().refreshView();
                     modele.setDisplayedForcesMoment(true);
                 }
             }
