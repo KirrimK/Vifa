@@ -473,7 +473,7 @@ public class Modele {
             IvyException e = new IvyException("Time out de l'attente de description");
             e.printStackTrace();
             System.out.println(e);
-            //getDescription();
+            getDescription();
         }
         else{
             System.out.println("Description received");
@@ -504,10 +504,10 @@ public class Modele {
         if (! this.receivedLift){//on a attendu 2secs, et on n'a pas les résulatats
         IvyException e = new IvyException("Time out de l'attente des forces et moments");
         System.out.println(e);
-        //getForcesAndMoment();
-    }
-    else{
-        System.out.println("Forces and moment received");
+        getForcesAndMoment();
+        }
+        else{
+            System.out.println("Forces and moment received");
     }
     }
 
