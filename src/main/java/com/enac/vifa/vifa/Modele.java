@@ -602,7 +602,7 @@ public class Modele {
     public ArrayList<Cylinder> DrawNac(){
         ArrayList<Cylinder> CylinderList = new ArrayList<Cylinder>();
         for (Forme3D f :this.listeDesFormes3D) {
-            if (f.getNom().equals("fuselage")){
+            if (!(f.getNom().equals("fuselage"))){
                 Cylinder nac = f.setNacelles();
                 CylinderList.add(nac);
             }

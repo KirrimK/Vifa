@@ -55,7 +55,7 @@ public class Forme3D {
         for (int i=sides-1;i>0;i--) {
             contourN.add(this.contour.get(i));
         }
-        System.out.println(contourN);
+        
             
         
         // determine the plane that the shape is in
@@ -74,7 +74,16 @@ public class Forme3D {
     }
     
     public Cylinder setNacelles(){
-        Cylinder nacelle = new Cylinder(5, 5);
+        
+        List<Point3D> contourN = new ArrayList<>();
+        contourN.add(this.contour.get(0));
+        int sides=this.contour.size();
+        for (int i=sides-1;i>0;i--) {
+            contourN.add(this.contour.get(i));
+        }
+        System.out.println(contourN);
+        
+        Cylinder nacelle = new Cylinder(2, 5);
         nacelle.setMaterial(new PhongMaterial(Color.GREY));
         return nacelle;
     }
