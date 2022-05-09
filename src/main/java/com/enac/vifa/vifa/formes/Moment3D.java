@@ -20,7 +20,7 @@ public class Moment3D extends Group {
     private double my;
     private double mz;
 
-    private static final double MOMENT_TO_ANGLE = 0.00001;
+    private static final double MOMENT_TO_ANGLE = 0.000001;
 
     public Moment3D(Point3D center, double rayon_x, double rayon_y, double rayon_z, double mx, double my, double mz, String nom_mx, String nom_my, String nom_mz, Color couleur){
         super();

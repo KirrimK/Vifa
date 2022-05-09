@@ -143,13 +143,14 @@ public class Modele {
                         color = Color.GREEN;
                 };
                 Vecteur3D force = new Vecteur3D(nom, debut, norme, color);
-                updateForce(force);
+
                 if (nom.equals("LiftTotal")){
                     receivedLift = true;
                 } else if (nom.equals("mg")){
                     //momentTotal.changeCenter(debut);
                     //force.setOrigineMagnitude(new javafx.geometry.Point3D(0, 0, 0), force.getMagnitude());
                 }
+                updateForce(force);
             });
             this.radio.bindMsg(this.MOMENT, (sender, strings) -> {
                 /*Point3D moment = new Point3D (Double.parseDouble(strings[1]),
