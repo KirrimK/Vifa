@@ -64,6 +64,9 @@ public class Moment3D extends Group {
         this.mx = mx;
         this.my = my;
         this.mz = mz;
+    }
+
+    public void refreshView(){
         mx_gauche.setEndAngle(mx*MOMENT_TO_ANGLE);
         mx_droit.setEndAngle(-mx*MOMENT_TO_ANGLE);
         my_avant.setEndAngle(my*MOMENT_TO_ANGLE);
