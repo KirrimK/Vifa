@@ -6,6 +6,7 @@ import java.util.Date;
 import com.enac.vifa.vifa.formes.Moment3D;
 import com.enac.vifa.vifa.formes.Vecteur3D;
 
+import com.enac.vifa.vifa.vues.Vue3D;
 import fr.dgac.ivy.Ivy;
 import fr.dgac.ivy.IvyClient;
 import fr.dgac.ivy.IvyException;
@@ -13,8 +14,6 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Point3D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.MeshView;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
 import javafx.scene.paint.PhongMaterial;
 import org.fxyz3d.shapes.primitives.TriangulatedMesh;
 
@@ -64,6 +63,7 @@ public class Modele {
     private static double VECTOR_SCALING = 10000;
     private  ArrayList<Forme3D> listeDesFormes3D;
 
+    private Vue3D vue;
 
     public boolean isDisplayedForcesMoment() {
         return displayedForcesMoment;
@@ -136,11 +136,17 @@ public class Modele {
                     default:
                         color = Color.GREEN;
                 };
-                updateForce(new Vecteur3D(nom, debut, norme, color));
+                Vecteur3D force = new Vecteur3D(nom, debut, norme, color);
+                updateForce(force);
                 if (nom.equals("LiftTotal")){
                     receivedLift = true;
                 } else if (nom.equals("mg")){
-                    momentTotal.changeCenter(debut);
+                    //momentTotal.changeCenter(debut);
+                    force.setOrigineMagnitude(new javafx.geometry.Point3D(0, 0, 0), force.getMagnitude());
+                    //vue.getGroupeForces().getTransforms().set(0, new Translate(-debut.getX(), -debut.getY(), -debut.getZ()));
+                    vue.getGroupeForces().setTranslateX(debut.getX());
+                    vue.getGroupeForces().setTranslateY(debut.getY());
+                    vue.getGroupeForces().setTranslateZ(debut.getZ());
                 }
             });
             this.radio.bindMsg(this.MOMENT, (sender, strings) -> {
@@ -192,6 +198,15 @@ public class Modele {
     }
 
  //GETTERS AND SETTERS
+
+
+    public Vue3D getVue() {
+        return vue;
+    }
+
+    public void setVue(Vue3D vue) {
+        this.vue = vue;
+    }
 
     public double getMass() {
         return mass.getValue();

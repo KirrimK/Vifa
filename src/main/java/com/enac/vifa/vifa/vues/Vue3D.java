@@ -18,6 +18,8 @@ public class Vue3D extends SubScene {
     private PerspectiveCamera camera = new PerspectiveCamera(true);
     private Group repereTerrestre;
     private Group repereAvion;
+    private Group groupeAvion;
+    private Group groupeForces;
     private Group repereAeroPart;
     private Group repereAero;
 
@@ -68,7 +70,7 @@ public class Vue3D extends SubScene {
         //repère terrestre
         Vecteur3D trx = new Vecteur3D("x terrestre", new Point3D(50, 0, 0), new Point3D(25, 0, 0), terrColor);
         Vecteur3D trz = new Vecteur3D("z terrestre", new Point3D(0, 50, 0), new Point3D(0, 25, 0), terrColor);
-        Vecteur3D try_ = new Vecteur3D("y terrestre", new Point3D(0, 0, 50), new Point3D(0, 0, 25), terrColor);
+        Vecteur3D try_ = new Vecteur3D("y terrestre", new Point3D(0, 0, -50), new Point3D(0, 0, -25), terrColor);
 
         repereTerrestre.getChildren().add(trx);
         repereTerrestre.getChildren().add(try_);
@@ -95,9 +97,18 @@ public class Vue3D extends SubScene {
 
         repereAvion = new Group();
 
+        groupeAvion = new Group(new AmbientLight(Color.WHITESMOKE));
+        //groupeAvion.getTransforms().addAll(new Rotate(90, Rotate.X_AXIS), new Rotate(180, Rotate.Z_AXIS));
+
+        groupeForces = new Group();
+        groupeForces.getTransforms().add(new Translate(0, 0, 0));
+
+        repereAvion.getChildren().add(groupeForces);
+        groupeForces.getChildren().add(groupeAvion);
+
         Vecteur3D avx = new Vecteur3D("x avion", new Point3D(75, 0, 0), new Point3D(25, 0, 0), avColor);
         Vecteur3D avz = new Vecteur3D("z avion", new Point3D(0, 75, 0), new Point3D(0, 25, 0), avColor);
-        Vecteur3D avy = new Vecteur3D("y avion", new Point3D(0, 0, 75), new Point3D(0, 0, 25), avColor);
+        Vecteur3D avy = new Vecteur3D("y avion", new Point3D(0, 0, -75), new Point3D(0, 0, -25), avColor);
 
         repereAvion.getChildren().add(avx);
         repereAvion.getChildren().add(avy);
@@ -122,7 +133,7 @@ public class Vue3D extends SubScene {
 
         Vecteur3D aerx = new Vecteur3D("x aéro", new Point3D(100, 0, 0), new Point3D(25, 0, 0), aerColor);
         Vecteur3D aerz = new Vecteur3D("z aéro", new Point3D(0, 100, 0), new Point3D(0, 25, 0), aerColor);
-        Vecteur3D aery = new Vecteur3D("y aéro", new Point3D(0, 0, 100), new Point3D(0, 0, 25), aerColor);
+        Vecteur3D aery = new Vecteur3D("y aéro", new Point3D(0, 0, -100), new Point3D(0, 0, -25), aerColor);
 
         repereAero.getChildren().add(aerx);
         repereAero.getChildren().add(aery);
@@ -191,6 +202,22 @@ public class Vue3D extends SubScene {
         xrotprop.set(limit(xrot));
         yrotprop.set(yrot);
         zoomprop.set(zoom);
+    }
+
+    public Group getGroupeAvion() {
+        return groupeAvion;
+    }
+
+    public void setGroupeAvion(Group groupeAvion) {
+        this.groupeAvion = groupeAvion;
+    }
+
+    public Group getGroupeForces() {
+        return groupeForces;
+    }
+
+    public void setGroupeForces(Group groupeForces) {
+        this.groupeForces = groupeForces;
     }
 
     public void cameraDefault(){
