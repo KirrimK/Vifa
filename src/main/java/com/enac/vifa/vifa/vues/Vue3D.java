@@ -17,7 +17,6 @@ public class Vue3D extends SubScene {
 
     private PerspectiveCamera camera = new PerspectiveCamera(true);
     private Group repereTerrestre;
-    private Group groupePoids;
     private Group repereAvion;
     private Group groupeAvion;
     private Group groupeForces;
@@ -99,11 +98,6 @@ public class Vue3D extends SubScene {
         repereTerrestre.getChildren().add(aphi);
         repereTerrestre.getChildren().add(apsi);
         repereTerrestre.getChildren().add(atheta);
-
-        groupePoids = new Group();
-        groupePoids.getTransforms().add(new Translate(0, 0, 0));
-
-        repereTerrestre.getChildren().add(groupePoids);
 
         repereAvion = new Group();
 
@@ -222,14 +216,6 @@ public class Vue3D extends SubScene {
         xrotprop.set(limit(xrot));
         yrotprop.set(yrot);
         zoomprop.set(zoom);
-    }
-
-    public Group getGroupePoids() {
-        return groupePoids;
-    }
-
-    public void setGroupePoids(Group groupePoids) {
-        this.groupePoids = groupePoids;
     }
 
     public Group getGroupeAvion() {
