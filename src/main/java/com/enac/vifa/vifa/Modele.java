@@ -103,7 +103,7 @@ public class Modele {
         this.trim=new SimpleDoubleProperty(0) ;
         this.dl=new SimpleDoubleProperty(0) ;
         this.dm=new SimpleDoubleProperty(0) ;
-        this.dn=new SimpleDoubleProperty(0.2) ;
+        this.dn=new SimpleDoubleProperty(0) ;
         this.dx=new SimpleDoubleProperty(0.5) ;
         this.p=new SimpleDoubleProperty(0) ;
         this.q=new SimpleDoubleProperty(0) ;

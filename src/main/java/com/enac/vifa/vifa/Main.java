@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
     public Parent createContent(Scene mainScene){
         // Box
-        Box centerBox = new Box(0.1, 0.1, 0.1);
+        Box centerBox = new Box(1, 1, 1);
 
         Group group = new Group();
         Vue3D vue = new Vue3D(mainScene, new Group());
@@ -71,10 +71,10 @@ public class Main extends Application {
 
         modele.getForcesMomentService.setOnSucceeded((e) -> {
             System.out.println("ThreadPrincipal a bien reçu les forces et le moment.");
-            if (!modele.isDisplayedForcesMoment()){
-                synchronized (modele.getListeDesForces()){
-                    for(Vecteur3D azerty: modele.getListeDesForces()){
-                        if (azerty.getNom().equals("mg")){
+            if (!modele.isDisplayedForcesMoment()) {
+                synchronized (modele.getListeDesForces()) {
+                    for (Vecteur3D azerty : modele.getListeDesForces()) {
+                        if (azerty.getNom().equals("mg")) {
                             Point3D debut = azerty.getOrigine();
                             vue.getGroupePoids().getChildren().add(azerty);
                             vue.getGroupePoids().getTransforms().set(0, new Translate(-debut.getX(), -debut.getY(), -debut.getZ()));
@@ -89,6 +89,14 @@ public class Main extends Application {
                     vue.getRepereAvion().getChildren().add(modele.getMomentTotal());
                     modele.getMomentTotal().refreshView();
                     modele.setDisplayedForcesMoment(true);
+                }
+            }
+            else {
+                synchronized (modele.getListeDesForces()) {
+                    for (Vecteur3D azerty : modele.getListeDesForces()) {
+                        azerty.refreshView();
+                    }
+                    modele.getMomentTotal().refreshView();
                 }
             }
         });
