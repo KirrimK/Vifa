@@ -70,6 +70,9 @@ public class Vecteur3D extends Group {
     public void setOrigineMagnitude(Point3D origine, Point3D magnitude) {
         this.origine = origine;
         this.magnitude = magnitude;
+    }
+
+    public void refreshView(){
         body.setHeight(magnitude.magnitude()-1);
         body.setTranslateY(-0.5);
 

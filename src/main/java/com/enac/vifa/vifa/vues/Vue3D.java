@@ -17,6 +17,7 @@ public class Vue3D extends SubScene {
 
     private PerspectiveCamera camera = new PerspectiveCamera(true);
     private Group repereTerrestre;
+    private Group groupePoids;
     private Group repereAvion;
     private Group groupeAvion;
     private Group groupeForces;
@@ -62,6 +63,7 @@ public class Vue3D extends SubScene {
         setFill(Color.DARKGREY);
 
         this.repereTerrestre = repereTerrestreVide;
+        repereTerrestre.getChildren().add(new AmbientLight(Color.WHITESMOKE));
 
         Color terrColor = Color.SANDYBROWN;
         Color avColor = Color.WHITE;
@@ -69,8 +71,11 @@ public class Vue3D extends SubScene {
 
         //repère terrestre
         Vecteur3D trx = new Vecteur3D("x terrestre", new Point3D(50, 0, 0), new Point3D(25, 0, 0), terrColor);
+        trx.refreshView();
         Vecteur3D trz = new Vecteur3D("z terrestre", new Point3D(0, 50, 0), new Point3D(0, 25, 0), terrColor);
+        trz.refreshView();
         Vecteur3D try_ = new Vecteur3D("y terrestre", new Point3D(0, 0, -50), new Point3D(0, 0, -25), terrColor);
+        try_.refreshView();
 
         repereTerrestre.getChildren().add(trx);
         repereTerrestre.getChildren().add(try_);
@@ -95,20 +100,32 @@ public class Vue3D extends SubScene {
         repereTerrestre.getChildren().add(apsi);
         repereTerrestre.getChildren().add(atheta);
 
+        groupePoids = new Group();
+        groupePoids.getTransforms().add(new Translate(0, 0, 0));
+
+        repereTerrestre.getChildren().add(groupePoids);
+
         repereAvion = new Group();
 
-        groupeAvion = new Group(new AmbientLight(Color.WHITESMOKE));
-        //groupeAvion.getTransforms().addAll(new Rotate(90, Rotate.X_AXIS), new Rotate(180, Rotate.Z_AXIS));
+        Group groupeAvionTemp = new Group();
+        groupeAvionTemp.getTransforms().addAll(new Rotate(90, Rotate.X_AXIS), new Rotate(180, Rotate.Z_AXIS));
+
+        groupeAvion = new Group();
+        groupeAvionTemp.getChildren().add(groupeAvion);
+        groupeAvion.getTransforms().add(new Translate(0, 0, 0));
 
         groupeForces = new Group();
         groupeForces.getTransforms().add(new Translate(0, 0, 0));
 
+        repereAvion.getChildren().add(groupeAvionTemp);
         repereAvion.getChildren().add(groupeForces);
-        groupeForces.getChildren().add(groupeAvion);
 
         Vecteur3D avx = new Vecteur3D("x avion", new Point3D(75, 0, 0), new Point3D(25, 0, 0), avColor);
+        avx.refreshView();
         Vecteur3D avz = new Vecteur3D("z avion", new Point3D(0, 75, 0), new Point3D(0, 25, 0), avColor);
+        avz.refreshView();
         Vecteur3D avy = new Vecteur3D("y avion", new Point3D(0, 0, -75), new Point3D(0, 0, -25), avColor);
+        avy.refreshView();
 
         repereAvion.getChildren().add(avx);
         repereAvion.getChildren().add(avy);
@@ -132,8 +149,11 @@ public class Vue3D extends SubScene {
         repereAeroPart.getChildren().add(repereAero);
 
         Vecteur3D aerx = new Vecteur3D("x aéro", new Point3D(100, 0, 0), new Point3D(25, 0, 0), aerColor);
+        aerx.refreshView();
         Vecteur3D aerz = new Vecteur3D("z aéro", new Point3D(0, 100, 0), new Point3D(0, 25, 0), aerColor);
+        aerz.refreshView();
         Vecteur3D aery = new Vecteur3D("y aéro", new Point3D(0, 0, -100), new Point3D(0, 0, -25), aerColor);
+        aery.refreshView();
 
         repereAero.getChildren().add(aerx);
         repereAero.getChildren().add(aery);
@@ -202,6 +222,14 @@ public class Vue3D extends SubScene {
         xrotprop.set(limit(xrot));
         yrotprop.set(yrot);
         zoomprop.set(zoom);
+    }
+
+    public Group getGroupePoids() {
+        return groupePoids;
+    }
+
+    public void setGroupePoids(Group groupePoids) {
+        this.groupePoids = groupePoids;
     }
 
     public Group getGroupeAvion() {

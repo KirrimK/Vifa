@@ -28,9 +28,9 @@ public class Moment3D extends Group {
         this.my = my;
         this.mz = mz;
         // flèches autour de x_{repère}
-        mx_gauche = new FlecheArrondie3D(nom_mx, rayon_x, mx*MOMENT_TO_ANGLE, couleur);
+        mx_gauche = new FlecheArrondie3D(nom_mx, rayon_x, -mx*MOMENT_TO_ANGLE, couleur);
         mx_gauche.getTransforms().add(new Rotate(90, Rotate.Y_AXIS));
-        mx_droit = new FlecheArrondie3D(nom_mx, rayon_x, -mx*MOMENT_TO_ANGLE, couleur);
+        mx_droit = new FlecheArrondie3D(nom_mx, rayon_x, mx*MOMENT_TO_ANGLE, couleur);
         mx_droit.getTransforms().add(new Rotate(-90, Rotate.Y_AXIS));
 
         //flèches autour de y_{repère}
@@ -67,8 +67,8 @@ public class Moment3D extends Group {
     }
 
     public void refreshView(){
-        mx_gauche.setEndAngle(mx*MOMENT_TO_ANGLE);
-        mx_droit.setEndAngle(-mx*MOMENT_TO_ANGLE);
+        mx_gauche.setEndAngle(-mx*MOMENT_TO_ANGLE);
+        mx_droit.setEndAngle(mx*MOMENT_TO_ANGLE);
         my_avant.setEndAngle(my*MOMENT_TO_ANGLE);
         my_arriere.setEndAngle(-my*MOMENT_TO_ANGLE);
         mz_gauche.setEndAngle(mz*MOMENT_TO_ANGLE);

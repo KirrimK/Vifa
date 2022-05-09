@@ -142,11 +142,7 @@ public class Modele {
                     receivedLift = true;
                 } else if (nom.equals("mg")){
                     //momentTotal.changeCenter(debut);
-                    force.setOrigineMagnitude(new javafx.geometry.Point3D(0, 0, 0), force.getMagnitude());
-                    //vue.getGroupeForces().getTransforms().set(0, new Translate(-debut.getX(), -debut.getY(), -debut.getZ()));
-                    vue.getGroupeForces().setTranslateX(debut.getX());
-                    vue.getGroupeForces().setTranslateY(debut.getY());
-                    vue.getGroupeForces().setTranslateZ(debut.getZ());
+                    //force.setOrigineMagnitude(new javafx.geometry.Point3D(0, 0, 0), force.getMagnitude());
                 }
             });
             this.radio.bindMsg(this.MOMENT, (sender, strings) -> {

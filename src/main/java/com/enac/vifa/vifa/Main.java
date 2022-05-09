@@ -6,23 +6,24 @@ import com.enac.vifa.vifa.vues.GouverneControllerPane;
 import com.enac.vifa.vifa.vues.RepereControllerPane;
 import com.enac.vifa.vifa.vues.Vue3D;
 import javafx.application.Application;
+import javafx.geometry.Point3D;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 
 public class Main extends Application {
     public Parent createContent(Scene mainScene){
         // Box
-        Box centerBox = new Box(1, 1, 1);
+        Box centerBox = new Box(0.1, 0.1, 0.1);
 
         Group group = new Group();
         Vue3D vue = new Vue3D(mainScene, new Group());
         group.getChildren().add(vue);
         vue.getRepereTerrestre().getChildren().add(centerBox);
-        // avion.setTranslateX(25);
 
         RepereControllerPane repb = new RepereControllerPane(vue);
         repb.setTranslateY(150);
@@ -73,10 +74,16 @@ public class Main extends Application {
                 synchronized (modele.getListeDesForces()){
                     for(Vecteur3D azerty: modele.getListeDesForces()){
                         if (azerty.getNom().equals("mg")){
-                            vue.getRepereTerrestre().getChildren().add(azerty);
+                            Point3D debut = azerty.getOrigine();
+                            vue.getGroupePoids().getChildren().add(azerty);
+                            vue.getGroupePoids().getTransforms().set(0, new Translate(-debut.getX(), -debut.getY(), -debut.getZ()));
+                            System.out.println(debut);
+                            vue.getGroupeAvion().getTransforms().set(0, new Translate(debut.getX(), debut.getY(), debut.getZ()));
+                            vue.getGroupeForces().getTransforms().set(0, new Translate(-debut.getX(), 0, -debut.getZ()));
                         } else {
-                            vue.getGroupeAvion().getChildren().add(azerty);
+                            vue.getGroupeForces().getChildren().add(azerty);
                         }
+                        azerty.refreshView();
                     }
                     vue.getRepereAvion().getChildren().add(modele.getMomentTotal());
                     modele.getMomentTotal().refreshView();
