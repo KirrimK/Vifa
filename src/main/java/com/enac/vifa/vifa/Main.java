@@ -76,14 +76,10 @@ public class Main extends Application {
                     for (Vecteur3D azerty : modele.getListeDesForces()) {
                         if (azerty.getNom().equals("mg")) {
                             Point3D debut = azerty.getOrigine();
-                            vue.getGroupePoids().getChildren().add(azerty);
-                            vue.getGroupePoids().getTransforms().set(0, new Translate(-debut.getX(), -debut.getY(), -debut.getZ()));
-                            System.out.println(debut);
-                            vue.getGroupeAvion().getTransforms().set(0, new Translate(debut.getX(), debut.getY(), debut.getZ()));
-                            vue.getGroupeForces().getTransforms().set(0, new Translate(-debut.getX(), 0, -debut.getZ()));
-                        } else {
-                            vue.getGroupeForces().getChildren().add(azerty);
+                            vue.getGroupeAvion().getTransforms().set(0, new Translate(debut.getX(), 0, debut.getZ()));
+                            vue.getGroupeForces().getTransforms().set(0, new Translate(-debut.getX(), 0, debut.getZ()));
                         }
+                        vue.getGroupeForces().getChildren().add(azerty);
                         azerty.refreshView();
                     }
                     vue.getRepereAvion().getChildren().add(modele.getMomentTotal());
