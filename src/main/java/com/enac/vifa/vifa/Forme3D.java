@@ -4,7 +4,9 @@ package com.enac.vifa.vifa;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.CullFace;
+import javafx.scene.shape.Cylinder;
 import org.fxyz3d.shapes.primitives.TriangulatedMesh;
 import org.fxyz3d.geometry.Point3D;
 
@@ -47,13 +49,14 @@ public class Forme3D {
 
     public TriangulatedMesh setTriangulatedMesh() {
         // lists of vertices are sorted clockwise, we want them to be counterclockwise
-            List<Point3D> contourN = new ArrayList<>();
-            contourN.add(this.contour.get(0));
-            int sides=this.contour.size();
-            for (int i=sides-1;i>0;i--) {
-                contourN.add(this.contour.get(i));
-            }
-            System.out.println(contourN);
+        List<Point3D> contourN = new ArrayList<>();
+        contourN.add(this.contour.get(0));
+        int sides=this.contour.size();
+        for (int i=sides-1;i>0;i--) {
+            contourN.add(this.contour.get(i));
+        }
+        
+            
         
         // determine the plane that the shape is in
         if (sides<3) {throw new IndexOutOfBoundsException("Must be at least 3 sides");}
@@ -67,9 +70,22 @@ public class Forme3D {
         m.setRotate(90);
         m.setTranslateY(-2);
         m.setTranslateZ(1);
-        return m;
+        return m;   
+    }
+    
+    public Cylinder setNacelles(){
         
+        List<Point3D> contourN = new ArrayList<>();
+        contourN.add(this.contour.get(0));
+        int sides=this.contour.size();
+        for (int i=sides-1;i>0;i--) {
+            contourN.add(this.contour.get(i));
+        }
+        System.out.println(contourN);
         
+        Cylinder nacelle = new Cylinder(2, 5);
+        nacelle.setMaterial(new PhongMaterial(Color.GREY));
+        return nacelle;
     }
 }
 

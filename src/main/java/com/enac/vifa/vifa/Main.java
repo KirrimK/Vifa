@@ -62,6 +62,7 @@ public class Main extends Application {
                 modele.setDisplayedForme2D(true);
                 vue.getGroupeAvion().getChildren().addAll(modele.DrawFFS());
                 vue.getGroupeAvion().getChildren().addAll(modele.DrawFus());
+                vue.getGroupeAvion().getChildren().addAll(modele.DrawNac());
             }
 
            });

@@ -15,9 +15,11 @@ import javafx.geometry.Point3D;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.MeshView;
 import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.Cylinder;
 import org.fxyz3d.shapes.primitives.TriangulatedMesh;
 
 public class Modele {
+    private int TEMPS_MIN_ENTRE_DEUX_REFRESHS = 200;//ms
     private static Modele modele;
     private ArrayList<Forme2D> listeDesFormes;
     private ArrayList<Vecteur3D> listeDesForces;
@@ -44,6 +46,8 @@ public class Modele {
     private boolean receivedLift = false;
     private boolean displayedForcesMoment = false;
     private boolean displayedForme2D = false;
+    private long tempsDerniereDemandeForce;
+    private long tempsDerniereDemandeDescr;
     public CommunicationService descriptionService;
     public CommunicationService getForcesMomentService;
     private String BUS = (System.getProperty("os.name").equals("Mac OS X")) ? "224.255.255.255:2010" : "127.255.255.255:2010"; //127.255.255.255:2010
@@ -82,6 +86,8 @@ public class Modele {
     }
 
     private Modele() {
+        this.tempsDerniereDemandeDescr = -1000;
+        this.tempsDerniereDemandeForce = -1000;
         this.listeDesFormes = new ArrayList<Forme2D>();
         this.listeDesFormes3D= new ArrayList<Forme3D>();
         this.listeDesForces = new ArrayList<Vecteur3D>();
@@ -415,7 +421,7 @@ public class Modele {
     }
     
     public void addForme3D (String nom){
-        if (nom.equals("fuselage")/*|| nom.equals("naceller")||nom.equals("nacellel")*/){
+        if (nom.equals("fuselage")|| nom.equals("naceller")||nom.equals("nacellel")){
         
             this.listeDesFormes3D.add(new Forme3D(nom));
         }
@@ -458,68 +464,81 @@ public class Modele {
     }
 
     public void getDescription(){
-        try {
-            Thread.sleep(50);
-        } catch (InterruptedException e1) {
-        }
-        this.receivedDrawFFS = false;
-        System.out.println("Description en attente...");
         long temps = (new Date()).getTime();
-        this.listeDesFormes = new ArrayList<Forme2D>();
-        this.listeDesFormes3D = new ArrayList<Forme3D>();
-        try {
-            String msg=String.format(this.DEMANDE_DESCR,mass.getValue(), xCentrage.getValue(), 
-            vAir.getValue(), psi.getValue(), theta.getValue(), phi.getValue(), alpha.getValue(), beta.getValue(), 
-            a0.getValue(), trim.getValue(), dl.getValue(), dm.getValue(), dn.getValue() ).replace(',','.');
-            this.radio.sendMsg(msg);
-        }
-        catch (IvyException e){
-            e.printStackTrace();
-            System.out.println(e);
-        }
-        while (! this.receivedDrawFFS&((new Date()).getTime()-temps < 2000) ){
-            //On attends la fin de la description ou 2 secs
-        }
-        if (! this.receivedDrawFFS){//on a attendu 2secs, et on n'a pas la description
-            IvyException e = new IvyException("Time out de l'attente de description");
-            e.printStackTrace();
-            System.out.println(e);
-            //getDescription();
+        if (temps - tempsDerniereDemandeDescr > TEMPS_MIN_ENTRE_DEUX_REFRESHS){
+            this.tempsDerniereDemandeDescr = temps;
+            try {
+                Thread.sleep(50);
+            } 
+            catch (InterruptedException e1) {}
+            this.receivedDrawFFS = false;
+            System.out.println("Description en attente...");
+            this.listeDesFormes = new ArrayList<Forme2D>();
+            this.listeDesFormes3D = new ArrayList<Forme3D>();
+            try {
+                String msg=String.format(this.DEMANDE_DESCR,mass.getValue(), xCentrage.getValue(), 
+                vAir.getValue(), psi.getValue(), theta.getValue(), phi.getValue(), alpha.getValue(), beta.getValue(), 
+                a0.getValue(), trim.getValue(), dl.getValue(), dm.getValue(), dn.getValue() ).replace(',','.');
+                this.radio.sendMsg(msg);
+            }
+            catch (IvyException e){
+                e.printStackTrace();
+                System.out.println(e);
+            }
+            while (! this.receivedDrawFFS&((new Date()).getTime()-temps < 2000) ){
+                //On attends la fin de la description ou 2 secs
+            }
+            if (! this.receivedDrawFFS){//on a attendu 2secs, et on n'a pas la description
+                IvyException e = new IvyException("Time out de l'attente de description");
+                e.printStackTrace();
+                System.out.println(e);
+                getDescription();
+            }
+            else{
+                System.out.println("Description received");
+            }
         }
         else{
-            System.out.println("Description received");
+            System.out.println("Mais, pas si vite...");
         }
     }
 
     public void getForcesAndMoment (){
-        System.out.println("Waiting for Forces and Moments");
-        this.receivedLift=false;
-        try {
-            Thread.sleep(200);
-        } catch (InterruptedException e1) {
-        }
+        
+        
         long temps = (new Date()).getTime();
-        try {
-            String msg=String.format(this.COMPUTE_DEMND,mass.getValue(), xCentrage.getValue(), 
-                vAir.getValue(), psi.getValue(), theta.getValue(), phi.getValue(), alpha.getValue(), beta.getValue(), 
-                a0.getValue(), trim.getValue(), dl.getValue(), dm.getValue(), dn.getValue(), dx.getValue(), p.getValue(),
-                q.getValue(), r.getValue()).replace(',','.');
-            this.radio.sendMsg(msg);
+        if (temps - tempsDerniereDemandeForce > TEMPS_MIN_ENTRE_DEUX_REFRESHS){
+            System.out.println("Waiting for Forces and Moments");
+            this.tempsDerniereDemandeForce = temps;
+            try {
+                this.receivedLift=false;
+                try {
+                    Thread.sleep(50);
+                } 
+                catch (InterruptedException e1) {}
+                String msg=String.format(this.COMPUTE_DEMND,mass.getValue(), xCentrage.getValue(), 
+                    vAir.getValue(), psi.getValue(), theta.getValue(), phi.getValue(), alpha.getValue(), beta.getValue(), 
+                    a0.getValue(), trim.getValue(), dl.getValue(), dm.getValue(), dn.getValue(), dx.getValue(), p.getValue(),
+                    q.getValue(), r.getValue()).replace(',','.');
+                this.radio.sendMsg(msg);
+            }
+            catch (IvyException e){
+                System.out.println(e);
+            }
+            while ((! receivedLift) & ((new Date()).getTime()-temps < 2000)){}
+            if (! this.receivedLift){//on a attendu 2secs, et on n'a pas les résulatats
+                IvyException e = new IvyException("Time out de l'attente des forces et moments");
+                System.out.println(e);
+                getForcesAndMoment();
+            }
+            else{
+                System.out.println("Forces and moment received");
+            }
         }
-        catch (IvyException e){
-            System.out.println(e);
+        else{
+            System.out.println("Mais, pas si vite...");
         }
-        while (! receivedLift&((new Date()).getTime()-temps < 15000)){
-
-        }
-        if (! this.receivedLift){//on a attendu 2secs, et on n'a pas les résulatats
-        IvyException e = new IvyException("Time out de l'attente des forces et moments");
-        System.out.println(e);
-        //getForcesAndMoment();
-    }
-    else{
-        System.out.println("Forces and moment received");
-    }
+        
     }
 
 
@@ -587,9 +606,24 @@ public class Modele {
     public ArrayList<TriangulatedMesh> DrawFus(){
         ArrayList<TriangulatedMesh> TrianglulatedMeshList = new ArrayList<TriangulatedMesh>();
         for (Forme3D f :this.listeDesFormes3D) {
-            TriangulatedMesh newMesh = f.setTriangulatedMesh();
-            TrianglulatedMeshList.add(newMesh);
+            if (f.getNom().equals("fuselage")){
+                TriangulatedMesh newMesh = f.setTriangulatedMesh();
+                TrianglulatedMeshList.add(newMesh);
+            }
         }
         return TrianglulatedMeshList;
     }
+    public ArrayList<Cylinder> DrawNac(){
+        ArrayList<Cylinder> CylinderList = new ArrayList<Cylinder>();
+        for (Forme3D f :this.listeDesFormes3D) {
+            if (!(f.getNom().equals("fuselage"))){
+                Cylinder nac = f.setNacelles();
+                CylinderList.add(nac);
+            }
+        }
+        return CylinderList;
+        
+    }
+      
+    
 }
