@@ -23,6 +23,15 @@ public class RepereControllerPane extends VBox {
     private Label betal;
     private Slider betas;
 
+    private Label pl;
+    private Slider ps;
+
+    private Label ql;
+    private Slider qs;
+
+    private Label rl;
+    private Slider rs;
+
     private Vue3D vue;
 
     public RepereControllerPane(Vue3D vue){
@@ -37,7 +46,7 @@ public class RepereControllerPane extends VBox {
             SimpleDoubleProperty psiprop = Modele.getInstance().getPsiProperty();
             synchronized (psiprop){ psiprop.set(Math.toRadians(number.doubleValue())); }
             Modele.getInstance().getForcesMomentService.restart();
-            //Modele.getInstance().descriptionService.restart();
+            Modele.getInstance().descriptionService.restart();
         }));
         phil = new Label("Phi: 0");
         phis = new Slider(-183, 183, 0);
@@ -47,7 +56,7 @@ public class RepereControllerPane extends VBox {
             SimpleDoubleProperty phiprop = Modele.getInstance().getPhiProperty();
             synchronized (phiprop){ phiprop.set(Math.toRadians(number.doubleValue())); }
             Modele.getInstance().getForcesMomentService.restart();
-            //Modele.getInstance().descriptionService.restart();
+            Modele.getInstance().descriptionService.restart();
         }));
         thetal = new Label("Theta: 0");
         thetas = new Slider(-183, 183, 0);
@@ -57,7 +66,7 @@ public class RepereControllerPane extends VBox {
             SimpleDoubleProperty thetaprop = Modele.getInstance().getThetaProperty();
             synchronized (thetaprop){ thetaprop.set(Math.toRadians(number.doubleValue())); }
             Modele.getInstance().getForcesMomentService.restart();
-            //Modele.getInstance().descriptionService.restart();
+            Modele.getInstance().descriptionService.restart();
         }));
 
         alphal = new Label("Alpha: 0");
@@ -68,7 +77,7 @@ public class RepereControllerPane extends VBox {
             SimpleDoubleProperty alphaprop = Modele.getInstance().getAlphaProperty();
             synchronized (alphaprop){ alphaprop.set(Math.toRadians(number.doubleValue())); }
             Modele.getInstance().getForcesMomentService.restart();
-            //Modele.getInstance().descriptionService.restart();
+            Modele.getInstance().descriptionService.restart();
         }));
 
         betal = new Label("Beta: 0");
@@ -79,10 +88,41 @@ public class RepereControllerPane extends VBox {
             SimpleDoubleProperty betaprop = Modele.getInstance().getBetaProperty();
             synchronized (betaprop){ betaprop.set(Math.toRadians(number.doubleValue())); }
             Modele.getInstance().getForcesMomentService.restart();
-            //Modele.getInstance().descriptionService.restart();
+            Modele.getInstance().descriptionService.restart();
         }));
 
-        getChildren().addAll(rpl, psil, psis, phil, phis, thetal, thetas, alphal, alphas, betal, betas);
+        pl = new Label("P: 0");
+        ps = new Slider(-Math.PI, Math.PI, 0);
+        ps.valueProperty().addListener(((observableValue, number, t1) -> {
+            Modele.getInstance().setP(number.doubleValue());
+            pl.setText("P: "+number.doubleValue());
+            SimpleDoubleProperty pprop = Modele.getInstance().getPProperty();
+            synchronized (pprop){ pprop.set(Math.toRadians(number.doubleValue())); }
+            Modele.getInstance().getForcesMomentService.restart();
+            Modele.getInstance().descriptionService.restart();
+        }));
+        ql = new Label("Q: 0");
+        qs = new Slider(-Math.PI, Math.PI, 0);
+        qs.valueProperty().addListener(((observableValue, number, t1) -> {
+            Modele.getInstance().setQ(number.doubleValue());
+            ql.setText("Q: "+number.doubleValue());
+            SimpleDoubleProperty qprop = Modele.getInstance().getQProperty();
+            synchronized (qprop){ qprop.set(Math.toRadians(number.doubleValue())); }
+            Modele.getInstance().getForcesMomentService.restart();
+            Modele.getInstance().descriptionService.restart();
+        }));
+        rl = new Label("R: 0");
+        rs = new Slider(-Math.PI, Math.PI, 0);
+        rs.valueProperty().addListener(((observableValue, number, t1) -> {
+            Modele.getInstance().setR(number.doubleValue());
+            rl.setText("R: "+number.doubleValue());
+            SimpleDoubleProperty rprop = Modele.getInstance().getRProperty();
+            synchronized (rprop){ rprop.set(Math.toRadians(number.doubleValue())); }
+            Modele.getInstance().getForcesMomentService.restart();
+            Modele.getInstance().descriptionService.restart();
+        }));
+
+        getChildren().addAll(rpl, psil, psis, phil, phis, thetal, thetas, alphal, alphas, betal, betas, pl, ps, ql, qs, rl, rs);
         setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7;");
     }
 
@@ -93,18 +133,27 @@ public class RepereControllerPane extends VBox {
         alphas.setValue(0);
         betas.setValue(0);
         betas.adjustValue(0);
+        ps.setValue(0);
+        qs.setValue(0);
+        rs.setValue(0);
 
         vue.rotatePsi(0);
         vue.rotatePhi(0);
         vue.rotateTheta(0);
         vue.rotateAlpha(0);
         vue.rotateBeta(0);
+        Modele.getInstance().setP(0);
+        Modele.getInstance().setQ(0);
+        Modele.getInstance().setR(0);
 
         phil.setText("Phi: 0");
         psil.setText("Psi: 0");
         thetal.setText("Theta: 0");
         alphal.setText("Alpha: 0");
         betal.setText("Beta: 0");
+        pl.setText("P: 0");
+        ql.setText("Q: 0");
+        rl.setText("R: 0");
 
         Modele.getInstance().getForcesMomentService.restart();
         Modele.getInstance().descriptionService.restart();
