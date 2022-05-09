@@ -62,7 +62,7 @@ public class Forme2D extends MeshView{
         Point3D b = contour.get(1);
 
         // define texture coordinates
-        ArrayList textures = new ArrayList<Point2D>();
+        ArrayList<Point2D> textures = new ArrayList<Point2D>();
         double[] earcut = new double[3*sides];
         for (int i=0;i<sides;i++) {
             Point3D p = contour.get(i);
