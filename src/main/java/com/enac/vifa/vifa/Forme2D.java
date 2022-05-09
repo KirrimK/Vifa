@@ -115,4 +115,8 @@ public class Forme2D extends MeshView{
         this.setCullFace(CullFace.NONE);
 
     }
+
+    public void setContour(ArrayList<Point3D> contour) {
+        this.contour = contour;
+    }
 }
