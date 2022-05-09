@@ -83,13 +83,23 @@ public class Forme3D {
             contourN.add(this.contour.get(i));
         }
         System.out.println(contourN);
+            if(this.getNom().equals("nacellel")){
+            Cylinder nacelle = new Cylinder(2, 5);
+            nacelle.setMaterial(new PhongMaterial(Color.GREY));
+            nacelle.setRotationAxis(new javafx.geometry.Point3D(0, 0, 1));
+            nacelle.setRotate(90);
+            nacelle.getTransforms().add(new Translate(10, -20, -2));
+            return nacelle;
+            }
+            else{
+                Cylinder nacelle = new Cylinder(2, 5);
+            nacelle.setMaterial(new PhongMaterial(Color.GREY));
+            nacelle.setRotationAxis(new javafx.geometry.Point3D(0, 0, 1));
+            nacelle.setRotate(90);
+            nacelle.getTransforms().add(new Translate(-10, -20, -2));
+            return nacelle;
+            }
         
-        Cylinder nacelle = new Cylinder(2, 5);
-        nacelle.setMaterial(new PhongMaterial(Color.GREY));
-        nacelle.setRotationAxis(new javafx.geometry.Point3D(0, 0, 1));
-        nacelle.setRotate(90);
-        nacelle.getTransforms().add(new Translate(10, -20, -2));
-        return nacelle;
     }
 }
 
