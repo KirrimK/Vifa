@@ -16,6 +16,7 @@ import javafx.scene.shape.MeshView;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.Cylinder;
 import org.fxyz3d.shapes.primitives.TriangulatedMesh;
 
 public class Modele {
@@ -404,7 +405,7 @@ public class Modele {
     }
     
     public void addForme3D (String nom){
-        if (nom.equals("fuselage")/*|| nom.equals("naceller")||nom.equals("nacellel")*/){
+        if (nom.equals("fuselage")|| nom.equals("naceller")||nom.equals("nacellel")){
         
             this.listeDesFormes3D.add(new Forme3D(nom));
         }
@@ -576,9 +577,24 @@ public class Modele {
     public ArrayList<TriangulatedMesh> DrawFus(){
         ArrayList<TriangulatedMesh> TrianglulatedMeshList = new ArrayList<TriangulatedMesh>();
         for (Forme3D f :this.listeDesFormes3D) {
-            TriangulatedMesh newMesh = f.setTriangulatedMesh();
-            TrianglulatedMeshList.add(newMesh);
+            if (f.getNom().equals("fuselage")){
+                TriangulatedMesh newMesh = f.setTriangulatedMesh();
+                TrianglulatedMeshList.add(newMesh);
+            }
         }
         return TrianglulatedMeshList;
     }
+    public ArrayList<Cylinder> DrawNac(){
+        ArrayList<Cylinder> CylinderList = new ArrayList<Cylinder>();
+        for (Forme3D f :this.listeDesFormes3D) {
+            if (f.getNom().equals("fuselage")){
+                Cylinder nac = f.setNacelles();
+                CylinderList.add(nac);
+            }
+        }
+        return CylinderList;
+        
+    }
+      
+    
 }
