@@ -1,5 +1,7 @@
 package com.enac.vifa.vifa;
 
+import java.util.ArrayList;
+
 import com.enac.vifa.vifa.formes.Vecteur3D;
 import com.enac.vifa.vifa.vues.CameraInfoPane;
 import com.enac.vifa.vifa.vues.GouverneControllerPane;
@@ -9,9 +11,7 @@ import javafx.application.Application;
 import javafx.geometry.Point3D;
 import javafx.scene.*;
 import javafx.scene.control.Button;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
-import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 
@@ -57,7 +57,8 @@ public class Main extends Application {
         modele.descriptionService.setOnSucceeded(e -> {
             System.out.println("ThreadPrincipal a bien reçu la descr.");
             if (modele.isDisplayedForme2D()){
-                modele.DrawFFS();
+                vue.getGroupeAvion().getChildren().removeAll(modele.DrawFFS());
+                vue.getGroupeAvion().getChildren().addAll(modele.DrawFFS());
             } else {
                 modele.setDisplayedForme2D(true);
                 vue.getGroupeAvion().getChildren().addAll(modele.DrawFFS());

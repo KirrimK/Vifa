@@ -2,6 +2,9 @@ package com.enac.vifa.vifa;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.function.Function;
+
+import javax.lang.model.element.Element;
 
 import com.enac.vifa.vifa.formes.Moment3D;
 import com.enac.vifa.vifa.formes.Vecteur3D;
@@ -160,8 +163,9 @@ public class Modele {
                         Double.parseDouble(strings[2]),
                         Double.parseDouble(strings[3]));
             });
-            this.radio.bindMsg(this.INIT_FORME_2D_MSG, (client, nomDansTableau) -> addForme(nomDansTableau[0]));
-            this.radio.bindMsg(this.INIT_FORME_2D_MSG, (client, nomDansTableau) -> addForme3D(nomDansTableau[0]));
+            this.radio.bindMsg(this.INIT_FORME_2D_MSG, (client, nomDansTableau) -> {addForme(nomDansTableau[0]);
+                                                                                    addForme3D(nomDansTableau[0]);
+            });
             this.radio.bindMsg(this.POINT_DE_LA_FORME, (client, args) -> {
                 String name = args[0];
                 double x = Double.parseDouble(args[1]);
@@ -415,8 +419,17 @@ public class Modele {
     }
     
     public void addForme (String nom){
-        if(!nom.equals("fuselage")){
-            this.listeDesFormes.add(new Forme2D(nom));
+        boolean t =false;
+        if(!(nom.equals("fuselage")|| nom.equals("naceller")||nom.equals("nacellel"))){
+            for (Forme2D f:listeDesFormes){
+                if (nom.equals(f.getNom())){
+                    t=true;
+                    f.setContour(new ArrayList<Point3D>());
+                }
+            }
+            if (!t){
+                listeDesFormes.add(new Forme2D(nom));
+            }
         }
     }
     
@@ -490,7 +503,6 @@ public class Modele {
             }
             if (! this.receivedDrawFFS){//on a attendu 2secs, et on n'a pas la description
                 IvyException e = new IvyException("Time out de l'attente de description");
-                e.printStackTrace();
                 System.out.println(e);
                 getDescription();
             }
