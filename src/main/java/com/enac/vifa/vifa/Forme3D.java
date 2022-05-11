@@ -1,6 +1,7 @@
 package com.enac.vifa.vifa;
 
 
+import com.enac.vifa.vifa.formes.Vecteur3D;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.paint.Color;
@@ -85,29 +86,28 @@ public class Forme3D {
         System.out.println(contourN);
         int n = contourN.size();
         
+        Point3D p = contourN.get(0);
+        javafx.geometry.Point3D origine = new javafx.geometry.Point3D(p.getX(), p.getY(), p.getZ());
+        System.out.println(origine);
         double xmin = contourN.get(0).x;
         double xmax = contourN.get(n-2).x;
         double radius = Math.abs(xmax-xmin)/2;
         
         double ymax = contourN.get(0).y;
         double ymin = contourN.get(7).y;
-        System.out.println(ymin);   
+          
         double height = Math.abs(ymax-ymin);
         
-        Cylinder nacelle = new Cylinder(radius, height*4);
+        Cylinder nacelle = new Cylinder(radius/1.5, height*4);
         nacelle.setMaterial(new PhongMaterial(Color.GREY));
         nacelle.setRotationAxis(new javafx.geometry.Point3D(0, 0, 1));
         nacelle.setRotate(90);
-        
-        if(this.getNom().equals("nacellel")){
-        
-        nacelle.getTransforms().add(new Translate(10, -20, -2));
+       
+            
+        nacelle.getTransforms().add(new Translate(origine.getZ(), -origine.getX()-nacelle.getHeight()/2, +origine.getY()-nacelle.getRadius()));
         return nacelle;
-        }
-        else{
-            nacelle.getTransforms().add(new Translate(-10, -20, -2));
-            return nacelle;
-        }
+        
+        
         
     }
 }
