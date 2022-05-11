@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
 
-public class PQRPane extends VBox {
+public class PQRPane extends VBox implements Resettable {
 
     private Label pl;
     private Slider ps;
@@ -30,7 +30,7 @@ public class PQRPane extends VBox {
             SimpleDoubleProperty pprop = Modele.getInstance().getPProperty();
             synchronized (pprop){ pprop.set(Math.toRadians(number.doubleValue())); }
             Modele.getInstance().getForcesMomentService.restart();
-            Modele.getInstance().descriptionService.restart();
+            //Modele.getInstance().descriptionService.restart();
         }));
         ql = new Label("Q: 0");
         qs = new Slider(-Math.PI, Math.PI, 0);
@@ -40,7 +40,7 @@ public class PQRPane extends VBox {
             SimpleDoubleProperty qprop = Modele.getInstance().getQProperty();
             synchronized (qprop){ qprop.set(Math.toRadians(number.doubleValue())); }
             Modele.getInstance().getForcesMomentService.restart();
-            Modele.getInstance().descriptionService.restart();
+            //Modele.getInstance().descriptionService.restart();
         }));
         rl = new Label("R: 0");
         rs = new Slider(-Math.PI, Math.PI, 0);
@@ -50,7 +50,7 @@ public class PQRPane extends VBox {
             SimpleDoubleProperty rprop = Modele.getInstance().getRProperty();
             synchronized (rprop){ rprop.set(Math.toRadians(number.doubleValue())); }
             Modele.getInstance().getForcesMomentService.restart();
-            Modele.getInstance().descriptionService.restart();
+            //Modele.getInstance().descriptionService.restart();
         }));
 
         getChildren().addAll(rpl,pl, ps, ql, qs, rl, rs);
@@ -62,11 +62,6 @@ public class PQRPane extends VBox {
         qs.setValue(0);
         rs.setValue(0);
 
-        vue.rotatePsi(0);
-        vue.rotatePhi(0);
-        vue.rotateTheta(0);
-        vue.rotateAlpha(0);
-        vue.rotateBeta(0);
         Modele.getInstance().setP(0);
         Modele.getInstance().setQ(0);
         Modele.getInstance().setR(0);
@@ -74,8 +69,5 @@ public class PQRPane extends VBox {
         pl.setText("P: 0");
         ql.setText("Q: 0");
         rl.setText("R: 0");
-
-        Modele.getInstance().getForcesMomentService.restart();
-        Modele.getInstance().descriptionService.restart();
     }
 }

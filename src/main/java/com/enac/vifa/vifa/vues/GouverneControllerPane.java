@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
 
-public class GouverneControllerPane extends GridPane {
+public class GouverneControllerPane extends GridPane implements Resettable {
 
     private final Label profInfo;
     private final Slider prof;
@@ -73,10 +73,11 @@ public class GouverneControllerPane extends GridPane {
         prof.setValue(0);
         dir.setValue(0);
         ailerons.setValue(0);
+        Modele.getInstance().setDl(0);
+        Modele.getInstance().setDm(0);
+        Modele.getInstance().setDn(0);
         profInfo.setText("Profondeur: 0");
         dirInfo.setText("Direction: 0");
         ailInfo.setText("Ailerons: 0");
-        Modele.getInstance().descriptionService.restart();
-        Modele.getInstance().getForcesMomentService.restart();
     }
 }

@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
 
-public class RepereControllerPane extends VBox {
+public class RepereControllerPane extends VBox implements Resettable{
 
     private Label psil;
     private Slider psis;
@@ -68,7 +68,7 @@ public class RepereControllerPane extends VBox {
             SimpleDoubleProperty alphaprop = Modele.getInstance().getAlphaProperty();
             synchronized (alphaprop){ alphaprop.set(Math.toRadians(number.doubleValue())); }
             Modele.getInstance().getForcesMomentService.restart();
-            Modele.getInstance().descriptionService.restart();
+            //Modele.getInstance().descriptionService.restart();
         }));
 
         betal = new Label("Beta: 0");
@@ -79,7 +79,7 @@ public class RepereControllerPane extends VBox {
             SimpleDoubleProperty betaprop = Modele.getInstance().getBetaProperty();
             synchronized (betaprop){ betaprop.set(Math.toRadians(number.doubleValue())); }
             Modele.getInstance().getForcesMomentService.restart();
-            Modele.getInstance().descriptionService.restart();
+            //Modele.getInstance().descriptionService.restart();
         }));
 
         getChildren().addAll(rpl, psil, psis, phil, phis, thetal, thetas, alphal, alphas, betal, betas);
@@ -94,22 +94,22 @@ public class RepereControllerPane extends VBox {
         betas.setValue(0);
         betas.adjustValue(0);
 
+        Modele.getInstance().setPhi(0);
+        Modele.getInstance().setPsi(0);
+        Modele.getInstance().setTheta(0);
+        Modele.getInstance().setAlpha(0);
+        Modele.getInstance().setBeta(0);
+
         vue.rotatePsi(0);
         vue.rotatePhi(0);
         vue.rotateTheta(0);
         vue.rotateAlpha(0);
         vue.rotateBeta(0);
-        Modele.getInstance().setP(0);
-        Modele.getInstance().setQ(0);
-        Modele.getInstance().setR(0);
 
         phil.setText("Phi: 0");
         psil.setText("Psi: 0");
         thetal.setText("Theta: 0");
         alphal.setText("Alpha: 0");
         betal.setText("Beta: 0");
-
-        Modele.getInstance().getForcesMomentService.restart();
-        Modele.getInstance().descriptionService.restart();
     }
 }

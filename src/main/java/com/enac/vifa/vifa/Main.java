@@ -1,13 +1,10 @@
 package com.enac.vifa.vifa;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.enac.vifa.vifa.formes.Vecteur3D;
-import com.enac.vifa.vifa.vues.CameraInfoPane;
-import com.enac.vifa.vifa.vues.GouverneControllerPane;
-import com.enac.vifa.vifa.vues.PQRPane;
-import com.enac.vifa.vifa.vues.RepereControllerPane;
-import com.enac.vifa.vifa.vues.Vue3D;
+import com.enac.vifa.vifa.vues.*;
 import javafx.application.Application;
 import javafx.geometry.Point3D;
 import javafx.scene.*;
@@ -27,10 +24,11 @@ public class Main extends Application {
         vue.getRepereTerrestre().getChildren().add(centerBox);
 
         RepereControllerPane repb = new RepereControllerPane(vue);
-        PQRPane pqrb = new PQRPane(vue);
         repb.setTranslateY(150);
         repb.setTranslateX(10);
-        pqrb.setTranslateY(330);
+
+        PQRPane pqrb = new PQRPane(vue);
+        pqrb.setTranslateY(350);
         pqrb.setTranslateX(10);
 
         CameraInfoPane camInfo = new CameraInfoPane(vue);
@@ -41,13 +39,11 @@ public class Main extends Application {
         gouvCtl.setTranslateX(250);
         gouvCtl.setTranslateY(10);
 
-        Button resetb = new Button("RESET");
-        resetb.setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7;");
-        resetb.setOnAction((actionEvent) -> {
-            repb.reset();
-            pqrb.reset();
-            gouvCtl.reset();
-        });
+        ArrayList<? extends Resettable> stonks = new ArrayList<>();
+        ((ArrayList<RepereControllerPane>) stonks).add(repb);
+        ((ArrayList<PQRPane>) stonks).add(pqrb);
+        ((ArrayList<GouverneControllerPane>) stonks).add(gouvCtl);
+        ResetButton resetb = new ResetButton(stonks);
         resetb.setTranslateX(150);
         resetb.setTranslateY(10);
 
