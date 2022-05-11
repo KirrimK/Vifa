@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.enac.vifa.vifa.formes.Vecteur3D;
 import com.enac.vifa.vifa.vues.CameraInfoPane;
 import com.enac.vifa.vifa.vues.GouverneControllerPane;
+import com.enac.vifa.vifa.vues.PQRPane;
 import com.enac.vifa.vifa.vues.RepereControllerPane;
 import com.enac.vifa.vifa.vues.Vue3D;
 import javafx.application.Application;
@@ -26,8 +27,11 @@ public class Main extends Application {
         vue.getRepereTerrestre().getChildren().add(centerBox);
 
         RepereControllerPane repb = new RepereControllerPane(vue);
+        PQRPane pqrb = new PQRPane(vue);
         repb.setTranslateY(150);
         repb.setTranslateX(10);
+        pqrb.setTranslateY(330);
+        pqrb.setTranslateX(10);
 
         CameraInfoPane camInfo = new CameraInfoPane(vue);
         camInfo.setTranslateX(10);
@@ -41,6 +45,7 @@ public class Main extends Application {
         resetb.setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7;");
         resetb.setOnAction((actionEvent) -> {
             repb.reset();
+            pqrb.reset();
             gouvCtl.reset();
         });
         resetb.setTranslateX(150);
@@ -48,6 +53,7 @@ public class Main extends Application {
 
         group.getChildren().add(camInfo);
         group.getChildren().add(repb);
+        group.getChildren().add(pqrb);
         group.getChildren().add(resetb);
         group.getChildren().add(gouvCtl);
 
