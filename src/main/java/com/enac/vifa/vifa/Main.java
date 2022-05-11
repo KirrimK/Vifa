@@ -1,7 +1,6 @@
 package com.enac.vifa.vifa;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import com.enac.vifa.vifa.formes.Vecteur3D;
 import com.enac.vifa.vifa.vues.*;

@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 
+import static com.enac.vifa.vifa.vues.Mode.ATTITUDE;
 import static java.lang.Double.max;
 
 public class Vue3D extends SubScene {
@@ -41,6 +42,9 @@ public class Vue3D extends SubScene {
 
     private double ZOOM_MIN_VALUE = 25;
 
+    //mode properties
+    private Mode mode;
+
     //mouse event vars
     private double startx;
     private double starty;
@@ -58,6 +62,7 @@ public class Vue3D extends SubScene {
 
     public Vue3D(Scene mainScene, Group repereTerrestreVide){
         super(repereTerrestreVide, 100.0, 100.0, true, SceneAntialiasing.BALANCED);
+        this.mode = ATTITUDE;
         this.heightProperty().bind(mainScene.heightProperty());
         this.widthProperty().bind(mainScene.widthProperty());
         setFill(Color.DARKGREY);
@@ -202,6 +207,14 @@ public class Vue3D extends SubScene {
 
         rotateRepereAvion(0, 0, 0);
         rotateRepereAero(0, 0);
+    }
+
+    public Mode getMode() {
+        return mode;
+    }
+
+    public void setMode(Mode mode) {
+        this.mode = mode;
     }
 
     public Group getGroupe2D() {
