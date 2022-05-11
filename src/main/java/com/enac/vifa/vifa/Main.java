@@ -57,11 +57,11 @@ public class Main extends Application {
         modele.descriptionService.setOnSucceeded(e -> {
             System.out.println("ThreadPrincipal a bien reçu la descr.");
             if (modele.isDisplayedForme2D()){
-                vue.getGroupeAvion().getChildren().removeAll(modele.DrawFFS());
-                vue.getGroupeAvion().getChildren().addAll(modele.DrawFFS());
+                vue.getGroupe2D().getChildren().clear();
+                vue.getGroupe2D().getChildren().addAll(modele.DrawFFS());
             } else {
                 modele.setDisplayedForme2D(true);
-                vue.getGroupeAvion().getChildren().addAll(modele.DrawFFS());
+                vue.getGroupe2D().getChildren().addAll(modele.DrawFFS());
                 vue.getGroupeAvion().getChildren().addAll(modele.DrawFus());
                 vue.getGroupeAvion().getChildren().addAll(modele.DrawNac());
             }
@@ -77,10 +77,13 @@ public class Main extends Application {
                     for (Vecteur3D azerty : modele.getListeDesForces()) {
                         if (azerty.getNom().equals("mg")) {
                             Point3D debut = azerty.getOrigine();
+                            vue.getRepereTerrestre().getChildren().add(azerty);
                             vue.getGroupeAvion().getTransforms().set(0, new Translate(debut.getX(), 0, debut.getZ()));
                             vue.getGroupeForces().getTransforms().set(0, new Translate(-debut.getX(), 0, debut.getZ()));
+                            azerty.setOrigineMagnitude(new Point3D(0, 0, 0), azerty.getMagnitude());
+                        } else {
+                            vue.getGroupeForces().getChildren().add(azerty);
                         }
-                        vue.getGroupeForces().getChildren().add(azerty);
                         azerty.refreshView();
                     }
                     vue.getRepereAvion().getChildren().add(modele.getMomentTotal());
@@ -91,6 +94,9 @@ public class Main extends Application {
             else {
                 synchronized (modele.getListeDesForces()) {
                     for (Vecteur3D azerty : modele.getListeDesForces()) {
+                        if (azerty.getNom().equals("mg")){
+                            azerty.setOrigineMagnitude(new Point3D(0, 0, 0), azerty.getMagnitude());
+                        }
                         azerty.refreshView();
                     }
                     modele.getMomentTotal().refreshView();

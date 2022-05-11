@@ -151,7 +151,7 @@ public class Modele {
                     receivedLift = true;
                 } else if (nom.equals("mg")){
                     //momentTotal.changeCenter(debut);
-                    //force.setOrigineMagnitude(new javafx.geometry.Point3D(0, 0, 0), force.getMagnitude());
+                    force.setOrigineMagnitude(force.getOrigine(), new Point3D(0, force.getMagnitude().magnitude(), 0));
                 }
                 updateForce(force);
             });
@@ -477,7 +477,7 @@ public class Modele {
         return (getForme3D(nom));
     }
 
-    public void getDescription(){
+    public void getDescription() throws IvyException{
         long temps = (new Date()).getTime();
         if (temps - tempsDerniereDemandeDescr > TEMPS_MIN_ENTRE_DEUX_REFRESHS){
             this.tempsDerniereDemandeDescr = temps;
@@ -504,8 +504,9 @@ public class Modele {
             }
             if (! this.receivedDrawFFS){//on a attendu 2secs, et on n'a pas la description
                 IvyException e = new IvyException("Time out de l'attente de description");
-                System.out.println(e);
-                getDescription();
+                throw e;
+                //System.out.println(e);
+                //getDescription();
             }
             else{
                 System.out.println("Description received");
@@ -542,7 +543,7 @@ public class Modele {
             if (! this.receivedLift){//on a attendu 2secs, et on n'a pas les résulatats
                 IvyException e = new IvyException("Time out de l'attente des forces et moments");
                 System.out.println(e);
-                getForcesAndMoment();
+                //getForcesAndMoment();
             }
             else{
                 System.out.println("Forces and moment received");

@@ -45,8 +45,8 @@ public class RepereControllerPane extends VBox {
             psil.setText("Psi: "+number.intValue());
             SimpleDoubleProperty psiprop = Modele.getInstance().getPsiProperty();
             synchronized (psiprop){ psiprop.set(Math.toRadians(number.doubleValue())); }
-            Modele.getInstance().getForcesMomentService.restart();
-            Modele.getInstance().descriptionService.restart();
+            //Modele.getInstance().getForcesMomentService.restart();
+            //Modele.getInstance().descriptionService.restart();
         }));
         phil = new Label("Phi: 0");
         phis = new Slider(-183, 183, 0);
@@ -55,8 +55,8 @@ public class RepereControllerPane extends VBox {
             phil.setText("Phi: "+number.intValue());
             SimpleDoubleProperty phiprop = Modele.getInstance().getPhiProperty();
             synchronized (phiprop){ phiprop.set(Math.toRadians(number.doubleValue())); }
-            Modele.getInstance().getForcesMomentService.restart();
-            Modele.getInstance().descriptionService.restart();
+            //Modele.getInstance().getForcesMomentService.restart();
+            //Modele.getInstance().descriptionService.restart();
         }));
         thetal = new Label("Theta: 0");
         thetas = new Slider(-183, 183, 0);
@@ -65,8 +65,8 @@ public class RepereControllerPane extends VBox {
             thetal.setText("Theta: "+number.intValue());
             SimpleDoubleProperty thetaprop = Modele.getInstance().getThetaProperty();
             synchronized (thetaprop){ thetaprop.set(Math.toRadians(number.doubleValue())); }
-            Modele.getInstance().getForcesMomentService.restart();
-            Modele.getInstance().descriptionService.restart();
+            //Modele.getInstance().getForcesMomentService.restart();
+            //Modele.getInstance().descriptionService.restart();
         }));
 
         alphal = new Label("Alpha: 0");

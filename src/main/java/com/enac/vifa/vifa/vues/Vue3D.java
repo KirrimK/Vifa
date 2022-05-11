@@ -19,6 +19,7 @@ public class Vue3D extends SubScene {
     private Group repereTerrestre;
     private Group repereAvion;
     private Group groupeAvion;
+    private Group groupe2D;
     private Group groupeForces;
     private Group repereAeroPart;
     private Group repereAero;
@@ -107,6 +108,9 @@ public class Vue3D extends SubScene {
         groupeAvion = new Group();
         groupeAvionTemp.getChildren().add(groupeAvion);
         groupeAvion.getTransforms().add(new Translate(0, 0, 0));
+
+        groupe2D = new Group();
+        groupeAvion.getChildren().add(groupe2D);
 
         groupeForces = new Group();
         groupeForces.getTransforms().add(new Translate(0, 0, 0));
@@ -198,6 +202,14 @@ public class Vue3D extends SubScene {
 
         rotateRepereAvion(0, 0, 0);
         rotateRepereAero(0, 0);
+    }
+
+    public Group getGroupe2D() {
+        return groupe2D;
+    }
+
+    public void setGroupe2D(Group groupe2D) {
+        this.groupe2D = groupe2D;
     }
 
     public Group getRepereTerrestre() {

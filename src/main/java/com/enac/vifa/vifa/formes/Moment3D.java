@@ -20,7 +20,7 @@ public class Moment3D extends Group {
     private double my;
     private double mz;
 
-    private static final double MOMENT_TO_ANGLE = 0.000001;
+    private static final double MOMENT_TO_ANGLE = 0.000005;
 
     public Moment3D(Point3D center, double rayon_x, double rayon_y, double rayon_z, double mx, double my, double mz, String nom_mx, String nom_my, String nom_mz, Color couleur){
         super();
@@ -34,8 +34,8 @@ public class Moment3D extends Group {
         mx_droit.getTransforms().add(new Rotate(-90, Rotate.Y_AXIS));
 
         //flèches autour de y_{repère}
-        my_avant = new FlecheArrondie3D(nom_my, rayon_y, my*MOMENT_TO_ANGLE, couleur);
-        my_arriere = new FlecheArrondie3D(nom_my, rayon_y, -my*MOMENT_TO_ANGLE, couleur);
+        my_avant = new FlecheArrondie3D(nom_my, rayon_y, -my*MOMENT_TO_ANGLE, couleur);
+        my_arriere = new FlecheArrondie3D(nom_my, rayon_y, my*MOMENT_TO_ANGLE, couleur);
         my_arriere.getTransforms().add(new Rotate(180, Rotate.Y_AXIS));
 
         //flèches autour de z_{repère}
@@ -69,8 +69,8 @@ public class Moment3D extends Group {
     public void refreshView(){
         mx_gauche.setEndAngle(-mx*MOMENT_TO_ANGLE);
         mx_droit.setEndAngle(mx*MOMENT_TO_ANGLE);
-        my_avant.setEndAngle(my*MOMENT_TO_ANGLE);
-        my_arriere.setEndAngle(-my*MOMENT_TO_ANGLE);
+        my_avant.setEndAngle(-my*MOMENT_TO_ANGLE);
+        my_arriere.setEndAngle(my*MOMENT_TO_ANGLE);
         mz_gauche.setEndAngle(mz*MOMENT_TO_ANGLE);
         mz_droit.setEndAngle(-mz*MOMENT_TO_ANGLE);
     }
