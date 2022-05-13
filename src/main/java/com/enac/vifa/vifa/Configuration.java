@@ -28,6 +28,9 @@ public class Configuration {
     private Color couleurAlphaBeta = Color.LIGHTBLUE;
     private Color couleurVitessesRotation = Color.DARKVIOLET;
     private Color couleurMoment = Color.GREEN;
+    private double vitesseRotationToDegres =1;
+    private double momentToDegre = 0.000005;
+
 
 
 
@@ -120,6 +123,12 @@ public class Configuration {
                                 couleurMoment = couleurFromString(mots[1]);
                             }
                             break;
+                        case "vitesseRotationToDegres":
+                            vitesseRotationToDegres = Double.parseDouble(mots[1]);
+                            break;
+                        case "momentToDegre":
+                            momentToDegre = Double.parseDouble(mots[1]);
+                            break;
                         default:
                             System.out.println("Gibberish line : \n"+ligne);
                             break;
@@ -192,5 +201,11 @@ public class Configuration {
     }
     public Color getCouleurMoment() {
         return couleurMoment;
+    }
+    public double getVitesseRotationToDegres() {
+        return vitesseRotationToDegres;
+    }
+    public double getMomentToDegre() {
+        return momentToDegre;
     }
 }
