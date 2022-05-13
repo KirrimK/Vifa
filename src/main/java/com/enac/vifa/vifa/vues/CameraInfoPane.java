@@ -19,15 +19,15 @@ public class CameraInfoPane extends VBox {
         Label cml = new Label("Camera:");
         xrotl = new Label("X Rot: "+vue.getXrotprop());
         vue.xrotpropProperty().addListener(((observableValue, number, t1) -> {
-            xrotl.setText("X Rot: "+number);
+            xrotl.setText("X Rot: "+t1);
         }));
         yrotl = new Label("Y Rot: "+vue.getYrotprop());
         vue.yrotpropProperty().addListener(((observableValue, number, t1) -> {
-            yrotl.setText("Y Rot: "+number);
+            yrotl.setText("Y Rot: "+t1);
         }));
         zooml = new Label("Zoom: "+vue.getZoomprop());
         vue.zoompropProperty().addListener(((observableValue, number, t1) -> {
-            zooml.setText("Zoom: "+number);
+            zooml.setText("Zoom: "+t1);
         }));
 
         getChildren().addAll(cml, xrotl, yrotl, zooml);
