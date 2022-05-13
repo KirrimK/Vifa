@@ -1,7 +1,6 @@
 package com.enac.vifa.vifa;
 
 
-import com.enac.vifa.vifa.formes.Vecteur3D;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.paint.Color;

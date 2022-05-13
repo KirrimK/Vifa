@@ -1,6 +1,5 @@
 package com.enac.vifa.vifa.formes;
 
-import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.control.Alert;
 import javafx.scene.paint.Color;
@@ -18,7 +17,6 @@ public class FlecheArrondie3D extends Group {
 
     private ArrayList<Cylinder> aled;
 
-    private double startAngle = 0;
     private double endAngle;
 
     private double rayon;

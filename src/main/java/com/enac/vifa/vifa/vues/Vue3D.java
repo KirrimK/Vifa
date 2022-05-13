@@ -46,13 +46,12 @@ public class Vue3D extends SubScene {
     private double ZOOM_MAX_VALUE = Configuration.getInstance().getZoomMax();
 
     //mode properties
-    private Mode mode;
+    private Mode mode=Configuration.getInstance().getMode();
 
     //mouse event vars
     private double startx;
     private double starty;
 
-    //TODO: faire la même pour zoom, avoir constantes paramétrables
     private double limit(double d){
         if (d < -90){
             return -90;

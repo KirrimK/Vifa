@@ -3,8 +3,6 @@ package com.enac.vifa.vifa.formes;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Material;
 import javafx.scene.paint.PhongMaterial;
