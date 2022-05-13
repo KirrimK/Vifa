@@ -190,19 +190,34 @@ public class Vue3D extends SubScene {
         });
 
         setOnMousePressed((mouseEvent -> {
-            if (mouseEvent.getButton() == MouseButton.SECONDARY) {
                 startx = mouseEvent.getX();
                 starty = mouseEvent.getY();
-            }
         }));
 
         setOnMouseDragged((mouseEvent -> {
-            if (mouseEvent.getButton() == MouseButton.SECONDARY){
-                yrotprop.set(yrotprop.get() + (mouseEvent.getX() - startx));
-                xrotprop.set(limit(xrotprop.get() - (mouseEvent.getY() - starty)));
-                startx = mouseEvent.getX();
-                starty = mouseEvent.getY();
+            double x = mouseEvent.getX();
+            double y = mouseEvent.getY();
+            if (mouseEvent.getButton() == MouseButton.PRIMARY){
+                switch (mode){
+
+                    case ATTITUDE -> {
+
+                    }
+                    case AVION -> {
+                        double diffx = x - startx;
+                        double diffy = y - starty;
+                    }
+                    case AERO -> {
+
+                    }
+                }
             }
+            else if (mouseEvent.getButton() == MouseButton.SECONDARY){
+                yrotprop.set(yrotprop.get() + (x - startx));
+                xrotprop.set(limit(xrotprop.get() - (y - starty)));
+            }
+            startx = x;
+            starty = y;
         }));
 
         rotateRepereAvion(0, 0, 0);
