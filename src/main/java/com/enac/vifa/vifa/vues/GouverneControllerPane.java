@@ -23,8 +23,10 @@ public class GouverneControllerPane extends ControllerPane {
         prof.valueProperty().bindBidirectional(Modele.getInstance().getDmProperty());
         prof.valueProperty().addListener(((observableValue, number, t1) -> {
             genericSliderListener("Profondeur (deg): ", profInfo, t1);
-            Modele.getInstance().descriptionService.restart();
-            Modele.getInstance().getForcesMomentService.restart();
+            if (!resetting){
+                Modele.getInstance().descriptionService.restart();
+                Modele.getInstance().getForcesMomentService.restart();
+            }
         }));
         setRowIndex(prof, 0);
         setColumnIndex(prof, 0);
@@ -36,8 +38,10 @@ public class GouverneControllerPane extends ControllerPane {
         dir.valueProperty().bindBidirectional(Modele.getInstance().getDnProperty());
         dir.valueProperty().addListener(((observableValue, number, t1) -> {
             genericSliderListener("Direction (deg): ", dirInfo, t1);
-            Modele.getInstance().descriptionService.restart();
-            Modele.getInstance().getForcesMomentService.restart();
+            if (!resetting){
+                Modele.getInstance().descriptionService.restart();
+                Modele.getInstance().getForcesMomentService.restart();
+            }
         }));
         setRowIndex(dir, 1);
         setColumnIndex(dir, 1);
@@ -48,8 +52,10 @@ public class GouverneControllerPane extends ControllerPane {
         ailerons.valueProperty().bindBidirectional(Modele.getInstance().getDlProperty());
         ailerons.valueProperty().addListener(((observableValue, number, t1) -> {
             genericSliderListener("Ailerons (deg): ", ailInfo, t1);
-            Modele.getInstance().descriptionService.restart();
-            Modele.getInstance().getForcesMomentService.restart();
+            if (!resetting){
+                Modele.getInstance().descriptionService.restart();
+                Modele.getInstance().getForcesMomentService.restart();
+            }
         }));
         setRowIndex(ailerons, 0);
         setColumnIndex(ailerons, 2);
@@ -60,8 +66,10 @@ public class GouverneControllerPane extends ControllerPane {
     }
 
     public void reset(){
+        resetting = true;
         Modele.getInstance().setDl(0);
         Modele.getInstance().setDm(0);
         Modele.getInstance().setDn(0);
+        resetting = false;
     }
 }

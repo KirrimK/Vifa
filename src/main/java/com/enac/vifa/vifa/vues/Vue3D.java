@@ -1,5 +1,6 @@
 package com.enac.vifa.vifa.vues;
 
+import com.enac.vifa.vifa.Configuration;
 import com.enac.vifa.vifa.Modele;
 import com.enac.vifa.vifa.formes.FlecheArrondie3D;
 import com.enac.vifa.vifa.formes.Vecteur3D;
@@ -41,16 +42,16 @@ public class Vue3D extends SubScene {
     private double zoomdef = 500;
     private SimpleDoubleProperty zoomprop = new SimpleDoubleProperty(zoomdef);
 
-    private double ZOOM_MIN_VALUE = 25;
+    private double ZOOM_MIN_VALUE = Configuration.getInstance().getZoomMin();
+    private double ZOOM_MAX_VALUE = Configuration.getInstance().getZoomMax();
 
     //mode properties
-    private Mode mode;
+    private Mode mode=Configuration.getInstance().getMode();
 
     //mouse event vars
     private double startx;
     private double starty;
 
-    //TODO: faire la même pour zoom, avoir constantes paramétrables
     private double limit(double d){
         if (d < -90){
             return -90;
@@ -187,7 +188,8 @@ public class Vue3D extends SubScene {
         }));
 
         setOnScroll((event) -> {
-            zoomprop.set(max(-event.getDeltaY()/2 + zoomprop.get(), ZOOM_MIN_VALUE));
+            double number = Double.min(max(-event.getDeltaY()/2 + zoomprop.get(), ZOOM_MIN_VALUE),ZOOM_MAX_VALUE);
+            zoomprop.set(number);
         });
 
         setOnMousePressed((mouseEvent -> {
@@ -198,9 +200,10 @@ public class Vue3D extends SubScene {
         setOnMouseDragged((mouseEvent -> {
             double x = mouseEvent.getX();
             double y = mouseEvent.getY();
+            double sens = 1;
+            double diffx = (x - startx)*sens;
+            double diffy = (y - starty)*sens;
             if (mouseEvent.getButton() == MouseButton.PRIMARY){
-                double diffx = x - startx;
-                double diffy = y - starty;
                 switch (mode){
                     case ATTITUDE -> {                        
                         SimpleDoubleProperty psiprop = Modele.getInstance().getPsiProperty();
@@ -215,8 +218,8 @@ public class Vue3D extends SubScene {
                         SimpleDoubleProperty betaprop = Modele.getInstance().getBetaProperty();
                         psiprop.set(psiprop.get()-diffx);
                         thetaprop.set(thetaprop.get()-diffy);
-                        alphaprop.set(alphaprop.get()-diffy);
-                        betaprop.set(betaprop.get()-diffx);
+                        alphaprop.set(alphaprop.get()-diffy+Modele.getInstance().getPhi());
+                        betaprop.set(betaprop.get()-diffx+Modele.getInstance().getPhi());
                     }
                     case AERO -> {
                         SimpleDoubleProperty alphaprop = Modele.getInstance().getAlphaProperty();
@@ -227,8 +230,8 @@ public class Vue3D extends SubScene {
                 }
             }
             else if (mouseEvent.getButton() == MouseButton.SECONDARY){
-                yrotprop.set(yrotprop.get() + (x - startx));
-                xrotprop.set(limit(xrotprop.get() - (y - starty)));
+                yrotprop.set(yrotprop.get() + diffx);
+                xrotprop.set(limit(xrotprop.get() - diffy));
             }
             startx = x;
             starty = y;

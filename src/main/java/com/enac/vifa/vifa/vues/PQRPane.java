@@ -1,10 +1,8 @@
 package com.enac.vifa.vifa.vues;
 
 import com.enac.vifa.vifa.Modele;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.layout.VBox;
 
 public class PQRPane extends ControllerPane {
 
@@ -29,7 +27,7 @@ public class PQRPane extends ControllerPane {
         ps.valueProperty().bindBidirectional(Modele.getInstance().getPProperty());
         ps.valueProperty().addListener(((observableValue, number, t1) -> {
             genericSliderListener("P (rad/s): ", pl, t1);
-            Modele.getInstance().getForcesMomentService.restart();
+            if (!resetting) Modele.getInstance().getForcesMomentService.restart();
         }));
 
         ql = new Label("Q (rad/s): 0.0");
@@ -39,7 +37,7 @@ public class PQRPane extends ControllerPane {
         qs.valueProperty().bindBidirectional(Modele.getInstance().getQProperty());
         qs.valueProperty().addListener(((observableValue, number, t1) -> {
             genericSliderListener("Q (rad/s): ", ql, t1);
-            Modele.getInstance().getForcesMomentService.restart();
+            if (!resetting) Modele.getInstance().getForcesMomentService.restart();
         }));
 
         rl = new Label("R (rad/s): 0.0");
@@ -49,7 +47,7 @@ public class PQRPane extends ControllerPane {
         rs.valueProperty().bindBidirectional(Modele.getInstance().getRProperty());
         rs.valueProperty().addListener(((observableValue, number, t1) -> {
             genericSliderListener("R (rad/s): ", rl, t1);
-            Modele.getInstance().getForcesMomentService.restart();
+            if (!resetting) Modele.getInstance().getForcesMomentService.restart();
         }));
 
         getChildren().addAll(rpl,pl, ps, ql, qs, rl, rs);
@@ -57,8 +55,10 @@ public class PQRPane extends ControllerPane {
     }
 
     public void reset(){
+        resetting = true;
         Modele.getInstance().setP(0);
         Modele.getInstance().setQ(0);
         Modele.getInstance().setR(0);
+        resetting = false;
     }
 }

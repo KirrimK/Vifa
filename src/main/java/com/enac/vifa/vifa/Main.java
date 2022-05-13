@@ -31,7 +31,7 @@ public class Main extends Application {
         PQRPane pqrb = new PQRPane(vue);
         pqrb.setTranslateY(350);
         pqrb.setTranslateX(10);
-        
+
         FormPane form = new FormPane(vue);
         form.setTranslateY(550);
         form.setTranslateX(10);
@@ -44,9 +44,6 @@ public class Main extends Application {
         gouvCtl.setTranslateX(250);
         gouvCtl.setTranslateY(10);
 
-
-       
-
         ArrayList<ControllerPane> stonks = new ArrayList<>();
         stonks.add(repb);
         stonks.add(pqrb);
@@ -58,11 +55,11 @@ public class Main extends Application {
         resetb.setTranslateY(10);
 
         ObservableList<Mode> modeList = FXCollections.observableArrayList(Mode.AERO,Mode.AVION,Mode.ATTITUDE);
-        ComboBox modeSelect = new ComboBox(modeList);
-        modeSelect.setValue(Mode.ATTITUDE);
+        ComboBox<Mode> modeSelect = new ComboBox<Mode>(modeList);
+        modeSelect.setValue(Configuration.getInstance().getMode());
         modeSelect.setTranslateX(10);
         modeSelect.setTranslateY(480);
-        modeSelect.setOnAction(e->vue.setMode((Mode)modeSelect.getValue()));
+        modeSelect.setOnAction(e->vue.setMode(modeSelect.getValue()));
 
         group.getChildren().add(camInfo);
         group.getChildren().add(repb);
@@ -73,7 +70,6 @@ public class Main extends Application {
         group.getChildren().add(form);
 
         group.getChildren().add(modeSelect);
-
 
         Modele modele = Modele.getInstance();
         modele.setVue(vue);
@@ -141,7 +137,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         //primaryStage.setResizable(false);
-        Scene scene = new Scene(new Group(), 800, 800);
+        Scene scene = new Scene(new Group(), 900, 700);
         scene.setRoot(createContent(scene));
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -151,6 +147,8 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+        Configuration conf = Configuration.getInstance();
+        System.out.println(conf.getLaunchMessage());
         launch();
     }
 }
