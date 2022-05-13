@@ -1,5 +1,6 @@
 package com.enac.vifa.vifa.vues;
 
+import com.enac.vifa.vifa.Modele;
 import com.enac.vifa.vifa.formes.FlecheArrondie3D;
 import com.enac.vifa.vifa.formes.Vecteur3D;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -204,11 +205,16 @@ public class Vue3D extends SubScene {
 
                     }
                     case AVION -> {
-                        double diffx = x - startx;
-                        double diffy = y - starty;
+
+
                     }
                     case AERO -> {
-
+                        double diffx = x - startx;
+                        double diffy = y - starty;
+                        SimpleDoubleProperty alphaprop = Modele.getInstance().getAlphaProperty();
+                        SimpleDoubleProperty betaprop = Modele.getInstance().getBetaProperty();
+                        alphaprop.set(alphaprop.get()+diffy);
+                        betaprop.set(betaprop.get()+diffx);
                     }
                 }
             }
