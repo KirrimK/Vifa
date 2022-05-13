@@ -14,6 +14,8 @@ public class Configuration {
     private double zoomMax = 1000;
     private double zoomMin = 25;
     private double hauteur = 100;
+    private String launchMessage = "";
+    private int facteurApproximationArrondis = 2;
 
 
 
@@ -50,6 +52,12 @@ public class Configuration {
                         case "hauteur":
                             hauteur = Double.parseDouble(mots[1]);
                             break;
+                        case "launchMessage":
+                            launchMessage = mots[1];
+                            break;
+                        case "facteurApproximationArrondis":
+                            facteurApproximationArrondis =  Integer.parseInt(mots[1]);
+                            break;
                         default:
                             System.out.println("Gibberish line : \n"+ligne);
                             break;
@@ -81,5 +89,11 @@ public class Configuration {
     }
     public double getHauteur(){
         return hauteur;
+    }
+    public String getLaunchMessage (){
+        return launchMessage;
+    }
+    public int getFacteurApproximationArrondis(){
+        return facteurApproximationArrondis;
     }
 }

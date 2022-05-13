@@ -5,10 +5,8 @@ import javafx.scene.layout.GridPane;
 
 public abstract class ControllerPane extends GridPane {
 
-    private Vue3D vue;
 
     public ControllerPane(Vue3D vue) {
-        this.vue = vue;
     }
 
     protected void genericSliderListener(String labelText, Label label, Number newValue){
