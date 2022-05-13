@@ -94,12 +94,12 @@ public class Vue3D extends SubScene {
         );
         aphi = new FlecheArrondie3D("phi", 75, 0, Color.GRAY);
         aphi.getTransforms().setAll(
-                new Rotate(0, Rotate.Y_AXIS)
+                new Rotate(-90, Rotate.Y_AXIS),
+                new Rotate(0, Rotate.X_AXIS)
         );
         atheta = new FlecheArrondie3D("theta", 75, 0, Color.GRAY);
         atheta.getTransforms().setAll(
-                new Rotate(-90, Rotate.Y_AXIS),
-                new Rotate(0, Rotate.X_AXIS)
+                new Rotate(0, Rotate.Y_AXIS)
         );
 
         repereTerrestre.getChildren().add(aphi);
@@ -287,31 +287,31 @@ public class Vue3D extends SubScene {
     public void rotateRepereAvion(double psi, double phi, double theta){
         repereAvion.getTransforms().setAll(
                 new Rotate(psi, Rotate.Y_AXIS),
-                new Rotate(-phi, Rotate.Z_AXIS),
-                new Rotate(theta, Rotate.X_AXIS));
+                new Rotate(-theta, Rotate.Z_AXIS),
+                new Rotate(phi, Rotate.X_AXIS));
         apsi.setEndAngle(-psi);
-        aphi.setEndAngle(phi);
-        atheta.setEndAngle(-theta);
-        aphi.getTransforms().set(0, new Rotate(psi, Rotate.Y_AXIS));
-        atheta.getTransforms().set(0, new Rotate(-90+psi, Rotate.Y_AXIS));
-        atheta.getTransforms().set(1, new Rotate(-phi, Rotate.X_AXIS));
+        aphi.setEndAngle(theta);
+        atheta.setEndAngle(-phi);
+        atheta.getTransforms().set(0, new Rotate(psi, Rotate.Y_AXIS));
+        aphi.getTransforms().set(0, new Rotate(-90+psi, Rotate.Y_AXIS));
+        aphi.getTransforms().set(1, new Rotate(-theta, Rotate.X_AXIS));
     }
 
     public void rotatePsi(double psi){
         repereAvion.getTransforms().set(0, new Rotate(psi, Rotate.Y_AXIS));
         apsi.setEndAngle(psi);
-        aphi.getTransforms().set(0, new Rotate(psi, Rotate.Y_AXIS));
-        atheta.getTransforms().set(0, new Rotate(-90+psi, Rotate.Y_AXIS));
+        aphi.getTransforms().set(0, new Rotate(-90+psi, Rotate.Y_AXIS));
+        atheta.getTransforms().set(0, new Rotate(psi, Rotate.Y_AXIS));
     }
 
     public void rotatePhi(double phi){
-        repereAvion.getTransforms().set(1, new Rotate(-phi, Rotate.Z_AXIS));
+        repereAvion.getTransforms().set(2, new Rotate(phi, Rotate.X_AXIS));
         aphi.setEndAngle(-phi);
-        atheta.getTransforms().set(1, new Rotate(-phi, Rotate.X_AXIS));
     }
 
     public void rotateTheta(double theta){
-        repereAvion.getTransforms().set(2, new Rotate(theta, Rotate.X_AXIS));
+        repereAvion.getTransforms().set(1, new Rotate(-theta, Rotate.Z_AXIS));
+        aphi.getTransforms().set(1, new Rotate(-theta, Rotate.X_AXIS));
         atheta.setEndAngle(-theta);
     }
 

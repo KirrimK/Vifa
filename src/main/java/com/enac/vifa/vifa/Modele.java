@@ -507,8 +507,8 @@ public class Modele {
                 e.printStackTrace();
                 System.out.println(e);
             }
-            while (! this.receivedDrawFFS&((new Date()).getTime()-temps < 3000) ){
-                //On attends la fin de la description ou 3 secs
+            while (! this.receivedDrawFFS&((new Date()).getTime()-temps < 4000) ){
+                //On attends la fin de la description ou 4 secs
             }
             if (! this.receivedDrawFFS){//on a attendu 2secs, et on n'a pas la description
                 IvyException e = new IvyException("Time out de l'attente de description");
@@ -561,8 +561,8 @@ public class Modele {
             catch (IvyException e){
                 System.out.println(e);
             }
-            while ((! receivedLift) & ((new Date()).getTime()-temps < 2000)){}
-            if (! this.receivedLift){//on a attendu 2secs, et on n'a pas les résulatats
+            while ((! receivedLift) & ((new Date()).getTime()-temps < 4000)){}
+            if (! this.receivedLift){//on a attendu 4 secs, et on n'a pas les résulatats
                 IvyException e = new IvyException("Time out de l'attente des forces et moments");
                 System.out.println(e);
                 //getForcesAndMoment();
