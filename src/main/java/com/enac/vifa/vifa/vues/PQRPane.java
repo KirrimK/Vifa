@@ -29,6 +29,7 @@ public class PQRPane extends ControllerPane {
         ps.valueProperty().bindBidirectional(Modele.getInstance().getPProperty());
         ps.valueProperty().addListener(((observableValue, number, t1) -> {
             genericSliderListener("P (rad/s): ", pl, t1);
+            vue.updateP(t1.doubleValue());
             if (!resetting) Modele.getInstance().getForcesMomentService.restart();
         }));
 
@@ -39,6 +40,7 @@ public class PQRPane extends ControllerPane {
         qs.valueProperty().bindBidirectional(Modele.getInstance().getQProperty());
         qs.valueProperty().addListener(((observableValue, number, t1) -> {
             genericSliderListener("Q (rad/s): ", ql, t1);
+            vue.updateQ(t1.doubleValue());
             if (!resetting) Modele.getInstance().getForcesMomentService.restart();
         }));
 
@@ -49,6 +51,7 @@ public class PQRPane extends ControllerPane {
         rs.valueProperty().bindBidirectional(Modele.getInstance().getRProperty());
         rs.valueProperty().addListener(((observableValue, number, t1) -> {
             genericSliderListener("R (rad/s): ", rl, t1);
+            vue.updateR(t1.doubleValue());
             if (!resetting) Modele.getInstance().getForcesMomentService.restart();
         }));
 

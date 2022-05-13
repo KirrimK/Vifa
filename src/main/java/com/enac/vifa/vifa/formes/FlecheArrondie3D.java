@@ -1,8 +1,6 @@
 package com.enac.vifa.vifa.formes;
 
-import javafx.geometry.Point3D;
 import javafx.scene.Group;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Tooltip;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Material;
@@ -17,19 +15,19 @@ import java.util.ArrayList;
 
 public class FlecheArrondie3D extends Group {
 
-    private ArrayList<Cylinder> aled;
+    protected ArrayList<Cylinder> aled;
 
-    private double endAngle;
+    protected double endAngle;
 
-    private double rayon;
+    protected double rayon;
 
-    private String nom;
-    private Color couleur;
+    protected String nom;
+    protected Color couleur;
 
-    private MeshView cone;
+    protected MeshView cone;
 
-    private static final int APPROX_FACTOR = 2;
-    private int DIV_NUMBER;
+    protected static final int APPROX_FACTOR = 2;
+    protected int DIV_NUMBER;
 
     /**
      *
@@ -46,6 +44,8 @@ public class FlecheArrondie3D extends Group {
         this.nom = nom;
         this.cone = new MeshView();
         setEndAngle(endAngle);
+        Tooltip tooltip = new Tooltip(nom);
+        Tooltip.install(this, tooltip);
     }
 
     public double getEndAngle() {
@@ -63,8 +63,8 @@ public class FlecheArrondie3D extends Group {
             getChildren().add(oskours);
             aled.add(oskours);
             oskours.getTransforms().setAll(
-                    new Rotate(i*endAngle/DIV_NUMBER, Rotate.Z_AXIS),
-                    new Translate(rayon*Math.cos(i/DIV_NUMBER*Math.toRadians(endAngle)), rayon*Math.sin(i/DIV_NUMBER*Math.toRadians(endAngle)), 0));
+                new Rotate(i*endAngle/DIV_NUMBER, Rotate.Z_AXIS),
+                new Translate(rayon*Math.cos(i/DIV_NUMBER*Math.toRadians(endAngle)), rayon*Math.sin(i/DIV_NUMBER*Math.toRadians(endAngle)), 0));
         }
         ConeMesh jenaimarre = new ConeMesh(1, 2*Math.toRadians(Math.abs(endAngle))/DIV_NUMBER*rayon);
         cone.setMesh(jenaimarre.getMesh());
@@ -75,8 +75,6 @@ public class FlecheArrondie3D extends Group {
         if ((int) endAngle != 0){
             getChildren().add(cone);
         }
-        Tooltip tooltip = new Tooltip(nom);
-        Tooltip.install(this, tooltip);
     }
 
     public double getRayon() {
