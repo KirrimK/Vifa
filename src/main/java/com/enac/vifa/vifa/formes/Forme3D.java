@@ -1,8 +1,10 @@
-package com.enac.vifa.vifa;
+package com.enac.vifa.vifa.formes;
 
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.enac.vifa.vifa.Configuration;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.CullFace;
 import javafx.scene.shape.Cylinder;

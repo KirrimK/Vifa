@@ -1,4 +1,4 @@
-package com.enac.vifa.vifa;
+package com.enac.vifa.vifa.formes;
 
 import earcut4j.Earcut;
 import java.util.ArrayList;
