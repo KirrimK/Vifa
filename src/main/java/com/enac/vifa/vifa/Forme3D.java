@@ -3,7 +3,6 @@ package com.enac.vifa.vifa;
 
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.CullFace;
 import javafx.scene.shape.Cylinder;
@@ -66,7 +65,7 @@ public class Forme3D {
         m = new TriangulatedMesh(contourN, 2);
         m.setCullFace(CullFace.NONE);
         m.setLevel(0);
-        m.setDiffuseColor(Color.GREY);
+        m.setDiffuseColor(Configuration.getInstance().getCouleurFuselage());
         m.setRotationAxis(new javafx.geometry.Point3D(1, 0, 0));
         m.setRotate(90);
         m.setTranslateY(-2);
@@ -98,7 +97,7 @@ public class Forme3D {
         double height = Math.abs(ymax-ymin);
         
         Cylinder nacelle = new Cylinder(radius/1.5, height*4);
-        nacelle.setMaterial(new PhongMaterial(Color.GREY));
+        nacelle.setMaterial(new PhongMaterial(Configuration.getInstance().getCouleurFuselage()));
         nacelle.setRotationAxis(new javafx.geometry.Point3D(0, 0, 1));
         nacelle.setRotate(90);
        
