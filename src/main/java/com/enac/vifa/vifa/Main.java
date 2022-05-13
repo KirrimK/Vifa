@@ -2,6 +2,7 @@ package com.enac.vifa.vifa;
 
 import java.util.ArrayList;
 
+import com.enac.vifa.vifa.formes.TireBouchon3D;
 import com.enac.vifa.vifa.formes.Vecteur3D;
 import com.enac.vifa.vifa.vues.*;
 import javafx.application.Application;
@@ -10,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Point3D;
 import javafx.scene.*;
 import javafx.scene.control.ComboBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
@@ -22,6 +24,7 @@ public class Main extends Application {
         Group group = new Group();
         Vue3D vue = new Vue3D(mainScene, new Group());
         group.getChildren().add(vue);
+
         vue.getRepereTerrestre().getChildren().add(centerBox);
 
         RepereControllerPane repb = new RepereControllerPane(vue);
@@ -33,16 +36,16 @@ public class Main extends Application {
         pqrb.setTranslateX(10);
 
         FormPane form = new FormPane(vue);
-        form.setTranslateY(550);
-        form.setTranslateX(10);
+        form.setTranslateY(10);
+        form.setTranslateX(150);
 
         CameraInfoPane camInfo = new CameraInfoPane(vue);
         camInfo.setTranslateX(10);
         camInfo.setTranslateY(10);
 
         GouverneControllerPane gouvCtl = new GouverneControllerPane(vue);
-        gouvCtl.setTranslateX(250);
-        gouvCtl.setTranslateY(10);
+        gouvCtl.setTranslateX(700);
+        gouvCtl.setTranslateY(480);
 
         ArrayList<ControllerPane> stonks = new ArrayList<>();
         stonks.add(repb);
@@ -51,8 +54,8 @@ public class Main extends Application {
         stonks.add(form);
 
         ResetButton resetb = new ResetButton(stonks);
-        resetb.setTranslateX(150);
-        resetb.setTranslateY(10);
+        resetb.setTranslateX(420);
+        resetb.setTranslateY(650);
 
         ObservableList<Mode> modeList = FXCollections.observableArrayList(Mode.AERO,Mode.AVION,Mode.ATTITUDE);
         ComboBox<Mode> modeSelect = new ComboBox<Mode>(modeList);
@@ -122,6 +125,13 @@ public class Main extends Application {
                 synchronized (modele.getListeDesForces()) {
                     for (Vecteur3D azerty : modele.getListeDesForces()) {
                         if (azerty.getNom().equals("mg")){
+                            System.out.println(azerty);
+                            Point3D debut = azerty.getOrigine();
+                            System.out.println(debut);
+                            if (debut.getX() != 0.0) {
+                                vue.getGroupeAvion().getTransforms().set(0, new Translate(debut.getX(), 0, debut.getZ()));
+                                vue.getGroupeForces().getTransforms().set(0, new Translate(-debut.getX(), 0, debut.getZ()));
+                            }
                             azerty.setOrigineMagnitude(new Point3D(0, 0, 0), azerty.getMagnitude());
                         }
                         azerty.refreshView();

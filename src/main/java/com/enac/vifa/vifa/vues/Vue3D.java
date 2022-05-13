@@ -3,6 +3,7 @@ package com.enac.vifa.vifa.vues;
 import com.enac.vifa.vifa.Configuration;
 import com.enac.vifa.vifa.Modele;
 import com.enac.vifa.vifa.formes.FlecheArrondie3D;
+import com.enac.vifa.vifa.formes.TireBouchon3D;
 import com.enac.vifa.vifa.formes.Vecteur3D;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Point3D;
@@ -17,7 +18,7 @@ import static com.enac.vifa.vifa.vues.Mode.ATTITUDE;
 import static java.lang.Double.max;
 
 public class Vue3D extends SubScene {
-
+    private final double ROTATION_TO_DEGRES= Configuration.getInstance().getVitesseRotationToDegres();
     private PerspectiveCamera camera = new PerspectiveCamera(true);
     private Group repereTerrestre;
     private Group repereAvion;
@@ -30,6 +31,10 @@ public class Vue3D extends SubScene {
     private FlecheArrondie3D aphi;
     private FlecheArrondie3D apsi;
     private FlecheArrondie3D atheta;
+
+    private TireBouchon3D tbp;
+    private TireBouchon3D tbq;
+    private TireBouchon3D tbr;
 
     private FlecheArrondie3D aalpha;
     private FlecheArrondie3D abeta;
@@ -132,9 +137,21 @@ public class Vue3D extends SubScene {
         Vecteur3D avy = new Vecteur3D("y avion", new Point3D(0, 0, -75), new Point3D(0, 0, -25), avColor);
         avy.refreshView();
 
-        repereAvion.getChildren().add(avx);
-        repereAvion.getChildren().add(avy);
-        repereAvion.getChildren().add(avz);
+        tbp = new TireBouchon3D("p", 5, 0, Color.DARKVIOLET);
+        tbq = new TireBouchon3D("q", 5, 0, Color.DARKVIOLET);
+        tbr = new TireBouchon3D("r", 5, 0, Color.DARKVIOLET);
+
+        tbp.getTransforms().setAll(new Translate(75, 0, 0));
+        tbq.getTransforms().setAll(
+            new Rotate(90, Rotate.Z_AXIS),
+            new Translate(75, 0, 0)
+        );
+        tbr.getTransforms().setAll(
+            new Rotate(90, Rotate.Y_AXIS),
+            new Translate(75, 0, 0)
+        );
+
+        repereAvion.getChildren().addAll(avx, avy, avz, tbp, tbq, tbr);
 
         aalpha = new FlecheArrondie3D("alpha", 100, 0, conf.getCouleurAlphaBeta());
 
@@ -340,6 +357,18 @@ public class Vue3D extends SubScene {
     public void rotateBeta(double beta){
         repereAero.getTransforms().set(0, new Rotate(-beta, Rotate.Y_AXIS));
         abeta.setEndAngle(beta);
+    }
+
+    public void updateP(double p){
+        tbp.setEndAngle(Math.toDegrees(p));
+    }
+
+    public void updateQ(double q){
+        tbq.setEndAngle(Math.toDegrees(q));
+    }
+
+    public void updateR(double r){
+        tbr.setEndAngle(Math.toDegrees(r));
     }
 
     public double getXrotprop() {
