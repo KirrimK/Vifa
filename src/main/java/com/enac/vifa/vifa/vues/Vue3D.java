@@ -218,8 +218,8 @@ public class Vue3D extends SubScene {
                         SimpleDoubleProperty betaprop = Modele.getInstance().getBetaProperty();
                         psiprop.set(psiprop.get()-diffx);
                         thetaprop.set(thetaprop.get()-diffy);
-                        alphaprop.set(alphaprop.get()-diffy+Modele.getInstance().getPhi());
-                        betaprop.set(betaprop.get()-diffx+Modele.getInstance().getPhi());
+                        alphaprop.set(alphaprop.get()-diffy);
+                        betaprop.set(betaprop.get()-diffx);
                     }
                     case AERO -> {
                         SimpleDoubleProperty alphaprop = Modele.getInstance().getAlphaProperty();
