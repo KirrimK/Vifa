@@ -65,7 +65,7 @@ public class RepereControllerPane extends ControllerPane{
         alphas.valueProperty().addListener(((observableValue, number, t1) -> {
             vue.rotateAlpha(t1.doubleValue());
             genericSliderListener("Alpha (deg): ", alphal, t1);
-            Modele.getInstance().getForcesMomentService.restart();
+            if (!resetting) Modele.getInstance().getForcesMomentService.restart();
         }));
 
         betal = new Label("Beta (deg): 0.0");
@@ -76,7 +76,7 @@ public class RepereControllerPane extends ControllerPane{
         betas.valueProperty().addListener(((observableValue, number, t1) -> {
             vue.rotateBeta(t1.doubleValue());
             genericSliderListener("Beta (deg): ", betal, t1);
-            Modele.getInstance().getForcesMomentService.restart();
+            if (!resetting) Modele.getInstance().getForcesMomentService.restart();
         }));
 
         getChildren().addAll(rpl, psil, psis, phil, phis, thetal, thetas, alphal, alphas, betal, betas);
@@ -84,10 +84,12 @@ public class RepereControllerPane extends ControllerPane{
     }
 
     public void reset(){
+        resetting = true;
         Modele.getInstance().setPhi(0);
         Modele.getInstance().setPsi(0);
         Modele.getInstance().setTheta(0);
         Modele.getInstance().setAlpha(0);
         Modele.getInstance().setBeta(0);
+        resetting = false;
     }
 }

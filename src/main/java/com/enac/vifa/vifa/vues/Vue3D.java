@@ -200,6 +200,7 @@ public class Vue3D extends SubScene {
         setOnMouseDragged((mouseEvent -> {
             double x = mouseEvent.getX();
             double y = mouseEvent.getY();
+            double sens = 0.1;
             if (mouseEvent.getButton() == MouseButton.PRIMARY){
                 double diffx = x - startx;
                 double diffy = y - starty;
@@ -207,8 +208,8 @@ public class Vue3D extends SubScene {
                     case ATTITUDE -> {                        
                         SimpleDoubleProperty psiprop = Modele.getInstance().getPsiProperty();
                         SimpleDoubleProperty thetaprop = Modele.getInstance().getThetaProperty();
-                        psiprop.set(psiprop.get()-diffx);
-                        thetaprop.set(thetaprop.get()-diffy);
+                        psiprop.set(psiprop.get()-diffx*sens);
+                        thetaprop.set(thetaprop.get()-diffy*sens);
                     }
                     case AVION -> {                        
                         SimpleDoubleProperty psiprop = Modele.getInstance().getPsiProperty();

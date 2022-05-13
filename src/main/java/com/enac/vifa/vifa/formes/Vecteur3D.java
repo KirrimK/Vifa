@@ -2,7 +2,7 @@ package com.enac.vifa.vifa.formes;
 
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
-import javafx.scene.control.Alert;
+import javafx.scene.control.Tooltip;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Material;
 import javafx.scene.paint.PhongMaterial;
@@ -48,10 +48,8 @@ public class Vecteur3D extends Group {
         getChildren().add(cone);
         seen = true;
         setOrigineMagnitude(origine, magnitude);
-        setOnMouseClicked((mouseEvent) -> {//TODO: temporaire
-            Alert test = new Alert(Alert.AlertType.INFORMATION, nom);
-            test.show();
-        });
+        Tooltip tooltip = new Tooltip(nom);
+        Tooltip.install(this, tooltip);
     }
 
     public String getNom() {

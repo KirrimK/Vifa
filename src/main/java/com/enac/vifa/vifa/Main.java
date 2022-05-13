@@ -31,7 +31,7 @@ public class Main extends Application {
         PQRPane pqrb = new PQRPane(vue);
         pqrb.setTranslateY(350);
         pqrb.setTranslateX(10);
-        
+
         FormPane form = new FormPane(vue);
         form.setTranslateY(550);
         form.setTranslateX(10);
@@ -43,9 +43,6 @@ public class Main extends Application {
         GouverneControllerPane gouvCtl = new GouverneControllerPane(vue);
         gouvCtl.setTranslateX(250);
         gouvCtl.setTranslateY(10);
-
-
-       
 
         ArrayList<ControllerPane> stonks = new ArrayList<>();
         stonks.add(repb);
@@ -73,7 +70,6 @@ public class Main extends Application {
         group.getChildren().add(form);
 
         group.getChildren().add(modeSelect);
-
 
         Modele modele = Modele.getInstance();
         modele.setVue(vue);
@@ -141,7 +137,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         //primaryStage.setResizable(false);
-        Scene scene = new Scene(new Group(), 800, 800);
+        Scene scene = new Scene(new Group(), 900, 700);
         scene.setRoot(createContent(scene));
         primaryStage.setScene(scene);
         primaryStage.show();

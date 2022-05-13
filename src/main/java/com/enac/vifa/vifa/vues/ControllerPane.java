@@ -6,6 +6,8 @@ import javafx.scene.layout.GridPane;
 public abstract class ControllerPane extends GridPane {
 
 
+    protected boolean resetting = false;
+
     public ControllerPane(Vue3D vue) {
     }
 
