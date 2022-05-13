@@ -1,16 +1,12 @@
 package com.enac.vifa.vifa.formes;
 
-import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Material;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
-import javafx.scene.shape.MeshView;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import org.fxyz3d.shapes.primitives.ConeMesh;
-
-import java.util.ArrayList;
 
 public class TireBouchon3D extends FlecheArrondie3D {
 
@@ -27,11 +23,10 @@ public class TireBouchon3D extends FlecheArrondie3D {
         DIV_NUMBER = (Math.abs((int)endAngle)) / APPROX_FACTOR;
         Material materiau = new PhongMaterial(couleur);
         getChildren().clear();
-        for (int i = 0; i < DIV_NUMBER-1; i++){
+        for (int i = 0; i < DIV_NUMBER/*-1*/; i++){
             Cylinder morceau = new Cylinder(0.4, 2*Math.toRadians(Math.abs(endAngle))/DIV_NUMBER*rayon);
             morceau.setMaterial(materiau);
             getChildren().add(morceau);
-            aled.add(morceau);
             morceau.getTransforms().setAll(
                 new Rotate(i*endAngle/DIV_NUMBER, Rotate.X_AXIS),
                 new Rotate(5, Rotate.Z_AXIS),
@@ -44,9 +39,9 @@ public class TireBouchon3D extends FlecheArrondie3D {
         cone.getTransforms().setAll(
             new Rotate(endAngle, Rotate.X_AXIS),
             new Rotate(5, Rotate.Z_AXIS),
-            new Translate(DIV_NUMBER*xIncrPerDegree, rayon*Math.toRadians(endAngle), rayon*Math.toRadians(endAngle))
+            new Translate(DIV_NUMBER*xIncrPerDegree, 0, rayon)
         );
-        if ((int) endAngle != 0){
+        if ((int) endAngle > 0){
             getChildren().add(cone);
         }
     }

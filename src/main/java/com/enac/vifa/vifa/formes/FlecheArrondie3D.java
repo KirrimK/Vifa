@@ -17,8 +17,6 @@ import com.enac.vifa.vifa.Configuration;
 
 public class FlecheArrondie3D extends Group {
 
-    protected ArrayList<Cylinder> aled;
-
     protected double endAngle;
 
     protected double rayon;
@@ -40,7 +38,6 @@ public class FlecheArrondie3D extends Group {
      */
     public FlecheArrondie3D (String nom, double rayon, double endAngle, Color couleur){
         super();
-        this.aled = new ArrayList<Cylinder>();
         this.rayon = rayon;
         this.couleur = couleur;
         this.nom = nom;
@@ -63,7 +60,6 @@ public class FlecheArrondie3D extends Group {
             Cylinder oskours = new Cylinder(0.4, 2*Math.toRadians(Math.abs(endAngle))/DIV_NUMBER*rayon);
             oskours.setMaterial(materiau);
             getChildren().add(oskours);
-            aled.add(oskours);
             oskours.getTransforms().setAll(
                 new Rotate(i*endAngle/DIV_NUMBER, Rotate.Z_AXIS),
                 new Translate(rayon*Math.cos(i/DIV_NUMBER*Math.toRadians(endAngle)), rayon*Math.sin(i/DIV_NUMBER*Math.toRadians(endAngle)), 0));

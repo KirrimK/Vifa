@@ -143,11 +143,11 @@ public class Vue3D extends SubScene {
 
         tbp.getTransforms().setAll(new Translate(75, 0, 0));
         tbq.getTransforms().setAll(
-            new Rotate(90, Rotate.Z_AXIS),
+            new Rotate(90, Rotate.Y_AXIS),
             new Translate(75, 0, 0)
         );
         tbr.getTransforms().setAll(
-            new Rotate(90, Rotate.Y_AXIS),
+            new Rotate(90, Rotate.Z_AXIS),
             new Translate(75, 0, 0)
         );
 
@@ -360,15 +360,15 @@ public class Vue3D extends SubScene {
     }
 
     public void updateP(double p){
-        tbp.setEndAngle(Math.toDegrees(p));
+        tbp.setEndAngle(2*Math.toDegrees(p));
     }
 
     public void updateQ(double q){
-        tbq.setEndAngle(Math.toDegrees(q));
+        tbq.setEndAngle(2*Math.toDegrees(q));
     }
 
     public void updateR(double r){
-        tbr.setEndAngle(Math.toDegrees(r));
+        tbr.setEndAngle(2*Math.toDegrees(r));
     }
 
     public double getXrotprop() {
