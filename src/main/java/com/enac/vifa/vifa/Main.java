@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import com.enac.vifa.vifa.formes.Vecteur3D;
 import com.enac.vifa.vifa.vues.*;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Point3D;
 import javafx.scene.*;
-import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.shape.*;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
@@ -46,11 +48,19 @@ public class Main extends Application {
         resetb.setTranslateX(150);
         resetb.setTranslateY(10);
 
+        ObservableList<Mode> modeList = FXCollections.observableArrayList(Mode.AERO,Mode.AVION,Mode.ATTITUDE);
+        ComboBox modeSelect = new ComboBox(modeList);
+        modeSelect.setValue(Mode.ATTITUDE);
+        modeSelect.setTranslateX(10);
+        modeSelect.setTranslateY(480);
+        modeSelect.setOnAction(e->vue.setMode((Mode)modeSelect.getValue()));
+
         group.getChildren().add(camInfo);
         group.getChildren().add(repb);
         group.getChildren().add(pqrb);
         group.getChildren().add(resetb);
         group.getChildren().add(gouvCtl);
+        group.getChildren().add(modeSelect);
 
         Modele modele = Modele.getInstance();
         modele.setVue(vue);
