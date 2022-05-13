@@ -49,6 +49,7 @@ public class Configuration {
                             break;
                         case "hauteur":
                             hauteur = Double.parseDouble(mots[1]);
+                            break;
                         default:
                             System.out.println("Gibberish line : \n"+ligne);
                             break;
