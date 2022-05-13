@@ -1,10 +1,7 @@
 package com.enac.vifa.vifa;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.function.Function;
-
-import javax.lang.model.element.Element;
+import java.util.Date;*
 
 import com.enac.vifa.vifa.formes.Moment3D;
 import com.enac.vifa.vifa.formes.Vecteur3D;
