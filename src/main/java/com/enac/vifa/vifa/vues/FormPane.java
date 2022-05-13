@@ -5,6 +5,8 @@
 package com.enac.vifa.vifa.vues;
 
 import com.enac.vifa.vifa.Modele;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -13,6 +15,9 @@ import javafx.scene.control.TextField;
  * @author hugocourtadon
  */
 public class FormPane extends ControllerPane {
+    
+    protected boolean resetting = false;
+    
     private Label masse;
    
     private TextField masses;
@@ -25,8 +30,6 @@ public class FormPane extends ControllerPane {
     
     private Label calage;
     private TextField calages;
-    
-    private Vue3D vue;
     
     public FormPane(Vue3D vue){
         //Box sliders repères
@@ -64,14 +67,81 @@ public class FormPane extends ControllerPane {
         calages = new TextField(Double.toString(model.getA0()));
         setRowIndex(calages, 3);
         setColumnIndex(calages, 1);
-       
         
+       
+        // action event
+        EventHandler<ActionEvent> eventMasse = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e)
+            {
+                model.setMass(Double.parseDouble(masses.getText()));
+                if (!resetting){
+                Modele.getInstance().descriptionService.restart();
+                Modele.getInstance().getForcesMomentService.restart();
+                }
+            }
+        };
+        
+        EventHandler<ActionEvent> eventCg = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e)
+            {
+                model.setxCentrage(Double.parseDouble(cgs.getText()));
+                if (!resetting){
+                Modele.getInstance().descriptionService.restart();
+                Modele.getInstance().getForcesMomentService.restart();
+                }
+                
+            }
+        };
+        
+        EventHandler<ActionEvent> eventVp = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e)
+            {
+                model.setxCentrage(Double.parseDouble(vps.getText()));
+                if (!resetting){
+                Modele.getInstance().descriptionService.restart();
+                Modele.getInstance().getForcesMomentService.restart();
+                }
+                
+            }
+        };
+        
+        EventHandler<ActionEvent> eventCalage = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e)
+            {
+                model.setxCentrage(Double.parseDouble(calages.getText()));
+                if (!resetting){
+                Modele.getInstance().descriptionService.restart();
+                Modele.getInstance().getForcesMomentService.restart();
+                }
+                
+            }
+        };
+        //Actions
+        masses.setOnAction(eventMasse);
+        cgs.setOnAction(eventCg);
+        vps.setOnAction(eventVp);
+        calages.setOnAction(eventCalage);
+        
+        //Ajout du form à la scène
         getChildren().addAll(masse,masses,cg,cgs,vp,vps,calage,calages);
         setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7;");
     }
 
     @Override
     public void reset() {
-
+        resetting = true;
+        Modele.getInstance().setMass(70000.0);
+        masses.setText(Double.toString(70000.0));
+        
+        Modele.getInstance().setxCentrage(0.2555);
+        cgs.setText(Double.toString(0.2555));
+        
+        Modele.getInstance().setvAir(150);
+        vps.setText(Double.toString(150));
+        
+        Modele.getInstance().setA0(3.031);
+        calages.setText(Double.toString(3.031));
+        
+        resetting = false;
     }
 }
