@@ -1,10 +1,8 @@
 package com.enac.vifa.vifa.vues;
 
 import com.enac.vifa.vifa.Modele;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.layout.VBox;
 
 public class PQRPane extends ControllerPane {
 

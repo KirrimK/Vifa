@@ -2,11 +2,9 @@ package com.enac.vifa.vifa;
 
 import earcut4j.Earcut;
 import java.util.ArrayList;
-import java.util.Collections;
 import javafx.geometry.Point2D;
 
 import javafx.geometry.Point3D;
-import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.CullFace;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;

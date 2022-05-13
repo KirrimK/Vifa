@@ -13,6 +13,8 @@ import org.fxyz3d.shapes.primitives.ConeMesh;
 
 import java.util.ArrayList;
 
+import com.enac.vifa.vifa.Configuration;
+
 public class FlecheArrondie3D extends Group {
 
     protected ArrayList<Cylinder> aled;
@@ -26,7 +28,7 @@ public class FlecheArrondie3D extends Group {
 
     protected MeshView cone;
 
-    protected static final int APPROX_FACTOR = 2;
+    protected static final int APPROX_FACTOR = Configuration.getInstance().getFacteurApproximationArrondis();
     protected int DIV_NUMBER;
 
     /**

@@ -58,11 +58,11 @@ public class Main extends Application {
         resetb.setTranslateY(10);
 
         ObservableList<Mode> modeList = FXCollections.observableArrayList(Mode.AERO,Mode.AVION,Mode.ATTITUDE);
-        ComboBox modeSelect = new ComboBox(modeList);
-        modeSelect.setValue(Mode.ATTITUDE);
+        ComboBox<Mode> modeSelect = new ComboBox<Mode>(modeList);
+        modeSelect.setValue(Configuration.getInstance().getMode());
         modeSelect.setTranslateX(10);
         modeSelect.setTranslateY(480);
-        modeSelect.setOnAction(e->vue.setMode((Mode)modeSelect.getValue()));
+        modeSelect.setOnAction(e->vue.setMode(modeSelect.getValue()));
 
         group.getChildren().add(camInfo);
         group.getChildren().add(repb);
@@ -147,7 +147,6 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         //primaryStage.setResizable(false);
-        Configuration conf = Configuration.getInstance();
         Scene scene = new Scene(new Group(), 900, 700);
         scene.setRoot(createContent(scene));
         primaryStage.setScene(scene);
@@ -158,6 +157,8 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+        Configuration conf = Configuration.getInstance();
+        System.out.println(conf.getLaunchMessage());
         launch();
     }
 }

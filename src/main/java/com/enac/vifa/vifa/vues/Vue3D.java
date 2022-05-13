@@ -51,13 +51,12 @@ public class Vue3D extends SubScene {
     private double ZOOM_MAX_VALUE = Configuration.getInstance().getZoomMax();
 
     //mode properties
-    private Mode mode;
+    private Mode mode=Configuration.getInstance().getMode();
 
     //mouse event vars
     private double startx;
     private double starty;
 
-    //TODO: faire la même pour zoom, avoir constantes paramétrables
     private double limit(double d){
         if (d < -90){
             return -90;
@@ -218,9 +217,10 @@ public class Vue3D extends SubScene {
         setOnMouseDragged((mouseEvent -> {
             double x = mouseEvent.getX();
             double y = mouseEvent.getY();
+            double sens = 1;
+            double diffx = (x - startx)*sens;
+            double diffy = (y - starty)*sens;
             if (mouseEvent.getButton() == MouseButton.PRIMARY){
-                double diffx = x - startx;
-                double diffy = y - starty;
                 switch (mode){
                     case ATTITUDE -> {                        
                         SimpleDoubleProperty psiprop = Modele.getInstance().getPsiProperty();
@@ -247,8 +247,8 @@ public class Vue3D extends SubScene {
                 }
             }
             else if (mouseEvent.getButton() == MouseButton.SECONDARY){
-                yrotprop.set(yrotprop.get() + (x - startx));
-                xrotprop.set(limit(xrotprop.get() - (y - starty)));
+                yrotprop.set(yrotprop.get() + diffx);
+                xrotprop.set(limit(xrotprop.get() - diffy));
             }
             startx = x;
             starty = y;

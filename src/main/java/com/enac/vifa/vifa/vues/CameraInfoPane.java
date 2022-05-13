@@ -7,7 +7,6 @@ import javafx.scene.layout.VBox;
 
 public class CameraInfoPane extends VBox {
 
-    private Vue3D vue;
     private Label xrotl;
     private Label yrotl;
     private Label zooml;
@@ -15,7 +14,6 @@ public class CameraInfoPane extends VBox {
     public CameraInfoPane(Vue3D vue){
         super();
         //Box infos débug Caméra
-        this.vue = vue;
         Label cml = new Label("Camera:");
         xrotl = new Label("X Rot: "+vue.getXrotprop());
         vue.xrotpropProperty().addListener(((observableValue, number, t1) -> {
