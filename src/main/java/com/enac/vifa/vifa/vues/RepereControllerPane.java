@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
 
-public class RepereControllerPane extends VBox implements Resettable{
+public class RepereControllerPane extends ControllerPane{
 
     private Label psil;
     private Slider psis;
@@ -23,63 +23,62 @@ public class RepereControllerPane extends VBox implements Resettable{
     private Label betal;
     private Slider betas;
 
-    private Vue3D vue;
-
     public RepereControllerPane(Vue3D vue){
         //Box sliders repères
-        this.vue = vue;
+        super(vue);
         Label rpl = new Label("Repères:");
-        psil = new Label("Psi: 0");
-        psis = new Slider(-183, 183, 0);
+
+        setRowIndex(rpl, 0);
+        psil = new Label("Psi (deg): 0.0");
+        setRowIndex(psil, 1);
+        psis = new Slider(-180, 180, 0);
+        setRowIndex(psis, 2);
+        psis.valueProperty().bindBidirectional(Modele.getInstance().getPsiProperty());
         psis.valueProperty().addListener(((observableValue, number, t1) -> {
-            vue.rotatePsi(number.intValue());
-            psil.setText("Psi: "+number.intValue());
-            SimpleDoubleProperty psiprop = Modele.getInstance().getPsiProperty();
-            synchronized (psiprop){ psiprop.set(Math.toRadians(number.doubleValue())); }
-            //Modele.getInstance().getForcesMomentService.restart();
-            //Modele.getInstance().descriptionService.restart();
+            vue.rotatePsi(t1.doubleValue());
+            genericSliderListener("Psi (deg): ", psil, t1);
         }));
-        phil = new Label("Phi: 0");
-        phis = new Slider(-183, 183, 0);
+
+        phil = new Label("Phi (deg): 0.0");
+        setRowIndex(phil, 3);
+        phis = new Slider(-180, 180, 0);
+        setRowIndex(phis, 4);
+        phis.valueProperty().bindBidirectional(Modele.getInstance().getPhiProperty());
         phis.valueProperty().addListener(((observableValue, number, t1) -> {
-            vue.rotatePhi(number.intValue());
-            phil.setText("Phi: "+number.intValue());
-            SimpleDoubleProperty phiprop = Modele.getInstance().getPhiProperty();
-            synchronized (phiprop){ phiprop.set(Math.toRadians(number.doubleValue())); }
-            //Modele.getInstance().getForcesMomentService.restart();
-            //Modele.getInstance().descriptionService.restart();
+            vue.rotatePhi(t1.doubleValue());
+            genericSliderListener("Phi (deg): ", phil, t1);
         }));
-        thetal = new Label("Theta: 0");
-        thetas = new Slider(-183, 183, 0);
+
+        thetal = new Label("Theta (deg): 0.0");
+        setRowIndex(thetal, 5);
+        thetas = new Slider(-180, 180, 0);
+        setRowIndex(thetas, 6);
+        thetas.valueProperty().bindBidirectional(Modele.getInstance().getThetaProperty());
         thetas.valueProperty().addListener(((observableValue, number, t1) -> {
-            vue.rotateTheta(number.intValue());
-            thetal.setText("Theta: "+number.intValue());
-            SimpleDoubleProperty thetaprop = Modele.getInstance().getThetaProperty();
-            synchronized (thetaprop){ thetaprop.set(Math.toRadians(number.doubleValue())); }
-            //Modele.getInstance().getForcesMomentService.restart();
-            //Modele.getInstance().descriptionService.restart();
+            vue.rotateTheta(t1.doubleValue());
+            genericSliderListener("Theta (deg): ", thetal, t1);
         }));
 
-        alphal = new Label("Alpha: 0");
-        alphas = new Slider(-183, 183, 0);
+        alphal = new Label("Alpha (deg): 0.0");
+        setRowIndex(alphal, 7);
+        alphas = new Slider(-180, 180, 0);
+        setRowIndex(alphas, 8);
+        alphas.valueProperty().bindBidirectional(Modele.getInstance().getAlphaProperty());
         alphas.valueProperty().addListener(((observableValue, number, t1) -> {
-            vue.rotateAlpha(number.intValue());
-            alphal.setText("Alpha: "+number.intValue());
-            SimpleDoubleProperty alphaprop = Modele.getInstance().getAlphaProperty();
-            synchronized (alphaprop){ alphaprop.set(Math.toRadians(number.doubleValue())); }
+            vue.rotateAlpha(t1.doubleValue());
+            genericSliderListener("Alpha (deg): ", alphal, t1);
             Modele.getInstance().getForcesMomentService.restart();
-            //Modele.getInstance().descriptionService.restart();
         }));
 
-        betal = new Label("Beta: 0");
-        betas = new Slider(-183, 183, 0);
+        betal = new Label("Beta (deg): 0.0");
+        setRowIndex(betal, 9);
+        betas = new Slider(-180, 180, 0);
+        setRowIndex(betas, 10);
+        betas.valueProperty().bindBidirectional(Modele.getInstance().getBetaProperty());
         betas.valueProperty().addListener(((observableValue, number, t1) -> {
-            vue.rotateBeta(number.intValue());
-            betal.setText("Beta: "+number.intValue());
-            SimpleDoubleProperty betaprop = Modele.getInstance().getBetaProperty();
-            synchronized (betaprop){ betaprop.set(Math.toRadians(number.doubleValue())); }
+            vue.rotateBeta(t1.doubleValue());
+            genericSliderListener("Beta (deg): ", betal, t1);
             Modele.getInstance().getForcesMomentService.restart();
-            //Modele.getInstance().descriptionService.restart();
         }));
 
         getChildren().addAll(rpl, psil, psis, phil, phis, thetal, thetas, alphal, alphas, betal, betas);
@@ -87,29 +86,10 @@ public class RepereControllerPane extends VBox implements Resettable{
     }
 
     public void reset(){
-        phis.setValue(0);
-        psis.setValue(0);
-        thetas.setValue(0);
-        alphas.setValue(0);
-        betas.setValue(0);
-        betas.adjustValue(0);
-
         Modele.getInstance().setPhi(0);
         Modele.getInstance().setPsi(0);
         Modele.getInstance().setTheta(0);
         Modele.getInstance().setAlpha(0);
         Modele.getInstance().setBeta(0);
-
-        vue.rotatePsi(0);
-        vue.rotatePhi(0);
-        vue.rotateTheta(0);
-        vue.rotateAlpha(0);
-        vue.rotateBeta(0);
-
-        phil.setText("Phi: 0");
-        psil.setText("Psi: 0");
-        thetal.setText("Theta: 0");
-        alphal.setText("Alpha: 0");
-        betal.setText("Beta: 0");
     }
 }

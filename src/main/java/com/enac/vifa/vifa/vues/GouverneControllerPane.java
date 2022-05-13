@@ -1,13 +1,11 @@
 package com.enac.vifa.vifa.vues;
 
 import com.enac.vifa.vifa.Modele;
-import javafx.concurrent.Worker;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.layout.GridPane;
 
-public class GouverneControllerPane extends GridPane implements Resettable {
+public class GouverneControllerPane extends ControllerPane {
 
     private final Label profInfo;
     private final Slider prof;
@@ -16,50 +14,42 @@ public class GouverneControllerPane extends GridPane implements Resettable {
     private final Label ailInfo;
     private final Slider ailerons;
 
-    public GouverneControllerPane(){
-        super();
-        profInfo = new Label("Profondeur: 0");
+    public GouverneControllerPane(Vue3D vue){
+        super(vue);
+        profInfo = new Label("Profondeur (deg): 0.0");
         setRowIndex(profInfo, 2);
         setColumnIndex(profInfo, 1);
-        prof = new Slider(-93, 93, 0);
+        prof = new Slider(-90, 90, 0);
+        prof.valueProperty().bindBidirectional(Modele.getInstance().getDmProperty());
         prof.valueProperty().addListener(((observableValue, number, t1) -> {
-            profInfo.setText("Profondeur: "+number.intValue());
-            Modele mod = Modele.getInstance();
-            synchronized(mod.getDmProperty()){
-                mod.getDmProperty().set(Math.toRadians(number.doubleValue()));
-            }
-            mod.descriptionService.restart();
-            mod.getForcesMomentService.restart();
+            genericSliderListener("Profondeur (deg): ", profInfo, t1);
+            Modele.getInstance().descriptionService.restart();
+            Modele.getInstance().getForcesMomentService.restart();
         }));
         setRowIndex(prof, 0);
         setColumnIndex(prof, 0);
-        dirInfo = new Label("Direction: 0");
+
+        dirInfo = new Label("Direction (deg): 0.0");
         setRowIndex(dirInfo, 3);
         setColumnIndex(dirInfo, 1);
-        dir = new Slider(-93, 93, 0);
+        dir = new Slider(-90, 90, 0);
+        dir.valueProperty().bindBidirectional(Modele.getInstance().getDnProperty());
         dir.valueProperty().addListener(((observableValue, number, t1) -> {
-            dirInfo.setText("Direction: "+number.intValue());
-            Modele mod = Modele.getInstance();
-            synchronized(mod.getDnProperty()){
-                mod.getDnProperty().set(Math.toRadians(number.doubleValue()));
-            }
-            mod.descriptionService.restart();
-            mod.getForcesMomentService.restart();
+            genericSliderListener("Direction (deg): ", dirInfo, t1);
+            Modele.getInstance().descriptionService.restart();
+            Modele.getInstance().getForcesMomentService.restart();
         }));
         setRowIndex(dir, 1);
         setColumnIndex(dir, 1);
-        ailInfo = new Label("Ailerons: 0");
+        ailInfo = new Label("Ailerons (deg): 0.0");
         setRowIndex(ailInfo, 4);
         setColumnIndex(ailInfo, 1);
-        ailerons = new Slider(-93, 93, 0);
+        ailerons = new Slider(-90, 90, 0);
+        ailerons.valueProperty().bindBidirectional(Modele.getInstance().getDlProperty());
         ailerons.valueProperty().addListener(((observableValue, number, t1) -> {
-            ailInfo.setText("Ailerons: "+number.intValue());
-            Modele mod = Modele.getInstance();
-            synchronized(mod.getDlProperty()){
-                mod.getDlProperty().set(Math.toRadians(number.doubleValue()));
-            }
-            mod.descriptionService.restart();
-            mod.getForcesMomentService.restart();
+            genericSliderListener("Ailerons (deg): ", ailInfo, t1);
+            Modele.getInstance().descriptionService.restart();
+            Modele.getInstance().getForcesMomentService.restart();
         }));
         setRowIndex(ailerons, 0);
         setColumnIndex(ailerons, 2);
@@ -70,14 +60,8 @@ public class GouverneControllerPane extends GridPane implements Resettable {
     }
 
     public void reset(){
-        prof.setValue(0);
-        dir.setValue(0);
-        ailerons.setValue(0);
         Modele.getInstance().setDl(0);
         Modele.getInstance().setDm(0);
         Modele.getInstance().setDn(0);
-        profInfo.setText("Profondeur: 0");
-        dirInfo.setText("Direction: 0");
-        ailInfo.setText("Ailerons: 0");
     }
 }

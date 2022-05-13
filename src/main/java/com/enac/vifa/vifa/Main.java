@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import com.enac.vifa.vifa.formes.Vecteur3D;
 import com.enac.vifa.vifa.vues.*;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Point3D;
 import javafx.scene.*;
-import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.shape.*;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
@@ -38,34 +40,56 @@ public class Main extends Application {
         camInfo.setTranslateX(10);
         camInfo.setTranslateY(10);
 
-        GouverneControllerPane gouvCtl = new GouverneControllerPane();
+        GouverneControllerPane gouvCtl = new GouverneControllerPane(vue);
         gouvCtl.setTranslateX(250);
         gouvCtl.setTranslateY(10);
 
-        ArrayList<? extends Resettable> stonks = new ArrayList<>();
-        ((ArrayList<RepereControllerPane>) stonks).add(repb);
-        ((ArrayList<PQRPane>) stonks).add(pqrb);
-        ((ArrayList<GouverneControllerPane>) stonks).add(gouvCtl);
-        ((ArrayList<FormPane>)stonks).add(form);
+
+       
+
+        ArrayList<ControllerPane> stonks = new ArrayList<>();
+        stonks.add(repb);
+        stonks.add(pqrb);
+        stonks.add(gouvCtl);
+        stonks.add(form);
+
         ResetButton resetb = new ResetButton(stonks);
         resetb.setTranslateX(150);
         resetb.setTranslateY(10);
+
+        ObservableList<Mode> modeList = FXCollections.observableArrayList(Mode.AERO,Mode.AVION,Mode.ATTITUDE);
+        ComboBox modeSelect = new ComboBox(modeList);
+        modeSelect.setValue(Mode.ATTITUDE);
+        modeSelect.setTranslateX(10);
+        modeSelect.setTranslateY(480);
+        modeSelect.setOnAction(e->vue.setMode((Mode)modeSelect.getValue()));
 
         group.getChildren().add(camInfo);
         group.getChildren().add(repb);
         group.getChildren().add(pqrb);
         group.getChildren().add(resetb);
         group.getChildren().add(gouvCtl);
+
         group.getChildren().add(form);
+
+        group.getChildren().add(modeSelect);
+
 
         Modele modele = Modele.getInstance();
         modele.setVue(vue);
-        modele.descriptionService.setOnFailed(e -> System.out.println("ThreadDescr a rencontré une erreur"));
+        modele.descriptionService.setOnFailed(e -> {
+            System.out.println(modele.descriptionService.getException());
+            modele.descriptionService.getException().printStackTrace();
+            System.out.println("ThreadDescr a rencontré une erreur");
+        });
         modele.descriptionService.setOnSucceeded(e -> {
             System.out.println("ThreadPrincipal a bien reçu la descr.");
             if (modele.isDisplayedForme2D()){
-                vue.getGroupe2D().getChildren().clear();
-                vue.getGroupe2D().getChildren().addAll(modele.DrawFFS());
+                ArrayList<MeshView> ytreza = modele.DrawFFS();
+                if (ytreza.size() > 0){
+                    vue.getGroupe2D().getChildren().clear();
+                    vue.getGroupe2D().getChildren().addAll(ytreza);
+                }
             } else {
                 modele.setDisplayedForme2D(true);
                 vue.getGroupe2D().getChildren().addAll(modele.DrawFFS());

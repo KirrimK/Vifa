@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
  *
  * @author hugocourtadon
  */
-public class FormPane extends VBox implements Resettable{
+public class FormPane extends ControllerPane {
     private Label masse;
     private TextField masses;
     
@@ -30,8 +30,9 @@ public class FormPane extends VBox implements Resettable{
     
     public FormPane(Vue3D vue){
         //Box sliders repères
-        this.vue = vue;
+        super(vue);
         //Labels pour les textFields
+        
         masse = new Label("Masse (en tonnes) : ");
         cg = new Label("Position du centre de gravité (écart en m par rapport à la position par défaut):");
         vp = new Label("Vitesse propre de l'avion (en km/h):");

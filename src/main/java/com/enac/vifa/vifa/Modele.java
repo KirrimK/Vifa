@@ -2,9 +2,6 @@ package com.enac.vifa.vifa;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.function.Function;
-
-import javax.lang.model.element.Element;
 
 import com.enac.vifa.vifa.formes.Moment3D;
 import com.enac.vifa.vifa.formes.Vecteur3D;
@@ -102,7 +99,7 @@ public class Modele {
         this.phi=new SimpleDoubleProperty(0) ;
         this.alpha=new SimpleDoubleProperty(0) ;
         this.beta=new SimpleDoubleProperty(0) ;
-        this.a0=new SimpleDoubleProperty(Math.toRadians(3.031)) ;
+        this.a0=new SimpleDoubleProperty(3.031) ;
         this.trim=new SimpleDoubleProperty(0) ;
         this.dl=new SimpleDoubleProperty(0) ;
         this.dm=new SimpleDoubleProperty(0) ;
@@ -487,20 +484,31 @@ public class Modele {
             catch (InterruptedException e1) {}
             this.receivedDrawFFS = false;
             System.out.println("Description en attente...");
-            this.listeDesFormes = new ArrayList<Forme2D>();
-            this.listeDesFormes3D = new ArrayList<Forme3D>();
+            this.listeDesFormes.clear();
+            this.listeDesFormes3D.clear();
             try {
-                String msg=String.format(this.DEMANDE_DESCR,mass.getValue(), xCentrage.getValue(), 
-                vAir.getValue(), psi.getValue(), theta.getValue(), phi.getValue(), alpha.getValue(), beta.getValue(), 
-                a0.getValue(), trim.getValue(), dl.getValue(), dm.getValue(), dn.getValue() ).replace(',','.');
+                String msg=String.format(this.DEMANDE_DESCR,
+                        mass.getValue(),
+                        xCentrage.getValue(),
+                        vAir.getValue(),
+                        Math.toRadians(psi.getValue()),
+                        Math.toRadians(theta.getValue()),
+                        Math.toRadians(phi.getValue()),
+                        Math.toRadians(alpha.getValue()),
+                        Math.toRadians(beta.getValue()),
+                        Math.toRadians(a0.getValue()),
+                        trim.getValue(),
+                        Math.toRadians(dl.getValue()),
+                        Math.toRadians(dm.getValue()),
+                        Math.toRadians(dn.getValue())).replace(',','.');
                 this.radio.sendMsg(msg);
             }
             catch (IvyException e){
                 e.printStackTrace();
                 System.out.println(e);
             }
-            while (! this.receivedDrawFFS&((new Date()).getTime()-temps < 2000) ){
-                //On attends la fin de la description ou 2 secs
+            while (! this.receivedDrawFFS&((new Date()).getTime()-temps < 4000) ){
+                //On attends la fin de la description ou 4 secs
             }
             if (! this.receivedDrawFFS){//on a attendu 2secs, et on n'a pas la description
                 IvyException e = new IvyException("Time out de l'attente de description");
@@ -530,17 +538,31 @@ public class Modele {
                     Thread.sleep(50);
                 } 
                 catch (InterruptedException e1) {}
-                String msg=String.format(this.COMPUTE_DEMND,mass.getValue(), xCentrage.getValue(), 
-                    vAir.getValue(), psi.getValue(), theta.getValue(), phi.getValue(), alpha.getValue(), beta.getValue(), 
-                    a0.getValue(), trim.getValue(), dl.getValue(), dm.getValue(), dn.getValue(), dx.getValue(), p.getValue(),
-                    q.getValue(), r.getValue()).replace(',','.');
+                String msg=String.format(this.COMPUTE_DEMND,
+                        mass.getValue(),
+                        xCentrage.getValue(),
+                        vAir.getValue(),
+                        Math.toRadians(psi.getValue()),
+                        Math.toRadians(theta.getValue()),
+                        Math.toRadians(phi.getValue()),
+                        Math.toRadians(alpha.getValue()),
+                        Math.toRadians(beta.getValue()),
+                        Math.toRadians(a0.getValue()),
+                        trim.getValue(),
+                        Math.toRadians(dl.getValue()),
+                        Math.toRadians(dm.getValue()),
+                        Math.toRadians(dn.getValue()),
+                        dx.getValue(),
+                        Math.toRadians(p.getValue()),
+                        Math.toRadians(q.getValue()),
+                        Math.toRadians(q.getValue())).replace(',','.');
                 this.radio.sendMsg(msg);
             }
             catch (IvyException e){
                 System.out.println(e);
             }
-            while ((! receivedLift) & ((new Date()).getTime()-temps < 2000)){}
-            if (! this.receivedLift){//on a attendu 2secs, et on n'a pas les résulatats
+            while ((! receivedLift) & ((new Date()).getTime()-temps < 4000)){}
+            if (! this.receivedLift){//on a attendu 4 secs, et on n'a pas les résulatats
                 IvyException e = new IvyException("Time out de l'attente des forces et moments");
                 System.out.println(e);
                 //getForcesAndMoment();
