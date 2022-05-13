@@ -96,7 +96,7 @@ public class FormPane extends ControllerPane {
         EventHandler<ActionEvent> eventVp = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e)
             {
-                model.setxCentrage(Double.parseDouble(vps.getText()));
+                model.setvAir(Double.parseDouble(vps.getText()));
                 if (!resetting){
                 Modele.getInstance().descriptionService.restart();
                 Modele.getInstance().getForcesMomentService.restart();
@@ -108,7 +108,7 @@ public class FormPane extends ControllerPane {
         EventHandler<ActionEvent> eventCalage = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e)
             {
-                model.setxCentrage(Double.parseDouble(calages.getText()));
+                model.setA0(Double.parseDouble(calages.getText()));
                 if (!resetting){
                 Modele.getInstance().descriptionService.restart();
                 Modele.getInstance().getForcesMomentService.restart();
