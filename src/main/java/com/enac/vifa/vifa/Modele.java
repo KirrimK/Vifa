@@ -16,6 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.MeshView;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
+import javafx.scene.transform.Translate;
 import org.fxyz3d.shapes.primitives.TriangulatedMesh;
 
 public class Modele {
@@ -192,6 +193,65 @@ public class Modele {
             System.out.println("Le daiveulopeur à ancaur fé une fôte d'aurtaugraff");
             System.exit (0);
         }
+
+        descriptionService.setOnFailed(e -> System.out.println("ThreadDescr a rencontré une erreur"));
+
+        descriptionService.setOnSucceeded(e -> {
+            System.out.println("ThreadPrincipal a bien reçu la descr.");
+            if (modele.isDisplayedForme2D()){
+                ArrayList<MeshView> items = modele.DrawFFS();
+                if (items.size() > 0){
+                    vue.getGroupe2D().getChildren().clear();
+                    vue.getGroupe2D().getChildren().addAll(items);
+                }
+            } else {
+                modele.setDisplayedForme2D(true);
+                vue.getGroupe2D().getChildren().addAll(modele.DrawFFS());
+                vue.getGroupeAvion().getChildren().addAll(modele.DrawFus());
+                vue.getGroupeAvion().getChildren().addAll(modele.DrawNac());
+            }
+        });
+
+        getForcesMomentService.setOnSucceeded((e) -> {
+            System.out.println("ThreadPrincipal a bien reçu les forces et le moment.");
+            if (!modele.isDisplayedForcesMoment()) {
+                synchronized (modele.getListeDesForces()) {
+                    for (Vecteur3D azerty : modele.getListeDesForces()) {
+                        if (azerty.getNom().equals("mg")) {
+                            Point3D debut = azerty.getOrigine();
+                            vue.getRepereTerrestre().getChildren().add(azerty);
+                            vue.getGroupeAvion().getTransforms().set(0, new Translate(debut.getX(), 0, debut.getZ()));
+                            vue.getGroupeForces().getTransforms().set(0, new Translate(-debut.getX(), 0, debut.getZ()));
+                            azerty.setOrigineMagnitude(new Point3D(0, 0, 0), azerty.getMagnitude());
+                        } else {
+                            vue.getGroupeForces().getChildren().add(azerty);
+                        }
+                        azerty.refreshView();
+                    }
+                    vue.getRepereAvion().getChildren().add(modele.getMomentTotal());
+                    modele.getMomentTotal().refreshView();
+                    modele.setDisplayedForcesMoment(true);
+                }
+            }
+            else {
+                synchronized (modele.getListeDesForces()) {
+                    for (Vecteur3D azerty : modele.getListeDesForces()) {
+                        if (azerty.getNom().equals("mg")){
+                            System.out.println(azerty);
+                            Point3D debut = azerty.getOrigine();
+                            System.out.println(debut);
+                            if (debut.getX() != 0.0) {
+                                vue.getGroupeAvion().getTransforms().set(0, new Translate(debut.getX(), 0, debut.getZ()));
+                                vue.getGroupeForces().getTransforms().set(0, new Translate(-debut.getX(), 0, debut.getZ()));
+                            }
+                            azerty.setOrigineMagnitude(new Point3D(0, 0, 0), azerty.getMagnitude());
+                        }
+                        azerty.refreshView();
+                    }
+                    modele.getMomentTotal().refreshView();
+                }
+            }
+        });
     }
 
     public static Modele getInstance (){

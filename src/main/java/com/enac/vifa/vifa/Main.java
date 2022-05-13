@@ -2,18 +2,13 @@ package com.enac.vifa.vifa;
 
 import java.util.ArrayList;
 
-import com.enac.vifa.vifa.formes.TireBouchon3D;
-import com.enac.vifa.vifa.formes.Vecteur3D;
 import com.enac.vifa.vifa.vues.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Point3D;
 import javafx.scene.*;
 import javafx.scene.control.ComboBox;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
-import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -76,70 +71,9 @@ public class Main extends Application {
 
         Modele modele = Modele.getInstance();
         modele.setVue(vue);
-        modele.descriptionService.setOnFailed(e -> {
-            System.out.println(modele.descriptionService.getException());
-            modele.descriptionService.getException().printStackTrace();
-            System.out.println("ThreadDescr a rencontré une erreur");
-        });
-        modele.descriptionService.setOnSucceeded(e -> {
-            System.out.println("ThreadPrincipal a bien reçu la descr.");
-            if (modele.isDisplayedForme2D()){
-                ArrayList<MeshView> ytreza = modele.DrawFFS();
-                if (ytreza.size() > 0){
-                    vue.getGroupe2D().getChildren().clear();
-                    vue.getGroupe2D().getChildren().addAll(ytreza);
-                }
-            } else {
-                modele.setDisplayedForme2D(true);
-                vue.getGroupe2D().getChildren().addAll(modele.DrawFFS());
-                vue.getGroupeAvion().getChildren().addAll(modele.DrawFus());
-                vue.getGroupeAvion().getChildren().addAll(modele.DrawNac());
-            }
-
-           });
 
         modele.descriptionService.start();
 
-        modele.getForcesMomentService.setOnSucceeded((e) -> {
-            System.out.println("ThreadPrincipal a bien reçu les forces et le moment.");
-            if (!modele.isDisplayedForcesMoment()) {
-                synchronized (modele.getListeDesForces()) {
-                    for (Vecteur3D azerty : modele.getListeDesForces()) {
-                        if (azerty.getNom().equals("mg")) {
-                            Point3D debut = azerty.getOrigine();
-                            vue.getRepereTerrestre().getChildren().add(azerty);
-                            vue.getGroupeAvion().getTransforms().set(0, new Translate(debut.getX(), 0, debut.getZ()));
-                            vue.getGroupeForces().getTransforms().set(0, new Translate(-debut.getX(), 0, debut.getZ()));
-                            azerty.setOrigineMagnitude(new Point3D(0, 0, 0), azerty.getMagnitude());
-                        } else {
-                            vue.getGroupeForces().getChildren().add(azerty);
-                        }
-                        azerty.refreshView();
-                    }
-                    vue.getRepereAvion().getChildren().add(modele.getMomentTotal());
-                    modele.getMomentTotal().refreshView();
-                    modele.setDisplayedForcesMoment(true);
-                }
-            }
-            else {
-                synchronized (modele.getListeDesForces()) {
-                    for (Vecteur3D azerty : modele.getListeDesForces()) {
-                        if (azerty.getNom().equals("mg")){
-                            System.out.println(azerty);
-                            Point3D debut = azerty.getOrigine();
-                            System.out.println(debut);
-                            if (debut.getX() != 0.0) {
-                                vue.getGroupeAvion().getTransforms().set(0, new Translate(debut.getX(), 0, debut.getZ()));
-                                vue.getGroupeForces().getTransforms().set(0, new Translate(-debut.getX(), 0, debut.getZ()));
-                            }
-                            azerty.setOrigineMagnitude(new Point3D(0, 0, 0), azerty.getMagnitude());
-                        }
-                        azerty.refreshView();
-                    }
-                    modele.getMomentTotal().refreshView();
-                }
-            }
-        });
         modele.getForcesMomentService.start();
         return group;
     }
