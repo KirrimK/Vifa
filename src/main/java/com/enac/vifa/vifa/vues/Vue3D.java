@@ -199,18 +199,26 @@ public class Vue3D extends SubScene {
             double x = mouseEvent.getX();
             double y = mouseEvent.getY();
             if (mouseEvent.getButton() == MouseButton.PRIMARY){
+                double diffx = x - startx;
+                double diffy = y - starty;
                 switch (mode){
-
-                    case ATTITUDE -> {
-
+                    case ATTITUDE -> {                        
+                        SimpleDoubleProperty psiprop = Modele.getInstance().getPsiProperty();
+                        SimpleDoubleProperty thetaprop = Modele.getInstance().getThetaProperty();
+                        psiprop.set(psiprop.get()-diffx);
+                        thetaprop.set(thetaprop.get()-diffy);
                     }
-                    case AVION -> {
-
-
+                    case AVION -> {                        
+                        SimpleDoubleProperty psiprop = Modele.getInstance().getPsiProperty();
+                        SimpleDoubleProperty thetaprop = Modele.getInstance().getThetaProperty();
+                        SimpleDoubleProperty alphaprop = Modele.getInstance().getAlphaProperty();
+                        SimpleDoubleProperty betaprop = Modele.getInstance().getBetaProperty();
+                        psiprop.set(psiprop.get()-diffx);
+                        thetaprop.set(thetaprop.get()-diffy);
+                        alphaprop.set(alphaprop.get()-diffy);
+                        betaprop.set(betaprop.get()-diffx);
                     }
                     case AERO -> {
-                        double diffx = x - startx;
-                        double diffy = y - starty;
                         SimpleDoubleProperty alphaprop = Modele.getInstance().getAlphaProperty();
                         SimpleDoubleProperty betaprop = Modele.getInstance().getBetaProperty();
                         alphaprop.set(alphaprop.get()+diffy);
