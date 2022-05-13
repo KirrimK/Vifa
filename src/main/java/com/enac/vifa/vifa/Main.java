@@ -31,16 +31,16 @@ public class Main extends Application {
         pqrb.setTranslateX(10);
 
         FormPane form = new FormPane(vue);
-        form.setTranslateY(550);
-        form.setTranslateX(10);
+        form.setTranslateY(10);
+        form.setTranslateX(150);
 
         CameraInfoPane camInfo = new CameraInfoPane(vue);
         camInfo.setTranslateX(10);
         camInfo.setTranslateY(10);
 
         GouverneControllerPane gouvCtl = new GouverneControllerPane(vue);
-        gouvCtl.setTranslateX(250);
-        gouvCtl.setTranslateY(10);
+        gouvCtl.setTranslateX(700);
+        gouvCtl.setTranslateY(480);
 
         ArrayList<ControllerPane> stonks = new ArrayList<>();
         stonks.add(repb);
@@ -49,8 +49,8 @@ public class Main extends Application {
         stonks.add(form);
 
         ResetButton resetb = new ResetButton(stonks);
-        resetb.setTranslateX(150);
-        resetb.setTranslateY(10);
+        resetb.setTranslateX(420);
+        resetb.setTranslateY(650);
 
         ObservableList<Mode> modeList = FXCollections.observableArrayList(Mode.AERO,Mode.AVION,Mode.ATTITUDE);
         ComboBox<Mode> modeSelect = new ComboBox<Mode>(modeList);

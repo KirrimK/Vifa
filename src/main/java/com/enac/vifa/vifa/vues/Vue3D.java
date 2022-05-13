@@ -18,7 +18,7 @@ import static com.enac.vifa.vifa.vues.Mode.ATTITUDE;
 import static java.lang.Double.max;
 
 public class Vue3D extends SubScene {
-
+    private final double ROTATION_TO_DEGRES= Configuration.getInstance().getVitesseRotationToDegres();
     private PerspectiveCamera camera = new PerspectiveCamera(true);
     private Group repereTerrestre;
     private Group repereAvion;
@@ -76,10 +76,10 @@ public class Vue3D extends SubScene {
 
         this.repereTerrestre = repereTerrestreVide;
         repereTerrestre.getChildren().add(new AmbientLight(Color.WHITESMOKE));
-
-        Color terrColor = Color.SANDYBROWN;
-        Color avColor = Color.WHITE;
-        Color aerColor = Color.BLUE;
+        Configuration conf = Configuration.getInstance();
+        Color terrColor = conf.getCouleurRepèreTerrestre();
+        Color avColor = conf.getCouleurRepèreAvion();
+        Color aerColor = conf.getCouleurRepèreAero();
 
         //repère terrestre
         Vecteur3D trx = new Vecteur3D("x terrestre", new Point3D(50, 0, 0), new Point3D(25, 0, 0), terrColor);
@@ -94,16 +94,16 @@ public class Vue3D extends SubScene {
         repereTerrestre.getChildren().add(trz);
 
         //angles de rotation du repère terrestre
-        apsi = new FlecheArrondie3D("psi", 75, 0, Color.GRAY);
+        apsi = new FlecheArrondie3D("psi", 75, 0, conf.getCouleurPsiThetaPhi());
         apsi.getTransforms().setAll(
                 new Rotate(-90, Rotate.X_AXIS)
         );
-        aphi = new FlecheArrondie3D("phi", 75, 0, Color.GRAY);
+        aphi = new FlecheArrondie3D("phi", 75, 0, conf.getCouleurPsiThetaPhi());
         aphi.getTransforms().setAll(
                 new Rotate(-90, Rotate.Y_AXIS),
                 new Rotate(0, Rotate.X_AXIS)
         );
-        atheta = new FlecheArrondie3D("theta", 75, 0, Color.GRAY);
+        atheta = new FlecheArrondie3D("theta", 75, 0, conf.getCouleurPsiThetaPhi());
         atheta.getTransforms().setAll(
                 new Rotate(0, Rotate.Y_AXIS)
         );
@@ -153,9 +153,9 @@ public class Vue3D extends SubScene {
 
         repereAvion.getChildren().addAll(avx, avy, avz, tbp, tbq, tbr);
 
-        aalpha = new FlecheArrondie3D("alpha", 100, 0, Color.LIGHTBLUE);
+        aalpha = new FlecheArrondie3D("alpha", 100, 0, conf.getCouleurAlphaBeta());
 
-        abeta = new FlecheArrondie3D("beta", 100, 0, Color.LIGHTBLUE);
+        abeta = new FlecheArrondie3D("beta", 100, 0, conf.getCouleurAlphaBeta());
         abeta.getTransforms().setAll(
                 new Rotate(90, Rotate.X_AXIS)
         );

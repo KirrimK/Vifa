@@ -92,7 +92,8 @@ public class Modele {
         this.listeDesFormes = new ArrayList<Forme2D>();
         this.listeDesFormes3D= new ArrayList<Forme3D>();
         this.listeDesForces = new ArrayList<Vecteur3D>();
-        this.momentTotal = new Moment3D(new Point3D(0, 0, 0), 30, 30, 30, 0, 0, 0, "mx_total", "my_total", "mz_total", Color.GREEN);
+        this.momentTotal = new Moment3D(new Point3D(0, 0, 0), 30, 30, 30, 0, 0, 0, "mx_total", "my_total", "mz_total", 
+                                        Configuration.getInstance().getCouleurMoment());
         this.xCentrage=new SimpleDoubleProperty(0.2555) ;
         this.vAir=new SimpleDoubleProperty(150) ;
         this.psi=new SimpleDoubleProperty(0) ;
@@ -129,7 +130,7 @@ public class Modele {
                         color = Color.RED;
                         break;
                     case "violet":
-                        color = Color.VIOLET;
+                        color = Color.DARKVIOLET;
                         break;
                     case "grey":
                         color = Color.GREY;
@@ -687,13 +688,13 @@ public class Modele {
         for (Forme2D f :this.listeDesFormes) {
             f.setMesh();
             if (f.getNom().equals("htpr") || f.getNom().equals("htpl") || f.getNom().equals("wingr") || f.getNom().equals("wingl")) {
-                f.setMaterial(new PhongMaterial(Color.WHITE));
+                f.setMaterial(new PhongMaterial(Configuration.getInstance().getCouleurAiles()));
             } 
             if (f.getNom().equals("vtp")) {
-                f.setMaterial(new PhongMaterial(Color.GREY));
+                f.setMaterial(new PhongMaterial(Configuration.getInstance().getCouleurFuselage()));
             } 
             if (f.getNom().equals("ruder") || f.getNom().equals("elevatorr") || f.getNom().equals("elevatorl") || f.getNom().equals("aileronr") || f.getNom().equals("aileronl")) {
-                f.setMaterial(new PhongMaterial(Color.ORANGE));
+                f.setMaterial(new PhongMaterial(Configuration.getInstance().getCouleurSurfaceControle()));
             }       
             meshList.add(f);
         }
