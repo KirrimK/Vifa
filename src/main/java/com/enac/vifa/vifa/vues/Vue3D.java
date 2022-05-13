@@ -1,5 +1,6 @@
 package com.enac.vifa.vifa.vues;
 
+import com.enac.vifa.vifa.Configuration;
 import com.enac.vifa.vifa.formes.FlecheArrondie3D;
 import com.enac.vifa.vifa.formes.Vecteur3D;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -40,7 +41,8 @@ public class Vue3D extends SubScene {
     private double zoomdef = 500;
     private SimpleDoubleProperty zoomprop = new SimpleDoubleProperty(zoomdef);
 
-    private double ZOOM_MIN_VALUE = 25;
+    private double ZOOM_MIN_VALUE = Configuration.getInstance().getZoomMin();
+    private double ZOOM_MAX_VALUE = Configuration.getInstance().getZoomMax();
 
     //mode properties
     private Mode mode;
@@ -186,7 +188,8 @@ public class Vue3D extends SubScene {
         }));
 
         setOnScroll((event) -> {
-            zoomprop.set(max(-event.getDeltaY()/2 + zoomprop.get(), ZOOM_MIN_VALUE));
+            double number = Double.min(max(-event.getDeltaY()/2 + zoomprop.get(), ZOOM_MIN_VALUE),ZOOM_MAX_VALUE);
+            zoomprop.set(number);
         });
 
         setOnMousePressed((mouseEvent -> {

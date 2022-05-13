@@ -128,6 +128,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         //primaryStage.setResizable(false);
+        Configuration conf = Configuration.getInstance();
         Scene scene = new Scene(new Group(), 800, 800);
         scene.setRoot(createContent(scene));
         primaryStage.setScene(scene);
