@@ -31,6 +31,10 @@ public class Main extends Application {
         PQRPane pqrb = new PQRPane(vue);
         pqrb.setTranslateY(350);
         pqrb.setTranslateX(10);
+        
+        FormPane form = new FormPane(vue);
+        form.setTranslateY(550);
+        form.setTranslateX(10);
 
         CameraInfoPane camInfo = new CameraInfoPane(vue);
         camInfo.setTranslateX(10);
@@ -40,10 +44,15 @@ public class Main extends Application {
         gouvCtl.setTranslateX(250);
         gouvCtl.setTranslateY(10);
 
+
+       
+
         ArrayList<ControllerPane> stonks = new ArrayList<>();
         stonks.add(repb);
         stonks.add(pqrb);
         stonks.add(gouvCtl);
+        stonks.add(form);
+
         ResetButton resetb = new ResetButton(stonks);
         resetb.setTranslateX(150);
         resetb.setTranslateY(10);
@@ -60,7 +69,11 @@ public class Main extends Application {
         group.getChildren().add(pqrb);
         group.getChildren().add(resetb);
         group.getChildren().add(gouvCtl);
+
+        group.getChildren().add(form);
+
         group.getChildren().add(modeSelect);
+
 
         Modele modele = Modele.getInstance();
         modele.setVue(vue);
