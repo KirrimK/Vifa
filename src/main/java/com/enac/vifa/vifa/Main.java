@@ -32,6 +32,10 @@ public class Main extends Application {
         pqrb.setTranslateY(350);
         pqrb.setTranslateX(10);
 
+        FormPane form = new FormPane(vue);
+        form.setTranslateY(550);
+        form.setTranslateX(10);
+
         CameraInfoPane camInfo = new CameraInfoPane(vue);
         camInfo.setTranslateX(10);
         camInfo.setTranslateY(10);
@@ -44,6 +48,8 @@ public class Main extends Application {
         stonks.add(repb);
         stonks.add(pqrb);
         stonks.add(gouvCtl);
+        stonks.add(form);
+
         ResetButton resetb = new ResetButton(stonks);
         resetb.setTranslateX(150);
         resetb.setTranslateY(10);
@@ -60,6 +66,9 @@ public class Main extends Application {
         group.getChildren().add(pqrb);
         group.getChildren().add(resetb);
         group.getChildren().add(gouvCtl);
+
+        group.getChildren().add(form);
+
         group.getChildren().add(modeSelect);
 
         Modele modele = Modele.getInstance();
@@ -128,6 +137,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         //primaryStage.setResizable(false);
+        Configuration conf = Configuration.getInstance();
         Scene scene = new Scene(new Group(), 900, 700);
         scene.setRoot(createContent(scene));
         primaryStage.setScene(scene);
