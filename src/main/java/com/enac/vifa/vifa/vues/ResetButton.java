@@ -18,8 +18,8 @@ public class ResetButton extends Button {
             for (ControllerPane thing: resettables){
                 thing.reset();
             }
-            Modele.getInstance().getForcesMomentService.restart();
             Modele.getInstance().descriptionService.restart();
+            Modele.getInstance().getForcesMomentService.restart();
         });
     }
 }

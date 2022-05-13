@@ -7,6 +7,8 @@ public abstract class ControllerPane extends GridPane {
 
     private Vue3D vue;
 
+    protected boolean resetting = false;
+
     public ControllerPane(Vue3D vue) {
         this.vue = vue;
     }

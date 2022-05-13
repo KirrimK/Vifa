@@ -18,7 +18,6 @@ public class FlecheArrondie3D extends Group {
 
     private ArrayList<Cylinder> aled;
 
-    private double startAngle = 0;
     private double endAngle;
 
     private double rayon;

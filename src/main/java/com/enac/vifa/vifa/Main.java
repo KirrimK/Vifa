@@ -128,7 +128,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         //primaryStage.setResizable(false);
-        Scene scene = new Scene(new Group(), 800, 800);
+        Scene scene = new Scene(new Group(), 900, 700);
         scene.setRoot(createContent(scene));
         primaryStage.setScene(scene);
         primaryStage.show();
