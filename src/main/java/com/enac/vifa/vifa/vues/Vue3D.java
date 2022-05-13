@@ -200,16 +200,16 @@ public class Vue3D extends SubScene {
         setOnMouseDragged((mouseEvent -> {
             double x = mouseEvent.getX();
             double y = mouseEvent.getY();
-            double sens = 0.1;
+            double sens = 1;
+            double diffx = (x - startx)*sens;
+            double diffy = (y - starty)*sens;
             if (mouseEvent.getButton() == MouseButton.PRIMARY){
-                double diffx = x - startx;
-                double diffy = y - starty;
                 switch (mode){
                     case ATTITUDE -> {                        
                         SimpleDoubleProperty psiprop = Modele.getInstance().getPsiProperty();
                         SimpleDoubleProperty thetaprop = Modele.getInstance().getThetaProperty();
-                        psiprop.set(psiprop.get()-diffx*sens);
-                        thetaprop.set(thetaprop.get()-diffy*sens);
+                        psiprop.set(psiprop.get()-diffx);
+                        thetaprop.set(thetaprop.get()-diffy);
                     }
                     case AVION -> {                        
                         SimpleDoubleProperty psiprop = Modele.getInstance().getPsiProperty();
@@ -218,8 +218,8 @@ public class Vue3D extends SubScene {
                         SimpleDoubleProperty betaprop = Modele.getInstance().getBetaProperty();
                         psiprop.set(psiprop.get()-diffx);
                         thetaprop.set(thetaprop.get()-diffy);
-                        alphaprop.set(alphaprop.get()-diffy);
-                        betaprop.set(betaprop.get()-diffx);
+                        alphaprop.set(alphaprop.get()-diffy+Modele.getInstance().getPhi());
+                        betaprop.set(betaprop.get()-diffx+Modele.getInstance().getPhi());
                     }
                     case AERO -> {
                         SimpleDoubleProperty alphaprop = Modele.getInstance().getAlphaProperty();
@@ -230,8 +230,8 @@ public class Vue3D extends SubScene {
                 }
             }
             else if (mouseEvent.getButton() == MouseButton.SECONDARY){
-                yrotprop.set(yrotprop.get() + (x - startx));
-                xrotprop.set(limit(xrotprop.get() - (y - starty)));
+                yrotprop.set(yrotprop.get() + diffx);
+                xrotprop.set(limit(xrotprop.get() - diffy));
             }
             startx = x;
             starty = y;
