@@ -6,8 +6,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 
-import javax.xml.transform.TransformerException;
-
 public class Moment3D extends Group {
     private FlecheArrondie3D mx_gauche;
     private FlecheArrondie3D mx_droit;

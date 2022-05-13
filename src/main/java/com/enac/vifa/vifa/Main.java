@@ -34,14 +34,14 @@ public class Main extends Application {
         camInfo.setTranslateX(10);
         camInfo.setTranslateY(10);
 
-        GouverneControllerPane gouvCtl = new GouverneControllerPane();
+        GouverneControllerPane gouvCtl = new GouverneControllerPane(vue);
         gouvCtl.setTranslateX(250);
         gouvCtl.setTranslateY(10);
 
-        ArrayList<? extends Resettable> stonks = new ArrayList<>();
-        ((ArrayList<RepereControllerPane>) stonks).add(repb);
-        ((ArrayList<PQRPane>) stonks).add(pqrb);
-        ((ArrayList<GouverneControllerPane>) stonks).add(gouvCtl);
+        ArrayList<ControllerPane> stonks = new ArrayList<>();
+        stonks.add(repb);
+        stonks.add(pqrb);
+        stonks.add(gouvCtl);
         ResetButton resetb = new ResetButton(stonks);
         resetb.setTranslateX(150);
         resetb.setTranslateY(10);
@@ -54,12 +54,19 @@ public class Main extends Application {
 
         Modele modele = Modele.getInstance();
         modele.setVue(vue);
-        modele.descriptionService.setOnFailed(e -> System.out.println("ThreadDescr a rencontré une erreur"));
+        modele.descriptionService.setOnFailed(e -> {
+            System.out.println(modele.descriptionService.getException());
+            modele.descriptionService.getException().printStackTrace();
+            System.out.println("ThreadDescr a rencontré une erreur");
+        });
         modele.descriptionService.setOnSucceeded(e -> {
             System.out.println("ThreadPrincipal a bien reçu la descr.");
             if (modele.isDisplayedForme2D()){
-                vue.getGroupe2D().getChildren().clear();
-                vue.getGroupe2D().getChildren().addAll(modele.DrawFFS());
+                ArrayList<MeshView> ytreza = modele.DrawFFS();
+                if (ytreza.size() > 0){
+                    vue.getGroupe2D().getChildren().clear();
+                    vue.getGroupe2D().getChildren().addAll(ytreza);
+                }
             } else {
                 modele.setDisplayedForme2D(true);
                 vue.getGroupe2D().getChildren().addAll(modele.DrawFFS());
