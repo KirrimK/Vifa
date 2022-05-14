@@ -14,13 +14,15 @@
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:linux:17.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:17.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:linux:17.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:17.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:linux:17.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:win:17.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:mac:17.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.fxyz3d:fxyz3d:0.5.4" level="project" />
     <orderEntry type="library" name="Maven: eu.mihosoft.vrl.jcsg:jcsg:0.5.7" level="project" />
     <orderEntry type="library" name="Maven: eu.mihosoft.vvecmath:vvecmath:0.4.0" level="project" />
     <orderEntry type="library" name="Maven: org.orbisgis:poly2tri-core:0.1.2" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.6.0" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:15.0.1" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:linux:15.0.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.openjfx:javafx-swing:15.0.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.openjfx:javafx-swing:linux:15.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:17.0.1" level="project" />
@@ -31,15 +33,7 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.apiguardian:apiguardian-api:1.1.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-engine:5.8.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-engine:1.8.1" level="project" />
-    <orderEntry type="module-library">
-      <library name="Maven: fr.dgac.ivy:ivy-java:1.2.18">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/ivy-java-1.2.18.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
+    <orderEntry type="library" name="Maven: fr.dgac.ivy:ivy-java:1.2.18" level="project" />
     <orderEntry type="library" name="Maven: io.github.earcut4j:earcut4j:2.2.2" level="project" />
   </component>
 </module>

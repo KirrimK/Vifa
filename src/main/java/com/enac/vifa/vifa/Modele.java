@@ -208,10 +208,10 @@ public class Modele {
                     vue.getGroupe2D().getChildren().addAll(items);
                 }
             } else {
-                modele.setDisplayedForme2D(true);
                 vue.getGroupe2D().getChildren().addAll(modele.DrawFFS());
                 vue.getGroupeAvion().getChildren().addAll(modele.DrawFus());
                 vue.getGroupeAvion().getChildren().addAll(modele.DrawNac());
+                modele.setDisplayedForme2D(true);
             }
         });
 
