@@ -1,5 +1,9 @@
 # Vifa 2022
 
+Pour build le programme, pensez à importer la librairie ivy-java dans le repository maven local avec la commande suivante:
+
+```mvn install:install-file -Dfile=./lib/ivy-java-1.2.18.jar -DgroupId=fr.dgac.ivy -DartifactId=ivy-java -Dversion=1.2.18 -Dpackaging=jar```
+
 ## Getting started
 
 To make it easy for you to get started with GitLab, here's a list of recommended next steps.
