@@ -42,99 +42,102 @@ public class Configuration {
             try {
                 while ((ligne = lecteur.readLine()) != null){
                     String[] mots = ligne.split(" : ",2);
-                    switch (mots[0]){
-                        case "modeParDefaut":
-                            switch (mots[1]){
-                                case "attitude":
-                                    mode = Mode.ATTITUDE;
-                                    break;
-                                case "aero":
-                                    mode = Mode.AERO;
-                                    break;
-                                case "avion":
-                                    mode = Mode.AVION;
-                                    break;
-                                default:
-                                    break;
-                            }
-                            break;
-                        case "zoomMin":
-                            zoomMin = Double.parseDouble(mots[1]);
-                            break;
-                        case "zoomMax":
-                            zoomMax = Double.parseDouble(mots[1]);
-                            break;
-                        case "hauteur":
-                            hauteur = Double.parseDouble(mots[1]);
-                            break;
-                        case "launchMessage":
-                            launchMessage = mots[1];
-                            break;
-                        case "facteurApproximationArrondis":
-                            facteurApproximationArrondis =  Integer.parseInt(mots[1]);
-                            break;
-                        case "couleurSurfaceControle":
-                            if (! mots[1].equals("DEFAULT")){
-                                couleurSurfaceControle = couleurFromString(mots[1]);
-                            }
-                            break;
-                        case "couleurFuselage" : 
-                            if (! mots[1].equals("DEFAULT")){
-                                couleurFuselage = couleurFromString(mots[1]);
-                            }
-                            break;
-                        case "couleurAiles" :
-                            if (! mots[1].equals("DEFAULT")){
-                                couleurAiles = couleurFromString(mots[1]);
-                            }
-                            break;
-                        case "couleurRepèreTerrestre":
-                            if (! mots[1].equals("DEFAULT")){
-                                couleurRepèreTerrestre = couleurFromString(mots[1]);
-                            }
-                            break;
-                        case "couleurRepèreAvion" :
-                            if (! mots[1].equals("DEFAULT")){
-                                couleurRepèreAvion = couleurFromString(mots[1]);
-                            }
-                            break;
-                        case "couleurRepèreAero":
-                            if (! mots[1].equals("DEFAULT")){
-                                couleurRepèreAero = couleurFromString(mots[1]);
-                            }
-                            break;
-                        case "couleurPsiThetaPhi":
-                            if (! mots[1].equals("DEFAULT")){
-                                couleurPsiThetaPhi = couleurFromString(mots[1]);
-                            }
-                            break;
-                        case "couleurAlphaBeta":
-                            if (! mots[1].equals("DEFAULT")){
-                                couleurAlphaBeta = couleurFromString(mots[1]);
-                            }
-                            break;
-                        case "couleurVitessesRotation":
-                            if (! mots[1].equals("DEFAULT")){
-                                couleurVitessesRotation = couleurFromString(mots[1]);
-                            }
-                            break;
-                        case "couleurMoment":
-                            if (! mots[1].equals("DEFAULT")){
-                                couleurMoment = couleurFromString(mots[1]);
-                            }
-                            break;
-                        case "vitesseRotationToDegres":
-                            vitesseRotationToDegres = Double.parseDouble(mots[1]);
-                            break;
-                        case "momentToDegre":
-                            momentToDegre = Double.parseDouble(mots[1]);
-                            break;
-                        default:
-                            System.out.println("Gibberish line : \n"+ligne);
-                            break;
+                    if (ligne.charAt(0) != '#'){
+                        switch (mots[0]){
+                            case "modeParDefaut":
+                                switch (mots[1]){
+                                    case "attitude":
+                                        mode = Mode.ATTITUDE;
+                                        break;
+                                    case "aero":
+                                        mode = Mode.AERO;
+                                        break;
+                                    case "avion":
+                                        mode = Mode.AVION;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case "zoomMin":
+                                zoomMin = Double.parseDouble(mots[1]);
+                                break;
+                            case "zoomMax":
+                                zoomMax = Double.parseDouble(mots[1]);
+                                break;
+                            case "hauteur":
+                                hauteur = Double.parseDouble(mots[1]);
+                                break;
+                            case "launchMessage":
+                                launchMessage = mots[1];
+                                break;
+                            case "facteurApproximationArrondis":
+                                facteurApproximationArrondis =  Integer.parseInt(mots[1]);
+                                break;
+                            case "couleurSurfaceControle":
+                                if (! mots[1].equals("DEFAULT")){
+                                    couleurSurfaceControle = couleurFromString(mots[1]);
+                                }
+                                break;
+                            case "couleurFuselage" : 
+                                if (! mots[1].equals("DEFAULT")){
+                                    couleurFuselage = couleurFromString(mots[1]);
+                                }
+                                break;
+                            case "couleurAiles" :
+                                if (! mots[1].equals("DEFAULT")){
+                                    couleurAiles = couleurFromString(mots[1]);
+                                }
+                                break;
+                            case "couleurRepereTerrestre":
+                                if (! mots[1].equals("DEFAULT")){
+                                    couleurRepèreTerrestre = couleurFromString(mots[1]);
+                                }
+                                break;
+                            case "couleurRepereAvion" :
+                                if (! mots[1].equals("DEFAULT")){
+                                    couleurRepèreAvion = couleurFromString(mots[1]);
+                                }
+                                break;
+                            case "couleurRepereAero":
+                                if (! mots[1].equals("DEFAULT")){
+                                    couleurRepèreAero = couleurFromString(mots[1]);
+                                }
+                                break;
+                            case "couleurPsiThetaPhi":
+                                if (! mots[1].equals("DEFAULT")){
+                                    couleurPsiThetaPhi = couleurFromString(mots[1]);
+                                }
+                                break;
+                            case "couleurAlphaBeta":
+                                if (! mots[1].equals("DEFAULT")){
+                                    couleurAlphaBeta = couleurFromString(mots[1]);
+                                }
+                                break;
+                            case "couleurVitessesRotation":
+                                if (! mots[1].equals("DEFAULT")){
+                                    couleurVitessesRotation = couleurFromString(mots[1]);
+                                }
+                                break;
+                            case "couleurMoment":
+                                if (! mots[1].equals("DEFAULT")){
+                                    couleurMoment = couleurFromString(mots[1]);
+                                }
+                                break;
+                            case "vitesseRotationToDegres":
+                                vitesseRotationToDegres = Double.parseDouble(mots[1]);
+                                break;
+                            case "momentToDegre":
+                                momentToDegre = Double.parseDouble(mots[1]);
+                                break;
+                            default:
+                                System.out.println("Gibberish line : \n"+ligne);
+                                break;
+                        }
                     }
                 }
-            } catch (IOException e) {
+            } 
+            catch (IOException e) {
                 System.out.println(e+"\nFICHIER DE MERDE");
             }
         }
