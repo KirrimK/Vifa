@@ -200,18 +200,22 @@ public class Modele {
         descriptionService.setOnFailed(e -> System.out.println("ThreadDescr a rencontré une erreur"));
 
         descriptionService.setOnSucceeded(e -> {
-            System.out.println("ThreadPrincipal a bien reçu la descr.");
-            if (modele.isDisplayedForme2D()){
-                ArrayList<MeshView> items = modele.DrawFFS();
-                if (items.size() > 0){
-                    vue.getGroupe2D().getChildren().clear();
-                    vue.getGroupe2D().getChildren().addAll(items);
+            ArrayList<MeshView> items = modele.DrawFFS();
+            if (items.size() > 0){
+                vue.getGroupe2D().getChildren().clear();
+                vue.getGroupe2D().getChildren().addAll(items);
+                System.out.println("Formes surfaciques mises à jour avec succès.");
+            }
+            if (!modele.isDisplayedForme2D()){
+                try {
+                    vue.getGroupeAvion().getChildren().addAll(modele.DrawFus());
+                    vue.getGroupeAvion().getChildren().addAll(modele.DrawNac());
+                    modele.setDisplayedForme2D(true);
+                    System.out.println("Formes volumiques affichées avec succès.");
+                } catch (Exception e2){
+                    System.out.println(e2);
+                    System.out.println("Erreur lors de l'affichage des formes volumiques.");
                 }
-            } else {
-                vue.getGroupe2D().getChildren().addAll(modele.DrawFFS());
-                vue.getGroupeAvion().getChildren().addAll(modele.DrawFus());
-                vue.getGroupeAvion().getChildren().addAll(modele.DrawNac());
-                modele.setDisplayedForme2D(true);
             }
         });
 
