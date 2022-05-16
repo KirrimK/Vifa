@@ -5,10 +5,3 @@
 # Container Scanning customization: https://docs.gitlab.com/ee/user/application_security/container_scanning/#customizing-the-container-scanning-settings
 # Note that environment variables can be set in several places
 # See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
-stages:
-  - test
-sast:
-  stage: test
-  script: "mvn install:install-file -Dfile=./lib/ivy-java-1.2.18.jar -DgroupId=fr.dgac.ivy -DartifactId=ivy-java -Dversion=1.2.18 -Dpackaging=jar"
-include:
-  - template: Security/SAST.gitlab-ci.yml
