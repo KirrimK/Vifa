@@ -92,6 +92,9 @@ public class Modele {
         this.displayedForme2D = displayedForme2D;
     }
 
+    /**
+     * Crée un modele ne contenant aucun avion avec des valeurs par défaut pour les constantes de vol
+     */
     private Modele() {
         this.tempsDerniereDemandeDescr = -1000;
         this.tempsDerniereDemandeForce = -1000;
@@ -268,6 +271,10 @@ public class Modele {
         });
     }
 
+    /**
+     * Methode qui renvoie le singleton Modele
+     * @return modele
+     */
     public static Modele getInstance (){
         if (modele==null){
             modele = new Modele();
@@ -490,6 +497,11 @@ public class Modele {
         this.r.setValue(r);
     }
     
+    /**
+     * Ajoute une forme qui ne contient aucun point
+     * 
+     * @param nom Sring qui est le nom donné à la forme
+     */
     public void addForme (String nom){
         boolean t =false;
         if(!(nom.equals("fuselage")|| nom.equals("naceller")||nom.equals("nacellel"))){
@@ -505,13 +517,25 @@ public class Modele {
         }
     }
     
+    /**
+     * Ajoute une forme 3D qui ne contient aucune info
+     * 
+     * @param nom Nom de la forme à ajouter. Valeurs acceptées : [ fuselage, naceller ou nacellel ]
+     */
     public void addForme3D (String nom){
         if (nom.equals("fuselage")|| nom.equals("naceller")||nom.equals("nacellel")){
-        
             this.listeDesFormes3D.add(new Forme3D(nom));
         }
     }
 
+    /**
+     * Ajoute un point au contour d'une forme
+     * 
+     * @param nom   (String) Nom de la forme
+     * @param x     Coordonnée X du point à ajouter
+     * @param y     Coordonnée Y du point à ajouter
+     * @param z     Coordonnée Z du point à ajouter
+     */
     public void addPointToForme (String nom, double x, double y, double z){
         for (Forme2D f:listeDesFormes){
             if (f.getNom().equals(nom)){
@@ -527,7 +551,11 @@ public class Modele {
             }
 
     }
-
+    /**
+     * Renvoie la forme dont le nom est donné en paramètre. Si la forme n'existe pas, elle est créée.
+     * @param nom  (String) nom de la forme
+     * @return  (Forme2D) la force correspondante
+     */
     public Forme2D getForme (String nom){
         for (Forme2D f:listeDesFormes){
             if (f.getNom().equals(nom)){
@@ -538,7 +566,12 @@ public class Modele {
         return (getForme(nom));
     }
     
-     public Forme3D getForme3D (String nom){
+    /**
+     Renvoie la forme 3D dont le nom est donné en paramètre. Si la forme 3D n'existe pas, elle est créée.
+     * @param nom  (String) nom de la forme
+     * @return  (Forme3D) la force correspondante
+     */
+    public Forme3D getForme3D (String nom){
         for (Forme3D f:listeDesFormes3D){
             if (f.getNom().equals(nom)){
                 return f;
@@ -548,6 +581,11 @@ public class Modele {
         return (getForme3D(nom));
     }
 
+    /**
+     * Commande appelée pour recupérer les formes de l'avion.
+     * Appelée par descriptionService dans un thread parallèle pour rendre l'application plus fluide
+     * @throws IvyException En cas de timeout (4s)
+     */
     public void getDescription() throws IvyException{
         long temps = (new Date()).getTime();
         long tps;
@@ -611,9 +649,12 @@ public class Modele {
         }
     }
 
-    public void getForcesAndMoment (){
-        
-        
+    /**
+     * Fonction qui permet de récupérer les forces et le moment.
+     * Appelée dans un thread parallèle par getForcesMomentService pour fluidifier l'exécution.
+     * @throws IvyException en cas de timeout (4s)
+     */
+    public void getForcesAndMoment () throws IvyException{
         long temps = (new Date()).getTime();
         long tps;
         synchronized(verrouTemporelForce){
@@ -657,8 +698,7 @@ public class Modele {
             while ((! fin) & ((new Date()).getTime()-temps < 4000)){
                 try {
                     Thread.sleep(50);
-                } catch (InterruptedException e) {
-                }
+                } catch (InterruptedException e) {}
                 synchronized (verrouForce){
                     fin=receivedLift;
                 }
@@ -666,6 +706,7 @@ public class Modele {
             if (! this.receivedLift){//on a attendu 4 secs, et on n'a pas les résulatats
                 IvyException e = new IvyException("Time out de l'attente des forces et moments");
                 System.out.println(e);
+                throw e;
                 //getForcesAndMoment();
             }
             else{
@@ -679,6 +720,9 @@ public class Modele {
     }
 
 
+    /**
+     * @return La représentation du modèle sous forme de chaîne de caractères.
+     */
     public String toString (){
         String res="Modele [\n";
         for (Forme2D f :listeDesFormes){
@@ -699,6 +743,11 @@ public class Modele {
         return listeDesForces;
     }
 
+    /**
+     * Met à jour une force donnée.
+     * Si aucune force avec le même nom n'est trouvée, la force est ajoutée directement.
+     * @param force
+     */
     public void updateForce(Vecteur3D force) {
         String nom = force.getNom();
         boolean trouvee = false;
@@ -723,6 +772,10 @@ public class Modele {
         this.momentTotal = momentTotal;
     }
 
+    /**
+     * Fonction renvoyant la liste de MeshView des formes 2D prête à être affichée.
+     * @return La liste mentionnée plus haut
+     */
     public ArrayList<MeshView> DrawFFS() {
         ArrayList<MeshView> meshList = new ArrayList<MeshView>();
         for (Forme2D f :this.listeDesFormes) {
@@ -740,6 +793,10 @@ public class Modele {
         }
         return meshList;
     }
+    /**
+     * Fonction dessinant le fuselage à partir des points reçus.
+     * @return Une liste contenant la TriangulatedMesh du fuselage
+     */
     public ArrayList<TriangulatedMesh> DrawFus(){
         ArrayList<TriangulatedMesh> TrianglulatedMeshList = new ArrayList<TriangulatedMesh>();
         for (Forme3D f :this.listeDesFormes3D) {
@@ -750,6 +807,11 @@ public class Modele {
         }
         return TrianglulatedMeshList;
     }
+
+    /**
+     * Méthiode dessinant les réacteurs de l'avion.
+     * @return Une liste contenant 2 cylindres représentant les réacteurs.
+     */
     public ArrayList<Cylinder> DrawNac(){
         ArrayList<Cylinder> CylinderList = new ArrayList<Cylinder>();
         for (Forme3D f :this.listeDesFormes3D) {

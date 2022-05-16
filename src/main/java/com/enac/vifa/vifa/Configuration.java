@@ -35,7 +35,11 @@ public class Configuration {
 
 
 
-
+    /**
+     * Constructeur de la classe configuration.
+     * /!\ Configuration est un singleton. Utilisez getInstance pour obtenir l'objet.
+     * 
+     */
     private Configuration(){
         File confFile = new File ("vifa22.conf");
         try {
@@ -156,17 +160,29 @@ public class Configuration {
         }
         
     }
+
+    /**
+     * Convertit une chaîne de caractères au format (R,G,B) en couleur; avec R,G et B des entiers compris entre 0 et 255
+     * @param chaine 
+     * @return (Color) La couleur décrite par le code RGB
+     */
     private Color couleurFromString (String chaine){
         String sansParanthese = (chaine.replace("(", "")).replace(")","");
         String[] numbers = sansParanthese.split(",");
         return new Color(Integer.parseInt(numbers[0]),Integer.parseInt(numbers[1]),Integer.parseInt(numbers[2]),1);
     }
+
+    /**
+     * Méthode permettant d'accèder à l'objet Configuration.
+     */
     public static Configuration getInstance(){
         if (conf == null){
             conf = new Configuration();
         }
         return conf;
     }
+
+    //GETTERS
     public Mode getMode() {
         return mode;
     }
