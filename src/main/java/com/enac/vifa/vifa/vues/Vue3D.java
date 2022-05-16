@@ -41,8 +41,11 @@ public class Vue3D extends SubScene {
     private TireBouchon3D tbq;
     private TireBouchon3D tbr;
 
-    private FlecheArrondie3D aalpha;
-    private FlecheArrondie3D abeta;
+    private FlecheArrondie3D aalphax;
+    private FlecheArrondie3D abetax;
+
+    private FlecheArrondie3D aalphaz;
+    private FlecheArrondie3D abetay;
 
     //camera properties
     private double xrotdef = -27;
@@ -182,21 +185,41 @@ public class Vue3D extends SubScene {
 
         repereAvion.getChildren().addAll(avx, avy, avz, tbp, tbq, tbr);
 
-        aalpha = new FlecheArrondie3D("alpha", 75, 0, conf.getCouleurAlphaBeta());
+        aalphax = new FlecheArrondie3D("alpha", 75, 0, conf.getCouleurAlphaBeta());
 
-        abeta = new FlecheArrondie3D("beta", 75, 0, conf.getCouleurAlphaBeta());
-        abeta.getTransforms().setAll(
+        abetax = new FlecheArrondie3D("beta", 75, 0, conf.getCouleurAlphaBeta());
+        abetax.getTransforms().setAll(
                 new Rotate(90, Rotate.X_AXIS)
+        );
+
+        aalphax = new FlecheArrondie3D("alpha", 75, 0, conf.getCouleurAlphaBeta());
+
+        abetax = new FlecheArrondie3D("beta", 75, 0, conf.getCouleurAlphaBeta());
+        abetax.getTransforms().setAll(
+                new Rotate(90, Rotate.X_AXIS)
+        );
+
+        aalphaz = new FlecheArrondie3D("alpha", 75, 0, conf.getCouleurAlphaBeta());
+        aalphaz.getTransforms().setAll(
+                new Rotate(90, Rotate.Z_AXIS)
+        );
+
+        abetay = new FlecheArrondie3D("beta", 75, 0, conf.getCouleurAlphaBeta());
+        abetay.getTransforms().setAll(
+                new Rotate(90, Rotate.X_AXIS),
+                new Rotate(-90, Rotate.Z_AXIS)
         );
 
         repereTerrestre.getChildren().add(repereAvion);
 
-        repereAvion.getChildren().add(aalpha);
+        repereAvion.getChildren().add(aalphax);
+        repereAvion.getChildren().add(aalphaz);
 
         repereAeroPart = new Group();
         repereAero = new Group();
 
-        repereAeroPart.getChildren().add(abeta);
+        repereAeroPart.getChildren().add(abetax);
+        repereAeroPart.getChildren().add(abetay);
         repereAeroPart.getChildren().add(repereAero);
 
         Vecteur3D aerx = new Vecteur3D("x aéro", new Point3D(75, 0, 0), new Point3D(25, 0, 0), aerColor);
@@ -384,12 +407,14 @@ public class Vue3D extends SubScene {
 
     public void rotateAlpha(double alpha){
         repereAeroPart.getTransforms().set(0, new Rotate(alpha, Rotate.Z_AXIS));
-        aalpha.setEndAngle(alpha);
+        aalphax.setEndAngle(alpha);
+        aalphaz.setEndAngle(alpha);
     }
 
     public void rotateBeta(double beta){
         repereAero.getTransforms().set(0, new Rotate(-beta, Rotate.Y_AXIS));
-        abeta.setEndAngle(beta);
+        abetax.setEndAngle(beta);
+        abetay.setEndAngle(beta);
     }
 
     public void updateP(double p){
