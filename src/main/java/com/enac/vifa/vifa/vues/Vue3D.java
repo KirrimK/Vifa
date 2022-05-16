@@ -40,9 +40,9 @@ public class Vue3D extends SubScene {
     private FlecheArrondie3D abeta;
 
     //camera properties
-    private double xrotdef = -30;
+    private double xrotdef = -27;
     private SimpleDoubleProperty xrotprop = new SimpleDoubleProperty(xrotdef);
-    private double yrotdef = -135;
+    private double yrotdef = -57;
     private SimpleDoubleProperty yrotprop = new SimpleDoubleProperty(yrotdef);
     private double zoomdef = 500;
     private SimpleDoubleProperty zoomprop = new SimpleDoubleProperty(zoomdef);

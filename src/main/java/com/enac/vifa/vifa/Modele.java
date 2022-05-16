@@ -22,7 +22,7 @@ import javafx.scene.transform.Translate;
 import org.fxyz3d.shapes.primitives.TriangulatedMesh;
 
 public class Modele {
-    private int TEMPS_MIN_ENTRE_DEUX_REFRESHS = 200;//ms
+    private int TEMPS_MIN_ENTRE_DEUX_REFRESHS = 50;//ms
     private static Modele modele;
     private ArrayList<Forme2D> listeDesFormes;
     private ArrayList<Vecteur3D> listeDesForces;
