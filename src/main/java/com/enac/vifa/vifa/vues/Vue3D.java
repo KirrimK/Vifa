@@ -72,7 +72,7 @@ public class Vue3D extends SubScene {
         this.mode = ATTITUDE;
         this.heightProperty().bind(mainScene.heightProperty());
         this.widthProperty().bind(mainScene.widthProperty());
-        setFill(Color.DARKGREY);
+        setFill(Color.BLACK);
 
         this.repereTerrestre = repereTerrestreVide;
         repereTerrestre.getChildren().add(new AmbientLight(Color.WHITESMOKE));
