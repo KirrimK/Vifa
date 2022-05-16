@@ -83,7 +83,7 @@ public class Forme3D {
         for (int i=sides-1;i>0;i--) {
             contourN.add(this.contour.get(i));
         }
-        
+
         int n = contourN.size();
         
         Point3D p = contourN.get(0);

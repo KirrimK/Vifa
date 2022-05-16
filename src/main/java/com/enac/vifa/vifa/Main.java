@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
     public Parent createContent(Scene mainScene){
         // Box
-        Box centerBox = new Box(1, 1, 1);
+        Box centerBox = new Box(0.1, 0.1, 0.1);
 
         Group group = new Group();
         Vue3D vue = new Vue3D(mainScene, new Group());

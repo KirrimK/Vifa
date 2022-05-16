@@ -22,7 +22,7 @@ import javafx.scene.transform.Translate;
 import org.fxyz3d.shapes.primitives.TriangulatedMesh;
 
 public class Modele {
-    private int TEMPS_MIN_ENTRE_DEUX_REFRESHS = 200;//ms
+    private int TEMPS_MIN_ENTRE_DEUX_REFRESHS = 50;//ms
     private static Modele modele;
     private ArrayList<Forme2D> listeDesFormes;
     private ArrayList<Vecteur3D> listeDesForces;
@@ -51,7 +51,9 @@ public class Modele {
     private boolean receivedLift = false;
     private boolean displayedForcesMoment = false;
     private boolean displayedForme2D = false;
+    private Object verrouTemporelForce = new Object();
     private long tempsDerniereDemandeForce;
+    private Object verrouTemporelDescr =new Object();
     private long tempsDerniereDemandeDescr;
     public CommunicationService descriptionService;
     public CommunicationService getForcesMomentService;
@@ -251,9 +253,7 @@ public class Modele {
                 synchronized (modele.getListeDesForces()) {
                     for (Vecteur3D azerty : modele.getListeDesForces()) {
                         if (azerty.getNom().equals("mg")){
-                            System.out.println(azerty);
                             Point3D debut = azerty.getOrigine();
-                            System.out.println(debut);
                             if (debut.getX() != 0.0) {
                                 vue.getGroupeAvion().getTransforms().set(0, new Translate(debut.getX(), 0, debut.getZ()));
                                 vue.getGroupeForces().getTransforms().set(0, new Translate(-debut.getX(), 0, debut.getZ()));
@@ -550,8 +550,14 @@ public class Modele {
 
     public void getDescription() throws IvyException{
         long temps = (new Date()).getTime();
-        if (temps - tempsDerniereDemandeDescr > TEMPS_MIN_ENTRE_DEUX_REFRESHS){
-            this.tempsDerniereDemandeDescr = temps;
+        long tps;
+        synchronized (verrouTemporelDescr){
+            tps = tempsDerniereDemandeDescr;
+        }
+        if (temps - tps > TEMPS_MIN_ENTRE_DEUX_REFRESHS){
+            synchronized (verrouTemporelDescr){
+                this.tempsDerniereDemandeDescr = temps;
+            }
             try {
                 Thread.sleep(50);
             } 
@@ -609,9 +615,15 @@ public class Modele {
         
         
         long temps = (new Date()).getTime();
-        if (temps - tempsDerniereDemandeForce > TEMPS_MIN_ENTRE_DEUX_REFRESHS){
+        long tps;
+        synchronized(verrouTemporelForce){
+            tps = tempsDerniereDemandeForce;
+        }
+        if (temps - tps > TEMPS_MIN_ENTRE_DEUX_REFRESHS){
             System.out.println("Waiting for Forces and Moments");
-            this.tempsDerniereDemandeForce = temps;
+            synchronized (verrouTemporelForce){
+                this.tempsDerniereDemandeForce = temps;
+            }
             try {
                 this.receivedLift=false;
                 try {
