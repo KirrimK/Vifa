@@ -548,7 +548,7 @@ public class Modele {
         return (getForme3D(nom));
     }
 
-    public synchronized void getDescription() throws IvyException{
+    public void getDescription() throws IvyException{
         long temps = (new Date()).getTime();
         long tps;
         synchronized (verrouTemporelDescr){
@@ -611,7 +611,7 @@ public class Modele {
         }
     }
 
-    public synchronized void getForcesAndMoment (){
+    public void getForcesAndMoment (){
         
         
         long temps = (new Date()).getTime();
