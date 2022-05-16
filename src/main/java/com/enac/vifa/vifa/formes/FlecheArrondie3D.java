@@ -57,7 +57,7 @@ public class FlecheArrondie3D extends Group {
         Material materiau = new PhongMaterial(couleur);
         getChildren().clear();
         for (int i = 1; i < DIV_NUMBER-1; i++) {
-            Cylinder oskours = new Cylinder(0.4, 2*Math.toRadians(Math.abs(endAngle))/DIV_NUMBER*rayon);
+            Cylinder oskours = new Cylinder(0.2, 2*Math.toRadians(Math.abs(endAngle))/DIV_NUMBER*rayon);
             oskours.setMaterial(materiau);
             getChildren().add(oskours);
             oskours.getTransforms().setAll(

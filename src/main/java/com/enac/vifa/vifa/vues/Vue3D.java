@@ -82,11 +82,11 @@ public class Vue3D extends SubScene {
         Color aerColor = conf.getCouleurRepèreAero();
 
         //repère terrestre
-        Vecteur3D trx = new Vecteur3D("x terrestre", new Point3D(50, 0, 0), new Point3D(25, 0, 0), terrColor);
+        Vecteur3D trx = new Vecteur3D("x terrestre", new Point3D(25, 0, 0), new Point3D(25, 0, 0), terrColor);
         trx.refreshView();
-        Vecteur3D trz = new Vecteur3D("z terrestre", new Point3D(0, 50, 0), new Point3D(0, 25, 0), terrColor);
+        Vecteur3D trz = new Vecteur3D("z terrestre", new Point3D(0, 25, 0), new Point3D(0, 25, 0), terrColor);
         trz.refreshView();
-        Vecteur3D try_ = new Vecteur3D("y terrestre", new Point3D(0, 0, -50), new Point3D(0, 0, -25), terrColor);
+        Vecteur3D try_ = new Vecteur3D("y terrestre", new Point3D(0, 0, -25), new Point3D(0, 0, -25), terrColor);
         try_.refreshView();
 
         repereTerrestre.getChildren().add(trx);
@@ -94,16 +94,16 @@ public class Vue3D extends SubScene {
         repereTerrestre.getChildren().add(trz);
 
         //angles de rotation du repère terrestre
-        apsi = new FlecheArrondie3D("psi", 75, 0, conf.getCouleurPsiThetaPhi());
+        apsi = new FlecheArrondie3D("psi", 50, 0, conf.getCouleurPsiThetaPhi());
         apsi.getTransforms().setAll(
                 new Rotate(-90, Rotate.X_AXIS)
         );
-        aphi = new FlecheArrondie3D("phi", 75, 0, conf.getCouleurPsiThetaPhi());
+        aphi = new FlecheArrondie3D("phi", 50, 0, conf.getCouleurPsiThetaPhi());
         aphi.getTransforms().setAll(
                 new Rotate(-90, Rotate.Y_AXIS),
                 new Rotate(0, Rotate.X_AXIS)
         );
-        atheta = new FlecheArrondie3D("theta", 75, 0, conf.getCouleurPsiThetaPhi());
+        atheta = new FlecheArrondie3D("theta", 50, 0, conf.getCouleurPsiThetaPhi());
         atheta.getTransforms().setAll(
                 new Rotate(0, Rotate.Y_AXIS)
         );
@@ -130,11 +130,11 @@ public class Vue3D extends SubScene {
         repereAvion.getChildren().add(groupeAvionTemp);
         repereAvion.getChildren().add(groupeForces);
 
-        Vecteur3D avx = new Vecteur3D("x avion", new Point3D(75, 0, 0), new Point3D(25, 0, 0), avColor);
+        Vecteur3D avx = new Vecteur3D("x avion", new Point3D(50, 0, 0), new Point3D(25, 0, 0), avColor);
         avx.refreshView();
-        Vecteur3D avz = new Vecteur3D("z avion", new Point3D(0, 75, 0), new Point3D(0, 25, 0), avColor);
+        Vecteur3D avz = new Vecteur3D("z avion", new Point3D(0, 50, 0), new Point3D(0, 25, 0), avColor);
         avz.refreshView();
-        Vecteur3D avy = new Vecteur3D("y avion", new Point3D(0, 0, -75), new Point3D(0, 0, -25), avColor);
+        Vecteur3D avy = new Vecteur3D("y avion", new Point3D(0, 0, -50), new Point3D(0, 0, -25), avColor);
         avy.refreshView();
 
         tbp = new TireBouchon3D("p", 5, 0, Color.DARKVIOLET);
@@ -153,9 +153,9 @@ public class Vue3D extends SubScene {
 
         repereAvion.getChildren().addAll(avx, avy, avz, tbp, tbq, tbr);
 
-        aalpha = new FlecheArrondie3D("alpha", 100, 0, conf.getCouleurAlphaBeta());
+        aalpha = new FlecheArrondie3D("alpha", 75, 0, conf.getCouleurAlphaBeta());
 
-        abeta = new FlecheArrondie3D("beta", 100, 0, conf.getCouleurAlphaBeta());
+        abeta = new FlecheArrondie3D("beta", 75, 0, conf.getCouleurAlphaBeta());
         abeta.getTransforms().setAll(
                 new Rotate(90, Rotate.X_AXIS)
         );
@@ -170,11 +170,11 @@ public class Vue3D extends SubScene {
         repereAeroPart.getChildren().add(abeta);
         repereAeroPart.getChildren().add(repereAero);
 
-        Vecteur3D aerx = new Vecteur3D("x aéro", new Point3D(100, 0, 0), new Point3D(25, 0, 0), aerColor);
+        Vecteur3D aerx = new Vecteur3D("x aéro", new Point3D(75, 0, 0), new Point3D(25, 0, 0), aerColor);
         aerx.refreshView();
-        Vecteur3D aerz = new Vecteur3D("z aéro", new Point3D(0, 100, 0), new Point3D(0, 25, 0), aerColor);
+        Vecteur3D aerz = new Vecteur3D("z aéro", new Point3D(0, 75, 0), new Point3D(0, 25, 0), aerColor);
         aerz.refreshView();
-        Vecteur3D aery = new Vecteur3D("y aéro", new Point3D(0, 0, -100), new Point3D(0, 0, -25), aerColor);
+        Vecteur3D aery = new Vecteur3D("y aéro", new Point3D(0, 0, -75), new Point3D(0, 0, -25), aerColor);
         aery.refreshView();
 
         repereAero.getChildren().add(aerx);
