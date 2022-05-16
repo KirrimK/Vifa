@@ -28,6 +28,7 @@ public class Configuration {
     private Color couleurAlphaBeta = Color.LIGHTBLUE;
     private Color couleurVitessesRotation = Color.DARKVIOLET;
     private Color couleurMoment = Color.GREEN;
+    private Color couleurFond = Color.BLACK;
     private double vitesseRotationToDegres =1;
     private double momentToDegre = 0.000005;
 
@@ -124,6 +125,10 @@ public class Configuration {
                                     couleurMoment = couleurFromString(mots[1]);
                                 }
                                 break;
+                            case "couleurFond" :
+                                if (! mots[1].equals("DEFAULT")){
+                                    couleurFond = couleurFromString(mots[1]);
+                                }
                             case "vitesseRotationToDegres":
                                 vitesseRotationToDegres = Double.parseDouble(mots[1]);
                                 break;
@@ -204,6 +209,9 @@ public class Configuration {
     }
     public Color getCouleurMoment() {
         return couleurMoment;
+    }
+    public Color getCouleurFond(){
+        return couleurFond;
     }
     public double getVitesseRotationToDegres() {
         return vitesseRotationToDegres;

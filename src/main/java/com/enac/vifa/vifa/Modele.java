@@ -137,7 +137,7 @@ public class Modele {
                         color = Color.DARKVIOLET;
                         break;
                     case "grey":
-                        color = Color.GREY;
+                        color = Color.WHITESMOKE;
                         break;
                     case "brown":
                         color = Color.BROWN;
