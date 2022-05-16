@@ -28,9 +28,14 @@ public class Vue3D extends SubScene {
     private Group repereAeroPart;
     private Group repereAero;
 
-    private FlecheArrondie3D aphi;
-    private FlecheArrondie3D apsi;
-    private FlecheArrondie3D atheta;
+    private FlecheArrondie3D apsix;
+    private FlecheArrondie3D athetax;
+
+    private FlecheArrondie3D aphiy;
+    private FlecheArrondie3D apsiy;
+
+    private FlecheArrondie3D aphiz;
+    private FlecheArrondie3D athetaz;
 
     private TireBouchon3D tbp;
     private TireBouchon3D tbq;
@@ -94,23 +99,47 @@ public class Vue3D extends SubScene {
         repereTerrestre.getChildren().add(trz);
 
         //angles de rotation du repère terrestre
-        apsi = new FlecheArrondie3D("psi", 50, 0, conf.getCouleurPsiThetaPhi());
-        apsi.getTransforms().setAll(
+        apsix = new FlecheArrondie3D("psi", 50, 0, conf.getCouleurPsiThetaPhi());
+        apsix.getTransforms().setAll(
                 new Rotate(-90, Rotate.X_AXIS)
         );
-        aphi = new FlecheArrondie3D("phi", 50, 0, conf.getCouleurPsiThetaPhi());
-        aphi.getTransforms().setAll(
-                new Rotate(-90, Rotate.Y_AXIS),
-                new Rotate(0, Rotate.X_AXIS)
-        );
-        atheta = new FlecheArrondie3D("theta", 50, 0, conf.getCouleurPsiThetaPhi());
-        atheta.getTransforms().setAll(
+        athetax = new FlecheArrondie3D("theta", 50, 0, conf.getCouleurPsiThetaPhi());
+        athetax.getTransforms().setAll(
                 new Rotate(0, Rotate.Y_AXIS)
         );
 
-        repereTerrestre.getChildren().add(aphi);
-        repereTerrestre.getChildren().add(apsi);
-        repereTerrestre.getChildren().add(atheta);
+        apsiy = new FlecheArrondie3D("psi", 50, 0, conf.getCouleurPsiThetaPhi());
+        apsiy.getTransforms().setAll(
+                new Rotate(90, Rotate.Y_AXIS),
+                new Rotate(-90, Rotate.X_AXIS)
+        );
+        aphiy = new FlecheArrondie3D("phi", 50, 0, conf.getCouleurPsiThetaPhi());
+        aphiy.getTransforms().setAll(
+                new Rotate(-90, Rotate.Y_AXIS),
+                new Rotate(0, Rotate.X_AXIS),
+                new Rotate(90, Rotate.Z_AXIS)
+        );
+
+
+        aphiz = new FlecheArrondie3D("phi", 50, 0, conf.getCouleurPsiThetaPhi());
+        aphiz.getTransforms().setAll(
+                new Rotate(90, Rotate.Y_AXIS),
+                new Rotate(180, Rotate.X_AXIS)
+        );
+        athetaz = new FlecheArrondie3D("theta", 50, 0, conf.getCouleurPsiThetaPhi());
+        athetaz.getTransforms().setAll(
+                new Rotate(0, Rotate.Y_AXIS),
+                new Rotate(90, Rotate.Z_AXIS)
+        );
+
+        repereTerrestre.getChildren().add(apsix);
+        repereTerrestre.getChildren().add(athetax);
+
+        repereTerrestre.getChildren().add(apsiy);
+        repereTerrestre.getChildren().add(aphiy);
+
+        repereTerrestre.getChildren().add(aphiz);
+        repereTerrestre.getChildren().add(athetaz);
 
         repereAvion = new Group();
 
@@ -317,30 +346,34 @@ public class Vue3D extends SubScene {
                 new Rotate(psi, Rotate.Y_AXIS),
                 new Rotate(-theta, Rotate.Z_AXIS),
                 new Rotate(phi, Rotate.X_AXIS));
-        apsi.setEndAngle(-psi);
-        aphi.setEndAngle(theta);
-        atheta.setEndAngle(-phi);
-        atheta.getTransforms().set(0, new Rotate(psi, Rotate.Y_AXIS));
-        aphi.getTransforms().set(0, new Rotate(-90+psi, Rotate.Y_AXIS));
-        aphi.getTransforms().set(1, new Rotate(-theta, Rotate.X_AXIS));
+        rotatePhi(psi);
+        rotatePhi(phi);
+        rotateTheta(theta);
     }
 
     public void rotatePsi(double psi){
         repereAvion.getTransforms().set(0, new Rotate(psi, Rotate.Y_AXIS));
-        apsi.setEndAngle(psi);
-        aphi.getTransforms().set(0, new Rotate(-90+psi, Rotate.Y_AXIS));
-        atheta.getTransforms().set(0, new Rotate(psi, Rotate.Y_AXIS));
+        apsix.setEndAngle(psi);
+        apsiy.setEndAngle(psi);
+        aphiy.getTransforms().set(0, new Rotate(-90+psi, Rotate.Y_AXIS));
+        aphiz.getTransforms().set(0, new Rotate(90+psi, Rotate.Y_AXIS));
+        athetax.getTransforms().set(0, new Rotate(psi, Rotate.Y_AXIS));
+        athetaz.getTransforms().set(0, new Rotate(psi, Rotate.Y_AXIS));
     }
 
     public void rotatePhi(double phi){
         repereAvion.getTransforms().set(2, new Rotate(phi, Rotate.X_AXIS));
-        aphi.setEndAngle(-phi);
+        aphiy.setEndAngle(-phi);
+        aphiz.setEndAngle(-phi);
     }
 
     public void rotateTheta(double theta){
         repereAvion.getTransforms().set(1, new Rotate(-theta, Rotate.Z_AXIS));
-        aphi.getTransforms().set(1, new Rotate(-theta, Rotate.X_AXIS));
-        atheta.setEndAngle(-theta);
+        aphiy.getTransforms().set(1, new Rotate(-theta, Rotate.X_AXIS));
+        aphiz.getTransforms().set(1, new Rotate(180+theta, Rotate.X_AXIS));
+
+        athetax.setEndAngle(-theta);
+        athetaz.setEndAngle(-theta);
     }
 
     public void rotateRepereAero(double alpha, double beta){
