@@ -45,7 +45,9 @@ public class Modele {
     private SimpleDoubleProperty q;
     private SimpleDoubleProperty r;
     private Ivy radio;
+    private Object verrouDescr = new Object();
     private boolean receivedDrawFFS = false;
+    private Object verrouForce = new Object();
     private boolean receivedLift = false;
     private boolean displayedForcesMoment = false;
     private boolean displayedForme2D = false;
@@ -149,7 +151,9 @@ public class Modele {
                 Vecteur3D force = new Vecteur3D(nom, debut, norme, color);
 
                 if (nom.equals("LiftTotal")){
-                    receivedLift = true;
+                    synchronized (verrouForce){
+                        receivedLift = true;
+                    }
                 } else if (nom.equals("mg")){
                     //momentTotal.changeCenter(debut);
                     force.setOrigineMagnitude(force.getOrigine(), new Point3D(0, force.getMagnitude().magnitude(), 0));
@@ -176,7 +180,9 @@ public class Modele {
                 addPointToForme(name, x, y, z);
             });
             this.radio.bindMsg(this.FIN_DE_DESCRIPTION, (IvyClient client, String[] args) -> {
-                receivedDrawFFS = true;
+                synchronized (verrouDescr){
+                    receivedDrawFFS = true;
+                }
             });
         // this.radio.bindMsg("(.*)",(IvyClient client, String[] args) -> {
         //     System.out.println(args[0]);
@@ -197,7 +203,8 @@ public class Modele {
             System.exit (0);
         }
 
-        descriptionService.setOnFailed(e -> System.out.println("ThreadDescr a rencontré une erreur"));
+        descriptionService.setOnFailed(e -> {System.out.println("ThreadDescr a rencontré une erreur :\n");
+        descriptionService.getException().printStackTrace();});
 
         descriptionService.setOnSucceeded(e -> {
             ArrayList<MeshView> items = modele.DrawFFS();
@@ -574,8 +581,14 @@ public class Modele {
                 e.printStackTrace();
                 System.out.println(e);
             }
-            while (! this.receivedDrawFFS&((new Date()).getTime()-temps < 4000) ){
-                //On attends la fin de la description ou 4 secs
+            boolean fin = false;
+            while ((! fin) &((new Date()).getTime()-temps < 4000) ){
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {}
+                synchronized (verrouDescr){
+                    fin = receivedDrawFFS;
+                }
             }
             if (! this.receivedDrawFFS){//on a attendu 2secs, et on n'a pas la description
                 IvyException e = new IvyException("Time out de l'attente de description");
@@ -628,7 +641,16 @@ public class Modele {
             catch (IvyException e){
                 System.out.println(e);
             }
-            while ((! receivedLift) & ((new Date()).getTime()-temps < 4000)){}
+            boolean fin = false;
+            while ((! fin) & ((new Date()).getTime()-temps < 4000)){
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                }
+                synchronized (verrouForce){
+                    fin=receivedLift;
+                }
+            }
             if (! this.receivedLift){//on a attendu 4 secs, et on n'a pas les résulatats
                 IvyException e = new IvyException("Time out de l'attente des forces et moments");
                 System.out.println(e);
