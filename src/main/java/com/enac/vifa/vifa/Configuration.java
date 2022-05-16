@@ -129,6 +129,7 @@ public class Configuration {
                                 if (! mots[1].equals("DEFAULT")){
                                     couleurFond = couleurFromString(mots[1]);
                                 }
+                                break;
                             case "vitesseRotationToDegres":
                                 vitesseRotationToDegres = Double.parseDouble(mots[1]);
                                 break;
