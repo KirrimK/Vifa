@@ -251,9 +251,7 @@ public class Modele {
                 synchronized (modele.getListeDesForces()) {
                     for (Vecteur3D azerty : modele.getListeDesForces()) {
                         if (azerty.getNom().equals("mg")){
-                            System.out.println(azerty);
                             Point3D debut = azerty.getOrigine();
-                            System.out.println(debut);
                             if (debut.getX() != 0.0) {
                                 vue.getGroupeAvion().getTransforms().set(0, new Translate(debut.getX(), 0, debut.getZ()));
                                 vue.getGroupeForces().getTransforms().set(0, new Translate(-debut.getX(), 0, debut.getZ()));

@@ -83,12 +83,10 @@ public class Forme3D {
         for (int i=sides-1;i>0;i--) {
             contourN.add(this.contour.get(i));
         }
-        System.out.println(contourN);
         int n = contourN.size();
         
         Point3D p = contourN.get(0);
         javafx.geometry.Point3D origine = new javafx.geometry.Point3D(p.getX(), p.getY(), p.getZ());
-        System.out.println(origine);
         double xmin = contourN.get(0).x;
         double xmax = contourN.get(n-2).x;
         double radius = Math.abs(xmax-xmin)/2;
