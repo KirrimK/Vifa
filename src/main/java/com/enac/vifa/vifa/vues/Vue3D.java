@@ -44,7 +44,7 @@ public class Vue3D extends SubScene {
     private SimpleDoubleProperty xrotprop = new SimpleDoubleProperty(xrotdef);
     private double yrotdef = -57;
     private SimpleDoubleProperty yrotprop = new SimpleDoubleProperty(yrotdef);
-    private double zoomdef = 500;
+    private double zoomdef = Configuration.getInstance().getZoomDefault();
     private SimpleDoubleProperty zoomprop = new SimpleDoubleProperty(zoomdef);
 
     private double ZOOM_MIN_VALUE = Configuration.getInstance().getZoomMin();
@@ -360,15 +360,15 @@ public class Vue3D extends SubScene {
     }
 
     public void updateP(double p){
-        tbp.setEndAngle(2*Math.toDegrees(p));
+        tbp.setEndAngle(ROTATION_TO_DEGRES*Math.toDegrees(p));
     }
 
     public void updateQ(double q){
-        tbq.setEndAngle(2*Math.toDegrees(q));
+        tbq.setEndAngle(ROTATION_TO_DEGRES*Math.toDegrees(q));
     }
 
     public void updateR(double r){
-        tbr.setEndAngle(2*Math.toDegrees(r));
+        tbr.setEndAngle(ROTATION_TO_DEGRES*Math.toDegrees(r));
     }
 
     public double getXrotprop() {
