@@ -360,15 +360,15 @@ public class Vue3D extends SubScene {
     }
 
     public void updateP(double p){
-        tbp.setEndAngle(2*Math.toDegrees(p));
+        tbp.setEndAngle(ROTATION_TO_DEGRES*Math.toDegrees(p));
     }
 
     public void updateQ(double q){
-        tbq.setEndAngle(2*Math.toDegrees(q));
+        tbq.setEndAngle(ROTATION_TO_DEGRES*Math.toDegrees(q));
     }
 
     public void updateR(double r){
-        tbr.setEndAngle(2*Math.toDegrees(r));
+        tbr.setEndAngle(ROTATION_TO_DEGRES*Math.toDegrees(r));
     }
 
     public double getXrotprop() {

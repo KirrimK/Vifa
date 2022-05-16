@@ -30,7 +30,7 @@ public class Configuration {
     private Color couleurVitessesRotation = Color.DARKVIOLET;
     private Color couleurMoment = Color.GREEN;
     private Color couleurFond = Color.BLACK;
-    private double vitesseRotationToDegres =1;
+    private double vitesseRotationToDegres =2;
     private double momentToDegre = 0.000005;
 
 
