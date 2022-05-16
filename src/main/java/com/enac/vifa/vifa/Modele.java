@@ -51,7 +51,9 @@ public class Modele {
     private boolean receivedLift = false;
     private boolean displayedForcesMoment = false;
     private boolean displayedForme2D = false;
+    private Object verrouTemporelForce = new Object();
     private long tempsDerniereDemandeForce;
+    private Object verrouTemporelDescr =new Object();
     private long tempsDerniereDemandeDescr;
     public CommunicationService descriptionService;
     public CommunicationService getForcesMomentService;
@@ -550,8 +552,14 @@ public class Modele {
 
     public void getDescription() throws IvyException{
         long temps = (new Date()).getTime();
-        if (temps - tempsDerniereDemandeDescr > TEMPS_MIN_ENTRE_DEUX_REFRESHS){
-            this.tempsDerniereDemandeDescr = temps;
+        long tps;
+        synchronized (verrouTemporelDescr){
+            tps = tempsDerniereDemandeDescr;
+        }
+        if (temps - tps > TEMPS_MIN_ENTRE_DEUX_REFRESHS){
+            synchronized (verrouTemporelDescr){
+                this.tempsDerniereDemandeDescr = temps;
+            }
             try {
                 Thread.sleep(50);
             } 
@@ -609,9 +617,15 @@ public class Modele {
         
         
         long temps = (new Date()).getTime();
-        if (temps - tempsDerniereDemandeForce > TEMPS_MIN_ENTRE_DEUX_REFRESHS){
+        long tps;
+        synchronized(verrouTemporelForce){
+            tps = tempsDerniereDemandeForce;
+        }
+        if (temps - tps > TEMPS_MIN_ENTRE_DEUX_REFRESHS){
             System.out.println("Waiting for Forces and Moments");
-            this.tempsDerniereDemandeForce = temps;
+            synchronized (verrouTemporelForce){
+                this.tempsDerniereDemandeForce = temps;
+            }
             try {
                 this.receivedLift=false;
                 try {
