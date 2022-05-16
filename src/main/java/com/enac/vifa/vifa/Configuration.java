@@ -15,6 +15,7 @@ public class Configuration {
     private Mode mode;
     private double zoomMax = 1000;
     private double zoomMin = 25;
+    private double zoomDefault = 300;
     private double hauteur = 100;
     private String launchMessage = "";
     private int facteurApproximationArrondis = 2;
@@ -62,6 +63,9 @@ public class Configuration {
                                 break;
                             case "zoomMin":
                                 zoomMin = Double.parseDouble(mots[1]);
+                                break;
+                            case "zoomDefault":
+                                zoomDefault = Double.parseDouble(mots[1]);
                                 break;
                             case "zoomMax":
                                 zoomMax = Double.parseDouble(mots[1]);
@@ -219,5 +223,8 @@ public class Configuration {
     }
     public double getMomentToDegre() {
         return momentToDegre;
+    }
+    public double getZoomDefault(){
+        return zoomDefault;
     }
 }

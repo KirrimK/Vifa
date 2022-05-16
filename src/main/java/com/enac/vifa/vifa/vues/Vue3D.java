@@ -44,7 +44,7 @@ public class Vue3D extends SubScene {
     private SimpleDoubleProperty xrotprop = new SimpleDoubleProperty(xrotdef);
     private double yrotdef = -135;
     private SimpleDoubleProperty yrotprop = new SimpleDoubleProperty(yrotdef);
-    private double zoomdef = 500;
+    private double zoomdef = Configuration.getInstance().getZoomDefault();
     private SimpleDoubleProperty zoomprop = new SimpleDoubleProperty(zoomdef);
 
     private double ZOOM_MIN_VALUE = Configuration.getInstance().getZoomMin();
