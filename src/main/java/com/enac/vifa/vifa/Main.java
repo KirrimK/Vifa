@@ -41,12 +41,17 @@ public class Main extends Application {
         GouverneControllerPane gouvCtl = new GouverneControllerPane(vue);
         gouvCtl.setTranslateX(700);
         gouvCtl.setTranslateY(480);
+        
+        ThrottlePane throttle = new ThrottlePane(vue);
+        throttle.setTranslateX(700);
+        throttle.setTranslateY(280);
 
         ArrayList<ControllerPane> stonks = new ArrayList<>();
         stonks.add(repb);
         stonks.add(pqrb);
         stonks.add(gouvCtl);
         stonks.add(form);
+        stonks.add(throttle);
 
         ResetButton resetb = new ResetButton(stonks);
         resetb.setTranslateX(420);
@@ -68,6 +73,8 @@ public class Main extends Application {
         group.getChildren().add(form);
 
         group.getChildren().add(modeSelect);
+        
+        group.getChildren().add(throttle);
 
         Modele modele = Modele.getInstance();
         modele.setVue(vue);
