@@ -469,21 +469,21 @@ public class Vue3D extends SubScene {
         //TODO code
     }
     /**
-     * Affiche ou non les angles entre les repères
+     * Affiche ou non le moment total
      * @param b (Boolean) 
      */
     public void setVisibleGroupeMoment(boolean b){
         //TODO code
     }
     /**
-     * Affiche ou non les angles entre les repères
+     * Affiche ou non les noms des angles et des flèches.
      * @param b (Boolean) 
      */
     public void setVisibleNoms(boolean b){
         //TODO code
     }
     /**
-     * Affiche ou non les angles entre les repères
+     * Affiche ou non les repères
      * @param b (Boolean) 
      */
     public void setVisibleReperes(boolean b){
