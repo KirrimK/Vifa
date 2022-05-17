@@ -37,34 +37,38 @@ public class FormPane extends ControllerPane {
         
         Modele model = Modele.getInstance();
         //Masse
-        masse = new Label("Masse (en tonnes) : ");
+        masse = new Label("Masse (kg) : ");
         setRowIndex(masse, 0);
         setColumnIndex(masse, 0);
         masses = new TextField(Double.toString(model.getMass()));
+        masses.setMaxWidth(100);
         setRowIndex(masses, 0);
         setColumnIndex(masses, 1);
         
         //Position du centre de gravité de l'avion
-        cg = new Label("Position du centre de gravité (écart en m par rapport à la position par défaut):");
+        cg = new Label("Position du centre de gravité (%CAM):");
         setRowIndex(cg, 1);
         setColumnIndex(cg, 0);
         cgs = new TextField(Double.toString(model.getxCentrage()));
+        cgs.setMaxWidth(100);
         setRowIndex(cgs, 1);
         setColumnIndex(cgs, 1);
         
         //Vitesse propre
-        vp = new Label("Vitesse propre de l'avion (en Noeud):");
+        vp = new Label("Vitesse propre (kts):");
         setRowIndex(vp, 2);
         setColumnIndex(vp, 0);
         vps = new TextField(Double.toString(model.getvAir()));
+        vps.setMaxWidth(100);
         setRowIndex(vps, 2);
         setColumnIndex(vps, 1);
         
         //Calage de l'aile
-        calage = new Label("Calage de l'aile (en degrés):");
+        calage = new Label("Calage de l'aile (deg):");
         setRowIndex(calage, 3);
         setColumnIndex(calage, 0);
         calages = new TextField(Double.toString(model.getA0()));
+        calages.setMaxWidth(100);
         setRowIndex(calages, 3);
         setColumnIndex(calages, 1);
         

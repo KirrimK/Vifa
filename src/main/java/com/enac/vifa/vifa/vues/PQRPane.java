@@ -1,19 +1,21 @@
 package com.enac.vifa.vifa.vues;
 
 import com.enac.vifa.vifa.Modele;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.layout.Priority;
 
 public class PQRPane extends ControllerPane {
 
-    private Label pl;
-    private Slider ps;
+    private final Label pl;
+    private final Slider ps;
 
-    private Label ql;
-    private Slider qs;
+    private final Label ql;
+    private final Slider qs;
 
-    private Label rl;
-    private Slider rs;
+    private final Label rl;
+    private final Slider rs;
 
 
     public PQRPane(Vue3D vue) {
@@ -55,6 +57,11 @@ public class PQRPane extends ControllerPane {
 
         getChildren().addAll(rpl,pl, ps, ql, qs, rl, rs);
         setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7;");
+
+        for (Node node: getChildren()){
+            setHgrow(node, Priority.ALWAYS);
+            setVgrow(node, Priority.ALWAYS);
+        }
     }
 
     public void reset(){

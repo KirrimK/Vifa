@@ -2,8 +2,10 @@ package com.enac.vifa.vifa.vues;
 
 import com.enac.vifa.vifa.Modele;
 import javafx.geometry.Orientation;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.layout.Priority;
 
 public class GouverneControllerPane extends ControllerPane {
 
@@ -14,6 +16,10 @@ public class GouverneControllerPane extends ControllerPane {
     private final Label ailInfo;
     private final Slider ailerons;
 
+    protected void genericSliderListener(String labelText, Label label, Number newValue){
+        String text = labelText + newValue.doubleValue();
+        label.setText(text.substring(0, Math.min(22, text.length())));
+    }
     public GouverneControllerPane(Vue3D vue){
         super(vue);
         profInfo = new Label("Profondeur (deg): 0.0");
@@ -63,6 +69,11 @@ public class GouverneControllerPane extends ControllerPane {
         ailerons.setOrientation(Orientation.VERTICAL);
         getChildren().addAll(prof, dir, ailerons, profInfo, dirInfo, ailInfo);
         setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7;");
+
+        for (Node node: getChildren()){
+            setHgrow(node, Priority.ALWAYS);
+            setVgrow(node, Priority.ALWAYS);
+        }
     }
 
     public void reset(){

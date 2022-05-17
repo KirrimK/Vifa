@@ -22,57 +22,57 @@ import javafx.scene.transform.Translate;
 import org.fxyz3d.shapes.primitives.TriangulatedMesh;
 
 public class Modele {
-    private int TEMPS_MIN_ENTRE_DEUX_REFRESHS = 50;//ms
+    private final int TEMPS_MIN_ENTRE_DEUX_REFRESHS = 50;//ms
     private static Modele modele;
-    private ArrayList<Forme2D> listeDesFormes;
-    private ArrayList<Vecteur3D> listeDesForces;
+    private final ArrayList<Forme2D> listeDesFormes;
+    private final ArrayList<Vecteur3D> listeDesForces;
     private Moment3D momentTotal;
-    private SimpleDoubleProperty mass;
-    private SimpleDoubleProperty xCentrage;
-    private SimpleDoubleProperty vAir;
-    private SimpleDoubleProperty psi;
-    private SimpleDoubleProperty theta;
-    private SimpleDoubleProperty phi;
-    private SimpleDoubleProperty alpha;
-    private SimpleDoubleProperty beta;
-    private SimpleDoubleProperty a0;
-    private SimpleDoubleProperty trim;
-    private SimpleDoubleProperty dl;
-    private SimpleDoubleProperty dm;
-    private SimpleDoubleProperty dn;
-    private SimpleDoubleProperty dx;
-    private SimpleDoubleProperty p;
-    private SimpleDoubleProperty q;
-    private SimpleDoubleProperty r;
-    private Ivy radio;
-    private Object verrouDescr = new Object();
+    private final SimpleDoubleProperty mass;
+    private final SimpleDoubleProperty xCentrage;
+    private final SimpleDoubleProperty vAir;
+    private final SimpleDoubleProperty psi;
+    private final SimpleDoubleProperty theta;
+    private final SimpleDoubleProperty phi;
+    private final SimpleDoubleProperty alpha;
+    private final SimpleDoubleProperty beta;
+    private final SimpleDoubleProperty a0;
+    private final SimpleDoubleProperty trim;
+    private final SimpleDoubleProperty dl;
+    private final SimpleDoubleProperty dm;
+    private final SimpleDoubleProperty dn;
+    private final SimpleDoubleProperty dx;
+    private final SimpleDoubleProperty p;
+    private final SimpleDoubleProperty q;
+    private final SimpleDoubleProperty r;
+    private final Ivy radio;
+    private final Object verrouDescr = new Object();
     private boolean receivedDrawFFS = false;
-    private Object verrouForce = new Object();
+    private final Object verrouForce = new Object();
     private boolean receivedLift = false;
     private boolean displayedForcesMoment = false;
     private boolean displayedForme2D = false;
-    private Object verrouTemporelForce = new Object();
+    private final Object verrouTemporelForce = new Object();
     private long tempsDerniereDemandeForce;
-    private Object verrouTemporelDescr =new Object();
+    private final Object verrouTemporelDescr =new Object();
     private long tempsDerniereDemandeDescr;
     public CommunicationService descriptionService;
     public CommunicationService getForcesMomentService;
-    private String BUS = (System.getProperty("os.name").equals("Mac OS X")) ? "224.255.255.255:2010" : "127.255.255.255:2010"; //127.255.255.255:2010
+    private final String BUS = (System.getProperty("os.name").equals("Mac OS X")) ? "224.255.255.255:2010" : "127.255.255.255:2010"; //127.255.255.255:2010
 
     //      MESSAGES RECEIVED FROM IVY :
 
-    private String INIT_FORME_2D_MSG = "^ShapeStart name=(.*)$";
-    private String POINT_DE_LA_FORME = "^ShapePoint name=(.*) ptX=(.*) ptY=(.*) ptZ=(.*)$";
-    private String FIN_DE_DESCRIPTION = "^Draw ffs$";
-    private String FORCE = "Force name=(.*) applicationX=(.*) applicationY=(.*) applicationZ=(.*) normeX=(.*) normeY=(.*) normeZ=(.*) color=(.*)";
-    private String MOMENT = "Moment name=(.*) normeX=(.*) normeY=(.*) normeZ=(.*)";
+    private final String INIT_FORME_2D_MSG = "^ShapeStart name=(.*)$";
+    private final String POINT_DE_LA_FORME = "^ShapePoint name=(.*) ptX=(.*) ptY=(.*) ptZ=(.*)$";
+    private final String FIN_DE_DESCRIPTION = "^Draw ffs$";
+    private final String FORCE = "Force name=(.*) applicationX=(.*) applicationY=(.*) applicationZ=(.*) normeX=(.*) normeY=(.*) normeZ=(.*) color=(.*)";
+    private final String MOMENT = "Moment name=(.*) normeX=(.*) normeY=(.*) normeZ=(.*)";
 
     //MESSAGES SENT THROUGH IVY :
-    private String COMPUTE_DEMND = "StartComputation mass=%f xcg=%f vair=%f psi=%f theta=%f phi=%f alpha=%f betha=%f a0=%f trim=%f dl=%f dm=%f dn=%f dx=%f p=%f q=%f r=%f";
-    private String DEMANDE_DESCR = "StartGettingShapes mass=%f xcg=%f vair=%f psi=%f theta=%f phi=%f alpha=%f betha=%f a0=%f trim=%f dl=%f dm=%f dn=%f";
+    private final String COMPUTE_DEMND = "StartComputation mass=%f xcg=%f vair=%f psi=%f theta=%f phi=%f alpha=%f betha=%f a0=%f trim=%f dl=%f dm=%f dn=%f dx=%f p=%f q=%f r=%f";
+    private final String DEMANDE_DESCR = "StartGettingShapes mass=%f xcg=%f vair=%f psi=%f theta=%f phi=%f alpha=%f betha=%f a0=%f trim=%f dl=%f dm=%f dn=%f";
 
-    private static double VECTOR_SCALING = 10000;
-    private  ArrayList<Forme3D> listeDesFormes3D;
+    private static final double VECTOR_SCALING = 10000;
+    private final ArrayList<Forme3D> listeDesFormes3D;
 
     private Vue3D vue;
 
@@ -101,7 +101,7 @@ public class Modele {
         this.listeDesFormes = new ArrayList<Forme2D>();
         this.listeDesFormes3D= new ArrayList<Forme3D>();
         this.listeDesForces = new ArrayList<Vecteur3D>();
-        this.momentTotal = new Moment3D(new Point3D(0, 0, 0), 30, 30, 30, 0, 0, 0, "mx_total", "my_total", "mz_total", 
+        this.momentTotal = new Moment3D(new Point3D(0, 0, 0), 22, 22, 22, 0, 0, 0, "mx_total", "my_total", "mz_total",
                                         Configuration.getInstance().getCouleurMoment());
         this.xCentrage=new SimpleDoubleProperty(0.2555) ;
         this.vAir=new SimpleDoubleProperty(150) ;
@@ -152,7 +152,7 @@ public class Modele {
                         break;
                     default:
                         color = Color.GREEN;
-                };
+                }
                 Vecteur3D force = new Vecteur3D(nom, debut, norme, color);
 
                 if (nom.equals("LiftTotal")){
@@ -208,26 +208,29 @@ public class Modele {
             System.exit (0);
         }
 
-        descriptionService.setOnFailed(e -> {System.out.println("ThreadDescr a rencontré une erreur :\n");
+        descriptionService.setOnFailed(e -> {System.out.println("ThreadDescr a rencontré une erreur :");
         descriptionService.getException().printStackTrace();});
 
         descriptionService.setOnSucceeded(e -> {
-            ArrayList<MeshView> items = modele.DrawFFS();
-            if (items.size() > 0){
-                vue.getGroupe2D().getChildren().clear();
-                vue.getGroupe2D().getChildren().addAll(items);
-                System.out.println("Formes surfaciques mises à jour avec succès.");
-            }
-            if (!modele.isDisplayedForme2D()){
-                try {
-                    vue.getGroupeAvion().getChildren().addAll(modele.DrawFus());
-                    vue.getGroupeAvion().getChildren().addAll(modele.DrawNac());
-                    modele.setDisplayedForme2D(true);
-                    System.out.println("Formes volumiques affichées avec succès.");
-                } catch (Exception e2){
-                    System.out.println(e2);
-                    System.out.println("Erreur lors de l'affichage des formes volumiques.");
+            try {
+                ArrayList<MeshView> items = modele.DrawFFS();
+                if (items.size() > 0){
+                    vue.getGroupe2D().getChildren().clear();
+                    vue.getGroupe2D().getChildren().addAll(items);
+                    System.out.println("Formes surfaciques mises à jour avec succès.");
                 }
+                if (!modele.isDisplayedForme2D()){
+                    try {
+                        vue.getGroupeAvion().getChildren().addAll(modele.DrawFus());
+                        vue.getGroupeAvion().getChildren().addAll(modele.DrawNac());
+                        modele.setDisplayedForme2D(true);
+                        System.out.println("Formes volumiques affichées avec succès.");
+                    } catch (Exception e2){
+                        System.out.println("Erreur lors de l'affichage des formes volumiques.");
+                    }
+                }
+            } catch (IndexOutOfBoundsException ie){
+                System.out.println("Erreur lors de l'affichage des formes surfaciques.");
             }
         });
 
@@ -422,7 +425,7 @@ public class Modele {
     }
 
     public void setDl(double dl) {
-        this.dl.setValue(dl);;
+        this.dl.setValue(dl);
     }
 
     public SimpleDoubleProperty getDmProperty() {
@@ -561,7 +564,7 @@ public class Modele {
             if (f.getNom().equals(nom)){
                 return f;
             }
-        };
+        }
         addForme(nom);
         return (getForme(nom));
     }
@@ -576,7 +579,7 @@ public class Modele {
             if (f.getNom().equals(nom)){
                 return f;
             }
-        };
+        }
         addForme3D(nom);
         return (getForme3D(nom));
     }
@@ -644,9 +647,6 @@ public class Modele {
                 System.out.println("Description received");
             }
         }
-        else{
-            System.out.println("Mais, pas si vite...");
-        }
     }
 
     /**
@@ -712,9 +712,6 @@ public class Modele {
             else{
                 System.out.println("Forces and moment received");
             }
-        }
-        else{
-            System.out.println("Mais, pas si vite...");
         }
         
     }

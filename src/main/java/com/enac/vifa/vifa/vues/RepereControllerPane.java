@@ -1,25 +1,27 @@
 package com.enac.vifa.vifa.vues;
 
 import com.enac.vifa.vifa.Modele;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.layout.Priority;
 
 public class RepereControllerPane extends ControllerPane{
 
-    private Label psil;
-    private Slider psis;
+    private final Label psil;
+    private final Slider psis;
 
-    private Label phil;
-    private Slider phis;
+    private final Label phil;
+    private final Slider phis;
 
-    private Label thetal;
-    private Slider thetas;
+    private final Label thetal;
+    private final Slider thetas;
 
-    private Label alphal;
-    private Slider alphas;
+    private final Label alphal;
+    private final Slider alphas;
 
-    private Label betal;
-    private Slider betas;
+    private final Label betal;
+    private final Slider betas;
 
     public RepereControllerPane(Vue3D vue){
         //Box sliders repères
@@ -81,6 +83,10 @@ public class RepereControllerPane extends ControllerPane{
 
         getChildren().addAll(rpl, psil, psis, phil, phis, thetal, thetas, alphal, alphas, betal, betas);
         setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7;");
+        for (Node node: getChildren()){
+            setHgrow(node, Priority.ALWAYS);
+            setVgrow(node, Priority.ALWAYS);
+        }
     }
 
     public void reset(){

@@ -10,7 +10,7 @@ public class ResetButton extends Button {
 
     public ResetButton(ArrayList<ControllerPane> resettables){
         super();
-        setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7;");
+        setStyle("-fx-background-color: WHITE; -fx-opacity:0.85;");
         setText("RESET");
         setOnAction((actionEvent) -> {
             for (ControllerPane thing: resettables){
