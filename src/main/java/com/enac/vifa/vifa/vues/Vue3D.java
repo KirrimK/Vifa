@@ -1,31 +1,44 @@
 package com.enac.vifa.vifa.vues;
 
+import static com.enac.vifa.vifa.vues.Mode.ATTITUDE;
+import static java.lang.Double.max;
+import static java.lang.Double.min;
+
 import com.enac.vifa.vifa.Configuration;
 import com.enac.vifa.vifa.Modele;
 import com.enac.vifa.vifa.formes.FlecheArrondie3D;
 import com.enac.vifa.vifa.formes.TireBouchon3D;
 import com.enac.vifa.vifa.formes.Vecteur3D;
+
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Point3D;
-import javafx.scene.*;
-
+import javafx.scene.AmbientLight;
+import javafx.scene.Group;
+import javafx.scene.PerspectiveCamera;
+import javafx.scene.Scene;
+import javafx.scene.SceneAntialiasing;
+import javafx.scene.SubScene;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 
-import static com.enac.vifa.vifa.vues.Mode.ATTITUDE;
-import static java.lang.Double.max;
-
 public class Vue3D extends SubScene {
     private final double ROTATION_TO_DEGRES= Configuration.getInstance().getVitesseRotationToDegres();
     private PerspectiveCamera camera = new PerspectiveCamera(true);
     private Group repereTerrestre;
+    private Group flechesTerrestres=new Group();
+    private Group psiThetaPhi=new Group();
+
     private Group repereAvion;
+    private Group flechesAvion=new Group();
+    private Group alpha=new Group();
     private Group groupeAvion;
     private Group groupe2D;
     private Group groupeForces;
+
     private Group repereAeroPart;
+    private Group beta=new Group();
     private Group repereAero;
 
     private FlecheArrondie3D apsix;
@@ -97,9 +110,10 @@ public class Vue3D extends SubScene {
         Vecteur3D try_ = new Vecteur3D("y terrestre", new Point3D(0, 0, -25), new Point3D(0, 0, -25), terrColor);
         try_.refreshView();
 
-        repereTerrestre.getChildren().add(trx);
-        repereTerrestre.getChildren().add(try_);
-        repereTerrestre.getChildren().add(trz);
+        flechesTerrestres.getChildren().add(trx);
+        flechesTerrestres.getChildren().add(try_);
+        flechesTerrestres.getChildren().add(trz);
+        repereTerrestre.getChildren().add(flechesTerrestres);
 
         //angles de rotation du repère terrestre
         apsix = new FlecheArrondie3D("psi", 50, 0, conf.getCouleurPsiThetaPhi());
@@ -135,14 +149,16 @@ public class Vue3D extends SubScene {
                 new Rotate(90, Rotate.Z_AXIS)
         );
 
-        repereTerrestre.getChildren().add(apsix);
-        repereTerrestre.getChildren().add(athetax);
+        psiThetaPhi.getChildren().add(apsix);
+        psiThetaPhi.getChildren().add(athetax);
 
-        repereTerrestre.getChildren().add(apsiy);
-        repereTerrestre.getChildren().add(aphiy);
+        psiThetaPhi.getChildren().add(apsiy);
+        psiThetaPhi.getChildren().add(aphiy);
 
-        repereTerrestre.getChildren().add(aphiz);
-        repereTerrestre.getChildren().add(athetaz);
+        psiThetaPhi.getChildren().add(aphiz);
+        psiThetaPhi.getChildren().add(athetaz);
+
+        repereTerrestre.getChildren().add(psiThetaPhi);
 
         repereAvion = new Group();
 
@@ -183,21 +199,13 @@ public class Vue3D extends SubScene {
             new Translate(75, 0, 0)
         );
 
-        repereAvion.getChildren().addAll(avx, avy, avz, tbp, tbq, tbr);
+        flechesAvion.getChildren().addAll(avx, avy, avz);
+        repereAvion.getChildren().addAll(flechesAvion, tbp, tbq, tbr);
 
         aalphax = new FlecheArrondie3D("alpha", 75, 0, conf.getCouleurAlphaBeta());
 
         abetax = new FlecheArrondie3D("beta", 75, 0, conf.getCouleurAlphaBeta());
-        abetax.getTransforms().setAll(
-                new Rotate(90, Rotate.X_AXIS)
-        );
-
-        aalphax = new FlecheArrondie3D("alpha", 75, 0, conf.getCouleurAlphaBeta());
-
-        abetax = new FlecheArrondie3D("beta", 75, 0, conf.getCouleurAlphaBeta());
-        abetax.getTransforms().setAll(
-                new Rotate(90, Rotate.X_AXIS)
-        );
+        abetax.getTransforms().setAll(new Rotate(90, Rotate.X_AXIS));
 
         aalphaz = new FlecheArrondie3D("alpha", 75, 0, conf.getCouleurAlphaBeta());
         aalphaz.getTransforms().setAll(
@@ -212,14 +220,14 @@ public class Vue3D extends SubScene {
 
         repereTerrestre.getChildren().add(repereAvion);
 
-        repereAvion.getChildren().add(aalphax);
-        repereAvion.getChildren().add(aalphaz);
+        alpha.getChildren().addAll(aalphax, aalphaz);
+        repereAvion.getChildren().add(alpha);
 
         repereAeroPart = new Group();
         repereAero = new Group();
 
-        repereAeroPart.getChildren().add(abetax);
-        repereAeroPart.getChildren().add(abetay);
+        beta.getChildren().addAll(abetax, abetay);
+        repereAeroPart.getChildren().add(beta);
         repereAeroPart.getChildren().add(repereAero);
 
         Vecteur3D aerx = new Vecteur3D("x aéro", new Point3D(75, 0, 0), new Point3D(25, 0, 0), aerColor);
@@ -257,7 +265,7 @@ public class Vue3D extends SubScene {
         }));
 
         setOnScroll((event) -> {
-            double number = Double.min(max(-event.getDeltaY()/2 + zoomprop.get(), ZOOM_MIN_VALUE),ZOOM_MAX_VALUE);
+            double number = min(max(-event.getDeltaY()/2 + zoomprop.get(), ZOOM_MIN_VALUE),ZOOM_MAX_VALUE);
             zoomprop.set(number);
         });
 
@@ -459,6 +467,12 @@ public class Vue3D extends SubScene {
      */
     public void setVisibleGroupeForce(boolean b){
         groupeForces.setVisible(b);
+        for (Vecteur3D f:Modele.getInstance().getListeDesForces()){
+            if(f.getNom().equals("mg")){
+                f.setVisible(b);
+                break;
+            }
+        }
     }
 
     /**
@@ -466,27 +480,35 @@ public class Vue3D extends SubScene {
      * @param b (Boolean) 
      */
     public void setVisibleGroupeAngle(boolean b){
-        //TODO code
+        psiThetaPhi.setVisible(b);
+        alpha.setVisible(b);
+        beta.setVisible(b);
     }
+
     /**
      * Affiche ou non le moment total
      * @param b (Boolean) 
      */
     public void setVisibleGroupeMoment(boolean b){
-        //TODO code
+        Modele.getInstance().getMomentTotal().setVisible(b);
     }
+
     /**
      * Affiche ou non les noms des angles et des flèches.
      * @param b (Boolean) 
      */
     public void setVisibleNoms(boolean b){
         //TODO code
+        //non implémenté car noms non existants
     }
+
     /**
      * Affiche ou non les repères
      * @param b (Boolean) 
      */
     public void setVisibleReperes(boolean b){
-        //TODO code
+        repereAero.setVisible(b);
+        flechesTerrestres.setVisible(b);
+        flechesAvion.setVisible(b);
     }
 }

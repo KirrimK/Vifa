@@ -1,17 +1,12 @@
 package com.enac.vifa.vifa.vues;
 
 import com.enac.vifa.vifa.Modele;
-import java.text.Format;
-import javafx.beans.binding.Bindings;
-import javafx.css.converter.StringConverter;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.beans.binding.Bindings;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
-import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.NumberStringConverter;
 
 public class GouverneControllerPane extends ControllerPane {
