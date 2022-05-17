@@ -452,4 +452,41 @@ public class Vue3D extends SubScene {
     public SimpleDoubleProperty zoompropProperty() {
         return zoomprop;
     }
+
+    /**
+     * Affiche ou non les forces
+     * @param b (Boolean) 
+     */
+    public void setVisibleGroupeForce(boolean b){
+        groupeForces.setVisible(b);
+    }
+
+    /**
+     * Affiche ou non les angles entre les repères
+     * @param b (Boolean) 
+     */
+    public void setVisibleGroupeAngle(boolean b){
+        //TODO code
+    }
+    /**
+     * Affiche ou non les angles entre les repères
+     * @param b (Boolean) 
+     */
+    public void setVisibleGroupeMoment(boolean b){
+        //TODO code
+    }
+    /**
+     * Affiche ou non les angles entre les repères
+     * @param b (Boolean) 
+     */
+    public void setVisibleNoms(boolean b){
+        //TODO code
+    }
+    /**
+     * Affiche ou non les angles entre les repères
+     * @param b (Boolean) 
+     */
+    public void setVisibleReperes(boolean b){
+        //TODO code
+    }
 }
