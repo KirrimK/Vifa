@@ -2,13 +2,26 @@ package com.enac.vifa.vifa;
 
 import java.util.ArrayList;
 
-import com.enac.vifa.vifa.vues.*;
+import com.enac.vifa.vifa.vues.CameraInfoPane;
+import com.enac.vifa.vifa.vues.ControllerPane;
+import com.enac.vifa.vifa.vues.FormPane;
+import com.enac.vifa.vifa.vues.GouverneControllerPane;
+import com.enac.vifa.vifa.vues.Mode;
+import com.enac.vifa.vifa.vues.PQRPane;
+import com.enac.vifa.vifa.vues.RepereControllerPane;
+import com.enac.vifa.vifa.vues.ResetButton;
+import com.enac.vifa.vifa.vues.SelectionAffichagePanneau;
+import com.enac.vifa.vifa.vues.ThrottlePane;
+import com.enac.vifa.vifa.vues.Vue3D;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.*;
+import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
-import javafx.scene.shape.*;
+import javafx.scene.shape.Box;
 import javafx.stage.Stage;
 
 public class Main extends Application {

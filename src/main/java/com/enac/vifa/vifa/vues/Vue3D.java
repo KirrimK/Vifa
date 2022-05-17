@@ -1,22 +1,27 @@
 package com.enac.vifa.vifa.vues;
 
+import static com.enac.vifa.vifa.vues.Mode.ATTITUDE;
+import static java.lang.Double.max;
+import static java.lang.Double.min;
+
 import com.enac.vifa.vifa.Configuration;
 import com.enac.vifa.vifa.Modele;
 import com.enac.vifa.vifa.formes.FlecheArrondie3D;
 import com.enac.vifa.vifa.formes.TireBouchon3D;
 import com.enac.vifa.vifa.formes.Vecteur3D;
+
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Point3D;
-import javafx.scene.*;
-
+import javafx.scene.AmbientLight;
+import javafx.scene.Group;
+import javafx.scene.PerspectiveCamera;
+import javafx.scene.Scene;
+import javafx.scene.SceneAntialiasing;
+import javafx.scene.SubScene;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
-
-import static com.enac.vifa.vifa.vues.Mode.ATTITUDE;
-import static java.lang.Double.max;
-import static java.lang.Double.min;
 
 public class Vue3D extends SubScene {
     private final double ROTATION_TO_DEGRES= Configuration.getInstance().getVitesseRotationToDegres();
@@ -474,7 +479,7 @@ public class Vue3D extends SubScene {
      * @param b (Boolean) 
      */
     public void setVisibleGroupeMoment(boolean b){
-        //TODO code
+        Modele.getInstance().getMomentTotal().setVisible(b);
     }
     /**
      * Affiche ou non les noms des angles et des flèches.
@@ -488,6 +493,6 @@ public class Vue3D extends SubScene {
      * @param b (Boolean) 
      */
     public void setVisibleReperes(boolean b){
-        //TODO code
+        repereAero.setVisible(b);
     }
 }
