@@ -169,7 +169,7 @@ public class Configuration {
     private Color couleurFromString (String chaine){
         String sansParanthese = (chaine.replace("(", "")).replace(")","");
         String[] numbers = sansParanthese.split(",");
-        return new Color(Integer.parseInt(numbers[0]),Integer.parseInt(numbers[1]),Integer.parseInt(numbers[2]),1);
+        return new Color(Integer.parseInt(numbers[0])/255,Integer.parseInt(numbers[1])/255,Integer.parseInt(numbers[2])/255,1);
     }
 
     /**

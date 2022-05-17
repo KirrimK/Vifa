@@ -18,7 +18,7 @@ public class UI extends StackPane {
         PQRPane pqrb = new PQRPane(vue);
 
         VBox repsEtAngles = new VBox(5, repb, pqrb);
-        repsEtAngles.setMaxSize(170, 200);
+        repsEtAngles.setMaxSize(180, 200);
         setAlignment(repsEtAngles, Pos.CENTER_LEFT);
         setMargin(repsEtAngles, new Insets(5));
 
@@ -37,7 +37,7 @@ public class UI extends StackPane {
         ThrottlePane throttle = new ThrottlePane(vue);
 
         HBox cmdes = new HBox(5, throttle, gouvCtl);
-        cmdes.setMaxSize(230, 200);
+        cmdes.setMaxSize(260, 220);
         setMargin(cmdes, new Insets(5));
         cmdes.setAlignment(Pos.CENTER_RIGHT);
         setAlignment(cmdes, Pos.BOTTOM_RIGHT);
@@ -58,9 +58,15 @@ public class UI extends StackPane {
         HBox modeAndReset = new HBox(5, resetb, modeSelect);
         repsEtAngles.getChildren().add(modeAndReset);
 
+        SelectionAffichagePanneau selecpan = new SelectionAffichagePanneau(vue);
+        setAlignment(selecpan, Pos.BOTTOM_LEFT);
+        selecpan.setMaxSize(180, 91);
+        setMargin(selecpan, new Insets(5));
+
         getChildren().add(repsEtAngles);
         getChildren().add(camInfo);
         getChildren().add(form);
         getChildren().add(cmdes);
+        getChildren().add(selecpan);
     }
 }
