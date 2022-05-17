@@ -16,6 +16,7 @@ import javafx.scene.transform.Translate;
 
 import static com.enac.vifa.vifa.vues.Mode.ATTITUDE;
 import static java.lang.Double.max;
+import static java.lang.Double.min;
 
 public class Vue3D extends SubScene {
     private final double ROTATION_TO_DEGRES= Configuration.getInstance().getVitesseRotationToDegres();
@@ -257,7 +258,7 @@ public class Vue3D extends SubScene {
         }));
 
         setOnScroll((event) -> {
-            double number = Double.min(max(-event.getDeltaY()/2 + zoomprop.get(), ZOOM_MIN_VALUE),ZOOM_MAX_VALUE);
+            double number = min(max(-event.getDeltaY()/2 + zoomprop.get(), ZOOM_MIN_VALUE),ZOOM_MAX_VALUE);
             zoomprop.set(number);
         });
 
