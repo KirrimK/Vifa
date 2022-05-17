@@ -46,6 +46,10 @@ public class Main extends Application {
         throttle.setTranslateX(700);
         throttle.setTranslateY(280);
 
+        SelectionAffichagePanneau panneauSelect = new SelectionAffichagePanneau(vue);
+        panneauSelect.setTranslateX (100);
+        panneauSelect.setTranslateY (600);
+
         ArrayList<ControllerPane> stonks = new ArrayList<>();
         stonks.add(repb);
         stonks.add(pqrb);
@@ -75,6 +79,7 @@ public class Main extends Application {
         group.getChildren().add(modeSelect);
         
         group.getChildren().add(throttle);
+        group.getChildren().addAll(panneauSelect);
 
         Modele modele = Modele.getInstance();
         modele.setVue(vue);
