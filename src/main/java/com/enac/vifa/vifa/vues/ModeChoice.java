@@ -4,7 +4,7 @@ import com.enac.vifa.vifa.Configuration;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ComboBox;
 
-public class ModeChoice extends ComboBox {
+public class ModeChoice extends ComboBox<Mode> {
 
     public ModeChoice(Vue3D vue){
         super(FXCollections.observableArrayList(Mode.AERO,Mode.AVION,Mode.ATTITUDE));

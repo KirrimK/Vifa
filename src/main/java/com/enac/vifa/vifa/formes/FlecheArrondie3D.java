@@ -11,8 +11,6 @@ import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import org.fxyz3d.shapes.primitives.ConeMesh;
 
-import java.util.ArrayList;
-
 import com.enac.vifa.vifa.Configuration;
 
 public class FlecheArrondie3D extends Group {

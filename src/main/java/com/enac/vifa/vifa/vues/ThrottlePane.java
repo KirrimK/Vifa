@@ -7,14 +7,10 @@ package com.enac.vifa.vifa.vues;
 import com.enac.vifa.vifa.Modele;
 import javafx.geometry.HPos;
 import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Priority;
 
-import static javafx.scene.layout.GridPane.setColumnIndex;
-import static javafx.scene.layout.GridPane.setRowIndex;
 
 /**
  *
