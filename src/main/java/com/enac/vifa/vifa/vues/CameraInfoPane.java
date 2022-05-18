@@ -25,7 +25,7 @@ public class CameraInfoPane extends VBox {
         vue.zoompropProperty().addListener(((observableValue, number, t1) -> zooml.setText("Zoom: "+t1)));
 
         getChildren().addAll(cml, xrotl, yrotl, zooml);
-        setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7;");
+        setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7; -fx-background-radius: 5px;");
 
         //Box boutons caméra
         Button topb = new Button("Top");

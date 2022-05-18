@@ -43,8 +43,8 @@ public class ThrottlePane extends ControllerPane {
         setRowIndex(pouss,2);
         pouss.setOrientation(Orientation.VERTICAL);
         getChildren().addAll(poussIntitule, pouss,poussInfo);
-        
-        setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7;");
+
+        setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7; -fx-background-radius: 5px;");
         setHalignment(pouss, HPos.CENTER);
         setHalignment(poussInfo, HPos.CENTER);
         setVgrow(pouss, Priority.ALWAYS);

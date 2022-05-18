@@ -618,7 +618,7 @@ public class Modele {
                         Math.toRadians(alpha.getValue()),
                         Math.toRadians(beta.getValue()),
                         Math.toRadians(a0.getValue()),
-                        trim.getValue(),
+                        Math.toRadians(trim.getValue()),
                         Math.toRadians(dl.getValue()),
                         Math.toRadians(dm.getValue()),
                         Math.toRadians(dn.getValue())).replace(',','.');
@@ -681,7 +681,7 @@ public class Modele {
                         Math.toRadians(alpha.getValue()),
                         Math.toRadians(beta.getValue()),
                         Math.toRadians(a0.getValue()),
-                        trim.getValue(),
+                        Math.toRadians(trim.getValue()),
                         Math.toRadians(dl.getValue()),
                         Math.toRadians(dm.getValue()),
                         Math.toRadians(dn.getValue()),

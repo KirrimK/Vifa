@@ -132,7 +132,7 @@ public class RepereControllerPane extends ControllerPane{
         Bindings.bindBidirectional(betals.textProperty(), betas.valueProperty(), sBeta);
 
         getChildren().addAll(rpl, psil, psis,psils, phil, phis,phils, thetal, thetas,thetals, alphal, alphas,alphals, betal, betas,betals);
-        setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7;");
+        setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7; -fx-background-radius: 5px;");
         for (Node node: getChildren()){
             setHgrow(node, Priority.ALWAYS);
             setVgrow(node, Priority.ALWAYS);

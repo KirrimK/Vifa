@@ -16,7 +16,7 @@ public class SelectionAffichagePanneau extends ControllerPane{
 
     public SelectionAffichagePanneau(Vue3D vue) {
         super(vue);
-        setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7;");
+        setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7; -fx-background-radius: 5px;");
 
         this.caseAngles = new CheckBox("Angles");
         caseAngles.setOnAction(event -> vue.setVisibleGroupeAngle(caseAngles.isSelected()));

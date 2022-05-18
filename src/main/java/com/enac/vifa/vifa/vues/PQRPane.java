@@ -56,7 +56,7 @@ public class PQRPane extends ControllerPane {
         }));
 
         getChildren().addAll(rpl,pl, ps, ql, qs, rl, rs);
-        setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7;");
+        setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7; -fx-background-radius: 5px;");
 
         for (Node node: getChildren()){
             setHgrow(node, Priority.ALWAYS);

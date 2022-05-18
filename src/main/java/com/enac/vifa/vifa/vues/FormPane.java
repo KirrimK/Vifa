@@ -128,7 +128,7 @@ public class FormPane extends ControllerPane {
         
         //Ajout du form à la scène
         getChildren().addAll(masse,masses,cg,cgs,vp,vps,calage,calages);
-        setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7;");
+        setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7; -fx-background-radius: 5px;");
     }
 
     @Override
