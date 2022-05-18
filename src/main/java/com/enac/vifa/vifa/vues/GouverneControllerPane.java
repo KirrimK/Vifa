@@ -42,7 +42,7 @@ public class GouverneControllerPane extends ControllerPane {
     }
     public GouverneControllerPane(Vue3D vue){
         super(vue);
-        Label titre = new Label("Commandes de vol");
+        Label titre = new Label("Commandes de vol:");
         setColumnSpan(titre, 4);
         setRowIndex(titre, 0);
 
