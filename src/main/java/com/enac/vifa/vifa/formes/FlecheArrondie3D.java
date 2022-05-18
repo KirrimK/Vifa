@@ -49,6 +49,10 @@ public class FlecheArrondie3D extends Group {
         return endAngle;
     }
 
+    /**
+     * Ajuste l'angle et la longueur de la fleche arrondie.
+     * @param endAngle la nouvelle valeur en degrés
+     */
     public void setEndAngle(double endAngle) {
         this.endAngle = endAngle;
         DIV_NUMBER = (Math.abs((int)endAngle)) / APPROX_FACTOR;

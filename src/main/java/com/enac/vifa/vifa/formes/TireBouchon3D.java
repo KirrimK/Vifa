@@ -17,6 +17,10 @@ public class TireBouchon3D extends FlecheArrondie3D {
         setEndAngle(endAngle);
     }
 
+    /**
+     * Ajuste l'angle et la longueur du tire-bouchon 3D.
+     * @param endAngle la nouvelle valeur en degrés
+     */
     @Override
     public void setEndAngle(double endAngle){
         this.endAngle = endAngle;

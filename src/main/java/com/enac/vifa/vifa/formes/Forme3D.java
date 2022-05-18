@@ -45,10 +45,19 @@ public class Forme3D {
         }
         return "Forme3D ["+nom + "]:\n{"+res+"}";
     }
+
+    /**
+     * Ajoute le point p au contour.
+     * @param p (Point3D)
+     */
     public void addPoint (Point3D p){
         this.contour.add(p);
     }
 
+    /**
+     * Méthode renvoyant un objet affchable en 3D à partir du contour du fuselage.
+     * @return m (TriangulatedMesh)
+     */
     public TriangulatedMesh setTriangulatedMesh() {
         // lists of vertices are sorted clockwise, we want them to be counterclockwise
         List<Point3D> contourN = new ArrayList<>();
@@ -75,6 +84,10 @@ public class Forme3D {
         return m;   
     }
     
+    /**
+     * Methode renvoyant un cylindre affichable sur la vue 3D à partir du contour d'une nacelle.
+     * @return c (Cylinder)
+     */
     public Cylinder setNacelles(){
         
         List<Point3D> contourN = new ArrayList<>();

@@ -60,12 +60,18 @@ public class Moment3D extends Group {
         return mz;
     }
 
+    /**
+     * Change les valeurs des moments selon x, y et z.
+     */
     public void update(double mx, double my, double mz){
         this.mx = mx;
         this.my = my;
         this.mz = mz;
     }
 
+    /**
+     * Change l'affichage du moment sur la vue 3D.
+     */
     public void refreshView(){
         mx_gauche.setEndAngle(-mx*MOMENT_TO_ANGLE);
         mx_droit.setEndAngle(mx*MOMENT_TO_ANGLE);
@@ -75,6 +81,10 @@ public class Moment3D extends Group {
         mz_droit.setEndAngle(-mz*MOMENT_TO_ANGLE);
     }
 
+    /**
+     * Change le centre du moment sur la vue 3D
+     * @param center (Point3D) Le nouveau centre de gravité
+     */
     public void changeCenter(Point3D center){
         getTransforms().set(0, new Translate(center.getX(), center.getY(), center.getZ()));
     }

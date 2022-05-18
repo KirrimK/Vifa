@@ -46,6 +46,10 @@ public class Forme2D extends MeshView{
         this.contour.add(p);
     }
 
+    /**
+     * Méthode qui permet de mettre un objet affichable sur la vue 3D dans la forme.
+     * Appelée après l'execution du service de description.
+     */
     public void setMesh() {
         // lists of vertices are sorted clockwise, we want them to be counterclockwise
         ArrayList<Point3D> contour = new ArrayList<Point3D>();
@@ -114,6 +118,11 @@ public class Forme2D extends MeshView{
 
     }
 
+    /**
+     * Méthode appelée en fin d'exécution du service de description. 
+     * Permet de remplacer la liste des points du contour par une une autre liste à jour.
+     * @param contour
+     */
     public void setContour(ArrayList<Point3D> contour) {
         this.contour = contour;
     }

@@ -64,11 +64,19 @@ public class Vecteur3D extends Group {
         return origine;
     }
 
+    /**
+     * Change les points de départ et d'arrivée du veteur.
+     * @param origine l'origine de la fleche
+     * @param magnitude les coordonnées du vecteur
+     */
     public void setOrigineMagnitude(Point3D origine, Point3D magnitude) {
         this.origine = origine;
         this.magnitude = magnitude;
     }
 
+    /**
+     * Change l'affichage du vecteur sur la vue3D
+     */
     public void refreshView(){
         body.setHeight(magnitude.magnitude()-jenaimarre.getHeight());
         body.setTranslateY(-jenaimarre.getHeight()/2);
