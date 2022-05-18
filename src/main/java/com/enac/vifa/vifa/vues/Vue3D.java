@@ -7,6 +7,7 @@ import static java.lang.Double.min;
 import com.enac.vifa.vifa.Configuration;
 import com.enac.vifa.vifa.Modele;
 import com.enac.vifa.vifa.formes.FlecheArrondie3D;
+import com.enac.vifa.vifa.formes.FormeDeSol;
 import com.enac.vifa.vifa.formes.TireBouchon3D;
 import com.enac.vifa.vifa.formes.Vecteur3D;
 
@@ -113,10 +114,13 @@ public class Vue3D extends SubScene {
         Vecteur3D try_ = new Vecteur3D("y terrestre", new Point3D(0, 0, -25), new Point3D(0, 0, -25), terrColor);
         try_.refreshView();
 
+        FormeDeSol ground = new FormeDeSol();
+
         flechesTerrestres.getChildren().add(trx);
         flechesTerrestres.getChildren().add(try_);
         flechesTerrestres.getChildren().add(trz);
-        repereTerrestre.getChildren().add(flechesTerrestres);
+        repereTerrestre.getChildren().addAll(flechesTerrestres, ground);
+
 
         //angles de rotation du repère terrestre
         apsix = new FlecheArrondie3D("psi", 50, 0, conf.getCouleurPsiThetaPhi());
