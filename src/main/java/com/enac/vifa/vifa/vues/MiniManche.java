@@ -1,11 +1,13 @@
 package com.enac.vifa.vifa.vues;
 
-import com.enac.vifa.vifa.Modele;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * Panneau reprododuisant le comportement d'un manche d'avion.*
+ */
 public class MiniManche extends Pane {
 
     SimpleDoubleProperty ailProp;
