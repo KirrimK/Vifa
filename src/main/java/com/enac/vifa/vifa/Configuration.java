@@ -30,6 +30,7 @@ public class Configuration {
     private Color couleurVitessesRotation = Color.DARKVIOLET;
     private Color couleurMoment = Color.GREEN;
     private Color couleurFond = Color.BLACK;
+    private Color couleurSol = new Color(95.0/255,91.0/255,53.0/255,1);
     private double vitesseRotationToDegres =2;
     private double momentToDegre = 0.000005;
 
@@ -86,6 +87,11 @@ public class Configuration {
                             case "couleurSurfaceControle":
                                 if (! mots[1].equals("DEFAULT")){
                                     couleurSurfaceControle = couleurFromString(mots[1]);
+                                }
+                                break;
+                            case "couleurSol":
+                                if (! mots[1].equals("DEFAULT")){
+                                    couleurSol = couleurFromString(mots[1]);
                                 }
                                 break;
                             case "couleurFuselage" : 
@@ -169,7 +175,7 @@ public class Configuration {
     private Color couleurFromString (String chaine){
         String sansParanthese = (chaine.replace("(", "")).replace(")","");
         String[] numbers = sansParanthese.split(",");
-        return new Color(Integer.parseInt(numbers[0])/255,Integer.parseInt(numbers[1])/255,Integer.parseInt(numbers[2])/255,1);
+        return new Color(Double.parseDouble(numbers[0])/255,Double.parseDouble(numbers[1])/255,Double.parseDouble(numbers[2])/255,1);
     }
 
     /**
@@ -233,6 +239,9 @@ public class Configuration {
     }
     public Color getCouleurFond(){
         return couleurFond;
+    }
+    public Color getCouleurSol(){
+        return couleurSol;
     }
     public double getVitesseRotationToDegres() {
         return vitesseRotationToDegres;

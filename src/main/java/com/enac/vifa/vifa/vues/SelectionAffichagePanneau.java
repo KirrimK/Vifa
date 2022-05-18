@@ -14,6 +14,7 @@ public class SelectionAffichagePanneau extends ControllerPane{
     private CheckBox caseMoment;
     private CheckBox caseNoms;
     private CheckBox caseReperes;
+    private CheckBox caseSol;
 
     public SelectionAffichagePanneau(Vue3D vue) {
         super(vue);
@@ -43,6 +44,11 @@ public class SelectionAffichagePanneau extends ControllerPane{
         caseReperes.setOnAction(event -> vue.setVisibleReperes(caseReperes.isSelected()));
         caseReperes.setSelected(true);
         this.add(caseReperes,0,4);
+
+        this.caseSol = new CheckBox("Sol");
+        caseSol.setOnAction(event -> vue.setVisibleSol(caseSol.isSelected()));
+        caseSol.setSelected(true);
+        this.add(caseSol,0,5);
     }
     
 }
