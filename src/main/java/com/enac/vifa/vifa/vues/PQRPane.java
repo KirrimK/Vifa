@@ -6,6 +6,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Priority;
 
+/**
+ * Panneau permettant de régler les vitesses de rotation de l'avion sur ses axes.
+ */
 public class PQRPane extends ControllerPane {
 
     private final Label pl;

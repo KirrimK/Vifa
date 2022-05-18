@@ -13,7 +13,7 @@ import javafx.scene.layout.Priority;
 
 
 /**
- *
+ * Panneau permettant de régler la poussée moteur.
  * @author hugocourtadon
  */
 public class ThrottlePane extends ControllerPane {
