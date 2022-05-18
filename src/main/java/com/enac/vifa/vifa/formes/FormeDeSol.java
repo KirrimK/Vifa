@@ -7,6 +7,10 @@ import javafx.scene.paint.Material;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
 
+/**
+ * Classe représentant le sol.
+ * Sa hauteur et sa couleur sont réglables depuis le fichier de configuration.
+ */
 public class FormeDeSol extends Cylinder{
     private double hauteur;
     private Color couleur;
