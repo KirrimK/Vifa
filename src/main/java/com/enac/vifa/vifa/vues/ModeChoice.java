@@ -4,6 +4,9 @@ import com.enac.vifa.vifa.Configuration;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ComboBox;
 
+/**
+ * Classe permettant le choix d'un mode de l'ennumération Mode. 
+ */
 public class ModeChoice extends ComboBox<Mode> {
 
     public ModeChoice(Vue3D vue){

@@ -9,6 +9,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Priority;
 import javafx.util.converter.NumberStringConverter;
 
+/**
+ * Panneau permettant de régler les vitesses de rotation de l'avion sur ses axes.
+ */
 public class PQRPane extends ControllerPane {
 
     private final Label pl;

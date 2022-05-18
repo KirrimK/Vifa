@@ -11,7 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 /**
- *
+ *Panneau permettant de changer des propriétés de l'avion (masse, calage, centrage, ...)
  * @author hugocourtadon
  */
 public class FormPane extends ControllerPane {
