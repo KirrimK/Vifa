@@ -9,6 +9,9 @@ import javafx.scene.layout.Priority;
 import javafx.scene.control.TextField;
 import javafx.util.converter.NumberStringConverter;
 
+/**
+ * Panneau permettant de faire tourner les repères les uns par rapport aux autres.
+ */
 public class RepereControllerPane extends ControllerPane{
 
     private final Label psil;

@@ -5,6 +5,9 @@ import javafx.application.Application;
 import javafx.scene.*;
 import javafx.stage.Stage;
 
+/**
+ * Main de l'application VIFA
+ */
 public class Main extends Application {
     public Parent createContent(Scene mainScene){
         Vue3D vue = new Vue3D(mainScene, new Group());

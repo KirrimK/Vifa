@@ -8,6 +8,9 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
+/**
+ * Classe qui met en place les différents panneaux.
+ */
 public class UI extends StackPane {
 
     public UI(Vue3D vue){

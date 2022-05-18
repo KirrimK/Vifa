@@ -7,6 +7,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
+/**
+ * Panneau donnant des informations sur la position de la caméra.
+ * Permet aussi deplaccer la caméra à des endroits prédéfinis.
+ */
 public class CameraInfoPane extends VBox {
 
     private final Label xrotl;

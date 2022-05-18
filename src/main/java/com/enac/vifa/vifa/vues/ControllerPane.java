@@ -3,6 +3,11 @@ package com.enac.vifa.vifa.vues;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
+
+/**
+ * Panneau abstrait.
+ * Contient des méthode permetant un reset.
+ */
 public abstract class ControllerPane extends GridPane {
 
 

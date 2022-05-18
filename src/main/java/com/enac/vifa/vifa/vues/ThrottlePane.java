@@ -13,7 +13,7 @@ import javafx.scene.layout.Priority;
 
 
 /**
- *
+ * Panneau permettant de régler la poussée moteur.
  * @author hugocourtadon
  */
 public class ThrottlePane extends ControllerPane {
@@ -38,6 +38,7 @@ public class ThrottlePane extends ControllerPane {
             if (!resetting){
                 Modele.getInstance().descriptionService.restart();
                 Modele.getInstance().getForcesMomentService.restart();
+                poussInfo.setText(throtValue());
             }
         }));
         setRowIndex(pouss,2);

@@ -5,6 +5,7 @@ import javafx.scene.control.CheckBox;
 
 /**
  * Panneau de contrôle permettant de choisir ce que l'on souhaite afficher.
+ * Permet de selectionner les forces, le moment total, les repères et les angles.
  */
 public class SelectionAffichagePanneau extends ControllerPane{
 

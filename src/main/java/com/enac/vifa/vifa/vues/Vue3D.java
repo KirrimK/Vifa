@@ -23,6 +23,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 
+/**
+ * Classe contenant les objets 3D (avion, repères, forces,...)
+ */
 public class Vue3D extends SubScene {
     private final double ROTATION_TO_DEGRES= Configuration.getInstance().getVitesseRotationToDegres();
     private PerspectiveCamera camera = new PerspectiveCamera(true);
