@@ -46,7 +46,7 @@ public class MiniManche extends Pane {
         profProp = new SimpleDoubleProperty(0);
         Rectangle fond = new Rectangle();
         Rectangle curseur = new Rectangle(15, 15);
-        curseur.setFill(Color.WHITE);
+        curseur.setFill(Color.RED);
         fond.heightProperty().bind(this.heightProperty());
         fond.widthProperty().bind(fond.heightProperty());
         fond.setFill(Color.BLACK);

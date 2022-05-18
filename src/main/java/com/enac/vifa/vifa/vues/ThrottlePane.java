@@ -21,7 +21,7 @@ public class ThrottlePane extends ControllerPane {
     private final Slider pouss;
 
     protected void genericSliderListener(String labelText, Label label, Number newValue){
-        String text = labelText + newValue.doubleValue();
+        String text = labelText + throtValue();
         label.setText(text.substring(0, Math.min(5, text.length())));
     }
 
@@ -29,7 +29,7 @@ public class ThrottlePane extends ControllerPane {
         super(vue);
         Label poussIntitule = new Label("GAZ (%)");
         setRowIndex(poussIntitule, 0);
-        poussInfo = new Label("0.5");
+        poussInfo = new Label(throtValue());
         setRowIndex(poussInfo,1);
         pouss = new Slider(0, 1,0);
         pouss.valueProperty().bindBidirectional(Modele.getInstance().getDxProperty());
@@ -38,7 +38,6 @@ public class ThrottlePane extends ControllerPane {
             if (!resetting){
                 Modele.getInstance().descriptionService.restart();
                 Modele.getInstance().getForcesMomentService.restart();
-                poussInfo.setText(throtValue());
             }
         }));
         setRowIndex(pouss,2);
