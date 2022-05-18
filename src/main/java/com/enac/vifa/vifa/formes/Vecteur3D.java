@@ -10,6 +10,8 @@ import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.MeshView;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
+import javafx.util.Duration;
+
 import org.fxyz3d.shapes.primitives.ConeMesh;
 
 public class Vecteur3D extends Group {
@@ -49,6 +51,7 @@ public class Vecteur3D extends Group {
         seen = true;
         setOrigineMagnitude(origine, magnitude);
         Tooltip tooltip = new Tooltip(nom);
+        tooltip.setShowDelay(Duration.millis(0));
         Tooltip.install(this, tooltip);
     }
 

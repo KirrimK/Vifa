@@ -9,6 +9,8 @@ import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.MeshView;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
+import javafx.util.Duration;
+
 import org.fxyz3d.shapes.primitives.ConeMesh;
 
 import com.enac.vifa.vifa.Configuration;
@@ -42,6 +44,7 @@ public class FlecheArrondie3D extends Group {
         this.cone = new MeshView();
         setEndAngle(endAngle);
         Tooltip tooltip = new Tooltip(nom);
+        tooltip.setShowDelay(Duration.millis(0));
         Tooltip.install(this, tooltip);
     }
 
