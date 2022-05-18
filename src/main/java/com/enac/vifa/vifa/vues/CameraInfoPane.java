@@ -21,10 +21,10 @@ public class CameraInfoPane extends VBox {
         super();
         //Box infos débug Caméra
         Label cml = new Label("Camera:");
-        xrotl = new Label("X Rot (deg): "+vue.getXrotprop());
-        vue.xrotpropProperty().addListener(((observableValue, number, t1) -> xrotl.setText("X Rot (deg): "+t1)));
-        yrotl = new Label("Y Rot (deg): "+vue.getYrotprop());
-        vue.yrotpropProperty().addListener(((observableValue, number, t1) -> yrotl.setText("Y Rot (deg): "+t1)));
+        xrotl = new Label("X Rot (°): "+vue.getXrotprop());
+        vue.xrotpropProperty().addListener(((observableValue, number, t1) -> xrotl.setText("X Rot (°): "+t1)));
+        yrotl = new Label("Y Rot (°): "+vue.getYrotprop());
+        vue.yrotpropProperty().addListener(((observableValue, number, t1) -> yrotl.setText("Y Rot (°): "+t1)));
         zooml = new Label("Zoom: "+vue.getZoomprop());
         vue.zoompropProperty().addListener(((observableValue, number, t1) -> zooml.setText("Zoom: "+t1)));
 
@@ -36,29 +36,29 @@ public class CameraInfoPane extends VBox {
         topb.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         topb.setOnAction((actionEvent -> {
             vue.rotateCamera(-90, 0, vue.getZoomprop());
-            xrotl.setText("X Rot (deg): -90.0");
-            yrotl.setText("Y Rot (deg): 0.0");
+            xrotl.setText("X Rot (°): -90.0");
+            yrotl.setText("Y Rot (°): 0.0");
         }));
         Button sideb = new Button("Side");
         sideb.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         sideb.setOnAction((actionEvent -> {
             vue.rotateCamera(0, 0, vue.getZoomprop());
-            xrotl.setText("X Rot (deg): 0.0");
-            yrotl.setText("Y Rot (deg): 0.0");
+            xrotl.setText("X Rot (°): 0.0");
+            yrotl.setText("Y Rot (°): 0.0");
         }));
         Button backb = new Button("Back");
         backb.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         backb.setOnAction((actionEvent -> {
             vue.rotateCamera(0, 90, vue.getZoomprop());
-            xrotl.setText("X Rot (deg): 0.0");
-            yrotl.setText("Y Rot (deg): 90.0");
+            xrotl.setText("X Rot (°): 0.0");
+            yrotl.setText("Y Rot (°): 90.0");
         }));
         Button troisquartb = new Button("3/4");
         troisquartb.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         troisquartb.setOnAction((actionEvent -> {
             vue.rotateCamera(-27, -57, vue.getZoomprop());
-            xrotl.setText("X Rot (deg): -27.0");
-            yrotl.setText("Y Rot (deg): -57.0");
+            xrotl.setText("X Rot (°): -27.0");
+            yrotl.setText("Y Rot (°): -57.0");
         }));
 
         GridPane buttonp = new GridPane();

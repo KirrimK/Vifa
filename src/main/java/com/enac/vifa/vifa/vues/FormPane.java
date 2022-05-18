@@ -64,7 +64,7 @@ public class FormPane extends ControllerPane {
         setColumnIndex(vps, 1);
         
         //Calage de l'aile
-        calage = new Label("Calage de l'aile (deg):");
+        calage = new Label("Calage de l'aile (°):");
         setRowIndex(calage, 3);
         setColumnIndex(calage, 0);
         calages = new TextField(Double.toString(model.getA0()));
