@@ -53,6 +53,7 @@ public class GouverneControllerPane extends ControllerPane {
 
 
         prof = new Slider(-90, 90, 0);
+        prof.setStyle(" -fx-color: RED;");
         prof.valueProperty().bindBidirectional(Modele.getInstance().getDmProperty());
         prof.valueProperty().addListener(((observableValue, number, t1) -> {
             //genericSliderListener("Profondeur (deg): ", profInfo, t1);
@@ -93,6 +94,7 @@ public class GouverneControllerPane extends ControllerPane {
 
         //Contrôle des ailerons
         ailInfo = new Label("Ailerons (deg):");
+        ailInfo.setStyle("-fx-text-color: RED;");
         setRowIndex(ailInfo, 5);
         setColumnIndex(ailInfo, 1);
         ails = new TextField(Double.toString(Modele.getInstance().getDm()));
@@ -103,6 +105,7 @@ public class GouverneControllerPane extends ControllerPane {
         NumberStringConverter scAil = new NumberStringConverter();
 
         ailerons = new Slider(-90, 90, 0);
+        ailerons.setStyle(" -fx-color: RED;");
         ailerons.valueProperty().bindBidirectional(Modele.getInstance().getDlProperty());
         ailerons.valueProperty().addListener(((observableValue, number, t1) -> {
             //genericSliderListener("Ailerons (deg): ", ailInfo, t1);

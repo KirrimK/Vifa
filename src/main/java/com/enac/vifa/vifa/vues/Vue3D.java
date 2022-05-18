@@ -193,18 +193,18 @@ public class Vue3D extends SubScene {
         Vecteur3D avy = new Vecteur3D("y avion", new Point3D(0, 0, -50), new Point3D(0, 0, -25), avColor);
         avy.refreshView();
 
-        tbp = new TireBouchon3D("p", 5, 0, Color.DARKVIOLET);
-        tbq = new TireBouchon3D("q", 5, 0, Color.DARKVIOLET);
-        tbr = new TireBouchon3D("r", 5, 0, Color.DARKVIOLET);
+        tbp = new TireBouchon3D("p", 5, 0, Configuration.getInstance().getCouleurVitessesRotation());
+        tbq = new TireBouchon3D("q", 5, 0, Configuration.getInstance().getCouleurVitessesRotation());
+        tbr = new TireBouchon3D("r", 5, 0, Configuration.getInstance().getCouleurVitessesRotation());
 
-        tbp.getTransforms().setAll(new Translate(75, 0, 0));
+        tbp.getTransforms().setAll(new Translate(50, 0, 0));
         tbq.getTransforms().setAll(
             new Rotate(90, Rotate.Y_AXIS),
-            new Translate(75, 0, 0)
+            new Translate(50, 0, 0)
         );
         tbr.getTransforms().setAll(
             new Rotate(90, Rotate.Z_AXIS),
-            new Translate(75, 0, 0)
+            new Translate(50, 0, 0)
         );
 
         flechesAvion.getChildren().addAll(avx, avy, avz);
