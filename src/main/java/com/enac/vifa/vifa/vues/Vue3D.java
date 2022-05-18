@@ -30,6 +30,7 @@ import javafx.scene.transform.Translate;
 public class Vue3D extends SubScene {
     private final double ROTATION_TO_DEGRES= Configuration.getInstance().getVitesseRotationToDegres();
     private PerspectiveCamera camera = new PerspectiveCamera(true);
+    private FormeDeSol ground;
     private Group repereTerrestre;
     private Group flechesTerrestres=new Group();
     private Group psiThetaPhi=new Group();
@@ -114,7 +115,7 @@ public class Vue3D extends SubScene {
         Vecteur3D try_ = new Vecteur3D("y terrestre", new Point3D(0, 0, -25), new Point3D(0, 0, -25), terrColor);
         try_.refreshView();
 
-        FormeDeSol ground = new FormeDeSol();
+        ground = new FormeDeSol();
 
         flechesTerrestres.getChildren().add(trx);
         flechesTerrestres.getChildren().add(try_);
@@ -517,5 +518,9 @@ public class Vue3D extends SubScene {
         repereAero.setVisible(b);
         flechesTerrestres.setVisible(b);
         flechesAvion.setVisible(b);
+    }
+
+    public void setVisibleSol (boolean b){
+        ground.setVisible(b);
     }
 }
