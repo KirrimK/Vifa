@@ -5,8 +5,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import static java.lang.Double.min;
+import static java.lang.Double.max;
+
 /**
- * Panneau reprododuisant le comportement d'un manche d'avion.*
+ * Panneau reprododuisant le comportement d'un manche d'avion.
  */
 public class MiniManche extends Pane {
 
@@ -61,10 +64,10 @@ public class MiniManche extends Pane {
         }));
 
         ailProp.addListener(((observableValue, number, t1) -> {
-            curseur.setX(Double.min(Double.max(7.5, this.getHeight()/2+(t1.doubleValue()/90)*this.getHeight()/2), this.getHeight()-7.5));
+            curseur.setX(min(max(7.5, this.getHeight()/2+(t1.doubleValue()/90)*this.getHeight()/2), this.getHeight()-7.5));
         }));
         profProp.addListener(((observableValue, number, t1) -> {
-            curseur.setY(Double.min(Double.max(7.5, this.getHeight()/2-(t1.doubleValue()/90)*this.getHeight()/2), this.getHeight()-7.5));
+            curseur.setY(min(max(7.5, this.getHeight()/2-(t1.doubleValue()/90)*this.getHeight()/2), this.getHeight()-7.5));
         }));
 
         curseur.setX(68);
