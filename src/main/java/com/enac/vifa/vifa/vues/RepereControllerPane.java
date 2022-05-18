@@ -42,7 +42,7 @@ public class RepereControllerPane extends ControllerPane{
         Label rpl = new Label("Repères:");
 
         setRowIndex(rpl, 0);
-        psil = new Label("Psi (deg):");
+        psil = new Label("Psi (°):");
         setRowIndex(psil, 1);
         psils = new TextField("0.0");
         psils.setMaxSize(50, 50);
@@ -54,13 +54,13 @@ public class RepereControllerPane extends ControllerPane{
         psis.valueProperty().bindBidirectional(Modele.getInstance().getPsiProperty());
         psis.valueProperty().addListener(((observableValue, number, t1) -> {
             vue.rotatePsi(t1.doubleValue());
-            //genericSliderListener("Psi (deg): ", psil, t1);
+            //genericSliderListener("Psi (°): ", psil, t1);
         }));
         //Binding bidirectionnel slider-Textfield
         NumberStringConverter sPsi = new NumberStringConverter();
         Bindings.bindBidirectional(psils.textProperty(), psis.valueProperty(), sPsi);
 
-        phil = new Label("Phi (deg):");
+        phil = new Label("Phi (°):");
         setRowIndex(phil, 3);
         phils = new TextField("0.0");
         phils.setMaxSize(50, 50);
@@ -72,13 +72,13 @@ public class RepereControllerPane extends ControllerPane{
         phis.valueProperty().bindBidirectional(Modele.getInstance().getPhiProperty());
         phis.valueProperty().addListener(((observableValue, number, t1) -> {
             vue.rotatePhi(t1.doubleValue());
-            //genericSliderListener("Phi (deg): ", phil, t1);
+            //genericSliderListener("Phi (°): ", phil, t1);
         }));
         //Binding bidirectionnel slider-Textfield
         NumberStringConverter sPhi = new NumberStringConverter();
         Bindings.bindBidirectional(phils.textProperty(), phis.valueProperty(), sPhi);
 
-        thetal = new Label("Theta (deg):");
+        thetal = new Label("Theta (°):");
         setRowIndex(thetal, 5);
         thetals = new TextField("0.0");
         thetals.setMaxSize(50, 50);
@@ -90,13 +90,13 @@ public class RepereControllerPane extends ControllerPane{
         thetas.valueProperty().bindBidirectional(Modele.getInstance().getThetaProperty());
         thetas.valueProperty().addListener(((observableValue, number, t1) -> {
             vue.rotateTheta(t1.doubleValue());
-            //genericSliderListener("Theta (deg): ", thetal, t1);
+            //genericSliderListener("Theta (°): ", thetal, t1);
         }));
         //Binding bidirectionnel slider-Textfield
         NumberStringConverter sTheta = new NumberStringConverter();
         Bindings.bindBidirectional(thetals.textProperty(),thetas.valueProperty(), sTheta);
 
-        alphal = new Label("Alpha (deg):");
+        alphal = new Label("Alpha (°):");
         setRowIndex(alphal, 7);
         alphals = new TextField("0.0");
         alphals.setMaxSize(50, 50);
@@ -108,14 +108,14 @@ public class RepereControllerPane extends ControllerPane{
         alphas.valueProperty().bindBidirectional(Modele.getInstance().getAlphaProperty());
         alphas.valueProperty().addListener(((observableValue, number, t1) -> {
             vue.rotateAlpha(t1.doubleValue());
-            //genericSliderListener("Alpha (deg): ", alphal, t1);
+            //genericSliderListener("Alpha (°): ", alphal, t1);
             if (!resetting) Modele.getInstance().getForcesMomentService.restart();
         }));
         //Binding bidirectionnel slider-Textfield
         NumberStringConverter sAlpha = new NumberStringConverter();
         Bindings.bindBidirectional(alphals.textProperty(), alphas.valueProperty(), sAlpha);
 
-        betal = new Label("Beta (deg):");
+        betal = new Label("Beta (°):");
         setRowIndex(betal, 9);
         betals = new TextField("0.0");
         betals.setMaxSize(50, 50);
@@ -127,7 +127,7 @@ public class RepereControllerPane extends ControllerPane{
         betas.valueProperty().bindBidirectional(Modele.getInstance().getBetaProperty());
         betas.valueProperty().addListener(((observableValue, number, t1) -> {
             vue.rotateBeta(t1.doubleValue());
-            //genericSliderListener("Beta (deg): ", betal, t1);
+            //genericSliderListener("Beta (°): ", betal, t1);
             if (!resetting) Modele.getInstance().getForcesMomentService.restart();
         }));
         //Binding bidirectionnel slider-Textfield

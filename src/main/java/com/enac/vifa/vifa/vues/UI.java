@@ -40,7 +40,7 @@ public class UI extends StackPane {
         ThrottlePane throttle = new ThrottlePane(vue);
 
         HBox cmdes = new HBox(5, throttle, gouvCtl);
-        cmdes.setMaxSize(290, 270);
+        cmdes.setMaxSize(380, 210);
         setMargin(cmdes, new Insets(5));
         cmdes.setAlignment(Pos.CENTER_RIGHT);
         setAlignment(cmdes, Pos.BOTTOM_RIGHT);

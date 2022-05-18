@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Priority;
 import javafx.scene.control.TextField;
+import javafx.scene.transform.Rotate;
 import javafx.util.converter.NumberStringConverter;
 
 
@@ -41,14 +42,18 @@ public class GouverneControllerPane extends ControllerPane {
     }
     public GouverneControllerPane(Vue3D vue){
         super(vue);
-        profInfo = new Label("Profondeur (deg):");
+        Label titre = new Label("Commandes de vol");
+        setColumnSpan(titre, 4);
+        setRowIndex(titre, 0);
+
+        profInfo = new Label("Prof (°)");
         setRowIndex(profInfo, 3);
         setColumnIndex(profInfo, 1);
         profs = new TextField(Double.toString(Modele.getInstance().getDm()));
-        profs.setMaxSize(50, 50);
-        setRowIndex(profs,3);
-        setColumnIndex(profs,2);
-        setColumnSpan(profs, 2);
+        profs.setMaxSize(50, 30);
+        setRowIndex(profs,2);
+        setColumnIndex(profs,1);
+        //setColumnSpan(profs, 2);
         NumberStringConverter scProf = new NumberStringConverter();
 
 
@@ -64,18 +69,18 @@ public class GouverneControllerPane extends ControllerPane {
             }
         }));
         setRowIndex(prof, 1);
-        setColumnIndex(prof, 0);
+        setColumnIndex(prof, 1);
         //Binding bidirectionnel Slider-Textfield
         Bindings.bindBidirectional(profs.textProperty(), prof.valueProperty(), scProf);
 
-        dirInfo = new Label("Direction (deg):");
-        setRowIndex(dirInfo, 4);
-        setColumnIndex(dirInfo, 1);
+        dirInfo = new Label("Dir (°)");
+        setRowIndex(dirInfo, 3);
+        setColumnIndex(dirInfo, 4);
         dirs = new TextField(Double.toString(Modele.getInstance().getDn()));
-        setColumnSpan(dirs, 2);
-        dirs.setMaxSize(50, 50);
-        setRowIndex(dirs,4);
-        setColumnIndex(dirs,2);
+        //setColumnSpan(dirs, 2);
+        dirs.setMaxSize(50, 30);
+        setRowIndex(dirs,3);
+        setColumnIndex(dirs,3);
         NumberStringConverter scDir = new NumberStringConverter();
 
         dir = new Slider(-90, 90, 0);
@@ -87,21 +92,21 @@ public class GouverneControllerPane extends ControllerPane {
                 Modele.getInstance().getForcesMomentService.restart();
             }
         }));
-        setRowIndex(dir, 0);
-        setColumnIndex(dir, 1);
+        setRowIndex(dir, 3);
+        setColumnIndex(dir, 2);
         //Binding bidirectionnel Textfield-Slider
         Bindings.bindBidirectional(dirs.textProperty(), dir.valueProperty(), scDir);
 
         //Contrôle des ailerons
-        ailInfo = new Label("Ailerons (deg):");
+        ailInfo = new Label("Ail (°)");
         ailInfo.setStyle("-fx-text-color: RED;");
-        setRowIndex(ailInfo, 5);
-        setColumnIndex(ailInfo, 1);
+        setRowIndex(ailInfo, 2);
+        setColumnIndex(ailInfo, 4);
         ails = new TextField(Double.toString(Modele.getInstance().getDm()));
-        setColumnSpan(ails, 2);
-        ails.setMaxSize(50, 50);
-        setRowIndex(ails,5);
-        setColumnIndex(ails,2);
+        //setColumnSpan(ails, 2);
+        ails.setMaxSize(50, 30);
+        setRowIndex(ails,2);
+        setColumnIndex(ails,3);
         NumberStringConverter scAil = new NumberStringConverter();
 
         ailerons = new Slider(-90, 90, 0);
@@ -115,23 +120,20 @@ public class GouverneControllerPane extends ControllerPane {
             }
         }));
         setRowIndex(ailerons, 2);
-        setColumnIndex(ailerons, 1);
+        setColumnIndex(ailerons, 2);
         //Binding bidirectionnel slider-Textfield
         Bindings.bindBidirectional(ails.textProperty(), ailerons.valueProperty(), scAil);
 
         prof.setOrientation(Orientation.VERTICAL);
 
-        triml = new Label("Trim (deg):");
-        setRowIndex(triml, 6);
-        setColumnIndex(triml, 1);
+        triml = new Label("Trim (°)");
+        setRowIndex(triml, 3);
+        setColumnIndex(triml, 0);
+
         trims = new Slider(-90, 90, 0);
         trims.setOrientation(Orientation.VERTICAL);
-
-        Label trimindiq = new Label("Trim");
-        setColumnIndex(trimindiq,3);
-
         setRowIndex(trims, 1);
-        setColumnIndex(trims, 3);
+        setColumnIndex(trims, 0);
         trims.valueProperty().bindBidirectional(Modele.getInstance().getTrimProperty());
         trims.valueProperty().addListener(((observableValue, number, t1) -> {
             if (!resetting){
@@ -140,23 +142,24 @@ public class GouverneControllerPane extends ControllerPane {
             }
         }));
         trimt = new TextField(Double.toString(Modele.getInstance().getTrim()));
-        setColumnSpan(trimt, 2);
-        trimt.setMaxSize(50, 50);
-        setRowIndex(trimt, 6);
-        setColumnIndex(trimt, 2);
+        //setColumnSpan(trimt, 2);
+        trimt.setMaxSize(50, 30);
+        setRowIndex(trimt, 2);
+        setColumnIndex(trimt, 0);
         NumberStringConverter scTri = new NumberStringConverter();
         Bindings.bindBidirectional(trimt.textProperty(), trims.valueProperty(), scTri);
 
         MiniManche manche = new MiniManche();
+        manche.setMaxSize(140, 140);
         manche.profPropProperty().bindBidirectional(prof.valueProperty());
         manche.ailPropProperty().bindBidirectional(ailerons.valueProperty());
-        setColumnIndex(manche, 1);
+        setColumnIndex(manche, 2);
         setRowIndex(manche, 1);
 
-        getChildren().addAll(prof, dir, ailerons, profInfo, dirInfo, ailInfo,profs,dirs,ails, triml, trims, trimt, trimindiq, manche);
+        getChildren().addAll(titre, prof, dir, ailerons, profInfo, dirInfo, ailInfo,profs,dirs,ails, triml, trims, trimt, manche);
         setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7; -fx-background-radius: 5px;");
 
-        setHgap(15);
+        //setHgap(15);
         setAlignment(Pos.CENTER);
 
         for (Node node: getChildren()){
