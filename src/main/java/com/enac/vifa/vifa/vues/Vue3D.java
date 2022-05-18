@@ -501,14 +501,6 @@ public class Vue3D extends SubScene {
         Modele.getInstance().getMomentTotal().setVisible(b);
     }
 
-    /**
-     * Affiche ou non les noms des angles et des flèches.
-     * @param b (Boolean) 
-     */
-    public void setVisibleNoms(boolean b){
-        //TODO code
-        //non implémenté car noms non existants
-    }
 
     /**
      * Affiche ou non les repères

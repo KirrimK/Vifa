@@ -12,7 +12,6 @@ public class SelectionAffichagePanneau extends ControllerPane{
     private CheckBox caseAngles;
     private CheckBox caseForces;
     private CheckBox caseMoment;
-    private CheckBox caseNoms;
     private CheckBox caseReperes;
     private CheckBox caseSol;
 
@@ -35,20 +34,15 @@ public class SelectionAffichagePanneau extends ControllerPane{
         caseMoment.setSelected(true);
         this.add(caseMoment,0,2);
 
-        this.caseNoms = new CheckBox("Noms des flèches");
-        caseNoms.setOnAction(event -> vue.setVisibleNoms(caseNoms.isSelected()));
-        caseNoms.setSelected(false);
-        this.add (caseNoms,0,3);
-
         this.caseReperes = new CheckBox("Repères");
         caseReperes.setOnAction(event -> vue.setVisibleReperes(caseReperes.isSelected()));
         caseReperes.setSelected(true);
-        this.add(caseReperes,0,4);
+        this.add(caseReperes,0,3);
 
         this.caseSol = new CheckBox("Sol");
         caseSol.setOnAction(event -> vue.setVisibleSol(caseSol.isSelected()));
         caseSol.setSelected(true);
-        this.add(caseSol,0,5);
+        this.add(caseSol,0,4);
     }
     
 }
