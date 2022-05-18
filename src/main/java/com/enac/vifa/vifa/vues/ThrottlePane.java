@@ -38,6 +38,7 @@ public class ThrottlePane extends ControllerPane {
             if (!resetting){
                 Modele.getInstance().descriptionService.restart();
                 Modele.getInstance().getForcesMomentService.restart();
+                poussInfo.setText(throtValue());
             }
         }));
         setRowIndex(pouss,2);
