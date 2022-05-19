@@ -126,10 +126,10 @@ public class Modele {
                 String nom = strings[0];
                 Point3D debut = new Point3D (Double.parseDouble(strings[1]),
                                              Double.parseDouble(strings[3]),
-                                             -Double.parseDouble(strings[2]));
+                                             Double.parseDouble(strings[2]));
                 Point3D norme = new Point3D (Double.parseDouble(strings[4])/VECTOR_SCALING,
                                              Double.parseDouble(strings[6])/VECTOR_SCALING,
-                                             -Double.parseDouble(strings[5])/VECTOR_SCALING);
+                                             Double.parseDouble(strings[5])/VECTOR_SCALING);
                 Color color;
                 switch (strings[7]){
                     case "yellow":
@@ -170,9 +170,9 @@ public class Modele {
                                                 Double.parseDouble(strings[2]),
                                                 Double.parseDouble(strings[3]));*/
                 //setMomentTotal(moment)
-                momentTotal.update(-Double.parseDouble(strings[1]),
+                momentTotal.update(Double.parseDouble(strings[1]),
                         Double.parseDouble(strings[2]),
-                        -Double.parseDouble(strings[3]));
+                        Double.parseDouble(strings[3]));
             });
             this.radio.bindMsg(this.INIT_FORME_2D_MSG, (client, nomDansTableau) -> {addForme(nomDansTableau[0]);
                                                                                     addForme3D(nomDansTableau[0]);
@@ -619,9 +619,9 @@ public class Modele {
                         Math.toRadians(beta.getValue()),
                         Math.toRadians(a0.getValue()),
                         Math.toRadians(trim.getValue()),
-                        -Math.toRadians(dl.getValue()),
+                        Math.toRadians(-dl.getValue()),
                         Math.toRadians(dm.getValue()),
-                        -Math.toRadians(dn.getValue())).replace(',','.');
+                        Math.toRadians(-dn.getValue())).replace(',','.');
                 this.radio.sendMsg(msg);
             }
             catch (IvyException e){
@@ -682,9 +682,9 @@ public class Modele {
                         Math.toRadians(beta.getValue()),
                         Math.toRadians(a0.getValue()),
                         Math.toRadians(trim.getValue()),
-                        -Math.toRadians(dl.getValue()),
+                        Math.toRadians(dl.getValue()),
                         Math.toRadians(dm.getValue()),
-                        -Math.toRadians(dn.getValue()),
+                        Math.toRadians(dn.getValue()),
                         dx.getValue(),
                         Math.toRadians(p.getValue()),
                         Math.toRadians(q.getValue()),
