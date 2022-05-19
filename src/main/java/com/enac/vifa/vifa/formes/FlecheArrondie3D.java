@@ -69,7 +69,7 @@ public class FlecheArrondie3D extends Group {
                 new Rotate(i*endAngle/DIV_NUMBER, Rotate.Z_AXIS),
                 new Translate(rayon*Math.cos(i/DIV_NUMBER*Math.toRadians(endAngle)), rayon*Math.sin(i/DIV_NUMBER*Math.toRadians(endAngle)), 0));
         }
-        ConeMesh jenaimarre = new ConeMesh(1, 2*Math.toRadians(Math.abs(endAngle))/DIV_NUMBER*rayon);
+        ConeMesh jenaimarre = new ConeMesh(1, 1);
         cone.setMesh(jenaimarre.getMesh());
         cone.setMaterial(materiau);
         cone.getTransforms().setAll(

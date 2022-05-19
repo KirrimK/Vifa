@@ -85,6 +85,7 @@ public class Vecteur3D extends Group {
         body.setTranslateY(-jenaimarre.getHeight()/2);
 
         jenaimarre.setHeight((magnitude.magnitude()<1)?0.25:1);
+        jenaimarre.setRadius((magnitude.magnitude()<1)?0.25:1);
         cone.setMesh(jenaimarre.getMesh());
         cone.setTranslateY(magnitude.magnitude()/2);
         if (Math.abs(magnitude.magnitude()) < 0.0001 && seen) {
