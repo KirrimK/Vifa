@@ -1,15 +1,14 @@
 package com.enac.vifa.vifa.vues;
 
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.geometry.Pos;
-import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class Knob extends Pane{
     SimpleDoubleProperty valueProp;
+    SimpleDoubleProperty lastX;
+    SimpleDoubleProperty valAtLastX;
     public double getValueProp() {
         return valueProp.get();
     }
@@ -23,25 +22,30 @@ public class Knob extends Pane{
     }
     public Knob(double min, double max, double value, double radius){
         valueProp = new SimpleDoubleProperty(value);
+        lastX = new SimpleDoubleProperty();
+        valAtLastX = new SimpleDoubleProperty();
         this.setHeight(100);
         this.setWidth(100);
         Circle knob = new Circle(0,0,radius);
         knob.setTranslateX(3*this.getWidth()/4);
         knob.setTranslateY(this.getHeight()/2);
         knob.setFill(Color.BLACK);
-        Circle curseur = new Circle(-0.9*radius*Math.cos(Math.PI*((value-min)/(max-min))),-0.9*radius*Math.sin(Math.PI*((value-min)/(max-min))),radius/10);
+        Circle curseur = new Circle(-0.9*radius*Math.cos(Math.PI*4/3*((value-min)/(max-min))),-0.9*radius*Math.sin(Math.PI*4/3*((value-min)/(max-min))),radius/10);
         curseur.setTranslateX(3*this.getWidth()/4);
         curseur.setTranslateY(this.getHeight()/2);
         curseur.setFill(Color.WHITE);
         getChildren().addAll(knob,curseur);
+        setOnMousePressed((mouseEvent -> {
+            lastX.set(mouseEvent.getX());
+            valAtLastX.set(valueProp.get());
+        }));
         setOnMouseDragged((mouseEvent -> {
-            double val = (mouseEvent.getX()-3*radius/2)/radius*(max-min)/2;
-            valueProp.set(val);
+            valueProp.set(Double.min(Double.max(valAtLastX.get()+(mouseEvent.getX()-lastX.get())/radius*(max-min),min),max));
         }));
         valueProp.addListener(((observableValue, number, t1) -> {
             if (valueProp.get()>=min && valueProp.get()<=max) {
-                curseur.setCenterX(-0.9*radius*Math.cos(Math.PI*((t1.doubleValue()-min)/(max-min))));
-                curseur.setCenterY(-0.9*radius*Math.sin(Math.PI*((t1.doubleValue()-min)/(max-min))));
+                curseur.setCenterX(-0.9*radius*Math.cos(Math.PI*4/3*((t1.doubleValue()-min)/(max-min))));
+                curseur.setCenterY(-0.9*radius*Math.sin(Math.PI*4/3*((t1.doubleValue()-min)/(max-min))));
         }}));
     }
 
