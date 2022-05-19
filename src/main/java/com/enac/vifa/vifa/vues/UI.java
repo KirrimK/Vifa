@@ -22,6 +22,7 @@ public class UI extends StackPane {
         pqrb.setMaxSize(250, 230);
         setAlignment(pqrb, Pos.CENTER_RIGHT);
         setMargin(pqrb, new Insets(5));
+        pqrb.setTranslateY(-50);
 
         VBox repsEtAngles = new VBox(5, repb);
         repsEtAngles.setTranslateY(30);
@@ -43,13 +44,8 @@ public class UI extends StackPane {
         setMargin(gouvCtl, new Insets(5));
         ThrottlePane throttle = new ThrottlePane(vue);
 
-        //KnobPane knobs = new KnobPane(vue);
-        //knobs.setMaxSize(280,250);
-        //setAlignment(knobs,Pos.CENTER_RIGHT);
-        //knobs.setTranslateY(-100);
-
         HBox cmdes = new HBox(5, throttle, gouvCtl);
-        cmdes.setMaxSize(380, 210);
+        cmdes.setMaxSize(380, 230);
         setMargin(cmdes, new Insets(5));
         cmdes.setAlignment(Pos.CENTER_RIGHT);
         setAlignment(cmdes, Pos.BOTTOM_RIGHT);
