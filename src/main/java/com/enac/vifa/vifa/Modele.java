@@ -257,6 +257,7 @@ public class Modele {
             }
             else {
                 synchronized (modele.getListeDesForces()) {
+                    modele.vue.getGroupeForces().getChildren().clear();
                     for (Vecteur3D azerty : modele.getListeDesForces()) {
                         if (azerty.getNom().equals("mg")){
                             Point3D debut = azerty.getOrigine();
@@ -265,6 +266,8 @@ public class Modele {
                                 vue.getGroupeForces().getTransforms().set(0, new Translate(-debut.getX(), 0, debut.getZ()));
                             }
                             azerty.setOrigineMagnitude(new Point3D(0, 0, 0), azerty.getMagnitude());
+                        }else {
+                            vue.getGroupeForces().getChildren().add(azerty);
                         }
                         azerty.refreshView();
                     }
