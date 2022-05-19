@@ -21,6 +21,7 @@ public class UI extends StackPane {
         PQRPane pqrb = new PQRPane(vue);
 
         VBox repsEtAngles = new VBox(5, repb, pqrb);
+        repsEtAngles.setTranslateY(30);
         repsEtAngles.setMaxSize(180, 200);
         setAlignment(repsEtAngles, Pos.CENTER_LEFT);
         setMargin(repsEtAngles, new Insets(5));

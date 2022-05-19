@@ -1,8 +1,10 @@
 package com.enac.vifa.vifa.vues;
 
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -61,6 +63,14 @@ public class CameraInfoPane extends VBox {
             yrotl.setText("Y Rot (°): -57.0");
         }));
 
+        Button gaucher = new Button("Mode Gaucher");
+        gaucher.setTooltip(new Tooltip("Cliquez ici pour inverser les fonctionnalités des clics gauches et droits."));
+        gaucher.setOnAction((actionEvent -> {
+            vue.setGaucher(!vue.isGaucher());
+            gaucher.setText((vue.isGaucher())?"Mode Droitier":"Mode Gaucher");
+        }));
+        gaucher.setMaxWidth(Double.MAX_VALUE);
+
         GridPane buttonp = new GridPane();
         buttonp.add(topb, 0, 0);
         buttonp.add(sideb, 0, 1);
@@ -73,6 +83,7 @@ public class CameraInfoPane extends VBox {
         }
 
         getChildren().add(buttonp);
+        getChildren().add(gaucher);
         setSpacing(5);
     }
 

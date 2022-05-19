@@ -83,6 +83,16 @@ public class Vue3D extends SubScene {
     private double startx;
     private double starty;
 
+    private boolean gaucher = false;
+
+    public boolean isGaucher() {
+        return gaucher;
+    }
+
+    public void setGaucher(boolean gaucher) {
+        this.gaucher = gaucher;
+    }
+
     private double limit(double d){
         if (d < -90){
             return -90;
@@ -288,7 +298,7 @@ public class Vue3D extends SubScene {
             double sens = 1;
             double diffx = (x - startx)*sens;
             double diffy = (y - starty)*sens;
-            if (mouseEvent.getButton() == MouseButton.PRIMARY){
+            if (mouseEvent.getButton() == ((gaucher)?MouseButton.SECONDARY:MouseButton.PRIMARY)){
                 switch (mode){
                     case ATTITUDE -> {                        
                         SimpleDoubleProperty psiprop = Modele.getInstance().getPsiProperty();
@@ -314,7 +324,7 @@ public class Vue3D extends SubScene {
                     }
                 }
             }
-            else if (mouseEvent.getButton() == MouseButton.SECONDARY){
+            else if (mouseEvent.getButton() == ((!gaucher)?MouseButton.SECONDARY:MouseButton.PRIMARY)){
                 yrotprop.set(yrotprop.get() + diffx);
                 xrotprop.set(limit(xrotprop.get() - diffy));
             }
