@@ -71,7 +71,7 @@ public class Modele {
     private final String COMPUTE_DEMND = "StartComputation mass=%f xcg=%f vair=%f psi=%f theta=%f phi=%f alpha=%f betha=%f a0=%f trim=%f dl=%f dm=%f dn=%f dx=%f p=%f q=%f r=%f";
     private final String DEMANDE_DESCR = "StartGettingShapes mass=%f xcg=%f vair=%f psi=%f theta=%f phi=%f alpha=%f betha=%f a0=%f trim=%f dl=%f dm=%f dn=%f";
 
-    private static final double VECTOR_SCALING = 10000;
+    private static final double VECTOR_SCALING = 20000;
     private final ArrayList<Forme3D> listeDesFormes3D;
 
     private Vue3D vue;
