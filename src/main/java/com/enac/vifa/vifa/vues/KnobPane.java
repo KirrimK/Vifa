@@ -31,11 +31,13 @@ public class KnobPane extends ControllerPane{
     
     public KnobPane(Vue3D vue) {
         super(vue);
-        pl = new Label("Vitesse de rotation p (m/s):");
-        phil = new Label("Phi (deg):");
+        pl = new Label("Vitesse de rotation P (rad/s):");
+        phil = new Label("Phi (°):");
         gap = new Label ("");
         Knob pKnob = new Knob(-Math.PI, Math.PI, 0, 50);
         Knob phiKnob = new Knob(-180, 180, 0, 50);
+        pKnob.setRotate(-30);
+        phiKnob.setRotate(-30);
 
         pKnob.valueProperty().bindBidirectional(Modele.getInstance().getPProperty());
         phiKnob.valueProperty().bindBidirectional(Modele.getInstance().getPhiProperty());
