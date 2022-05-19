@@ -1,5 +1,6 @@
 package com.enac.vifa.vifa.vues;
 
+import com.enac.vifa.vifa.Configuration;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -42,8 +43,9 @@ public class Knob extends Pane{
             lastY.set(mouseEvent.getY());
             valAtLastPress.set(valueProp.get());
         }));
+        double sensibilite = Configuration.getInstance().getReducSensibilite();
         setOnMouseDragged((mouseEvent -> {
-            valueProp.set(Double.min(Double.max(valAtLastPress.get()+(mouseEvent.getX()+mouseEvent.getY()-lastX.get()-lastY.get())/radius*(max-min),min),max));
+            valueProp.set(Double.min(Double.max(valAtLastPress.get()+(mouseEvent.getX()+mouseEvent.getY()-lastX.get()-lastY.get())/radius*(max-min)/sensibilite,min),max));
         }));
         valueProp.addListener(((observableValue, number, t1) -> {
             if (valueProp.get()>=min && valueProp.get()<=max) {
