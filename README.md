@@ -37,5 +37,6 @@ Vous pouvez alors redistribuer le dossier généré sans avoir besoin d'installe
 Pour packager l'IHM sur la même plateforme que votre machine, lancez ```mvn package```.
 Le résultat est le .jar shaded dans le dossier "target".
 
-Le .jar peut alors être redistribué sur toute machine ayant OpenJDK ~17.0.1 installé,
+Le .jar peut alors être redistribué sur toute machine ayant OpenJDK ~17.0.1 installé
+(de la même plateforme que celle sur laquelle vous avez construit le projet),
 ou bien vous pouvez joindre une copie du JDK avec.
