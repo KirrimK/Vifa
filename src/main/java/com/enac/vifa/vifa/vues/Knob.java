@@ -2,8 +2,11 @@ package com.enac.vifa.vifa.vues;
 
 import com.enac.vifa.vifa.Configuration;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
 public class Knob extends Pane{
@@ -22,7 +25,7 @@ public class Knob extends Pane{
     public void setAilProp(double ailProp) {
         this.valueProp.set(ailProp);
     }
-    public Knob(double min, double max, double value, double radius){
+    public Knob(double min, double max, double value, double radius, Color col){
         valueProp = new SimpleDoubleProperty(value);
         lastX = new SimpleDoubleProperty();
         lastY = new SimpleDoubleProperty();
@@ -30,13 +33,13 @@ public class Knob extends Pane{
         this.setHeight(radius*2);
         this.setWidth(radius*2);
         Circle knob = new Circle(0,0,radius);
-        knob.setTranslateX(3*this.getWidth()/4);
-        knob.setTranslateY(this.getHeight()/2);
+        knob.setTranslateY(this.getWidth()/2);
+        knob.setTranslateX(this.getHeight()/2);
         knob.setFill(Color.BLACK);
-        Circle curseur = new Circle(-0.9*radius*Math.cos(Math.PI*179/90*((value-min)/(max-min))),-0.9*radius*Math.sin(Math.PI*179/90*((value-min)/(max-min))),radius/10);
-        curseur.setTranslateX(3*this.getWidth()/4);
-        curseur.setTranslateY(this.getHeight()/2);
-        curseur.setFill(Color.WHITE);
+        Circle curseur = new Circle(-0.9*radius*Math.cos(Math.PI*179/90*((value-min)/(max-min))-Math.PI/2),-0.9*radius*Math.sin(Math.PI*179/90*((value-min)/(max-min))-Math.PI/2),radius/10);
+        curseur.setFill(col);
+        curseur.setTranslateY(this.getWidth()/2);
+        curseur.setTranslateX(this.getHeight()/2);
         getChildren().addAll(knob,curseur);
         setOnMousePressed((mouseEvent -> {
             lastX.set(mouseEvent.getX());
@@ -49,8 +52,8 @@ public class Knob extends Pane{
         }));
         valueProp.addListener(((observableValue, number, t1) -> {
             if (valueProp.get()>=min && valueProp.get()<=max) {
-                curseur.setCenterX(-0.9*radius*Math.cos(Math.PI*179/90*((t1.doubleValue()-min)/(max-min))));
-                curseur.setCenterY(-0.9*radius*Math.sin(Math.PI*179/90*((t1.doubleValue()-min)/(max-min))));
+                curseur.setCenterX(-0.9*radius*Math.cos(Math.PI*179/90*((t1.doubleValue()-min)/(max-min))-Math.PI/2));
+                curseur.setCenterY(-0.9*radius*Math.sin(Math.PI*179/90*((t1.doubleValue()-min)/(max-min))-Math.PI/2));
         }}));
     }
 

@@ -11,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Priority;
 import javafx.scene.control.TextField;
-import javafx.scene.transform.Rotate;
 import javafx.util.converter.NumberStringConverter;
 
 
@@ -165,7 +164,7 @@ public class GouverneControllerPane extends ControllerPane {
         getChildren().addAll(titre, prof, dir, ailerons, profInfo, dirInfo, ailInfo,profs,dirs,ails, triml, trims, trimt, manche);
         setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7; -fx-background-radius: 5px;");
 
-        //setHgap(15);
+        setVgap(5);
         setAlignment(Pos.CENTER);
 
         for (Node node: getChildren()){

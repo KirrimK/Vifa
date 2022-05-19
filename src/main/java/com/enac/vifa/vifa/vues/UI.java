@@ -19,10 +19,13 @@ public class UI extends StackPane {
 
         RepereControllerPane repb = new RepereControllerPane(vue);
         PQRPane pqrb = new PQRPane(vue);
+        pqrb.setMaxSize(250, 230);
+        setAlignment(pqrb, Pos.CENTER_RIGHT);
+        setMargin(pqrb, new Insets(5));
 
-        VBox repsEtAngles = new VBox(5, repb, pqrb);
+        VBox repsEtAngles = new VBox(5, repb);
         repsEtAngles.setTranslateY(30);
-        repsEtAngles.setMaxSize(180, 200);
+        repsEtAngles.setMaxSize(240, 300);
         setAlignment(repsEtAngles, Pos.CENTER_LEFT);
         setMargin(repsEtAngles, new Insets(5));
 
@@ -40,10 +43,10 @@ public class UI extends StackPane {
         setMargin(gouvCtl, new Insets(5));
         ThrottlePane throttle = new ThrottlePane(vue);
 
-        KnobPane knobs = new KnobPane(vue);
-        knobs.setMaxSize(280,250);
-        setAlignment(knobs,Pos.CENTER_RIGHT);
-        knobs.setTranslateY(-100);
+        //KnobPane knobs = new KnobPane(vue);
+        //knobs.setMaxSize(280,250);
+        //setAlignment(knobs,Pos.CENTER_RIGHT);
+        //knobs.setTranslateY(-100);
 
         HBox cmdes = new HBox(5, throttle, gouvCtl);
         cmdes.setMaxSize(380, 210);
@@ -72,6 +75,6 @@ public class UI extends StackPane {
         selecpan.setMaxSize(180, 91);
         setMargin(selecpan, new Insets(5));
 
-        getChildren().addAll(repsEtAngles,camInfo,form,cmdes,selecpan,knobs);
+        getChildren().addAll(repsEtAngles,camInfo,form,cmdes,selecpan,pqrb);
     }
 }

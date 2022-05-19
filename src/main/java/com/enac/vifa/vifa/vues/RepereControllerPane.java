@@ -1,12 +1,14 @@
 package com.enac.vifa.vifa.vues;
 
 import com.enac.vifa.vifa.Modele;
+import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.beans.binding.Bindings;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Priority;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.util.converter.NumberStringConverter;
 
 /**
@@ -40,17 +42,19 @@ public class RepereControllerPane extends ControllerPane{
         //Box sliders repères
         super(vue);
         Label rpl = new Label("Repères:");
+        setColumnSpan(rpl, 2);
 
         setRowIndex(rpl, 0);
-        psil = new Label("Psi (°):");
+        psil = new Label("Psi(°)");
         setRowIndex(psil, 1);
         psils = new TextField("0.0");
+        psils.setMaxSize(50, 30);
         psils.setMaxSize(50, 50);
-        setColumnIndex(psils, 1);
+        setColumnIndex(psils, 2);
         setRowIndex(psils, 1);
-        setRowSpan(psils, 2);
         psis = new Slider(-180, 180, 0);
-        setRowIndex(psis, 2);
+        setRowIndex(psis, 1);
+        setColumnIndex(psis, 1);
         psis.valueProperty().bindBidirectional(Modele.getInstance().getPsiProperty());
         psis.valueProperty().addListener(((observableValue, number, t1) -> {
             vue.rotatePsi(t1.doubleValue());
@@ -60,15 +64,15 @@ public class RepereControllerPane extends ControllerPane{
         NumberStringConverter sPsi = new NumberStringConverter();
         Bindings.bindBidirectional(psils.textProperty(), psis.valueProperty(), sPsi);
 
-        phil = new Label("Phi (°):");
-        setRowIndex(phil, 3);
+        phil = new Label("Phi(°)");
+        setRowIndex(phil, 4);
         phils = new TextField("0.0");
-        phils.setMaxSize(50, 50);
-        setColumnIndex(phils, 1);
+        phils.setMaxSize(50, 30);
         setRowIndex(phils,3);
-        setRowSpan(phils, 2);
         phis = new Slider(-180, 180, 0);
-        setRowIndex(phis, 4);
+        phis.setStyle(" -fx-color: RED;");
+        phis.setOrientation(Orientation.VERTICAL);
+        setRowIndex(phis, 2);
         phis.valueProperty().bindBidirectional(Modele.getInstance().getPhiProperty());
         phis.valueProperty().addListener(((observableValue, number, t1) -> {
             vue.rotatePhi(t1.doubleValue());
@@ -78,15 +82,22 @@ public class RepereControllerPane extends ControllerPane{
         NumberStringConverter sPhi = new NumberStringConverter();
         Bindings.bindBidirectional(phils.textProperty(), phis.valueProperty(), sPhi);
 
-        thetal = new Label("Theta (°):");
-        setRowIndex(thetal, 5);
+        Knob phiKnob = new Knob(-180, 180, 0, 65, Color.RED);
+        phiKnob.valueProperty().bindBidirectional(Modele.getInstance().getPhiProperty());
+        setRowIndex(phiKnob, 2);
+        setColumnIndex(phiKnob, 1);
+
+        thetal = new Label("Theta(°)");
+        setRowIndex(thetal, 4);
+        setColumnIndex(thetal, 2);
         thetals = new TextField("0.0");
-        thetals.setMaxSize(50, 50);
-        setColumnIndex(thetals, 1);
-        setRowIndex(thetals,5);
-        setRowSpan(thetals, 2);
+        thetals.setMaxSize(50, 30);
+        setColumnIndex(thetals, 2);
+        setRowIndex(thetals,3);
         thetas = new Slider(-180, 180, 0);
-        setRowIndex(thetas, 6);
+        thetas.setOrientation(Orientation.VERTICAL);
+        setRowIndex(thetas, 2);
+        setColumnIndex(thetas, 2);
         thetas.valueProperty().bindBidirectional(Modele.getInstance().getThetaProperty());
         thetas.valueProperty().addListener(((observableValue, number, t1) -> {
             vue.rotateTheta(t1.doubleValue());
@@ -96,15 +107,15 @@ public class RepereControllerPane extends ControllerPane{
         NumberStringConverter sTheta = new NumberStringConverter();
         Bindings.bindBidirectional(thetals.textProperty(),thetas.valueProperty(), sTheta);
 
-        alphal = new Label("Alpha (°):");
-        setRowIndex(alphal, 7);
+        alphal = new Label("Alpha(°)");
+        setRowIndex(alphal, 5);
         alphals = new TextField("0.0");
-        alphals.setMaxSize(50, 50);
-        setColumnIndex(alphals, 1);
-        setRowIndex(alphals,7);
-        setRowSpan(alphals, 2);
+        alphals.setMaxSize(50, 30);
+        setColumnIndex(alphals, 2);
+        setRowIndex(alphals,5);
         alphas = new Slider(-180, 180, 0);
-        setRowIndex(alphas, 8);
+        setRowIndex(alphas, 5);
+        setColumnIndex(alphas, 1);
         alphas.valueProperty().bindBidirectional(Modele.getInstance().getAlphaProperty());
         alphas.valueProperty().addListener(((observableValue, number, t1) -> {
             vue.rotateAlpha(t1.doubleValue());
@@ -115,15 +126,15 @@ public class RepereControllerPane extends ControllerPane{
         NumberStringConverter sAlpha = new NumberStringConverter();
         Bindings.bindBidirectional(alphals.textProperty(), alphas.valueProperty(), sAlpha);
 
-        betal = new Label("Beta (°):");
-        setRowIndex(betal, 9);
+        betal = new Label("Beta(°)");
+        setRowIndex(betal, 6);
         betals = new TextField("0.0");
-        betals.setMaxSize(50, 50);
-        setColumnIndex(betals, 1);
-        setRowIndex(betals,9);
-        setRowSpan(betals ,2);
+        betals.setMaxSize(50, 30);
+        setColumnIndex(betals, 2);
+        setRowIndex(betals,6);
         betas = new Slider(-180, 180, 0);
-        setRowIndex(betas, 10);
+        setRowIndex(betas, 6);
+        setColumnIndex(betas, 1);
         betas.valueProperty().bindBidirectional(Modele.getInstance().getBetaProperty());
         betas.valueProperty().addListener(((observableValue, number, t1) -> {
             vue.rotateBeta(t1.doubleValue());
@@ -134,7 +145,7 @@ public class RepereControllerPane extends ControllerPane{
         NumberStringConverter sBeta = new NumberStringConverter();
         Bindings.bindBidirectional(betals.textProperty(), betas.valueProperty(), sBeta);
 
-        getChildren().addAll(rpl, psil, psis,psils, phil, phis,phils, thetal, thetas,thetals, alphal, alphas,alphals, betal, betas,betals);
+        getChildren().addAll(rpl, psil, psis,psils, phil, phis,phils, thetal, thetas,thetals, alphal, alphas,alphals, betal, betas,betals, phiKnob);
         setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7; -fx-background-radius: 5px;");
         for (Node node: getChildren()){
             setHgrow(node, Priority.ALWAYS);
