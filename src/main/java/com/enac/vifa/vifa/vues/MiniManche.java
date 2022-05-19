@@ -1,5 +1,6 @@
 package com.enac.vifa.vifa.vues;
 
+import com.enac.vifa.vifa.Configuration;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -56,18 +57,20 @@ public class MiniManche extends Pane {
         curseur.setTranslateX(-7.5);
         curseur.setTranslateY(-7.5);
 
+        double govMax = 90;//Configuration.getInstance().getGovMax();
+
         setOnMouseDragged((mouseEvent -> {
-            double ail = (mouseEvent.getX() - this.getHeight()/2)/(this.getHeight()/2)*90;
-            double prof = (-mouseEvent.getY() + this.getHeight()/2)/(this.getHeight()/2)*90;
+            double ail = (mouseEvent.getX() - this.getHeight()/2)/(this.getHeight()/2)*govMax;
+            double prof = (-mouseEvent.getY() + this.getHeight()/2)/(this.getHeight()/2)*govMax;
             ailProp.set(ail);
             profProp.set(prof);
         }));
 
         ailProp.addListener(((observableValue, number, t1) -> {
-            curseur.setX(min(max(7.5, this.getHeight()/2+(t1.doubleValue()/90)*this.getHeight()/2), this.getHeight()-7.5));
+            curseur.setX(min(max(7.5, this.getHeight()/2+(t1.doubleValue()/govMax)*this.getHeight()/2), this.getHeight()-7.5));
         }));
         profProp.addListener(((observableValue, number, t1) -> {
-            curseur.setY(min(max(7.5, this.getHeight()/2-(t1.doubleValue()/90)*this.getHeight()/2), this.getHeight()-7.5));
+            curseur.setY(min(max(7.5, this.getHeight()/2-(t1.doubleValue()/govMax)*this.getHeight()/2), this.getHeight()-7.5));
         }));
 
         curseur.setX(68);

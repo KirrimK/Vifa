@@ -3,6 +3,7 @@ package com.enac.vifa.vifa;
 import com.enac.vifa.vifa.vues.*;
 import javafx.application.Application;
 import javafx.scene.*;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
@@ -15,6 +16,13 @@ public class Main extends Application {
 
         Modele modele = Modele.getInstance();
         modele.setVue(vue);
+
+        Button bruh = new Button("Purger forces");
+        bruh.setOnAction((actionEvent -> {
+            vue.getGroupeForces().getChildren().clear();
+        }));
+
+        ui.getChildren().add(bruh);
 
         modele.descriptionService.start();
         modele.getForcesMomentService.start();
