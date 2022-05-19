@@ -29,7 +29,7 @@ public class SelectionAffichagePanneau extends ControllerPane{
         caseForces.setSelected(true);
         this.add(caseForces,0,1);
 
-        this.caseMoment = new CheckBox("Moment");
+        this.caseMoment = new CheckBox("Moments");
         caseMoment.setOnAction(event -> vue.setVisibleGroupeMoment(caseMoment.isSelected()));
         caseMoment.setSelected(true);
         this.add(caseMoment,0,2);
