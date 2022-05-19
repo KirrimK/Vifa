@@ -36,8 +36,8 @@ public class KnobPane extends ControllerPane{
         gap = new Label ("");
         Knob pKnob = new Knob(-Math.PI, Math.PI, 0, 50);
         Knob phiKnob = new Knob(-180, 180, 0, 50);
-        pKnob.setRotate(-30);
-        phiKnob.setRotate(-30);
+        pKnob.setRotate(-89);
+        phiKnob.setRotate(-89);
 
         pKnob.valueProperty().bindBidirectional(Modele.getInstance().getPProperty());
         phiKnob.valueProperty().bindBidirectional(Modele.getInstance().getPhiProperty());
