@@ -39,6 +39,11 @@ public class UI extends StackPane {
         setMargin(gouvCtl, new Insets(5));
         ThrottlePane throttle = new ThrottlePane(vue);
 
+        KnobPane knobs = new KnobPane(vue);
+        knobs.setMaxSize(280,250);
+        setAlignment(knobs,Pos.CENTER_RIGHT);
+        knobs.setTranslateY(-100);
+
         HBox cmdes = new HBox(5, throttle, gouvCtl);
         cmdes.setMaxSize(380, 210);
         setMargin(cmdes, new Insets(5));
@@ -66,10 +71,6 @@ public class UI extends StackPane {
         selecpan.setMaxSize(180, 91);
         setMargin(selecpan, new Insets(5));
 
-        getChildren().add(repsEtAngles);
-        getChildren().add(camInfo);
-        getChildren().add(form);
-        getChildren().add(cmdes);
-        getChildren().add(selecpan);
+        getChildren().addAll(repsEtAngles,camInfo,form,cmdes,selecpan,knobs);
     }
 }
