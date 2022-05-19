@@ -71,7 +71,7 @@ public class Modele {
     private final String COMPUTE_DEMND = "StartComputation mass=%f xcg=%f vair=%f psi=%f theta=%f phi=%f alpha=%f betha=%f a0=%f trim=%f dl=%f dm=%f dn=%f dx=%f p=%f q=%f r=%f";
     private final String DEMANDE_DESCR = "StartGettingShapes mass=%f xcg=%f vair=%f psi=%f theta=%f phi=%f alpha=%f betha=%f a0=%f trim=%f dl=%f dm=%f dn=%f";
 
-    private static final double VECTOR_SCALING = 40000;
+    private static final double VECTOR_SCALING = Configuration.getInstance().getVectorScaling();
     private final ArrayList<Forme3D> listeDesFormes3D;
 
     private Vue3D vue;
@@ -101,7 +101,7 @@ public class Modele {
         this.listeDesFormes = new ArrayList<Forme2D>();
         this.listeDesFormes3D= new ArrayList<Forme3D>();
         this.listeDesForces = new ArrayList<Vecteur3D>();
-        this.momentTotal = new Moment3D(new Point3D(0, 0, 0), 22, 22, 22, 0, 0, 0, "mx_total", "my_total", "mz_total",
+        this.momentTotal = new Moment3D(new Point3D(0, 0, 0), 25, 25, 25, 0, 0, 0, "mx_total", "my_total", "mz_total",
                                         Configuration.getInstance().getCouleurMoment());
         this.xCentrage=new SimpleDoubleProperty(0.2555) ;
         this.vAir=new SimpleDoubleProperty(150) ;

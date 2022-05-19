@@ -34,7 +34,11 @@ public class Configuration {
     private double vitesseRotationToDegres =2;
     private double momentToDegre = 0.000005;
 
+    private double vectorScaling = 40000;
 
+    private double repereScaling = 10;
+
+    private double reducSensibilite = 1;
 
     /**
      * Constructeur de la classe configuration.
@@ -150,6 +154,14 @@ public class Configuration {
                             case "momentToDegre":
                                 momentToDegre = Double.parseDouble(mots[1]);
                                 break;
+                            case "vectorScaling":
+                                vectorScaling = Double.parseDouble(mots[1]);
+                                break;
+                            case "repereScaling":
+                                repereScaling = Double.parseDouble(mots[1]);
+                                break;
+                            case "reducSensibilite":
+                                reducSensibilite = Double.parseDouble(mots[1]);
                             default:
                                 System.out.println("Gibberish line : \n"+ligne);
                                 break;
@@ -251,5 +263,17 @@ public class Configuration {
     }
     public double getZoomDefault(){
         return zoomDefault;
+    }
+
+    public double getVectorScaling(){
+        return vectorScaling;
+    }
+
+    public double getRepereScaling(){
+        return repereScaling;
+    }
+
+    public double getReducSensibilite() {
+        return reducSensibilite;
     }
 }

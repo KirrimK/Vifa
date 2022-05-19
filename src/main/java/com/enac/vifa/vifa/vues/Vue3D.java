@@ -117,12 +117,15 @@ public class Vue3D extends SubScene {
         Color avColor = conf.getCouleurRepèreAvion();
         Color aerColor = conf.getCouleurRepèreAero();
 
+        double repereScaling = Configuration.getInstance().getRepereScaling();
+        double sensibilite = Configuration.getInstance().getReducSensibilite();
+
         //repère terrestre
-        Vecteur3D trx = new Vecteur3D("x terrestre", new Point3D(25, 0, 0), new Point3D(10, 0, 0), terrColor);
+        Vecteur3D trx = new Vecteur3D("x terrestre", new Point3D(25, 0, 0), new Point3D(repereScaling, 0, 0), terrColor);
         trx.refreshView();
-        Vecteur3D trz = new Vecteur3D("z terrestre", new Point3D(0, 25, 0), new Point3D(0, 10, 0), terrColor);
+        Vecteur3D trz = new Vecteur3D("z terrestre", new Point3D(0, 25, 0), new Point3D(0, repereScaling, 0), terrColor);
         trz.refreshView();
-        Vecteur3D try_ = new Vecteur3D("y terrestre", new Point3D(0, 0, -25), new Point3D(0, 0, -10), terrColor);
+        Vecteur3D try_ = new Vecteur3D("y terrestre", new Point3D(0, 0, -25), new Point3D(0, 0, -repereScaling), terrColor);
         try_.refreshView();
 
         ground = new FormeDeSol();
@@ -134,21 +137,21 @@ public class Vue3D extends SubScene {
 
 
         //angles de rotation du repère terrestre
-        apsix = new FlecheArrondie3D("psi", 35, 0, conf.getCouleurPsiThetaPhi());
+        apsix = new FlecheArrondie3D("psi", 25+repereScaling, 0, conf.getCouleurPsiThetaPhi());
         apsix.getTransforms().setAll(
                 new Rotate(-90, Rotate.X_AXIS)
         );
-        athetax = new FlecheArrondie3D("theta", 35, 0, conf.getCouleurPsiThetaPhi());
+        athetax = new FlecheArrondie3D("theta", 25+repereScaling, 0, conf.getCouleurPsiThetaPhi());
         athetax.getTransforms().setAll(
                 new Rotate(0, Rotate.Y_AXIS)
         );
 
-        apsiy = new FlecheArrondie3D("psi", 35, 0, conf.getCouleurPsiThetaPhi());
+        apsiy = new FlecheArrondie3D("psi", 25+repereScaling, 0, conf.getCouleurPsiThetaPhi());
         apsiy.getTransforms().setAll(
                 new Rotate(90, Rotate.Y_AXIS),
                 new Rotate(-90, Rotate.X_AXIS)
         );
-        aphiy = new FlecheArrondie3D("phi", 35, 0, conf.getCouleurPsiThetaPhi());
+        aphiy = new FlecheArrondie3D("phi", 25+repereScaling, 0, conf.getCouleurPsiThetaPhi());
         aphiy.getTransforms().setAll(
                 new Rotate(-90, Rotate.Y_AXIS),
                 new Rotate(0, Rotate.X_AXIS),
@@ -156,12 +159,12 @@ public class Vue3D extends SubScene {
         );
 
 
-        aphiz = new FlecheArrondie3D("phi", 35, 0, conf.getCouleurPsiThetaPhi());
+        aphiz = new FlecheArrondie3D("phi", 25+repereScaling, 0, conf.getCouleurPsiThetaPhi());
         aphiz.getTransforms().setAll(
                 new Rotate(90, Rotate.Y_AXIS),
                 new Rotate(180, Rotate.X_AXIS)
         );
-        athetaz = new FlecheArrondie3D("theta", 35, 0, conf.getCouleurPsiThetaPhi());
+        athetaz = new FlecheArrondie3D("theta", 25+repereScaling, 0, conf.getCouleurPsiThetaPhi());
         athetaz.getTransforms().setAll(
                 new Rotate(0, Rotate.Y_AXIS),
                 new Rotate(90, Rotate.Z_AXIS)
@@ -196,41 +199,41 @@ public class Vue3D extends SubScene {
         repereAvion.getChildren().add(groupeAvionTemp);
         repereAvion.getChildren().add(groupeForces);
 
-        Vecteur3D avx = new Vecteur3D("x avion", new Point3D(35, 0, 0), new Point3D(10, 0, 0), avColor);
+        Vecteur3D avx = new Vecteur3D("x avion", new Point3D(25+repereScaling, 0, 0), new Point3D(repereScaling, 0, 0), avColor);
         avx.refreshView();
-        Vecteur3D avz = new Vecteur3D("z avion", new Point3D(0, 35, 0), new Point3D(0, 10, 0), avColor);
+        Vecteur3D avz = new Vecteur3D("z avion", new Point3D(0, 25+repereScaling, 0), new Point3D(0, repereScaling, 0), avColor);
         avz.refreshView();
-        Vecteur3D avy = new Vecteur3D("y avion", new Point3D(0, 0, -35), new Point3D(0, 0, -10), avColor);
+        Vecteur3D avy = new Vecteur3D("y avion", new Point3D(0, 0, -25-repereScaling), new Point3D(0, 0, -repereScaling), avColor);
         avy.refreshView();
 
         tbp = new TireBouchon3D("p", 5, 0, Configuration.getInstance().getCouleurVitessesRotation());
         tbq = new TireBouchon3D("q", 5, 0, Configuration.getInstance().getCouleurVitessesRotation());
         tbr = new TireBouchon3D("r", 5, 0, Configuration.getInstance().getCouleurVitessesRotation());
 
-        tbp.getTransforms().setAll(new Translate(35, 0, 0));
+        tbp.getTransforms().setAll(new Translate(25+repereScaling, 0, 0));
         tbq.getTransforms().setAll(
             new Rotate(90, Rotate.Y_AXIS),
-            new Translate(35, 0, 0)
+            new Translate(25+repereScaling, 0, 0)
         );
         tbr.getTransforms().setAll(
             new Rotate(90, Rotate.Z_AXIS),
-            new Translate(35, 0, 0)
+            new Translate(25+repereScaling, 0, 0)
         );
 
         flechesAvion.getChildren().addAll(avx, avy, avz);
         repereAvion.getChildren().addAll(flechesAvion, tbp, tbq, tbr);
 
-        aalphax = new FlecheArrondie3D("alpha", 45, 0, conf.getCouleurAlphaBeta());
+        aalphax = new FlecheArrondie3D("alpha", 25+repereScaling*2, 0, conf.getCouleurAlphaBeta());
 
-        abetax = new FlecheArrondie3D("beta", 45, 0, conf.getCouleurAlphaBeta());
+        abetax = new FlecheArrondie3D("beta", 25+repereScaling*2, 0, conf.getCouleurAlphaBeta());
         abetax.getTransforms().setAll(new Rotate(90, Rotate.X_AXIS));
 
-        aalphaz = new FlecheArrondie3D("alpha", 45, 0, conf.getCouleurAlphaBeta());
+        aalphaz = new FlecheArrondie3D("alpha", 25+repereScaling*2, 0, conf.getCouleurAlphaBeta());
         aalphaz.getTransforms().setAll(
                 new Rotate(90, Rotate.Z_AXIS)
         );
 
-        abetay = new FlecheArrondie3D("beta", 45, 0, conf.getCouleurAlphaBeta());
+        abetay = new FlecheArrondie3D("beta", 25+repereScaling*2, 0, conf.getCouleurAlphaBeta());
         abetay.getTransforms().setAll(
                 new Rotate(90, Rotate.X_AXIS),
                 new Rotate(-90, Rotate.Z_AXIS)
@@ -248,11 +251,11 @@ public class Vue3D extends SubScene {
         repereAeroPart.getChildren().add(beta);
         repereAeroPart.getChildren().add(repereAero);
 
-        Vecteur3D aerx = new Vecteur3D("x aéro", new Point3D(45, 0, 0), new Point3D(10, 0, 0), aerColor);
+        Vecteur3D aerx = new Vecteur3D("x aéro", new Point3D(25+repereScaling*2, 0, 0), new Point3D(repereScaling, 0, 0), aerColor);
         aerx.refreshView();
-        Vecteur3D aerz = new Vecteur3D("z aéro", new Point3D(0, 45, 0), new Point3D(0, 10, 0), aerColor);
+        Vecteur3D aerz = new Vecteur3D("z aéro", new Point3D(0, 25+repereScaling*2, 0), new Point3D(0, repereScaling, 0), aerColor);
         aerz.refreshView();
-        Vecteur3D aery = new Vecteur3D("y aéro", new Point3D(0, 0, -45), new Point3D(0, 0, -10), aerColor);
+        Vecteur3D aery = new Vecteur3D("y aéro", new Point3D(0, 0, -25-repereScaling*2), new Point3D(0, 0, -repereScaling), aerColor);
         aery.refreshView();
 
         repereAero.getChildren().add(aerx);
@@ -295,9 +298,8 @@ public class Vue3D extends SubScene {
         setOnMouseDragged((mouseEvent -> {
             double x = mouseEvent.getX();
             double y = mouseEvent.getY();
-            double sens = 1;
-            double diffx = (x - startx)*sens;
-            double diffy = (y - starty)*sens;
+            double diffx = (x - startx)/sensibilite;
+            double diffy = (y - starty)/sensibilite;
             if (mouseEvent.getButton() == ((gaucher)?MouseButton.SECONDARY:MouseButton.PRIMARY)){
                 switch (mode){
                     case ATTITUDE -> {                        
