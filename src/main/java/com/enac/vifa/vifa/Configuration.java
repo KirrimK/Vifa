@@ -34,7 +34,8 @@ public class Configuration {
     private Color couleurVitessesRotation = Color.DARKVIOLET;
     private Color couleurMoment = Color.GREEN;
     private Color couleurFond = Color.BLACK;
-    private Color couleurSol = new Color(95.0/255,91.0/255,53.0/255,1);
+    private Color couleurSol = new Color(95.0/255,91.0/255,53.0/255,0.5);
+    private Color couleurGrilleSol = Color.DARKKHAKI;
     private double vitesseRotationToDegres =2;
     private double momentToDegre = 0.000005;
 
@@ -164,6 +165,11 @@ public class Configuration {
                                     couleurFond = couleurFromString(mots[1]);
                                 }
                                 break;
+                            case "couleurGrilleSol" :
+                                if (! mots[1].equals("DEFAULT")){
+                                    couleurFond = couleurFromString(mots[1]);
+                                }
+                                break;
                             case "vitesseRotationToDegres":
                                 vitesseRotationToDegres = Double.parseDouble(mots[1]);
                                 break;
@@ -178,6 +184,7 @@ public class Configuration {
                                 break;
                             case "reducSensibilite":
                                 reducSensibilite = Double.parseDouble(mots[1]);
+                                break;
                             default:
                                 System.out.println("Gibberish line : \n"+ligne);
                                 break;
@@ -301,4 +308,9 @@ public class Configuration {
     public double getReducSensibilite() {
         return reducSensibilite;
     }
+
+    public Color getCouleurGrilleSol() {
+        return couleurGrilleSol;
+    }
+
 }
