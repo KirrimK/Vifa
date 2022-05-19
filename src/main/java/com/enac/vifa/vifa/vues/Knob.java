@@ -2,11 +2,8 @@ package com.enac.vifa.vifa.vues;
 
 import com.enac.vifa.vifa.Configuration;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
 public class Knob extends Pane{
