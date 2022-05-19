@@ -17,6 +17,10 @@ public class Configuration {
     private double zoomMin = 25;
     private double zoomDefault = 300;
     private double hauteur = 100;
+    private double trimMin = -10;
+    private double trimMax = 5;
+    private double govMin = -30;
+    private double govMax = 30;
     private String launchMessage = "";
     private int facteurApproximationArrondis = 2;
     private Color couleurSurfaceControle = Color.ORANGE;
@@ -69,6 +73,18 @@ public class Configuration {
                                     default:
                                         break;
                                 }
+                                break;
+                            case "trimMin":
+                                trimMin = Double.parseDouble(mots[1]);
+                                break;
+                            case "trimMax":
+                                trimMax = Double.parseDouble(mots[1]);
+                                break;
+                            case "govMin":
+                                govMin = Double.parseDouble(mots[1]);
+                                break;
+                            case "govMax":
+                                govMax = Double.parseDouble(mots[1]);
                                 break;
                             case "zoomMin":
                                 zoomMin = Double.parseDouble(mots[1]);
@@ -264,15 +280,24 @@ public class Configuration {
     public double getZoomDefault(){
         return zoomDefault;
     }
-
+    public double getGovMax(){
+        return govMax;
+    }
+    public double getGovMin(){
+        return govMin;
+    }
+    public double getTrimMax(){
+        return trimMax;
+    }
+    public double getTrimMin(){
+        return trimMin;
+    }
     public double getVectorScaling(){
         return vectorScaling;
     }
-
     public double getRepereScaling(){
         return repereScaling;
     }
-
     public double getReducSensibilite() {
         return reducSensibilite;
     }

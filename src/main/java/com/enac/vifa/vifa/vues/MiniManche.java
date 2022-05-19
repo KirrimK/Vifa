@@ -57,7 +57,7 @@ public class MiniManche extends Pane {
         curseur.setTranslateX(-7.5);
         curseur.setTranslateY(-7.5);
 
-        double govMax = 90;//Configuration.getInstance().getGovMax();
+        double govMax = Configuration.getInstance().getGovMax();
 
         setOnMouseDragged((mouseEvent -> {
             double ail = (mouseEvent.getX() - this.getHeight()/2)/(this.getHeight()/2)*govMax;
