@@ -167,7 +167,7 @@ public class Configuration {
                                 break;
                             case "couleurGrilleSol" :
                                 if (! mots[1].equals("DEFAULT")){
-                                    couleurFond = couleurFromString(mots[1]);
+                                    couleurGrilleSol = couleurFromString(mots[1]);
                                 }
                                 break;
                             case "vitesseRotationToDegres":
