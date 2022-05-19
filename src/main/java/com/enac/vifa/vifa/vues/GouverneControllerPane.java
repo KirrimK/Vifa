@@ -1,5 +1,6 @@
 package com.enac.vifa.vifa.vues;
 
+import com.enac.vifa.vifa.Configuration;
 import com.enac.vifa.vifa.Modele;
 
 import javafx.beans.binding.Bindings;
@@ -29,6 +30,11 @@ public class GouverneControllerPane extends ControllerPane {
     private final Slider ailerons;
     private final TextField ails;
 
+    private final double govMax=Configuration.getInstance().getGovMax();
+    private final double govMin=Configuration.getInstance().getGovMin();
+    private final double trimMax=Configuration.getInstance().getTrimMax();
+    private final double trimMin=Configuration.getInstance().getTrimMin();
+
     private final Label triml;
 
     private final Slider trims;
@@ -57,7 +63,7 @@ public class GouverneControllerPane extends ControllerPane {
         NumberStringConverter scProf = new NumberStringConverter();
 
 
-        prof = new Slider(-90, 90, 0);
+        prof = new Slider(govMin, govMax, 0);
         prof.setStyle(" -fx-color: RED;");
         prof.valueProperty().bindBidirectional(Modele.getInstance().getDmProperty());
         prof.valueProperty().addListener(((observableValue, number, t1) -> {
@@ -83,7 +89,7 @@ public class GouverneControllerPane extends ControllerPane {
         setColumnIndex(dirs,3);
         NumberStringConverter scDir = new NumberStringConverter();
 
-        dir = new Slider(-90, 90, 0);
+        dir = new Slider(govMin, govMax, 0);
         dir.valueProperty().bindBidirectional(Modele.getInstance().getDnProperty());
         dir.valueProperty().addListener(((observableValue, number, t1) -> {
             //genericSliderListener("Direction (deg): ", dirInfo, t1);
@@ -109,7 +115,7 @@ public class GouverneControllerPane extends ControllerPane {
         setColumnIndex(ails,3);
         NumberStringConverter scAil = new NumberStringConverter();
 
-        ailerons = new Slider(-90, 90, 0);
+        ailerons = new Slider(govMin, govMax, 0);
         ailerons.setStyle(" -fx-color: RED;");
         ailerons.valueProperty().bindBidirectional(Modele.getInstance().getDlProperty());
         ailerons.valueProperty().addListener(((observableValue, number, t1) -> {
@@ -130,7 +136,7 @@ public class GouverneControllerPane extends ControllerPane {
         setRowIndex(triml, 3);
         setColumnIndex(triml, 0);
 
-        trims = new Slider(-90, 90, 0);
+        trims = new Slider(trimMin, trimMax, 0);
         trims.setOrientation(Orientation.VERTICAL);
         setRowIndex(trims, 1);
         setColumnIndex(trims, 0);
