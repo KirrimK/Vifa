@@ -38,7 +38,7 @@ public class Vecteur3D extends Group {
         this.couleur = couleur;
         this.nom = nom;
         Material materiau = new PhongMaterial(couleur);
-        jenaimarre = new ConeMesh(64, 1, (magnitude.magnitude()<1)?0.25:1);
+        jenaimarre = new ConeMesh(64, (magnitude.magnitude()<1)?0.25:1, (magnitude.magnitude()<1)?0.25:1);
         body = new Cylinder(0.2, magnitude.magnitude()-jenaimarre.getHeight());
 
         body.setMaterial(materiau);

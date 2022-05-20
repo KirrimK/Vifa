@@ -18,20 +18,21 @@ public class UI extends StackPane {
         getChildren().add(vue);
 
         RepereControllerPane repb = new RepereControllerPane(vue);
+
         PQRPane pqrb = new PQRPane(vue);
-        pqrb.setMaxSize(250, 230);
+        pqrb.setMaxSize(255, 230);
         setAlignment(pqrb, Pos.CENTER_RIGHT);
         setMargin(pqrb, new Insets(5));
         pqrb.setTranslateY(-50);
 
         VBox repsEtAngles = new VBox(5, repb);
         repsEtAngles.setTranslateY(30);
-        repsEtAngles.setMaxSize(240, 300);
+        repsEtAngles.setMaxSize(250, 300);
         setAlignment(repsEtAngles, Pos.CENTER_LEFT);
         setMargin(repsEtAngles, new Insets(5));
 
         FormPane form = new FormPane(vue);
-        form.setMaxSize(330, 100);
+        form.setMaxSize(338, 100);
         setAlignment(form, Pos.TOP_RIGHT);
         setMargin(form, new Insets(5));
 
@@ -43,9 +44,10 @@ public class UI extends StackPane {
         GouverneControllerPane gouvCtl = new GouverneControllerPane(vue);
         setMargin(gouvCtl, new Insets(5));
         ThrottlePane throttle = new ThrottlePane(vue);
+        throttle.setMaxSize(60, 200);
 
         HBox cmdes = new HBox(5, throttle, gouvCtl);
-        cmdes.setMaxSize(380, 230);
+        cmdes.setMaxSize(400, 230);
         setMargin(cmdes, new Insets(5));
         cmdes.setAlignment(Pos.CENTER_RIGHT);
         setAlignment(cmdes, Pos.BOTTOM_RIGHT);
