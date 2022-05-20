@@ -45,7 +45,7 @@ public class Knob extends Pane{
         }));
         double sensibilite = Configuration.getInstance().getReducSensibilite();
         setOnMouseDragged((mouseEvent -> {
-            valueProp.set(Double.min(Double.max(valAtLastPress.get()+(mouseEvent.getX()+mouseEvent.getY()-lastX.get()-lastY.get())/radius*(max-min)/sensibilite,min),max));
+            valueProp.set(Double.min(Double.max(valAtLastPress.get()+(mouseEvent.getX()+mouseEvent.getY()-lastX.get()-lastY.get())/radius*(max-min)/(sensibilite),min),max));
         }));
         valueProp.addListener(((observableValue, number, t1) -> {
             if (valueProp.get()>=min && valueProp.get()<=max) {
