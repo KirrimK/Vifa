@@ -159,7 +159,7 @@ public class RepereControllerPane extends ControllerPane{
             setVgrow(node, Priority.ALWAYS);
         }
 
-        setMargin(sep, new Insets(2, 2, 2, 2));
+        setMargin(sep, new Insets(10, 2, 10, 2));
         //setPadding(new Insets(4, 4, 4, 4));
     }
 
