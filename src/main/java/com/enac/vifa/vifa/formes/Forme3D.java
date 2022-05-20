@@ -112,7 +112,7 @@ public class Forme3D {
         double height = Math.abs(ymax-ymin);
         
         Cylinder nacelle = new Cylinder(radius/1.5, height*4);
-        nacelle.setMaterial(new PhongMaterial(Configuration.getInstance().getCouleurFuselage()));
+        nacelle.setMaterial(new PhongMaterial(Configuration.getInstance().getCouleurMoteurs()));
         nacelle.setRotationAxis(new javafx.geometry.Point3D(0, 0, 1));
         nacelle.setRotate(90);
        

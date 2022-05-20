@@ -25,6 +25,7 @@ public class Configuration {
     private int facteurApproximationArrondis = 2;
     private Color couleurSurfaceControle = Color.ORANGE;
     private Color couleurFuselage = Color.GREY;
+    private Color couleurMoteurs = Color.GREY;
     private Color couleurAiles = Color.WHITE;
     private Color couleurRepèreTerrestre = Color.SANDYBROWN;
     private Color couleurRepèreAvion = Color.WHITE;
@@ -122,6 +123,11 @@ public class Configuration {
                             case "couleurFuselage" : 
                                 if (! mots[1].equals("DEFAULT")){
                                     couleurFuselage = couleurFromString(mots[1]);
+                                }
+                                break;
+                            case "couleurMoteurs" : 
+                                if (! mots[1].equals("DEFAULT")){
+                                    couleurMoteurs = couleurFromString(mots[1]);
                                 }
                                 break;
                             case "couleurAiles" :
@@ -263,6 +269,9 @@ public class Configuration {
     }
     public Color getCouleurFuselage() {
         return couleurFuselage;
+    }
+    public Color getCouleurMoteurs() {
+        return couleurMoteurs;
     }
     public Color getCouleurAiles() {
         return couleurAiles;
