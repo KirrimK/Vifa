@@ -1,5 +1,6 @@
 package com.enac.vifa.vifa.formes;
 
+import com.enac.vifa.vifa.Configuration;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Material;
@@ -29,7 +30,7 @@ public class TireBouchon3D extends FlecheArrondie3D {
         Material materiau = new PhongMaterial(couleur);
         getChildren().clear();
         for (int i = 0; i < DIV_NUMBER-2; i++){
-            Cylinder morceau = new Cylinder(0.2, 2*Math.toRadians(Math.abs(endAngle))/DIV_NUMBER*rayon);
+            Cylinder morceau = new Cylinder(Configuration.getInstance().getRayonVecteur(), 2*Math.toRadians(Math.abs(endAngle))/DIV_NUMBER*rayon);
             morceau.setMaterial(materiau);
             getChildren().add(morceau);
             morceau.getTransforms().setAll(
@@ -38,7 +39,7 @@ public class TireBouchon3D extends FlecheArrondie3D {
                 new Translate(i*xIncrPerDegree, rayon*Math.sin(i/DIV_NUMBER*Math.toRadians(endAngle)), rayon*Math.cos(i/DIV_NUMBER*Math.toRadians(endAngle)))
             );
         }
-        ConeMesh jenaimarre = new ConeMesh(1, 1);
+        ConeMesh jenaimarre = new ConeMesh(Configuration.getInstance().getTailleGrandCone(), Configuration.getInstance().getTailleGrandCone());
 
         Group coneToRotate = new Group();
         getChildren().add(coneToRotate);
