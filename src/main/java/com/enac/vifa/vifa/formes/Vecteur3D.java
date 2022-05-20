@@ -12,6 +12,8 @@ import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.util.Duration;
 
+import com.enac.vifa.vifa.Configuration;
+
 import org.fxyz3d.shapes.primitives.ConeMesh;
 
 public class Vecteur3D extends Group {
@@ -38,8 +40,9 @@ public class Vecteur3D extends Group {
         this.couleur = couleur;
         this.nom = nom;
         Material materiau = new PhongMaterial(couleur);
-        jenaimarre = new ConeMesh(64, (magnitude.magnitude()<1)?0.25:1, (magnitude.magnitude()<1)?0.25:1);
-        body = new Cylinder(0.2, magnitude.magnitude()-jenaimarre.getHeight());
+        Configuration c=Configuration.getInstance();
+        jenaimarre = new ConeMesh(64, (magnitude.magnitude()<1)?c.getTaillePetitCone():c.getTailleGrandCone(), (magnitude.magnitude()<1)?c.getTaillePetitCone():c.getTailleGrandCone());
+        body = new Cylinder(c.getRayonVecteur(), magnitude.magnitude()-jenaimarre.getHeight());
 
         body.setMaterial(materiau);
         cone = new MeshView();
@@ -84,8 +87,9 @@ public class Vecteur3D extends Group {
         body.setHeight(magnitude.magnitude()-jenaimarre.getHeight());
         body.setTranslateY(-jenaimarre.getHeight()/2);
 
-        jenaimarre.setHeight((magnitude.magnitude()<1)?0.25:1);
-        jenaimarre.setRadius((magnitude.magnitude()<1)?0.25:1);
+        Configuration c = Configuration.getInstance();
+        jenaimarre.setHeight((magnitude.magnitude()<1)?c.getTaillePetitCone():c.getTailleGrandCone());
+        jenaimarre.setRadius((magnitude.magnitude()<1)?c.getTaillePetitCone():c.getTailleGrandCone());
         cone.setMesh(jenaimarre.getMesh());
         cone.setTranslateY(magnitude.magnitude()/2);
         if (Math.abs(magnitude.magnitude()) < 0.0001 && seen) {
