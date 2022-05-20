@@ -28,7 +28,7 @@ public class TireBouchon3D extends FlecheArrondie3D {
         DIV_NUMBER = (Math.abs((int)endAngle)) / APPROX_FACTOR;
         Material materiau = new PhongMaterial(couleur);
         getChildren().clear();
-        for (int i = 0; i < DIV_NUMBER-1; i++){
+        for (int i = 0; i < DIV_NUMBER-2; i++){
             Cylinder morceau = new Cylinder(0.2, 2*Math.toRadians(Math.abs(endAngle))/DIV_NUMBER*rayon);
             morceau.setMaterial(materiau);
             getChildren().add(morceau);
