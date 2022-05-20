@@ -42,7 +42,7 @@ public class Vecteur3D extends Group {
         Material materiau = new PhongMaterial(couleur);
         Configuration c=Configuration.getInstance();
         jenaimarre = new ConeMesh(64, (magnitude.magnitude()<1)?c.getTaillePetitCone():c.getTailleGrandCone(), (magnitude.magnitude()<1)?c.getTaillePetitCone():c.getTailleGrandCone());
-        body = new Cylinder(c.getRayonVecteur(), magnitude.magnitude()-jenaimarre.getHeight());
+        body = new Cylinder((magnitude.magnitude()<1)?c.getRayonVecteur()/c.getTailleGrandCone()*c.getTaillePetitCone():c.getRayonVecteur(), magnitude.magnitude()-jenaimarre.getHeight());
 
         body.setMaterial(materiau);
         cone = new MeshView();
