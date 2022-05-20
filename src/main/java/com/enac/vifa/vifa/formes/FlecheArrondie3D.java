@@ -61,15 +61,16 @@ public class FlecheArrondie3D extends Group {
         DIV_NUMBER = (Math.abs((int)endAngle)) / APPROX_FACTOR;
         Material materiau = new PhongMaterial(couleur);
         getChildren().clear();
+        Configuration c=Configuration.getInstance();
         for (int i = 1; i < DIV_NUMBER-1; i++) {
-            Cylinder oskours = new Cylinder(0.2, 2*Math.toRadians(Math.abs(endAngle))/DIV_NUMBER*rayon);
+            Cylinder oskours = new Cylinder(c.getRayonVecteur(), 2*Math.toRadians(Math.abs(endAngle))/DIV_NUMBER*rayon);
             oskours.setMaterial(materiau);
             getChildren().add(oskours);
             oskours.getTransforms().setAll(
                 new Rotate(i*endAngle/DIV_NUMBER, Rotate.Z_AXIS),
                 new Translate(rayon*Math.cos(i/DIV_NUMBER*Math.toRadians(endAngle)), rayon*Math.sin(i/DIV_NUMBER*Math.toRadians(endAngle)), 0));
         }
-        ConeMesh jenaimarre = new ConeMesh(1, 1);
+        ConeMesh jenaimarre = new ConeMesh(1, c.getTailleGrandCone());
         cone.setMesh(jenaimarre.getMesh());
         cone.setMaterial(materiau);
         cone.getTransforms().setAll(

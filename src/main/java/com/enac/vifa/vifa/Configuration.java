@@ -40,6 +40,10 @@ public class Configuration {
     private double momentToDegre = 0.000005;
 
     private double vectorScaling = 40000;
+    private double rayonVecteur = 0.2;
+    private double taillePetitCone = 0.25;
+    private double tailleGrandCone = 1;
+    private double divSensibKnob = 4;
 
     private double repereScaling = 10;
 
@@ -179,6 +183,18 @@ public class Configuration {
                             case "vectorScaling":
                                 vectorScaling = Double.parseDouble(mots[1]);
                                 break;
+                            case "rayonVecteur" :
+                                rayonVecteur = Double.parseDouble(mots[1]);
+                                break;
+                            case "tailleGrandCone":
+                                tailleGrandCone = Double.parseDouble(mots[1]);
+                                break;
+                            case "taillePetitCone":
+                                taillePetitCone = Double.parseDouble(mots[1]);
+                                break;
+                            case "divSensibKnob":
+                                divSensibKnob = Double.parseDouble(mots[1]);
+                                break;
                             case "repereScaling":
                                 repereScaling = Double.parseDouble(mots[1]);
                                 break;
@@ -311,6 +327,18 @@ public class Configuration {
 
     public Color getCouleurGrilleSol() {
         return couleurGrilleSol;
+    }
+    public double getRayonVecteur() {
+        return rayonVecteur;
+    }
+    public double getTaillePetitCone() {
+        return taillePetitCone;
+    }
+    public double getTailleGrandCone() {
+        return tailleGrandCone;
+    }
+    public double getDivSensibKnob() {
+        return divSensibKnob;
     }
 
 }
