@@ -45,7 +45,7 @@ ou bien vous pouvez joindre une copie du JDK avec.
 
 ## Auteurs :
 
-BRÉVART Rémy
-COURTADON Hugo
-de CREVOISIER Victor
-DUTAU Charles
+- BRÉVART Rémy
+- COURTADON Hugo
+- de CREVOISIER Victor
+- DUTAU Charles
