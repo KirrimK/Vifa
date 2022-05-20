@@ -2,6 +2,8 @@
 
 Une application pédagogique de visualisation des forces aérodynamiques sur un avion.
 
+Le code source est disponible à [cette adresse](https://gitlab.com/KirrimK/Vifa-2022), ainsi que quelques indications.
+
 ## Comment lancer le projet
 
 Téléchargez la dernière version packagée pour votre plateforme depuis l'onglet Releases (sur Gitlab).
@@ -40,3 +42,10 @@ Le résultat est le .jar shaded dans le dossier "target".
 Le .jar peut alors être redistribué sur toute machine ayant OpenJDK ~17.0.1 installé
 (de la même plateforme que celle sur laquelle vous avez construit le projet),
 ou bien vous pouvez joindre une copie du JDK avec.
+
+## Auteurs :
+
+BRÉVART Rémy
+COURTADON Hugo
+de CREVOISIER Victor
+DUTAU Charles
