@@ -1,6 +1,6 @@
 package com.enac.vifa.vifa.vues;
 
-import javafx.geometry.Pos;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -85,6 +85,8 @@ public class CameraInfoPane extends VBox {
         getChildren().add(buttonp);
         getChildren().add(gaucher);
         setSpacing(5);
+
+        setPadding(new Insets(4, 4, 4, 4));
     }
 
 }

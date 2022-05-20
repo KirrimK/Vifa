@@ -1,10 +1,12 @@
 package com.enac.vifa.vifa.vues;
 
 import com.enac.vifa.vifa.Modele;
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.beans.binding.Bindings;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Priority;
 import javafx.scene.control.TextField;
@@ -107,14 +109,19 @@ public class RepereControllerPane extends ControllerPane{
         NumberStringConverter sTheta = new NumberStringConverter();
         Bindings.bindBidirectional(thetals.textProperty(),thetas.valueProperty(), sTheta);
 
+        Separator sep = new Separator();
+
+        setColumnSpan(sep, 3);
+        setRowIndex(sep, 5);
+
         alphal = new Label("Alpha(°)");
-        setRowIndex(alphal, 5);
+        setRowIndex(alphal, 6);
         alphals = new TextField("0.0");
         alphals.setMaxSize(50, 30);
         setColumnIndex(alphals, 2);
-        setRowIndex(alphals,5);
+        setRowIndex(alphals,6);
         alphas = new Slider(-180, 180, 0);
-        setRowIndex(alphas, 5);
+        setRowIndex(alphas, 6);
         setColumnIndex(alphas, 1);
         alphas.valueProperty().bindBidirectional(Modele.getInstance().getAlphaProperty());
         alphas.valueProperty().addListener(((observableValue, number, t1) -> {
@@ -127,13 +134,13 @@ public class RepereControllerPane extends ControllerPane{
         Bindings.bindBidirectional(alphals.textProperty(), alphas.valueProperty(), sAlpha);
 
         betal = new Label("Beta(°)");
-        setRowIndex(betal, 6);
+        setRowIndex(betal, 7);
         betals = new TextField("0.0");
         betals.setMaxSize(50, 30);
         setColumnIndex(betals, 2);
-        setRowIndex(betals,6);
+        setRowIndex(betals,7);
         betas = new Slider(-180, 180, 0);
-        setRowIndex(betas, 6);
+        setRowIndex(betas, 7);
         setColumnIndex(betas, 1);
         betas.valueProperty().bindBidirectional(Modele.getInstance().getBetaProperty());
         betas.valueProperty().addListener(((observableValue, number, t1) -> {
@@ -145,12 +152,15 @@ public class RepereControllerPane extends ControllerPane{
         NumberStringConverter sBeta = new NumberStringConverter();
         Bindings.bindBidirectional(betals.textProperty(), betas.valueProperty(), sBeta);
 
-        getChildren().addAll(rpl, psil, psis,psils, phil, phis,phils, thetal, thetas,thetals, alphal, alphas,alphals, betal, betas,betals, phiKnob);
+        getChildren().addAll(rpl, psil, psis,psils, phil, phis,phils, thetal, thetas,thetals, alphal, alphas,alphals, betal, betas,betals, phiKnob, sep );
         setStyle("-fx-background-color: LIGHTGRAY; -fx-opacity:0.7; -fx-background-radius: 5px;");
         for (Node node: getChildren()){
             setHgrow(node, Priority.ALWAYS);
             setVgrow(node, Priority.ALWAYS);
         }
+
+        setMargin(sep, new Insets(2, 2, 2, 2));
+        //setPadding(new Insets(4, 4, 4, 4));
     }
 
     public void reset(){

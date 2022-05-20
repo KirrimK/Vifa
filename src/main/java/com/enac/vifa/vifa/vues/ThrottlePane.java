@@ -48,7 +48,6 @@ public class ThrottlePane extends ControllerPane {
         setHalignment(pouss, HPos.CENTER);
         setHalignment(poussInfo, HPos.CENTER);
         setVgrow(pouss, Priority.ALWAYS);
-        setMaxSize(50, 200);
     }
     @Override
     public void reset(){
