@@ -86,8 +86,10 @@ public class Vecteur3D extends Group {
     public void refreshView(){
         body.setHeight(magnitude.magnitude()-jenaimarre.getHeight());
         body.setTranslateY(-jenaimarre.getHeight()/2);
+       
 
         Configuration c = Configuration.getInstance();
+        body.setRadius((magnitude.magnitude()<1)?c.getRayonVecteur()/c.getTailleGrandCone()*c.getTaillePetitCone():c.getRayonVecteur());
         jenaimarre.setHeight((magnitude.magnitude()<1)?c.getTaillePetitCone():c.getTailleGrandCone());
         jenaimarre.setRadius((magnitude.magnitude()<1)?c.getTaillePetitCone():c.getTailleGrandCone());
         cone.setMesh(jenaimarre.getMesh());
