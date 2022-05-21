@@ -5,6 +5,9 @@ import java.lang.reflect.Method;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
+/**
+ * Service permettant la gestion non-bloquante de la communication avec Ivy et de l'affichage des informations reçues dans l'application.
+ */
 public class CommunicationService extends Service<Void> {
     private Method m;
 

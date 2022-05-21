@@ -9,6 +9,10 @@ import javafx.scene.shape.CullFace;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 
+/**
+ * Objet 3D permettant d'afficher une forme surfacique 2D sur la vue 3D.
+ * Utilisé pour afficher les ailes et gouvernes de l'avion.
+ */
 public class Forme2D extends MeshView{
     private String nom;
     private ArrayList<Point3D> contour;
@@ -47,8 +51,8 @@ public class Forme2D extends MeshView{
     }
 
     /**
-     * Méthode qui permet de mettre un objet affichable sur la vue 3D dans la forme.
-     * Appelée après l'execution du service de description.
+     * Méthode qui calcule le mesh de la forme à partir des points du contour pour affichage sur la vue 3D.
+     * Appelée après l'exécution du service de description.
      */
     public void setMesh() {
         // lists of vertices are sorted clockwise, we want them to be counterclockwise

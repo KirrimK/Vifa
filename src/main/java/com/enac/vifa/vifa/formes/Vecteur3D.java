@@ -16,6 +16,9 @@ import com.enac.vifa.vifa.Configuration;
 
 import org.fxyz3d.shapes.primitives.ConeMesh;
 
+/**
+ * Objet 3D permettant de représenter une flèche ou un vecteur.
+ */
 public class Vecteur3D extends Group {
     private ConeMesh jenaimarre;
 

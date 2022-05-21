@@ -6,6 +6,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+/**
+ * Widget 2D représentant un bouton rotatif.
+ */
 public class Knob extends Pane{
     SimpleDoubleProperty valueProp;
     SimpleDoubleProperty lastX;
@@ -22,6 +25,15 @@ public class Knob extends Pane{
     public void setAilProp(double ailProp) {
         this.valueProp.set(ailProp);
     }
+
+    /**
+     *
+     * @param min Valeur minimale pouvant être choisie avec ce widget
+     * @param max Valeur maximale pouvant être choisie avec ce widget
+     * @param value Valeur de départ du widget
+     * @param radius Rayon du widget
+     * @param col Couleur du curseur du widget
+     */
     public Knob(double min, double max, double value, double radius, Color col){
         valueProp = new SimpleDoubleProperty(value);
         lastX = new SimpleDoubleProperty();

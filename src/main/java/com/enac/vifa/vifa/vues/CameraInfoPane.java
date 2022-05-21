@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 
 /**
  * Panneau donnant des informations sur la position de la caméra.
- * Permet aussi deplaccer la caméra à des endroits prédéfinis.
+ * Permet aussi déplacer la caméra à des endroits prédéfinis ou d'inverser le clic droit et le clic gauche.
  */
 public class CameraInfoPane extends VBox {
 

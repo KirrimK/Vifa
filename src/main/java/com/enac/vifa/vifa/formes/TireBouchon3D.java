@@ -10,10 +10,20 @@ import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import org.fxyz3d.shapes.primitives.ConeMesh;
 
+/**
+ * Objet 3D permettant de représenter les vitesses de rotation de l'avion autour d'un axe.
+ */
 public class TireBouchon3D extends FlecheArrondie3D {
 
     private double xIncrPerDegree = 0.02;
 
+    /**
+     *
+     * @param nom Nom de la valeur représentée par le tire-bouchon
+     * @param rayon Rayon du tire-bouchon
+     * @param endAngle Angle final de la spirale
+     * @param couleur Couleur à utiliser pour afficher le tire-bouchon
+     */
     public TireBouchon3D (String nom, double rayon, double endAngle, Color couleur){
         super(nom, rayon, endAngle, couleur);
         setEndAngle(endAngle);

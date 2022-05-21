@@ -5,7 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.scene.control.ComboBox;
 
 /**
- * Classe permettant le choix d'un mode de l'ennumération Mode. 
+ * Classe permettant le choix d'un mode de l'énumération Mode.
  */
 public class ModeChoice extends ComboBox<Mode> {
 

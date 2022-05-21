@@ -7,7 +7,7 @@ import javafx.scene.layout.GridPane;
 
 /**
  * Panneau abstrait.
- * Contient des méthode permetant un reset.
+ * Contient une méthode permettant de remettre le panneau dans sa configuration initiale.
  */
 public abstract class ControllerPane extends GridPane {
 
@@ -23,6 +23,9 @@ public abstract class ControllerPane extends GridPane {
         label.setText(text.substring(0, Math.min(20, text.length())));
     }
 
+    /**
+     * Remet le panneau dans sa configuration par défaut.
+     */
     protected void reset(){
 
     }

@@ -12,6 +12,9 @@ import javafx.scene.transform.Translate;
 import org.fxyz3d.shapes.primitives.TriangulatedMesh;
 import org.fxyz3d.geometry.Point3D;
 
+/**
+ * Objet 3D permettant d'afficher un volume sur la vue 3D. Utilisé pour afficher le fuselage et les nacelles de l'avion.
+ */
 public class Forme3D {
     private String nom;
     private final List<Point3D> contour;

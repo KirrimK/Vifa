@@ -10,7 +10,7 @@ import static java.lang.Double.min;
 import static java.lang.Double.max;
 
 /**
- * Panneau reprododuisant le comportement d'un manche d'avion.
+ * Panneau reproduisant le comportement d'un manche d'avion.
  */
 public class MiniManche extends Pane {
 
