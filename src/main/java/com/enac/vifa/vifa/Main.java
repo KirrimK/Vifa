@@ -25,6 +25,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         Scene scene = new Scene(new Group(), 900, 700);
+        primaryStage.setTitle("VIFA 2022");
         scene.setRoot(createContent(scene));
         primaryStage.setScene(scene);
         primaryStage.show();
