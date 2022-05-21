@@ -3,7 +3,6 @@ package com.enac.vifa.vifa;
 import com.enac.vifa.vifa.vues.*;
 import javafx.application.Application;
 import javafx.scene.*;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
