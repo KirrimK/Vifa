@@ -58,7 +58,7 @@ public class PQRPane extends ControllerPane {
         pKnob.valueProperty().bindBidirectional(Modele.getInstance().getPProperty());
         setRowIndex(pKnob, 2);
         setColumnIndex(pKnob, 1);
-        pKnob.setTranslateX(17);
+        pKnob.setTranslateX(16);
 
         ql = new Label("Q (rad/s)");
         setRowIndex(ql, 4);
