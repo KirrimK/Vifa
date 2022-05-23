@@ -8,6 +8,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 
+/**
+ * Objet 3D permettant de représenter les moments autour des 3 axes de l'avion sur la vue 3D.
+ */
 public class Moment3D extends Group {
     private FlecheArrondie3D mx_gauche;
     private FlecheArrondie3D mx_droit;
@@ -22,6 +25,20 @@ public class Moment3D extends Group {
 
     private static final double MOMENT_TO_ANGLE = Configuration.getInstance().getMomentToDegre();
 
+    /**
+     *
+     * @param center (Point3D) Centre autour duquel afficher les moments
+     * @param rayon_x Distance au centre sur l'axe x à laquelle afficher les moments sur cet axe
+     * @param rayon_y Distance au centre sur l'axe y à laquelle afficher les moments sur cet axe
+     * @param rayon_z Distance au centre sur l'axe z à laquelle afficher les moments sur cet axe
+     * @param mx Valeur du moment autour de x
+     * @param my Valeur du moment autour de y
+     * @param mz Valeur du moment autour de x
+     * @param nom_mx Nom du moment autour de x
+     * @param nom_my Nom du moment autour de y
+     * @param nom_mz Nom du moment autour de z
+     * @param couleur Couleur des moments à afficher
+     */
     public Moment3D(Point3D center, double rayon_x, double rayon_y, double rayon_z, double mx, double my, double mz, String nom_mx, String nom_my, String nom_mz, Color couleur){
         super();
         this.mx = mx;

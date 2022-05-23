@@ -54,10 +54,11 @@ public class PQRPane extends ControllerPane {
         NumberStringConverter sPl = new NumberStringConverter();
         Bindings.bindBidirectional(pls.textProperty(), ps.valueProperty(), sPl);
 
-        Knob pKnob = new Knob(-Math.PI, Math.PI, 0, 65, Color.RED);
+        Knob pKnob = new Knob(-Math.PI, Math.PI, 0, 55, Color.RED);
         pKnob.valueProperty().bindBidirectional(Modele.getInstance().getPProperty());
         setRowIndex(pKnob, 2);
         setColumnIndex(pKnob, 1);
+        pKnob.setTranslateX(16);
 
         ql = new Label("Q (rad/s)");
         setRowIndex(ql, 4);

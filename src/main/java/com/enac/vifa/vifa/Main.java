@@ -3,7 +3,6 @@ package com.enac.vifa.vifa;
 import com.enac.vifa.vifa.vues.*;
 import javafx.application.Application;
 import javafx.scene.*;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
@@ -25,6 +24,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         Scene scene = new Scene(new Group(), 900, 700);
+        primaryStage.setTitle("VIFA 2022");
         scene.setRoot(createContent(scene));
         primaryStage.setScene(scene);
         primaryStage.show();

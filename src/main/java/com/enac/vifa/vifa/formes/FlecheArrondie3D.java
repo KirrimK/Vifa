@@ -15,6 +15,10 @@ import org.fxyz3d.shapes.primitives.ConeMesh;
 
 import com.enac.vifa.vifa.Configuration;
 
+/**
+ * Objet 3D représentant un arc de cercle avec une flèche au bout.
+ * Utilisé pour représenter les angles.
+ */
 public class FlecheArrondie3D extends Group {
 
     protected double endAngle;

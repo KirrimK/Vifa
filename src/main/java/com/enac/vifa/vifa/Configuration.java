@@ -10,6 +10,10 @@ import com.enac.vifa.vifa.vues.Mode;
 
 import javafx.scene.paint.Color;
 
+/**
+ * Classe qui récupère les paramètres configurables de l'application depuis le fichier de configuration vifa22.conf
+ * (situé dans le même dossier que le .jar ou à la racine du projet)
+ */
 public class Configuration {
     private static Configuration conf;
     private Mode mode;

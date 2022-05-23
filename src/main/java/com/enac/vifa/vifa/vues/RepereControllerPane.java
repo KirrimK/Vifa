@@ -4,6 +4,7 @@ import com.enac.vifa.vifa.Configuration;
 import com.enac.vifa.vifa.Modele;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.beans.binding.Bindings;
 import javafx.scene.control.Label;
@@ -90,10 +91,12 @@ public class RepereControllerPane extends ControllerPane{
         NumberStringConverter sPhi = new NumberStringConverter();
         Bindings.bindBidirectional(phils.textProperty(), phis.valueProperty(), sPhi);
 
-        Knob phiKnob = new Knob(-180, 180, 0, 65, Color.RED);
+        Knob phiKnob = new Knob(-180, 180, 0, 55, Color.RED);
         phiKnob.valueProperty().bindBidirectional(Modele.getInstance().getPhiProperty());
         setRowIndex(phiKnob, 2);
         setColumnIndex(phiKnob, 1);
+        phiKnob.setTranslateX(15);
+        //phiKnob.setTranslateY(10);
 
         thetal = new Label("Theta(°)");
         setRowIndex(thetal, 4);

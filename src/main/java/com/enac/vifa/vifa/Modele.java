@@ -21,6 +21,9 @@ import javafx.scene.shape.Cylinder;
 import javafx.scene.transform.Translate;
 import org.fxyz3d.shapes.primitives.TriangulatedMesh;
 
+/**
+ * Singleton contenant les informations sur l'avion à modéliser
+ */
 public class Modele {
     private final int TEMPS_MIN_ENTRE_DEUX_REFRESHS = 50;//ms
     private static Modele modele;
@@ -588,7 +591,7 @@ public class Modele {
     }
 
     /**
-     * Commande appelée pour recupérer les formes de l'avion.
+     * Commande appelée pour récupérer les formes de l'avion.
      * Appelée par descriptionService dans un thread parallèle pour rendre l'application plus fluide
      * @throws IvyException En cas de timeout (4s)
      */
@@ -809,7 +812,7 @@ public class Modele {
     }
 
     /**
-     * Méthiode dessinant les réacteurs de l'avion.
+     * Méthode dessinant les réacteurs de l'avion.
      * @return Une liste contenant 2 cylindres représentant les réacteurs.
      */
     public ArrayList<Cylinder> DrawNac(){
