@@ -1,5 +1,6 @@
 package com.enac.vifa.vifa.vues;
 
+import com.enac.vifa.vifa.Configuration;
 import com.enac.vifa.vifa.Modele;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -39,6 +40,11 @@ public class RepereControllerPane extends ControllerPane{
 
     private final Label betal;
     private final Slider betas;
+    
+    private final double betaMax=Configuration.getInstance().getBetaMax();
+    private final double betaMin=Configuration.getInstance().getBetaMin();
+    private final double alphaMax=Configuration.getInstance().getAlphaMax();
+    private final double alphaMin=Configuration.getInstance().getAlphaMin();
 
     public RepereControllerPane(Vue3D vue){
         //Box sliders repères
@@ -120,7 +126,7 @@ public class RepereControllerPane extends ControllerPane{
         alphals.setMaxSize(50, 30);
         setColumnIndex(alphals, 2);
         setRowIndex(alphals,6);
-        alphas = new Slider(-180, 180, 0);
+        alphas = new Slider(alphaMin, alphaMax, 0);
         setRowIndex(alphas, 6);
         setColumnIndex(alphas, 1);
         alphas.valueProperty().bindBidirectional(Modele.getInstance().getAlphaProperty());
@@ -139,7 +145,7 @@ public class RepereControllerPane extends ControllerPane{
         betals.setMaxSize(50, 30);
         setColumnIndex(betals, 2);
         setRowIndex(betals,7);
-        betas = new Slider(-180, 180, 0);
+        betas = new Slider(betaMin, betaMax, 0);
         setRowIndex(betas, 7);
         setColumnIndex(betas, 1);
         betas.valueProperty().bindBidirectional(Modele.getInstance().getBetaProperty());

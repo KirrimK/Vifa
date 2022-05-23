@@ -21,6 +21,10 @@ public class Configuration {
     private double trimMax = 5;
     private double govMin = -30;
     private double govMax = 30;
+    private double alphaMin = -5;
+    private double alphaMax = 25;
+    private double betaMin = -20;
+    private double betaMax= 20;
     private String launchMessage = "";
     private int facteurApproximationArrondis = 2;
     private Color couleurSurfaceControle = Color.ORANGE;
@@ -91,6 +95,18 @@ public class Configuration {
                                 break;
                             case "govMax":
                                 govMax = Double.parseDouble(mots[1]);
+                                break;
+                            case "alphaMin":
+                                alphaMin = Double.parseDouble(mots[1]);
+                                break;
+                            case "alphaMax":
+                                alphaMax = Double.parseDouble(mots[1]);
+                                break;
+                            case "betaMin":
+                                betaMin = Double.parseDouble(mots[1]);
+                                break;
+                            case "betaMax":
+                                betaMax = Double.parseDouble(mots[1]);
                                 break;
                             case "zoomMin":
                                 zoomMin = Double.parseDouble(mots[1]);
@@ -317,6 +333,18 @@ public class Configuration {
     }
     public double getGovMin(){
         return govMin;
+    }
+    public double getAlphaMax(){
+        return alphaMax;
+    }
+    public double getAlphaMin(){
+        return alphaMin;
+    }
+    public double getBetaMax(){
+        return betaMax;
+    }
+    public double getBetaMin(){
+        return betaMin;
     }
     public double getTrimMax(){
         return trimMax;
