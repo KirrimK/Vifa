@@ -80,7 +80,7 @@ public class Forme3D {
         m.setCullFace(CullFace.NONE);
         m.setLevel(0);
         m.setDiffuseColor(Configuration.getInstance().getCouleurFuselage());
-        m.setRotationAxis(new javafx.geometry.Point3D(1, 0, 0));
+        m.setRotationAxis(new javafx.geometry.Point3D(1, 0, 0)); //correspond à Rotate.X_AXIS
         m.setRotate(90);
         m.setTranslateY(-2);
         m.setTranslateZ(1);
@@ -116,8 +116,8 @@ public class Forme3D {
         
         Cylinder nacelle = new Cylinder(radius/1.5, height*4);
         nacelle.setMaterial(new PhongMaterial(Configuration.getInstance().getCouleurMoteurs()));
-        nacelle.setRotationAxis(new javafx.geometry.Point3D(0, 0, 1));
-        nacelle.setRotate(90);
+        nacelle.setRotationAxis(new javafx.geometry.Point3D(0, 0, 1));//correspond à Rotate.Z_AXIS
+        nacelle.setRotate(90);  //rotation arbitraire qui permet de bien positionner la forme dans le repère avion
        
             
         nacelle.getTransforms().add(new Translate(origine.getZ(), -origine.getX()-nacelle.getHeight()/2, +origine.getY()-nacelle.getRadius()));

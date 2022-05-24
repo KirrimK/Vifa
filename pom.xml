@@ -21,6 +21,10 @@
             <version>17.0.1</version>
         </dependency>
 
+        <!--
+            Décommentez les 3 dépendences suivantes pour pouvoir build un jar multi-plateformes
+            (ne semble marcher que sous Linux)
+        -->
         <!-- <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
@@ -40,7 +44,7 @@
             <artifactId>javafx-graphics</artifactId>
             <version>17.0.1</version>
             <classifier>mac</classifier>
-        </dependency>-->
+        </dependency> -->
 
         <dependency>
             <groupId>org.fxyz3d</groupId>
