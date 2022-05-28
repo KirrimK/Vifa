@@ -93,6 +93,7 @@ public class RepereControllerPane extends ControllerPane{
 
         Knob phiKnob = new Knob(-180, 180, 0, 55, Color.RED);
         phiKnob.valueProperty().bindBidirectional(Modele.getInstance().getPhiProperty());
+        phiKnob.setMaxSize(100, 100);
         setRowIndex(phiKnob, 2);
         setColumnIndex(phiKnob, 1);
         phiKnob.setTranslateX(15);

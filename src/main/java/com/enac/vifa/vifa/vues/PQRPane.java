@@ -56,6 +56,7 @@ public class PQRPane extends ControllerPane {
 
         Knob pKnob = new Knob(-Math.PI, Math.PI, 0, 55, Color.RED);
         pKnob.valueProperty().bindBidirectional(Modele.getInstance().getPProperty());
+        pKnob.setMaxSize(100, 100);
         setRowIndex(pKnob, 2);
         setColumnIndex(pKnob, 1);
         pKnob.setTranslateX(16);
