@@ -45,7 +45,7 @@ public class Configuration {
     private Color couleurFond = Color.BLACK;
     private Color couleurSol = new Color(95.0/255,91.0/255,53.0/255,0.5);
     private Color couleurGrilleSol = Color.DARKKHAKI;
-    private double vitesseRotationToDegres =2;
+    private double vitesseRotationToDegres = 8;
     private double momentToDegre = 0.000005;
 
     private double vectorScaling = 40000;

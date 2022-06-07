@@ -34,13 +34,13 @@ public class PQRPane extends ControllerPane {
         Label rpl = new Label("Vitesses de rotation:");
         setColumnSpan(rpl, 2);
 
-        pl = new Label("P (rad/s)");
+        pl = new Label("P (°/s)");
         setRowIndex(pl, 1);
         pls = new TextField("0.0");
         pls.setMaxSize(50, 30);
         setRowIndex(pls, 1);
         setColumnIndex(pls, 2);
-        ps = new Slider(-Math.PI, Math.PI, 0);
+        ps = new Slider(-50, 50, 0);
         ps.setStyle(" -fx-color: RED;");
         setRowIndex(ps, 1);
         setColumnIndex(ps, 1);
@@ -61,12 +61,12 @@ public class PQRPane extends ControllerPane {
         setColumnIndex(pKnob, 1);
         pKnob.setTranslateX(16);
 
-        ql = new Label("Q (rad/s)");
+        ql = new Label("Q (°/s)");
         setRowIndex(ql, 4);
         qls = new TextField("0.0");
         qls.setMaxSize(50, 30);
         setRowIndex(qls, 3);
-        qs = new Slider(-Math.PI, Math.PI, 0);
+        qs = new Slider(-50, 50, 0);
         qs.setOrientation(Orientation.VERTICAL);
         setRowIndex(qs, 2);
         qs.valueProperty().bindBidirectional(Modele.getInstance().getQProperty());
@@ -79,14 +79,14 @@ public class PQRPane extends ControllerPane {
         NumberStringConverter sQl = new NumberStringConverter();
         Bindings.bindBidirectional(qls.textProperty(), qs.valueProperty(), sQl);
 
-        rl = new Label("R (rad/s)");
+        rl = new Label("R (°/s)");
         setRowIndex(rl, 4);
         setColumnIndex(rl, 2);
         rls = new TextField("0.0");
         rls.setMaxSize(50, 30);
         setRowIndex(rls, 3);
         setColumnIndex(rls, 2);
-        rs = new Slider(-Math.PI, Math.PI, 0);
+        rs = new Slider(-50, 50, 0);
         rs.setOrientation(Orientation.VERTICAL);
         setRowIndex(rs, 2);
         setColumnIndex(rs, 2);
