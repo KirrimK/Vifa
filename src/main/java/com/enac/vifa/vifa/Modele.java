@@ -617,12 +617,12 @@ public class Modele {
                 String msg=String.format(this.DEMANDE_DESCR,
                         mass.getValue(),
                         xCentrage.getValue(),
-                        vAir.getValue(),
+                        vAir.getValue()*1852/3600,
                         Math.toRadians(psi.getValue()),
                         Math.toRadians(theta.getValue()),
                         Math.toRadians(phi.getValue()),
                         Math.toRadians(alpha.getValue()),
-                        Math.toRadians(beta.getValue()),
+                        Math.toRadians(-beta.getValue()),
                         Math.toRadians(a0.getValue()),
                         Math.toRadians(trim.getValue()),
                         Math.toRadians(-dl.getValue()),
@@ -680,12 +680,12 @@ public class Modele {
                 String msg=String.format(this.COMPUTE_DEMND,
                         mass.getValue(),
                         xCentrage.getValue(),
-                        vAir.getValue(),
+                        vAir.getValue()*1852/3600,
                         Math.toRadians(psi.getValue()),
                         Math.toRadians(theta.getValue()),
                         Math.toRadians(phi.getValue()),
                         Math.toRadians(alpha.getValue()),
-                        Math.toRadians(beta.getValue()),
+                        Math.toRadians(-beta.getValue()),
                         Math.toRadians(a0.getValue()),
                         Math.toRadians(trim.getValue()),
                         Math.toRadians(dl.getValue()),
@@ -694,7 +694,7 @@ public class Modele {
                         dx.getValue(),
                         Math.toRadians(p.getValue()),
                         Math.toRadians(q.getValue()),
-                        Math.toRadians(q.getValue())).replace(',','.');
+                        Math.toRadians(r.getValue())).replace(',','.');
                 this.radio.sendMsg(msg);
             }
             catch (IvyException e){

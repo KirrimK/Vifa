@@ -16,6 +16,8 @@ import javafx.scene.paint.Color;
  */
 public class Configuration {
     private static Configuration conf;
+    private boolean isDroitier = true;
+    private double vitesseRotMax = 50;
     private Mode mode;
     private double zoomMax = 1000;
     private double zoomMin = 25;
@@ -87,6 +89,12 @@ public class Configuration {
                                     default:
                                         break;
                                 }
+                                break;
+                            case "isDroitier":
+                                isDroitier = Boolean.parseBoolean(mots[1]);
+                                break;
+                            case "vitesseRotMax":
+                                vitesseRotMax = Double.parseDouble(mots[1]);
                                 break;
                             case "trimMin":
                                 trimMin = Double.parseDouble(mots[1]);
@@ -381,5 +389,10 @@ public class Configuration {
     public double getDivSensibKnob() {
         return divSensibKnob;
     }
-
+    public boolean getIsDroitier(){
+        return isDroitier;
+    }
+    public double getVitesseRotMax(){
+        return vitesseRotMax;
+    }
 }

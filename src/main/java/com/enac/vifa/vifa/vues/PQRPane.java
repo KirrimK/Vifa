@@ -1,5 +1,6 @@
 package com.enac.vifa.vifa.vues;
 
+import com.enac.vifa.vifa.Configuration;
 import com.enac.vifa.vifa.Modele;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Orientation;
@@ -31,6 +32,7 @@ public class PQRPane extends ControllerPane {
 
     public PQRPane(Vue3D vue) {
         super(vue);
+        double vMax = Configuration.getInstance().getVitesseRotMax();
         Label rpl = new Label("Vitesses de rotation:");
         setColumnSpan(rpl, 2);
 
@@ -40,7 +42,7 @@ public class PQRPane extends ControllerPane {
         pls.setMaxSize(50, 30);
         setRowIndex(pls, 1);
         setColumnIndex(pls, 2);
-        ps = new Slider(-50, 50, 0);
+        ps = new Slider(-vMax, vMax, 0);
         ps.setStyle(" -fx-color: RED;");
         setRowIndex(ps, 1);
         setColumnIndex(ps, 1);
@@ -54,7 +56,7 @@ public class PQRPane extends ControllerPane {
         NumberStringConverter sPl = new NumberStringConverter();
         Bindings.bindBidirectional(pls.textProperty(), ps.valueProperty(), sPl);
 
-        Knob pKnob = new Knob(-Math.PI, Math.PI, 0, 55, Color.RED);
+        Knob pKnob = new Knob(-vMax, vMax, 0, 55, Color.RED);
         pKnob.valueProperty().bindBidirectional(Modele.getInstance().getPProperty());
         pKnob.setMaxSize(100, 100);
         setRowIndex(pKnob, 2);
@@ -66,7 +68,7 @@ public class PQRPane extends ControllerPane {
         qls = new TextField("0.0");
         qls.setMaxSize(50, 30);
         setRowIndex(qls, 3);
-        qs = new Slider(-50, 50, 0);
+        qs = new Slider(-vMax, vMax, 0);
         qs.setOrientation(Orientation.VERTICAL);
         setRowIndex(qs, 2);
         qs.valueProperty().bindBidirectional(Modele.getInstance().getQProperty());
@@ -86,7 +88,7 @@ public class PQRPane extends ControllerPane {
         rls.setMaxSize(50, 30);
         setRowIndex(rls, 3);
         setColumnIndex(rls, 2);
-        rs = new Slider(-50, 50, 0);
+        rs = new Slider(-vMax, vMax, 0);
         rs.setOrientation(Orientation.VERTICAL);
         setRowIndex(rs, 2);
         setColumnIndex(rs, 2);

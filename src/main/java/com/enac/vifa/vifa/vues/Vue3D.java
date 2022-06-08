@@ -83,7 +83,7 @@ public class Vue3D extends SubScene {
     private double startx;
     private double starty;
 
-    private boolean gaucher = false;
+    private boolean gaucher = Configuration.getInstance().getIsDroitier();
 
     public boolean isGaucher() {
         return gaucher;
@@ -316,13 +316,13 @@ public class Vue3D extends SubScene {
                         psiprop.set(psiprop.get()-diffx);
                         thetaprop.set(thetaprop.get()-diffy);
                         alphaprop.set(alphaprop.get()-diffy);
-                        betaprop.set(betaprop.get()-diffx);
+                        betaprop.set(betaprop.get()+diffx);
                     }
                     case AERO -> {
                         SimpleDoubleProperty alphaprop = Modele.getInstance().getAlphaProperty();
                         SimpleDoubleProperty betaprop = Modele.getInstance().getBetaProperty();
                         alphaprop.set(alphaprop.get()+diffy);
-                        betaprop.set(betaprop.get()+diffx);
+                        betaprop.set(betaprop.get()-diffx);
                     }
                 }
             }

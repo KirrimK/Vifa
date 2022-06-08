@@ -154,7 +154,7 @@ public class RepereControllerPane extends ControllerPane{
         setColumnIndex(betas, 1);
         betas.valueProperty().bindBidirectional(Modele.getInstance().getBetaProperty());
         betas.valueProperty().addListener(((observableValue, number, t1) -> {
-            vue.rotateBeta(t1.doubleValue());
+            vue.rotateBeta(-t1.doubleValue());
             //genericSliderListener("Beta (°): ", betal, t1);
             if (!resetting) Modele.getInstance().getForcesMomentService.restart();
         }));

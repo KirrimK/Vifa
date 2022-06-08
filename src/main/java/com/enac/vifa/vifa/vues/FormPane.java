@@ -102,7 +102,6 @@ public class FormPane extends ControllerPane {
             {
                 model.setvAir(Double.parseDouble(vps.getText()));
                 if (!resetting){
-                Modele.getInstance().descriptionService.restart();
                 Modele.getInstance().getForcesMomentService.restart();
                 }
                 
