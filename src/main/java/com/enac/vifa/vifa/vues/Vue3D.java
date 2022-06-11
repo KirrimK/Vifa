@@ -82,8 +82,7 @@ public class Vue3D extends SubScene {
     //mouse event vars
     private double startx;
     private double starty;
-
-    private boolean gaucher = Configuration.getInstance().getIsDroitier();
+    private boolean gaucher = ! Configuration.getInstance().getIsDroitier();
 
     public boolean isGaucher() {
         return gaucher;
