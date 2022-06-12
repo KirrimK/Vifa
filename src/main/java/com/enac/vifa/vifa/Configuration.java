@@ -60,6 +60,8 @@ public class Configuration {
 
     private double reducSensibilite = 1;
 
+    private boolean inversionAero = true;
+
     /**
      * Constructeur de la classe configuration.
      * /!\ Configuration est un singleton. Utilisez getInstance pour obtenir l'objet.
@@ -235,6 +237,9 @@ public class Configuration {
                             case "reducSensibilite":
                                 reducSensibilite = Double.parseDouble(mots[1]);
                                 break;
+                            case "inversionAero":
+                                inversionAero = Boolean.parseBoolean(mots[1]);
+                                break;
                             default:
                                 System.out.println("Gibberish line : \n"+ligne);
                                 break;
@@ -394,5 +399,8 @@ public class Configuration {
     }
     public double getVitesseRotMax(){
         return vitesseRotMax;
+    }
+    public boolean getInversionAero() {
+        return inversionAero;
     }
 }
