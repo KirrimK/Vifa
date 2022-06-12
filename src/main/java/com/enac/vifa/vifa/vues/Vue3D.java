@@ -222,17 +222,19 @@ public class Vue3D extends SubScene {
         flechesAvion.getChildren().addAll(avx, avy, avz);
         repereAvion.getChildren().addAll(flechesAvion, tbp, tbq, tbr);
 
-        aalphax = new FlecheArrondie3D("alpha", 25+repereScaling*2, 0, conf.getCouleurAlphaBeta());
+        boolean inverse = Configuration.getInstance().getInversionAero();
 
-        abetax = new FlecheArrondie3D("beta", 25+repereScaling*2, 0, conf.getCouleurAlphaBeta());
+        aalphax = new FlecheArrondie3D("alpha", 25+repereScaling*2, 0, conf.getCouleurAlphaBeta(), inverse);
+
+        abetax = new FlecheArrondie3D("beta", 25+repereScaling*2, 0, conf.getCouleurAlphaBeta(), inverse);
         abetax.getTransforms().setAll(new Rotate(90, Rotate.X_AXIS));
 
-        aalphaz = new FlecheArrondie3D("alpha", 25+repereScaling*2, 0, conf.getCouleurAlphaBeta());
+        aalphaz = new FlecheArrondie3D("alpha", 25+repereScaling*2, 0, conf.getCouleurAlphaBeta(), inverse);
         aalphaz.getTransforms().setAll(
                 new Rotate(90, Rotate.Z_AXIS)
         );
 
-        abetay = new FlecheArrondie3D("beta", 25+repereScaling*2, 0, conf.getCouleurAlphaBeta());
+        abetay = new FlecheArrondie3D("beta", 25+repereScaling*2, 0, conf.getCouleurAlphaBeta(), inverse);
         abetay.getTransforms().setAll(
                 new Rotate(90, Rotate.X_AXIS),
                 new Rotate(-90, Rotate.Z_AXIS)

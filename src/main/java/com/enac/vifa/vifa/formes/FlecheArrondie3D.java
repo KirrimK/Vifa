@@ -33,6 +33,8 @@ public class FlecheArrondie3D extends Group {
     protected static final int APPROX_FACTOR = Configuration.getInstance().getFacteurApproximationArrondis();
     protected int DIV_NUMBER;
 
+    protected boolean flecheInversee = false;
+
     /**
      *
      * @param nom Le nom de l'angle représenté par la flèche
@@ -46,6 +48,19 @@ public class FlecheArrondie3D extends Group {
         this.couleur = couleur;
         this.nom = nom;
         this.cone = new MeshView();
+        setEndAngle(endAngle);
+        Tooltip tooltip = new Tooltip(nom);
+        tooltip.setShowDelay(Duration.millis(0));
+        Tooltip.install(this, tooltip);
+    }
+
+    public FlecheArrondie3D(String nom, double rayon, double endAngle, Color couleur, boolean inverse){
+        super();
+        this.rayon = rayon;
+        this.couleur = couleur;
+        this.nom = nom;
+        this.cone = new MeshView();
+        this.flecheInversee = inverse;
         setEndAngle(endAngle);
         Tooltip tooltip = new Tooltip(nom);
         tooltip.setShowDelay(Duration.millis(0));
@@ -66,7 +81,7 @@ public class FlecheArrondie3D extends Group {
         Material materiau = new PhongMaterial(couleur);
         getChildren().clear();
         Configuration c=Configuration.getInstance();
-        for (int i = 1; i < DIV_NUMBER-1; i++) {
+        for (int i = (flecheInversee)?2:1; i < (flecheInversee?DIV_NUMBER :(DIV_NUMBER-1)); i++) {
             Cylinder oskours = new Cylinder(c.getRayonVecteur(), 2*Math.toRadians(Math.abs(endAngle))/DIV_NUMBER*rayon);
             oskours.setMaterial(materiau);
             getChildren().add(oskours);
@@ -77,9 +92,15 @@ public class FlecheArrondie3D extends Group {
         ConeMesh jenaimarre = new ConeMesh(c.getTailleGrandCone(), c.getTailleGrandCone());
         cone.setMesh(jenaimarre.getMesh());
         cone.setMaterial(materiau);
-        cone.getTransforms().setAll(
-                new Translate(rayon*Math.cos(Math.toRadians(endAngle)), rayon*Math.sin(Math.toRadians(endAngle))),
-                new Rotate(endAngle<0?(endAngle):(-180+endAngle), Rotate.Z_AXIS));
+        if (flecheInversee){
+            cone.getTransforms().setAll(
+                    new Translate(rayon, 0),
+                    new Rotate(endAngle<0?(180):(0), Rotate.Z_AXIS));
+        } else {
+            cone.getTransforms().setAll(
+                    new Translate(rayon*Math.cos(Math.toRadians(endAngle)), rayon*Math.sin(Math.toRadians(endAngle))),
+                    new Rotate(endAngle<0?(endAngle):(-180+endAngle), Rotate.Z_AXIS));
+        }
         if ((int) endAngle != 0){
             getChildren().add(cone);
         }
