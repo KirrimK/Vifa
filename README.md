@@ -45,7 +45,13 @@ ou bien vous pouvez joindre une copie du JDK avec.
 
 ## Auteurs :
 
+Interface Graphique:
+
 - BRÉVART Rémy
 - COURTADON Hugo
 - de CREVOISIER Victor
 - DUTAU Charles
+
+Backend:
+- DRUOT Thierry
+- DAUPTAIN Pascal
